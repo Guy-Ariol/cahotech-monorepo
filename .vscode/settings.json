@@ -6,6 +6,12 @@
         "singleInstance": false,
         "color": "#90CAF9",
         "command": "npx compodoc -p tsconfig.json --theme postmark"
+      },
+      {
+        "name": "unit test",
+        "singleInstance": false,
+        "color": "violet",
+        "command": "C:/python27/python.exe D:/_Napata/dev/apps/acb/tools/change-jest-config.py && ng test chimmo --codeCoverage && ng test ui --codeCoverage && ng test service --codeCoverage"
       }
     ]
   }
