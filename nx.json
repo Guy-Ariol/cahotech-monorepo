@@ -28,6 +28,18 @@
     "chimmo-e2e": {
       "tags": [],
       "implicitDependencies": ["chimmo"]
+    },
+    "ui": {
+      "tags": []
+    },
+    "provider": {
+      "tags": []
+    },
+    "interfaces": {
+      "tags": ["interfaces"]
+    },
+    "service": {
+      "tags": ["service"]
     }
   }
 }

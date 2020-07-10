@@ -15,16 +15,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/chimmo",
+            "outputPath": "D:/_Napata/dev/apps/cahotech-monorepo/apps/chimmo-native/www",
             "index": "apps/chimmo/src/index.html",
             "main": "apps/chimmo/src/main.ts",
             "polyfills": "apps/chimmo/src/polyfills.ts",
             "tsConfig": "apps/chimmo/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/chimmo/src/favicon.ico",
-              "apps/chimmo/src/assets"
-            ],
+            "assets": ["apps/chimmo/src/favicon.ico", "apps/chimmo/src/assets"],
             "styles": [
               "apps/chimmo/src/theme.less",
               "apps/chimmo/src/styles.scss"
@@ -86,10 +83,7 @@
               "apps/chimmo/tsconfig.app.json",
               "apps/chimmo/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/chimmo/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/chimmo/**/*"]
           }
         },
         "test": {
@@ -124,13 +118,112 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
+            "tsConfig": ["apps/chimmo-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/chimmo-e2e/**/*"]
+          }
+        }
+      }
+    },
+    "ui": {
+      "root": "libs/ui",
+      "sourceRoot": "libs/ui/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
             "tsConfig": [
-              "apps/chimmo-e2e/tsconfig.e2e.json"
+              "libs/ui/tsconfig.lib.json",
+              "libs/ui/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/chimmo-e2e/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/ui/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui/jest.config.js",
+            "tsConfig": "libs/ui/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "provider": {
+      "root": "libs/provider",
+      "sourceRoot": "libs/provider/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/provider/tsconfig.lib.json",
+              "libs/provider/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/provider/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/provider/jest.config.js",
+            "tsConfig": "libs/provider/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "interfaces": {
+      "root": "libs/interfaces",
+      "sourceRoot": "libs/interfaces/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/interfaces/tsconfig.lib.json",
+              "libs/interfaces/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/interfaces/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/interfaces/jest.config.js",
+            "tsConfig": "libs/interfaces/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "service": {
+      "root": "libs/service",
+      "sourceRoot": "libs/service/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/service/tsconfig.lib.json",
+              "libs/service/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/service/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/service/jest.config.js",
+            "tsConfig": "libs/service/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }

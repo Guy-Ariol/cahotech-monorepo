@@ -15,7 +15,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@cahotech-monorepo/ui": ["libs/ui/src/index.ts"],
+      "@cahotech-monorepo/interfaces": ["libs/interfaces/src/index.ts"],
+      "@cahotech-monorepo/service": ["libs/service/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
