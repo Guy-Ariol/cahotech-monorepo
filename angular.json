@@ -21,8 +21,14 @@
             "polyfills": "apps/chimmo/src/polyfills.ts",
             "tsConfig": "apps/chimmo/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/chimmo/src/favicon.ico", "apps/chimmo/src/assets"],
-            "styles": ["apps/chimmo/src/styles.scss"],
+            "assets": [
+              "apps/chimmo/src/favicon.ico",
+              "apps/chimmo/src/assets"
+            ],
+            "styles": [
+              "apps/chimmo/src/theme.less",
+              "apps/chimmo/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -80,7 +86,10 @@
               "apps/chimmo/tsconfig.app.json",
               "apps/chimmo/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/chimmo/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/chimmo/**/*"
+            ]
           }
         },
         "test": {
@@ -115,8 +124,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/chimmo-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/chimmo-e2e/**/*"]
+            "tsConfig": [
+              "apps/chimmo-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/chimmo-e2e/**/*"
+            ]
           }
         }
       }
