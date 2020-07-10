@@ -1,0 +1,12 @@
+{
+  "actionButtons": {
+    "commands": [
+      {
+        "name": "gen-doc",
+        "singleInstance": false,
+        "color": "#90CAF9",
+        "command": "npx compodoc -p tsconfig.json"
+      }
+    ]
+  }
+}
