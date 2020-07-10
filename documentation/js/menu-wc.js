@@ -159,7 +159,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                     <li class="divider"></li>
                     <li class="copyright">
                         Documentation generated using <a href="https://compodoc.app/" target="_blank">
-                            <img data-src="images/compodoc-vectorise.png" class="img-responsive" data-type="compodoc-logo">
+                            <img data-src="images/compodoc-vectorise-inverted.png" class="img-responsive" data-type="compodoc-logo">
                         </a>
                     </li>
             </ul>
