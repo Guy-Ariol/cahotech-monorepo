@@ -1,9 +1,5 @@
-import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class InterfacesService {
+export enum landLordView { renter, houses, bill, issue, repair, saldo }
 
-  constructor() { }
-}
+export enum adminView { renter, houses, bill, issue, repair, saldo, landlord, home, MoneyIn, MoneyIn2, discount, none }
+

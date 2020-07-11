@@ -1,4 +1,9 @@
-<h1>Hello world</h1>
+<div *ngIf="dataProv.spinner">
+  <div class="spinner">
+    <img src="assets/imgs/spin.svg" alt="">
+  </div>
 
+  <div class="backdrop"></div>
+</div>
 
-<google-maps></google-maps>
+<router-outlet></router-outlet>

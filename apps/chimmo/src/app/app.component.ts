@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from './services/data/data.service';
 
 @Component({
   selector: 'cahotech-monorepo-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'chimmo';
+
+  constructor(
+    public dataProv: DataService,
+
+  ){
+
+  }
 }

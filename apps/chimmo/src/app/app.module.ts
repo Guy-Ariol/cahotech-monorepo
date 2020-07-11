@@ -26,6 +26,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { AppRoutingModule } from './app-routing.module';
 
 registerLocaleData(fr);
 
@@ -51,7 +52,8 @@ registerLocaleData(fr);
     NzButtonModule,
     NzDatePickerModule,
     NzAutocompleteModule,
-    NzCheckboxModule
+    NzCheckboxModule,
+    AppRoutingModule
   ],
 
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
