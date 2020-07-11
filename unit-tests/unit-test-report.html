@@ -650,4 +650,915 @@ Received: undefined
     at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:45:12
     at new Promise (&lt;anonymous&gt;)
     at mapper (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
-    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41</pre></div></div></div></div></div><body><div id="jesthtml-content"><header><h1 id="title">Test Report</h1><img id="logo" src="D:/_Napata/dev/apps/acb/logo.png"/></header><div id="metadata-container"><div id="timestamp">Started: 2020-07-11 01:45:45</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (0)</div><div class="summary-passed summary-empty">0 passed</div><div class="summary-failed summary-empty">0 failed</div><div class="summary-pending summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (0)</div><div class="summary-passed summary-empty">0 passed</div><div class="summary-failed summary-empty">0 failed</div><div class="summary-pending summary-empty">0 pending</div></div></div></div></div></body></body></html></body></html>
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41</pre></div></div></div></div></div><body><div id="jesthtml-content"><header><h1 id="title">Test Report</h1><img id="logo" src="D:/_Napata/dev/apps/acb/logo.png"/></header><div id="metadata-container"><div id="timestamp">Started: 2020-07-11 01:45:45</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (0)</div><div class="summary-passed summary-empty">0 passed</div><div class="summary-failed summary-empty">0 failed</div><div class="summary-pending summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (0)</div><div class="summary-passed summary-empty">0 passed</div><div class="summary-failed summary-empty">0 failed</div><div class="summary-pending summary-empty">0 pending</div></div></div></div></div><html><head><meta charset="utf-8"/><title>Test Report</title><style type="text/css">html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+body {
+  padding: 2rem 1rem;
+  font-size: 0.85rem;
+}
+#jesthtml-content {
+  margin: 0 auto;
+  max-width: 70rem;
+}
+header {
+  display: flex;
+  align-items: center;
+}
+#title {
+  margin: 0;
+  flex-grow: 1;
+}
+#logo {
+  height: 4rem;
+}
+#timestamp {
+  color: #777;
+  margin-top: 0.5rem;
+}
+
+/** SUMMARY */
+#summary {
+  color: #333;
+  margin: 2rem 0;
+  display: flex;
+  font-family: monospace;
+  font-size: 1rem;
+}
+#summary > div {
+  margin-right: 2rem;
+  background: #eee;
+  padding: 1rem;
+  min-width: 15rem;
+}
+#summary > div:last-child {
+  margin-right: 0;
+}
+@media only screen and (max-width: 720px) {
+  #summary {
+    flex-direction: column;
+  }
+  #summary > div {
+    margin-right: 0;
+    margin-top: 2rem;
+  }
+  #summary > div:first-child {
+    margin-top: 0;
+  }
+}
+
+.summary-total {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.summary-passed {
+  color: #4f8a10;
+  border-left: 0.4rem solid #4f8a10;
+  padding-left: 0.5rem;
+}
+.summary-failed {
+  color: #d8000c;
+  border-left: 0.4rem solid #d8000c;
+  padding-left: 0.5rem;
+}
+.summary-pending {
+  color: #9f6000;
+  border-left: 0.4rem solid #9f6000;
+  padding-left: 0.5rem;
+}
+.summary-empty {
+  color: #999;
+  border-left: 0.4rem solid #999;
+}
+
+.test-result {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+.test-result:last-child {
+  border: 0;
+}
+.test-result.passed {
+  background-color: #dff2bf;
+  color: #4f8a10;
+}
+.test-result.failed {
+  background-color: #ffbaba;
+  color: #d8000c;
+}
+.test-result.pending {
+  background-color: #ffdf61;
+  color: #9f6000;
+}
+
+.test-info {
+  display: flex;
+  justify-content: space-between;
+}
+.test-suitename {
+  width: 20%;
+  text-align: left;
+  font-weight: bold;
+  word-break: break-word;
+}
+.test-title {
+  width: 40%;
+  text-align: left;
+  font-style: italic;
+}
+.test-status {
+  width: 20%;
+  text-align: right;
+}
+.test-duration {
+  width: 10%;
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+.failureMessages {
+  padding: 0 1rem;
+  margin-top: 1rem;
+  border-top: 1px dashed #d8000c;
+}
+.failureMsg {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.suite-container {
+  margin-bottom: 2rem;
+}
+.suite-info {
+  padding: 1rem;
+  background-color: #eee;
+  color: #777;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+.suite-info .suite-path {
+  word-break: break-all;
+  flex-grow: 1;
+  font-family: monospace;
+  font-size: 1rem;
+}
+.suite-info .suite-time {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.3rem;
+  font-size: 0.75rem;
+}
+.suite-info .suite-time.warn {
+  background-color: #d8000c;
+  color: #fff;
+}
+
+/* CONSOLE LOGS */
+.suite-consolelog {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #efefef;
+}
+.suite-consolelog-header {
+  font-weight: bold;
+}
+.suite-consolelog-item {
+  padding: 0.5rem;
+}
+.suite-consolelog-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-consolelog-item-origin {
+  color: #777;
+  font-weight: bold;
+}
+.suite-consolelog-item-message {
+  color: #000;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+</style></head><body><div id="jesthtml-content"><header><h1 id="title">Test Report</h1><img id="logo" src="D:/_Napata/dev/apps/acb/logo.png"/></header><div id="metadata-container"><div id="timestamp">Started: 2020-07-11 02:36:30</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (7)</div><div class="summary-passed">5 passed</div><div class="summary-failed">2 failed</div><div class="summary-pending summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (9)</div><div class="summary-passed">5 passed</div><div class="summary-failed">4 failed</div><div class="summary-pending summary-empty">0 pending</div></div></div></div><div id="suite-1" class="suite-container"><div class="suite-info"><div class="suite-path">D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\pages\landlord\landlord.component.spec.ts</div><div class="suite-time">1.695s</div></div><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">LandlordComponent</div><div class="test-title">should create</div><div class="test-status">passed</div><div class="test-duration">0.099s</div></div></div></div></div><div id="suite-2" class="suite-container"><div class="suite-info"><div class="suite-path">D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\pages\renter\renter.component.spec.ts</div><div class="suite-time">1.744s</div></div><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">RenterComponent</div><div class="test-title">should create</div><div class="test-status">passed</div><div class="test-duration">0.103s</div></div></div></div></div><div id="suite-3" class="suite-container"><div class="suite-info"><div class="suite-path">D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\pages\home\home.component.spec.ts</div><div class="suite-time">1.8s</div></div><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">HomeComponent</div><div class="test-title">should create</div><div class="test-status">passed</div><div class="test-duration">0.125s</div></div></div></div></div><div id="suite-4" class="suite-container"><div class="suite-info"><div class="suite-path">D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\services\users\users.service.spec.ts</div><div class="suite-time">3.884s</div></div><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">UsersService</div><div class="test-title">should be created</div><div class="test-status">passed</div><div class="test-duration">0.032s</div></div></div></div></div><div id="suite-5" class="suite-container"><div class="suite-info"><div class="suite-path">D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\services\data\data.service.spec.ts</div><div class="suite-time">4.027s</div></div><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">DataService</div><div class="test-title">should be created</div><div class="test-status">passed</div><div class="test-duration">0.021s</div></div></div></div></div><div id="suite-6" class="suite-container"><div class="suite-info"><div class="suite-path">D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\app.component.spec.ts</div><div class="suite-time">4.557s</div></div><div class="suite-tests"><div class="test-result failed"><div class="test-info"><div class="test-suitename">AppComponent</div><div class="test-title">should create the app</div><div class="test-status">failed</div><div class="test-duration">0.409s</div></div><div class="failureMessages"> <pre class="failureMsg">Error: Template parse errors:
+'router-outlet' is not a known element:
+1. If 'router-outlet' is an Angular component, then verify that it is part of this module.
+2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("
+&lt;/div&gt;
+
+[ERROR -&gt;]&lt;router-outlet&gt;&lt;/router-outlet&gt;
+"): ng:///DynamicTestModule/AppComponent.html@8:0
+    at syntaxError (D:\_Napata\dev\apps\packages\compiler\src\util.ts:108:17)
+    at TemplateParser.Object.&lt;anonymous&gt;.TemplateParser.parse (D:\_Napata\dev\apps\packages\compiler\src\template_parser\template_parser.ts:108:13)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._parseTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:300:33)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:278:11)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:42
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:15)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:119:12
+    at Object.then (D:\_Napata\dev\apps\packages\compiler\src\util.ts:96:52)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileModuleAndAllComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:117:22)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler.compileModuleAndAllComponentsAsync (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:69:33)
+    at CompilerImpl.Object.&lt;anonymous&gt;.CompilerImpl.compileModuleAndAllComponentsAsync (D:\_Napata\dev\apps\packages\platform-browser-dynamic\src\compiler_factory.ts:69:27)
+    at TestingCompilerImpl.Object.&lt;anonymous&gt;.TestingCompilerImpl.compileModuleAndAllComponentsAsync (D:\_Napata\dev\packages\platform-browser-dynamic\testing\src\compiler_factory.ts:59:27)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine.compileComponents (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:375:27)
+    at Function.Object.&lt;anonymous&gt;.TestBedViewEngine.compileComponents (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:159:25)
+    at D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\app.component.spec.ts:8:8
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at AsyncTestZoneSpec.Object.&lt;anonymous&gt;.AsyncTestZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\async-test.js:102:47)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:114:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.runGuarded (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:154:51)
+    at runInTestZone (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\async-test.js:224:33)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\async-test.js:162:21
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:117:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:143:47)
+    at Object.wrappedFunc (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-preset-angular\build\zone-patch\index.js:49:30)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)</pre><pre class="failureMsg">Error: Template parse errors:
+'router-outlet' is not a known element:
+1. If 'router-outlet' is an Angular component, then verify that it is part of this module.
+2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("
+&lt;/div&gt;
+
+[ERROR -&gt;]&lt;router-outlet&gt;&lt;/router-outlet&gt;
+"): ng:///DynamicTestModule/AppComponent.html@8:0
+    at syntaxError (D:\_Napata\dev\apps\packages\compiler\src\util.ts:108:17)
+    at TemplateParser.Object.&lt;anonymous&gt;.TemplateParser.parse (D:\_Napata\dev\apps\packages\compiler\src\template_parser\template_parser.ts:108:13)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._parseTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:300:33)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:278:11)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:42
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:15)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:119:12
+    at Object.then (D:\_Napata\dev\apps\packages\compiler\src\util.ts:96:52)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileModuleAndAllComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:117:22)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler.compileModuleAndAllComponentsSync (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:65:38)
+    at CompilerImpl.Object.&lt;anonymous&gt;.CompilerImpl.compileModuleAndAllComponentsSync (D:\_Napata\dev\apps\packages\platform-browser-dynamic\src\compiler_factory.ts:61:35)
+    at TestingCompilerImpl.Object.&lt;anonymous&gt;.TestingCompilerImpl.compileModuleAndAllComponentsSync (D:\_Napata\dev\packages\platform-browser-dynamic\testing\src\compiler_factory.ts:54:27)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine._initIfNeeded (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:389:28)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine.createComponent (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:598:10)
+    at Function.Object.&lt;anonymous&gt;.TestBedViewEngine.createComponent (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:245:36)
+    at D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\app.component.spec.ts:12:29
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:117:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:143:47)
+    at Object.wrappedFunc (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-preset-angular\build\zone-patch\index.js:49:30)
+    at Object.asyncJestTest (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:100:37)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)</pre></div></div><div class="test-result failed"><div class="test-info"><div class="test-suitename">AppComponent</div><div class="test-title">should have as title 'chimmo'</div><div class="test-status">failed</div><div class="test-duration">0.016s</div></div><div class="failureMessages"> <pre class="failureMsg">Error: Template parse errors:
+'router-outlet' is not a known element:
+1. If 'router-outlet' is an Angular component, then verify that it is part of this module.
+2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("
+&lt;/div&gt;
+
+[ERROR -&gt;]&lt;router-outlet&gt;&lt;/router-outlet&gt;
+"): ng:///DynamicTestModule/AppComponent.html@8:0
+    at syntaxError (D:\_Napata\dev\apps\packages\compiler\src\util.ts:108:17)
+    at TemplateParser.Object.&lt;anonymous&gt;.TemplateParser.parse (D:\_Napata\dev\apps\packages\compiler\src\template_parser\template_parser.ts:108:13)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._parseTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:300:33)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:278:11)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:42
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:15)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:119:12
+    at Object.then (D:\_Napata\dev\apps\packages\compiler\src\util.ts:96:52)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileModuleAndAllComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:117:22)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler.compileModuleAndAllComponentsAsync (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:69:33)
+    at CompilerImpl.Object.&lt;anonymous&gt;.CompilerImpl.compileModuleAndAllComponentsAsync (D:\_Napata\dev\apps\packages\platform-browser-dynamic\src\compiler_factory.ts:69:27)
+    at TestingCompilerImpl.Object.&lt;anonymous&gt;.TestingCompilerImpl.compileModuleAndAllComponentsAsync (D:\_Napata\dev\packages\platform-browser-dynamic\testing\src\compiler_factory.ts:59:27)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine.compileComponents (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:375:27)
+    at Function.Object.&lt;anonymous&gt;.TestBedViewEngine.compileComponents (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:159:25)
+    at D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\app.component.spec.ts:8:8
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at AsyncTestZoneSpec.Object.&lt;anonymous&gt;.AsyncTestZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\async-test.js:102:47)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:114:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.runGuarded (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:154:51)
+    at runInTestZone (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\async-test.js:224:33)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\async-test.js:162:21
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:117:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:143:47)
+    at Object.wrappedFunc (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-preset-angular\build\zone-patch\index.js:49:30)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)</pre><pre class="failureMsg">Error: Template parse errors:
+'router-outlet' is not a known element:
+1. If 'router-outlet' is an Angular component, then verify that it is part of this module.
+2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("
+&lt;/div&gt;
+
+[ERROR -&gt;]&lt;router-outlet&gt;&lt;/router-outlet&gt;
+"): ng:///DynamicTestModule/AppComponent.html@8:0
+    at syntaxError (D:\_Napata\dev\apps\packages\compiler\src\util.ts:108:17)
+    at TemplateParser.Object.&lt;anonymous&gt;.TemplateParser.parse (D:\_Napata\dev\apps\packages\compiler\src\template_parser\template_parser.ts:108:13)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._parseTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:300:33)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:278:11)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:42
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:15)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:119:12
+    at Object.then (D:\_Napata\dev\apps\packages\compiler\src\util.ts:96:52)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileModuleAndAllComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:117:22)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler.compileModuleAndAllComponentsSync (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:65:38)
+    at CompilerImpl.Object.&lt;anonymous&gt;.CompilerImpl.compileModuleAndAllComponentsSync (D:\_Napata\dev\apps\packages\platform-browser-dynamic\src\compiler_factory.ts:61:35)
+    at TestingCompilerImpl.Object.&lt;anonymous&gt;.TestingCompilerImpl.compileModuleAndAllComponentsSync (D:\_Napata\dev\packages\platform-browser-dynamic\testing\src\compiler_factory.ts:54:27)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine._initIfNeeded (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:389:28)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine.createComponent (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:598:10)
+    at Function.Object.&lt;anonymous&gt;.TestBedViewEngine.createComponent (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:245:36)
+    at D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\app.component.spec.ts:18:29
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:117:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:143:47)
+    at Object.wrappedFunc (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-preset-angular\build\zone-patch\index.js:49:30)
+    at Object.asyncJestTest (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:100:37)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)</pre></div></div><div class="test-result failed"><div class="test-info"><div class="test-suitename">AppComponent</div><div class="test-title">should render title</div><div class="test-status">failed</div><div class="test-duration">0.014s</div></div><div class="failureMessages"> <pre class="failureMsg">Error: Template parse errors:
+'router-outlet' is not a known element:
+1. If 'router-outlet' is an Angular component, then verify that it is part of this module.
+2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("
+&lt;/div&gt;
+
+[ERROR -&gt;]&lt;router-outlet&gt;&lt;/router-outlet&gt;
+"): ng:///DynamicTestModule/AppComponent.html@8:0
+    at syntaxError (D:\_Napata\dev\apps\packages\compiler\src\util.ts:108:17)
+    at TemplateParser.Object.&lt;anonymous&gt;.TemplateParser.parse (D:\_Napata\dev\apps\packages\compiler\src\template_parser\template_parser.ts:108:13)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._parseTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:300:33)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:278:11)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:42
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:15)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:119:12
+    at Object.then (D:\_Napata\dev\apps\packages\compiler\src\util.ts:96:52)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileModuleAndAllComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:117:22)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler.compileModuleAndAllComponentsAsync (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:69:33)
+    at CompilerImpl.Object.&lt;anonymous&gt;.CompilerImpl.compileModuleAndAllComponentsAsync (D:\_Napata\dev\apps\packages\platform-browser-dynamic\src\compiler_factory.ts:69:27)
+    at TestingCompilerImpl.Object.&lt;anonymous&gt;.TestingCompilerImpl.compileModuleAndAllComponentsAsync (D:\_Napata\dev\packages\platform-browser-dynamic\testing\src\compiler_factory.ts:59:27)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine.compileComponents (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:375:27)
+    at Function.Object.&lt;anonymous&gt;.TestBedViewEngine.compileComponents (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:159:25)
+    at D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\app.component.spec.ts:8:8
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at AsyncTestZoneSpec.Object.&lt;anonymous&gt;.AsyncTestZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\async-test.js:102:47)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:114:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.runGuarded (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:154:51)
+    at runInTestZone (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\async-test.js:224:33)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\async-test.js:162:21
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:117:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:143:47)
+    at Object.wrappedFunc (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-preset-angular\build\zone-patch\index.js:49:30)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)</pre><pre class="failureMsg">Error: Template parse errors:
+'router-outlet' is not a known element:
+1. If 'router-outlet' is an Angular component, then verify that it is part of this module.
+2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("
+&lt;/div&gt;
+
+[ERROR -&gt;]&lt;router-outlet&gt;&lt;/router-outlet&gt;
+"): ng:///DynamicTestModule/AppComponent.html@8:0
+    at syntaxError (D:\_Napata\dev\apps\packages\compiler\src\util.ts:108:17)
+    at TemplateParser.Object.&lt;anonymous&gt;.TemplateParser.parse (D:\_Napata\dev\apps\packages\compiler\src\template_parser\template_parser.ts:108:13)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._parseTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:300:33)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:278:11)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:42
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:15)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:119:12
+    at Object.then (D:\_Napata\dev\apps\packages\compiler\src\util.ts:96:52)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileModuleAndAllComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:117:22)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler.compileModuleAndAllComponentsSync (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:65:38)
+    at CompilerImpl.Object.&lt;anonymous&gt;.CompilerImpl.compileModuleAndAllComponentsSync (D:\_Napata\dev\apps\packages\platform-browser-dynamic\src\compiler_factory.ts:61:35)
+    at TestingCompilerImpl.Object.&lt;anonymous&gt;.TestingCompilerImpl.compileModuleAndAllComponentsSync (D:\_Napata\dev\packages\platform-browser-dynamic\testing\src\compiler_factory.ts:54:27)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine._initIfNeeded (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:389:28)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine.createComponent (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:598:10)
+    at Function.Object.&lt;anonymous&gt;.TestBedViewEngine.createComponent (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:245:36)
+    at D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\app.component.spec.ts:24:29
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:117:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:143:47)
+    at Object.wrappedFunc (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-preset-angular\build\zone-patch\index.js:49:30)
+    at Object.asyncJestTest (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:100:37)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)</pre></div></div></div></div><div id="suite-7" class="suite-container"><div class="suite-info"><div class="suite-path">D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\pages\admin\admin.component.spec.ts</div><div class="suite-time">4.719s</div></div><div class="suite-tests"><div class="test-result failed"><div class="test-info"><div class="test-suitename">AdminComponent</div><div class="test-title">should create</div><div class="test-status">failed</div><div class="test-duration">0.472s</div></div><div class="failureMessages"> <pre class="failureMsg">Error: Template parse errors:
+Can't bind to 'nzSuffix' since it isn't a known property of 'nz-input-group'.
+1. If 'nz-input-group' is an Angular component and it has 'nzSuffix' input, then verify that it is part of this module.
+2. If 'nz-input-group' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("n-width: 300px; padding-right: 60px;" *ngIf="userProv.allusers.length"&gt;
+            &lt;nz-input-group [ERROR -&gt;][nzSuffix]="suffixTemplate"&gt;
+              &lt;input nz-input placeholder="search by name" style="font-s"): ng:///DynamicTestModule/AdminComponent.html@31:28
+'nz-input-group' is not a known element:
+1. If 'nz-input-group' is an Angular component, then verify that it is part of this module.
+2. If 'nz-input-group' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("   &lt;td style="min-width: 300px; padding-right: 60px;" *ngIf="userProv.allusers.length"&gt;
+            [ERROR -&gt;]&lt;nz-input-group [nzSuffix]="suffixTemplate"&gt;
+              &lt;input nz-input placeholder="search by nam"): ng:///DynamicTestModule/AdminComponent.html@31:12
+Can't bind to 'ngModel' since it isn't a known property of 'input'. ("cludes(control.type)"&gt;
+              {{control.title}}
+              &lt;input nz-input placeholder="" [ERROR -&gt;][(ngModel)]="control.value" style="font-size: 25px; margin-bottom: 25px;"
+                [class]="'i"): ng:///DynamicTestModule/AdminComponent.html@68:45
+Can't bind to 'nzFormat' since it isn't a known property of 'nz-range-picker'.
+1. If 'nz-range-picker' is an Angular component and it has 'nzFormat' input, then verify that it is part of this module.
+2. If 'nz-range-picker' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("e=='date-range'"&gt;
+              {{control.title}} &lt;br&gt;
+              &lt;nz-range-picker nzSize="45px" [ERROR -&gt;][nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
+                (ngModelChange)="getTimeStamp(co"): ng:///DynamicTestModule/AdminComponent.html@74:45
+Can't bind to 'ngModel' since it isn't a known property of 'nz-range-picker'.
+1. If 'nz-range-picker' is an Angular component and it has 'ngModel' input, then verify that it is part of this module.
+2. If 'nz-range-picker' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("       {{control.title}} &lt;br&gt;
+              &lt;nz-range-picker nzSize="45px" [nzFormat]="'d/MM/yyyy'" [ERROR -&gt;][(ngModel)]="control.value"
+                (ngModelChange)="getTimeStamp(control.index, $event)"&gt;&lt;/n"): ng:///DynamicTestModule/AdminComponent.html@74:70
+'nz-range-picker' is not a known element:
+1. If 'nz-range-picker' is an Angular component, then verify that it is part of this module.
+2. If 'nz-range-picker' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("        &lt;div *ngIf="control.type=='date-range'"&gt;
+              {{control.title}} &lt;br&gt;
+              [ERROR -&gt;]&lt;nz-range-picker nzSize="45px" [nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
+                ("): ng:///DynamicTestModule/AdminComponent.html@74:14
+Can't bind to 'nzAutocomplete' since it isn't a known property of 'input'. ("      &lt;div class="example-input"&gt;
+                {{control.title}}
+                &lt;input nz-input [ERROR -&gt;][nzAutocomplete]="auto" style="font-size: 25px;" [(ngModel)]="control.value"
+                  (ngMod"): ng:///DynamicTestModule/AdminComponent.html@81:32
+Can't bind to 'ngModel' since it isn't a known property of 'input'. (" {{control.title}}
+                &lt;input nz-input [nzAutocomplete]="auto" style="font-size: 25px;" [ERROR -&gt;][(ngModel)]="control.value"
+                  (ngModelChange)="filterInput(control.index, $event)" /&gt;"): ng:///DynamicTestModule/AdminComponent.html@81:81
+Can't bind to 'nzLabel' since it isn't a known property of 'nz-auto-option'.
+1. If 'nz-auto-option' is an Angular component and it has 'nzLabel' input, then verify that it is part of this module.
+2. If 'nz-auto-option' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("autocomplete #auto&gt;
+                  &lt;nz-auto-option *ngFor="let option of userProv.getLandLord()" [ERROR -&gt;][nzLabel]="option.lastName"
+                    [nzValue]="option.lastName"&gt;
+                    &lt;p&gt;{"): ng:///DynamicTestModule/AdminComponent.html@85:80
+Can't bind to 'nzValue' since it isn't a known property of 'nz-auto-option'.
+1. If 'nz-auto-option' is an Angular component and it has 'nzValue' input, then verify that it is part of this module.
+2. If 'nz-auto-option' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("ption *ngFor="let option of userProv.getLandLord()" [nzLabel]="option.lastName"
+                    [ERROR -&gt;][nzValue]="option.lastName"&gt;
+                    &lt;p&gt;{{ option.lastName }} {{option.firstName}}
+      "): ng:///DynamicTestModule/AdminComponent.html@86:20
+'nz-auto-option' is not a known element:
+1. If 'nz-auto-option' is an Angular component, then verify that it is part of this module.
+2. If 'nz-auto-option' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("
+
+                &lt;nz-autocomplete #auto&gt;
+                  [ERROR -&gt;]&lt;nz-auto-option *ngFor="let option of userProv.getLandLord()" [nzLabel]="option.lastName"
+           "): ng:///DynamicTestModule/AdminComponent.html@85:18
+'nz-autocomplete' is not a known element:
+1. If 'nz-autocomplete' is an Angular component, then verify that it is part of this module.
+2. If 'nz-autocomplete' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("
+                  (ngModelChange)="filterInput(control.index, $event)" /&gt;
+
+                [ERROR -&gt;]&lt;nz-autocomplete #auto&gt;
+                  &lt;nz-auto-option *ngFor="let option of userProv.getLandLord("): ng:///DynamicTestModule/AdminComponent.html@84:16
+Can't bind to 'ngModel' since it isn't a known property of 'input'. ("cludes(control.type)"&gt;
+              {{control.title}}
+              &lt;input nz-input placeholder="" [ERROR -&gt;][(ngModel)]="control.value" style="font-size: 25px; margin-bottom: 25px;"
+                [class]="'i"): ng:///DynamicTestModule/AdminComponent.html@152:45
+Can't bind to 'nzFormat' since it isn't a known property of 'nz-range-picker'.
+1. If 'nz-range-picker' is an Angular component and it has 'nzFormat' input, then verify that it is part of this module.
+2. If 'nz-range-picker' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("e=='date-range'"&gt;
+              {{control.title}} &lt;br&gt;
+              &lt;nz-range-picker nzSize="45px" [ERROR -&gt;][nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
+                (ngModelChange)="getTimeStamp(co"): ng:///DynamicTestModule/AdminComponent.html@158:45
+Can't bind to 'ngModel' since it isn't a known property of 'nz-range-picker'.
+1. If 'nz-range-picker' is an Angular component and it has 'ngModel' input, then verify that it is part of this module.
+2. If 'nz-range-picker' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("       {{control.title}} &lt;br&gt;
+              &lt;nz-range-picker nzSize="45px" [nzFormat]="'d/MM/yyyy'" [ERROR -&gt;][(ngModel)]="control.value"
+                (ngModelChange)="getTimeStamp(control.index, $event)"&gt;&lt;/n"): ng:///DynamicTestModule/AdminComponent.html@158:70
+'nz-range-picker' is not a known element:
+1. If 'nz-range-picker' is an Angular component, then verify that it is part of this module.
+2. If 'nz-range-picker' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("        &lt;div *ngIf="control.type=='date-range'"&gt;
+              {{control.title}} &lt;br&gt;
+              [ERROR -&gt;]&lt;nz-range-picker nzSize="45px" [nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
+                ("): ng:///DynamicTestModule/AdminComponent.html@158:14
+    at syntaxError (D:\_Napata\dev\apps\packages\compiler\src\util.ts:108:17)
+    at TemplateParser.Object.&lt;anonymous&gt;.TemplateParser.parse (D:\_Napata\dev\apps\packages\compiler\src\template_parser\template_parser.ts:108:13)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._parseTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:300:33)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:278:11)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:42
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:15)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:119:12
+    at Object.then (D:\_Napata\dev\apps\packages\compiler\src\util.ts:96:52)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileModuleAndAllComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:117:22)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler.compileModuleAndAllComponentsAsync (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:69:33)
+    at CompilerImpl.Object.&lt;anonymous&gt;.CompilerImpl.compileModuleAndAllComponentsAsync (D:\_Napata\dev\apps\packages\platform-browser-dynamic\src\compiler_factory.ts:69:27)
+    at TestingCompilerImpl.Object.&lt;anonymous&gt;.TestingCompilerImpl.compileModuleAndAllComponentsAsync (D:\_Napata\dev\packages\platform-browser-dynamic\testing\src\compiler_factory.ts:59:27)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine.compileComponents (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:375:27)
+    at Function.Object.&lt;anonymous&gt;.TestBedViewEngine.compileComponents (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:159:25)
+    at D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\pages\admin\admin.component.spec.ts:13:6
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at AsyncTestZoneSpec.Object.&lt;anonymous&gt;.AsyncTestZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\async-test.js:102:47)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:114:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.runGuarded (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:154:51)
+    at runInTestZone (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\async-test.js:224:33)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\async-test.js:162:21
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:117:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:143:47)
+    at Object.wrappedFunc (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-preset-angular\build\zone-patch\index.js:49:30)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)</pre><pre class="failureMsg">Error: Template parse errors:
+Can't bind to 'nzSuffix' since it isn't a known property of 'nz-input-group'.
+1. If 'nz-input-group' is an Angular component and it has 'nzSuffix' input, then verify that it is part of this module.
+2. If 'nz-input-group' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("n-width: 300px; padding-right: 60px;" *ngIf="userProv.allusers.length"&gt;
+            &lt;nz-input-group [ERROR -&gt;][nzSuffix]="suffixTemplate"&gt;
+              &lt;input nz-input placeholder="search by name" style="font-s"): ng:///DynamicTestModule/AdminComponent.html@31:28
+'nz-input-group' is not a known element:
+1. If 'nz-input-group' is an Angular component, then verify that it is part of this module.
+2. If 'nz-input-group' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("   &lt;td style="min-width: 300px; padding-right: 60px;" *ngIf="userProv.allusers.length"&gt;
+            [ERROR -&gt;]&lt;nz-input-group [nzSuffix]="suffixTemplate"&gt;
+              &lt;input nz-input placeholder="search by nam"): ng:///DynamicTestModule/AdminComponent.html@31:12
+Can't bind to 'ngModel' since it isn't a known property of 'input'. ("cludes(control.type)"&gt;
+              {{control.title}}
+              &lt;input nz-input placeholder="" [ERROR -&gt;][(ngModel)]="control.value" style="font-size: 25px; margin-bottom: 25px;"
+                [class]="'i"): ng:///DynamicTestModule/AdminComponent.html@68:45
+Can't bind to 'nzFormat' since it isn't a known property of 'nz-range-picker'.
+1. If 'nz-range-picker' is an Angular component and it has 'nzFormat' input, then verify that it is part of this module.
+2. If 'nz-range-picker' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("e=='date-range'"&gt;
+              {{control.title}} &lt;br&gt;
+              &lt;nz-range-picker nzSize="45px" [ERROR -&gt;][nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
+                (ngModelChange)="getTimeStamp(co"): ng:///DynamicTestModule/AdminComponent.html@74:45
+Can't bind to 'ngModel' since it isn't a known property of 'nz-range-picker'.
+1. If 'nz-range-picker' is an Angular component and it has 'ngModel' input, then verify that it is part of this module.
+2. If 'nz-range-picker' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("       {{control.title}} &lt;br&gt;
+              &lt;nz-range-picker nzSize="45px" [nzFormat]="'d/MM/yyyy'" [ERROR -&gt;][(ngModel)]="control.value"
+                (ngModelChange)="getTimeStamp(control.index, $event)"&gt;&lt;/n"): ng:///DynamicTestModule/AdminComponent.html@74:70
+'nz-range-picker' is not a known element:
+1. If 'nz-range-picker' is an Angular component, then verify that it is part of this module.
+2. If 'nz-range-picker' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("        &lt;div *ngIf="control.type=='date-range'"&gt;
+              {{control.title}} &lt;br&gt;
+              [ERROR -&gt;]&lt;nz-range-picker nzSize="45px" [nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
+                ("): ng:///DynamicTestModule/AdminComponent.html@74:14
+Can't bind to 'nzAutocomplete' since it isn't a known property of 'input'. ("      &lt;div class="example-input"&gt;
+                {{control.title}}
+                &lt;input nz-input [ERROR -&gt;][nzAutocomplete]="auto" style="font-size: 25px;" [(ngModel)]="control.value"
+                  (ngMod"): ng:///DynamicTestModule/AdminComponent.html@81:32
+Can't bind to 'ngModel' since it isn't a known property of 'input'. (" {{control.title}}
+                &lt;input nz-input [nzAutocomplete]="auto" style="font-size: 25px;" [ERROR -&gt;][(ngModel)]="control.value"
+                  (ngModelChange)="filterInput(control.index, $event)" /&gt;"): ng:///DynamicTestModule/AdminComponent.html@81:81
+Can't bind to 'nzLabel' since it isn't a known property of 'nz-auto-option'.
+1. If 'nz-auto-option' is an Angular component and it has 'nzLabel' input, then verify that it is part of this module.
+2. If 'nz-auto-option' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("autocomplete #auto&gt;
+                  &lt;nz-auto-option *ngFor="let option of userProv.getLandLord()" [ERROR -&gt;][nzLabel]="option.lastName"
+                    [nzValue]="option.lastName"&gt;
+                    &lt;p&gt;{"): ng:///DynamicTestModule/AdminComponent.html@85:80
+Can't bind to 'nzValue' since it isn't a known property of 'nz-auto-option'.
+1. If 'nz-auto-option' is an Angular component and it has 'nzValue' input, then verify that it is part of this module.
+2. If 'nz-auto-option' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("ption *ngFor="let option of userProv.getLandLord()" [nzLabel]="option.lastName"
+                    [ERROR -&gt;][nzValue]="option.lastName"&gt;
+                    &lt;p&gt;{{ option.lastName }} {{option.firstName}}
+      "): ng:///DynamicTestModule/AdminComponent.html@86:20
+'nz-auto-option' is not a known element:
+1. If 'nz-auto-option' is an Angular component, then verify that it is part of this module.
+2. If 'nz-auto-option' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("
+
+                &lt;nz-autocomplete #auto&gt;
+                  [ERROR -&gt;]&lt;nz-auto-option *ngFor="let option of userProv.getLandLord()" [nzLabel]="option.lastName"
+           "): ng:///DynamicTestModule/AdminComponent.html@85:18
+'nz-autocomplete' is not a known element:
+1. If 'nz-autocomplete' is an Angular component, then verify that it is part of this module.
+2. If 'nz-autocomplete' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("
+                  (ngModelChange)="filterInput(control.index, $event)" /&gt;
+
+                [ERROR -&gt;]&lt;nz-autocomplete #auto&gt;
+                  &lt;nz-auto-option *ngFor="let option of userProv.getLandLord("): ng:///DynamicTestModule/AdminComponent.html@84:16
+Can't bind to 'ngModel' since it isn't a known property of 'input'. ("cludes(control.type)"&gt;
+              {{control.title}}
+              &lt;input nz-input placeholder="" [ERROR -&gt;][(ngModel)]="control.value" style="font-size: 25px; margin-bottom: 25px;"
+                [class]="'i"): ng:///DynamicTestModule/AdminComponent.html@152:45
+Can't bind to 'nzFormat' since it isn't a known property of 'nz-range-picker'.
+1. If 'nz-range-picker' is an Angular component and it has 'nzFormat' input, then verify that it is part of this module.
+2. If 'nz-range-picker' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("e=='date-range'"&gt;
+              {{control.title}} &lt;br&gt;
+              &lt;nz-range-picker nzSize="45px" [ERROR -&gt;][nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
+                (ngModelChange)="getTimeStamp(co"): ng:///DynamicTestModule/AdminComponent.html@158:45
+Can't bind to 'ngModel' since it isn't a known property of 'nz-range-picker'.
+1. If 'nz-range-picker' is an Angular component and it has 'ngModel' input, then verify that it is part of this module.
+2. If 'nz-range-picker' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("       {{control.title}} &lt;br&gt;
+              &lt;nz-range-picker nzSize="45px" [nzFormat]="'d/MM/yyyy'" [ERROR -&gt;][(ngModel)]="control.value"
+                (ngModelChange)="getTimeStamp(control.index, $event)"&gt;&lt;/n"): ng:///DynamicTestModule/AdminComponent.html@158:70
+'nz-range-picker' is not a known element:
+1. If 'nz-range-picker' is an Angular component, then verify that it is part of this module.
+2. If 'nz-range-picker' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("        &lt;div *ngIf="control.type=='date-range'"&gt;
+              {{control.title}} &lt;br&gt;
+              [ERROR -&gt;]&lt;nz-range-picker nzSize="45px" [nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
+                ("): ng:///DynamicTestModule/AdminComponent.html@158:14
+    at syntaxError (D:\_Napata\dev\apps\packages\compiler\src\util.ts:108:17)
+    at TemplateParser.Object.&lt;anonymous&gt;.TemplateParser.parse (D:\_Napata\dev\apps\packages\compiler\src\template_parser\template_parser.ts:108:13)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._parseTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:300:33)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileTemplate (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:278:11)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:42
+    at Set.forEach (&lt;anonymous&gt;)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:208:15)
+    at D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:119:12
+    at Object.then (D:\_Napata\dev\apps\packages\compiler\src\util.ts:96:52)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler._compileModuleAndAllComponents (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:117:22)
+    at JitCompiler.Object.&lt;anonymous&gt;.JitCompiler.compileModuleAndAllComponentsSync (D:\_Napata\dev\apps\packages\compiler\src\jit\compiler.ts:65:38)
+    at CompilerImpl.Object.&lt;anonymous&gt;.CompilerImpl.compileModuleAndAllComponentsSync (D:\_Napata\dev\apps\packages\platform-browser-dynamic\src\compiler_factory.ts:61:35)
+    at TestingCompilerImpl.Object.&lt;anonymous&gt;.TestingCompilerImpl.compileModuleAndAllComponentsSync (D:\_Napata\dev\packages\platform-browser-dynamic\testing\src\compiler_factory.ts:54:27)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine._initIfNeeded (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:389:28)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine.createComponent (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:598:10)
+    at Function.Object.&lt;anonymous&gt;.TestBedViewEngine.createComponent (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:245:36)
+    at D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\pages\admin\admin.component.spec.ts:17:23
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:117:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:143:47)
+    at Object.wrappedFunc (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-preset-angular\build\zone-patch\index.js:49:30)
+    at Object.asyncJestLifecycle (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:53:37)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)</pre><pre class="failureMsg">Error: expect(received).toBeTruthy()
+
+Received: undefined
+    at D:\_Napata\dev\apps\cahotech-monorepo\apps\chimmo\src\app\pages\admin\admin.component.spec.ts:23:23
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:386:30)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\proxy.js:117:43)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:385:36)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\zone.js\dist\zone.js:143:47)
+    at Object.wrappedFunc (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-preset-angular\build\zone-patch\index.js:49:30)
+    at Object.asyncJestTest (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:100:37)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)</pre></div></div></div></div></div><html><head><meta charset="utf-8"/><title>Test Report</title><style type="text/css">html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+body {
+  padding: 2rem 1rem;
+  font-size: 0.85rem;
+}
+#jesthtml-content {
+  margin: 0 auto;
+  max-width: 70rem;
+}
+header {
+  display: flex;
+  align-items: center;
+}
+#title {
+  margin: 0;
+  flex-grow: 1;
+}
+#logo {
+  height: 4rem;
+}
+#timestamp {
+  color: #777;
+  margin-top: 0.5rem;
+}
+
+/** SUMMARY */
+#summary {
+  color: #333;
+  margin: 2rem 0;
+  display: flex;
+  font-family: monospace;
+  font-size: 1rem;
+}
+#summary > div {
+  margin-right: 2rem;
+  background: #eee;
+  padding: 1rem;
+  min-width: 15rem;
+}
+#summary > div:last-child {
+  margin-right: 0;
+}
+@media only screen and (max-width: 720px) {
+  #summary {
+    flex-direction: column;
+  }
+  #summary > div {
+    margin-right: 0;
+    margin-top: 2rem;
+  }
+  #summary > div:first-child {
+    margin-top: 0;
+  }
+}
+
+.summary-total {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.summary-passed {
+  color: #4f8a10;
+  border-left: 0.4rem solid #4f8a10;
+  padding-left: 0.5rem;
+}
+.summary-failed {
+  color: #d8000c;
+  border-left: 0.4rem solid #d8000c;
+  padding-left: 0.5rem;
+}
+.summary-pending {
+  color: #9f6000;
+  border-left: 0.4rem solid #9f6000;
+  padding-left: 0.5rem;
+}
+.summary-empty {
+  color: #999;
+  border-left: 0.4rem solid #999;
+}
+
+.test-result {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+.test-result:last-child {
+  border: 0;
+}
+.test-result.passed {
+  background-color: #dff2bf;
+  color: #4f8a10;
+}
+.test-result.failed {
+  background-color: #ffbaba;
+  color: #d8000c;
+}
+.test-result.pending {
+  background-color: #ffdf61;
+  color: #9f6000;
+}
+
+.test-info {
+  display: flex;
+  justify-content: space-between;
+}
+.test-suitename {
+  width: 20%;
+  text-align: left;
+  font-weight: bold;
+  word-break: break-word;
+}
+.test-title {
+  width: 40%;
+  text-align: left;
+  font-style: italic;
+}
+.test-status {
+  width: 20%;
+  text-align: right;
+}
+.test-duration {
+  width: 10%;
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+.failureMessages {
+  padding: 0 1rem;
+  margin-top: 1rem;
+  border-top: 1px dashed #d8000c;
+}
+.failureMsg {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.suite-container {
+  margin-bottom: 2rem;
+}
+.suite-info {
+  padding: 1rem;
+  background-color: #eee;
+  color: #777;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+.suite-info .suite-path {
+  word-break: break-all;
+  flex-grow: 1;
+  font-family: monospace;
+  font-size: 1rem;
+}
+.suite-info .suite-time {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.3rem;
+  font-size: 0.75rem;
+}
+.suite-info .suite-time.warn {
+  background-color: #d8000c;
+  color: #fff;
+}
+
+/* CONSOLE LOGS */
+.suite-consolelog {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #efefef;
+}
+.suite-consolelog-header {
+  font-weight: bold;
+}
+.suite-consolelog-item {
+  padding: 0.5rem;
+}
+.suite-consolelog-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-consolelog-item-origin {
+  color: #777;
+  font-weight: bold;
+}
+.suite-consolelog-item-message {
+  color: #000;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+</style></head><body><div id="jesthtml-content"><header><h1 id="title">Test Report</h1><img id="logo" src="D:/_Napata/dev/apps/acb/logo.png"/></header><div id="metadata-container"><div id="timestamp">Started: 2020-07-11 02:36:40</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (1)</div><div class="summary-passed summary-empty">0 passed</div><div class="summary-failed">1 failed</div><div class="summary-pending summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (1)</div><div class="summary-passed summary-empty">0 passed</div><div class="summary-failed">1 failed</div><div class="summary-pending summary-empty">0 pending</div></div></div></div><div id="suite-1" class="suite-container"><div class="suite-info"><div class="suite-path">D:\_Napata\dev\apps\cahotech-monorepo\libs\ui\src\lib\google-maps\google-maps.component.spec.ts</div><div class="suite-time">0.843s</div></div><div class="suite-tests"><div class="test-result failed"><div class="test-info"><div class="test-suitename">GoogleMapsComponent</div><div class="test-title">should create</div><div class="test-status">failed</div><div class="test-duration">0.049s</div></div><div class="failureMessages"> <pre class="failureMsg">Error: Failed: "Zone is needed for the async() test helper but could not be found. Please make sure that your environment includes zone.js/dist/zone.js"
+    at Env.beforeEach (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:41:24)
+    at beforeEach (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\jasmine\jasmineLight.js:118:29)
+    at Suite.&lt;anonymous&gt; (D:\_Napata\dev\apps\cahotech-monorepo\libs\ui\src\lib\google-maps\google-maps.component.spec.ts:9:3)
+    at addSpecsToSuite (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\jasmine\Env.js:444:51)
+    at Env.describe (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\jasmine\Env.js:414:11)
+    at describe (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\jasmine\jasmineLight.js:88:18)
+    at Object.&lt;anonymous&gt; (D:\_Napata\dev\apps\cahotech-monorepo\libs\ui\src\lib\google-maps\google-maps.component.spec.ts:5:1)
+    at Runtime._execModule (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-runtime\build\index.js:1205:24)
+    at Runtime._loadModule (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-runtime\build\index.js:805:12)
+    at Runtime.requireModule (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-runtime\build\index.js:662:10)</pre><pre class="failureMsg">TypeError: Cannot read property 'getComponentFromError' of null
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine._initIfNeeded (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:391:46)
+    at TestBedViewEngine.Object.&lt;anonymous&gt;.TestBedViewEngine.createComponent (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:598:10)
+    at Function.Object.&lt;anonymous&gt;.TestBedViewEngine.createComponent (D:\_Napata\dev\packages\core\testing\src\test_bed.ts:245:36)
+    at Object.&lt;anonymous&gt; (D:\_Napata\dev\apps\cahotech-monorepo\libs\ui\src\lib\google-maps\google-maps.component.spec.ts:17:23)
+    at Object.asyncJestLifecycle (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:53:37)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41</pre><pre class="failureMsg">Error: expect(received).toBeTruthy()
+
+Received: undefined
+    at Object.&lt;anonymous&gt; (D:\_Napata\dev\apps\cahotech-monorepo\libs\ui\src\lib\google-maps\google-maps.component.spec.ts:23:23)
+    at Object.asyncJestTest (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:100:37)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\_Napata\dev\apps\cahotech-monorepo\node_modules\jest-jasmine2\build\queueRunner.js:75:41</pre></div></div></div></div></div><body><div id="jesthtml-content"><header><h1 id="title">Test Report</h1><img id="logo" src="D:/_Napata/dev/apps/acb/logo.png"/></header><div id="metadata-container"><div id="timestamp">Started: 2020-07-11 02:36:44</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (0)</div><div class="summary-passed summary-empty">0 passed</div><div class="summary-failed summary-empty">0 failed</div><div class="summary-pending summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (0)</div><div class="summary-passed summary-empty">0 passed</div><div class="summary-failed summary-empty">0 failed</div><div class="summary-pending summary-empty">0 pending</div></div></div></div></div></body></body></html></body></html></body></body></html></body></html>

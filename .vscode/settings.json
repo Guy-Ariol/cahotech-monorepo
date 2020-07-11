@@ -11,8 +11,14 @@
         "name": "unit test",
         "singleInstance": false,
         "color": "violet",
-        "command": "C:/python27/python.exe D:/_Napata/dev/apps/acb/tools/change-jest-config.py && ng test chimmo --codeCoverage && ng test ui --codeCoverage && ng test service --codeCoverage"
-      }
+        "command": "C:/python27/python.exe D:/_Napata/dev/apps/cahotech-monorepo/tools/change-jest-config.py && ng test chimmo --codeCoverage && ng test ui --codeCoverage && ng test service --codeCoverage"
+      },
+       {
+        "name": "native-win",
+        "singleInstance": false,
+        "color": "crimson",
+        "command": "cd D:/_Napata/dev/apps/cahotech-monorepo/apps && ng build chimmo --prod && C:/python27/python.exe D:/_Napata/dev/apps/cahotech-monorepo/tools/pacthing_index.py && cd D:/_Napata/dev/apps/cahotech-monorepo/apps/chimmo-native && cordova run windows"
+      },
     ]
   }
 }
