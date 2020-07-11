@@ -18,6 +18,7 @@ import { RenterComponent } from './pages/renter/renter.component';
 import { UiSharedModule } from "@cahotech-monorepo/ui";
 import { GoogleMapsModule } from "../../../../libs/ui/src/lib/google-maps/google-maps.module";
 
+import { PlusOutline } from '@ant-design/icons-angular/icons';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -28,7 +29,10 @@ import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { AppRoutingModule } from './app-routing.module';
 
+
 registerLocaleData(fr);
+
+const icons = [PlusOutline]
 
 @NgModule({
   declarations: [
@@ -53,7 +57,9 @@ registerLocaleData(fr);
     NzDatePickerModule,
     NzAutocompleteModule,
     NzCheckboxModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NzIconModule.forRoot(icons)
+
   ],
 
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
