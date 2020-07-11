@@ -1,0 +1,40 @@
+.admin-forms {
+   padding: 30px;
+    padding-bottom: 65px;
+    background: #fbfbfb;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+
+    justify-content: space-around;
+    display: flex;
+    min-width: 600px;
+
+  .summary {
+    background: rgba(245, 222, 179, 0.397);
+    min-width: 50%;
+    max-width: 50%;
+    border-radius: 20px;
+    padding: 15px;
+    color: black;
+    font-size: larger;
+
+    td {
+      padding-left: 25px;
+    }
+  }
+
+  .submit-form {
+    width: 200px;
+    margin-top: 35px;
+    background: orange;
+    color: black;
+  }
+
+  .submit-form2 {
+    width: 200px;
+    margin-top: 35px;
+    background: gainsboro;
+    color: black;
+    margin-right: 20px;
+  }
+}

@@ -27,115 +27,14 @@
       <h1>{{currentTitle}}</h1>
 
       <div *ngIf="!isNew && !isEdit" style="width: 70%;">
-        <tr>
-          <td style="min-width: 300px; padding-right: 60px;" *ngIf="userProv.allusers.length">
-            <nz-input-group [nzSuffix]="suffixTemplate">
-              <input nz-input placeholder="search by name" style="font-size: 20px;"
-                (input)="seach($event.target.value)" />
-            </nz-input-group>
-
-            <ng-template #suffixTemplate>
-              <i nz-icon nzType="search"></i>
-            </ng-template>
-          </td>
-
-          <td style="text-align: center; padding-top: 15px;">
-            <button nz-button nzSize="large" nzType="primary" (click)="showForm()"><i nz-icon nzType="plus"></i>
-              Nouveau</button>
-          </td>
-        </tr>
-
-        <div style="padding-top: 35px;">
-          <div *ngFor="let user of searchUsers; let index=index">
-            <div *ngIf="(user.type==0 && currentView==view.landlord) || (user.type==1 && currentView==view.renter)">
-              <p style="font-size: 25px; padding-right: 25px;">{{user.lastName}}
-                {{user.firstName}} <br>
-                <span style="font-size: 18px; color: rgb(180, 172, 172)">Email: {{user.email}} ; Tel: {{user.tel}}
-                </span>
-                <span class="edit-btn" (click)="editUser(user, currentUserIndex=index)">Modifier</span>
-              </p>
-
-              <hr>
-            </div>
-          </div>
-        </div>
+        <admin-generic-listing (showForm)="isNew = true" (editUser)="editUser($event)" [currentView]="currentView"></admin-generic-listing>
       </div>
 
-      <tr *ngIf="isNew || isEdit" class="input-form">
-        <td style="min-width: 30%;">
-          <div *ngFor="let control of controlArray">
-            <div *ngIf="['text', 'number',  'email'].includes(control.type)">
-              {{control.title}}
-              <input nz-input placeholder="" [(ngModel)]="control.value" style="font-size: 25px; margin-bottom: 25px;"
-                [class]="'input-'+control.index" [type]="control.type" [id]="control.id ? control.id : control.index" />
-            </div>
-
-            <div *ngIf="control.type=='date-range'">
-              {{control.title}} <br>
-              <nz-range-picker nzSize="45px" [nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
-                (ngModelChange)="getTimeStamp(control.index, $event)"></nz-range-picker>
-            </div>
-
-            <div *ngIf="control.type=='autocomplete'">
-              <div class="example-input">
-                {{control.title}}
-                <input nz-input [nzAutocomplete]="auto" style="font-size: 25px;" [(ngModel)]="control.value"
-                  (ngModelChange)="filterInput(control.index, $event)" />
-
-                <nz-autocomplete #auto>
-                  <nz-auto-option *ngFor="let option of userProv.getLandLord()" [nzLabel]="option.lastName"
-                    [nzValue]="option.lastName">
-                    <p>{{ option.lastName }} {{option.firstName}}
-                      <br>
-                      <span style="color: gray; padding-left: 25px;">{{ option.email }}</span>
-                    </p>
-                  </nz-auto-option>
-                </nz-autocomplete>
-              </div>
-            </div>
-
-            <!-- <div *ngIf="control.type=='checkbox'">
-              <div style="border-bottom: 1px solid rgb(233, 233, 233);">
-                <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="updateAllChecked()" nzIndeterminate="true">
-                  Check all
-                </label>
-              </div>
-              <br />
-              <nz-checkbox-group [(ngModel)]="checkOptionsOne" (ngModelChange)="updateSingleChecked()"></nz-checkbox-group>
-              `
-            </div> -->
-          </div>
-        </td>
-
-        <td class="summary" *ngIf="controlArray.length">
-          <h1 style="text-align: center;">Résumé</h1>
-          <br>
-
-          <div *ngFor="let control of controlArray">
-            <div nz-row style="padding-left: 25px;">
-              <div nz-col style="min-width: 120px;">
-                <p><b>{{control.title}}:</b> </p>
-              </div>
-              <div nz-col>
-                <div *ngIf="control.type == 'date-range' && control.value">
-                  <p>{{control?.value[0] | date:'d/MM/yyy'}} - {{control?.value[1] | date:'d/MM/yyy'}} </p>
-                </div>
-
-                <div *ngIf="control.type != 'date-range'">
-                  <p>{{control.value}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style="text-align: center;">
-            <button nz-button nzSize="large" class="submit-form2" (click)="isNew=false">Annuler</button>
-            <button nz-button nzSize="large" class="submit-form" [disabled]="disableSubtmitBtn()"
-              (click)="submit()">{{isNew? 'Valider' : 'Actualiser'}}</button>
-          </div>
-
-        </td>
-      </tr>
+      <div *ngIf="isNew || isEdit">
+        <admin-forms [controlArray]="controlArray" [isEdit]="isEdit" [currentUserIndex]="currentUserIndex"
+          [currentView]="currentView" (done)="isEdit= false; isNew = false">
+        </admin-forms>
+      </div>
     </div>
 
     <div *ngIf="currentView==view.MoneyIn">
@@ -185,7 +84,7 @@
 
           <div style="text-align: center;">
             <button nz-button nzSize="large" class="submit-form2" (click)="isNew=false">Annuler</button>
-            <button nz-button nzSize="large" class="submit-form" (click)="submit()">Valider</button>
+            <!-- <button nz-button nzSize="large" class="submit-form" (click)="submit()">Valider</button> -->
           </div>
 
         </td>

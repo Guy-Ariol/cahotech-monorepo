@@ -1,0 +1,33 @@
+<div class="admin-generic-listing">
+  <tr>
+    <td style="min-width: 300px; padding-right: 60px;" *ngIf="userProv.allusers.length">
+      <nz-input-group [nzSuffix]="suffixTemplate">
+        <input nz-input placeholder="search by name" style="font-size: 20px;" (input)="seach($event.target.value)" />
+      </nz-input-group>
+
+      <ng-template #suffixTemplate>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+    </td>
+
+    <td style="text-align: center; padding-top: 15px;">
+      <button nz-button nzSize="large" nzType="primary" (click)="showForm.emit()"><i nz-icon nzType="plus"></i>
+        Nouveau</button>
+    </td>
+  </tr>
+
+  <div style="padding-top: 35px;">
+    <div *ngFor="let user of searchUsers; let index=index">
+      <div *ngIf="(user.type==0 && currentView==view.landlord) || (user.type==1 && currentView==view.renter)">
+        <p style="font-size: 25px; padding-right: 25px;">{{user.lastName}}
+          {{user.firstName}} <br>
+          <span style="font-size: 18px; color: rgb(180, 172, 172)">Email: {{user.email}} ; Tel: {{user.tel}}
+          </span>
+          <span class="edit-btn" (click)="editUser.emit(user, currentUserIndex=index)">Modifier</span>
+        </p>
+
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>

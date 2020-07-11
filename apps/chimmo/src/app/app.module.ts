@@ -28,6 +28,8 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { AppRoutingModule } from './app-routing.module';
+import { AdminFormsComponent } from './components/admin-forms/admin-forms.component';
+import { AdminGenericListingComponent } from './components/admin-generic-listing/admin-generic-listing.component';
 
 
 registerLocaleData(fr);
@@ -40,7 +42,9 @@ const icons = [PlusOutline]
     AdminComponent,
     HomeComponent,
     LandlordComponent,
-    RenterComponent],
+    RenterComponent,
+    AdminFormsComponent,
+    AdminGenericListingComponent],
 
   imports: [
     BrowserModule,
