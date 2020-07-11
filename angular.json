@@ -227,6 +227,132 @@
           }
         }
       }
+    },
+    "learn-german-fast": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/learn-german-fast",
+      "sourceRoot": "apps/learn-german-fast/src",
+      "prefix": "cahotech-monorepo",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/learn-german-fast",
+            "index": "apps/learn-german-fast/src/index.html",
+            "main": "apps/learn-german-fast/src/main.ts",
+            "polyfills": "apps/learn-german-fast/src/polyfills.ts",
+            "tsConfig": "apps/learn-german-fast/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/learn-german-fast/src/favicon.ico",
+              "apps/learn-german-fast/src/assets"
+            ],
+            "styles": ["apps/learn-german-fast/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/learn-german-fast/src/environments/environment.ts",
+                  "with": "apps/learn-german-fast/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "learn-german-fast:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "learn-german-fast:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "learn-german-fast:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/learn-german-fast/tsconfig.app.json",
+              "apps/learn-german-fast/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/learn-german-fast/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/learn-german-fast/jest.config.js",
+            "tsConfig": "apps/learn-german-fast/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/learn-german-fast/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "learn-german-fast-e2e": {
+      "root": "apps/learn-german-fast-e2e",
+      "sourceRoot": "apps/learn-german-fast-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/learn-german-fast-e2e/cypress.json",
+            "tsConfig": "apps/learn-german-fast-e2e/tsconfig.e2e.json",
+            "devServerTarget": "learn-german-fast:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "learn-german-fast:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/learn-german-fast-e2e/tsconfig.e2e.json"],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/learn-german-fast-e2e/**/*"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

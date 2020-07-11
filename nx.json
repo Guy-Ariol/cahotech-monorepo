@@ -40,6 +40,13 @@
     },
     "service": {
       "tags": ["service"]
+    },
+    "learn-german-fast": {
+      "tags": []
+    },
+    "learn-german-fast-e2e": {
+      "tags": [],
+      "implicitDependencies": ["learn-german-fast"]
     }
   }
 }
