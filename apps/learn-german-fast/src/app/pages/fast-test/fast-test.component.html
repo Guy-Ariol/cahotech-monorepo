@@ -1,5 +1,23 @@
 <div class="test">
   <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
+    <!-- <div class="header">
+      <tr class="flex">
+        <td style="min-width: 80%;">
+          <h1>Learn German Fast</h1>
+        </td>
+
+        <td style="text-align: right; width: 100%;">
+          <img src="assets/imgs/d-logo.png" alt="" height="60">
+        </td>
+      </tr>
+    </div> -->
+
+    <nz-header>
+      <div class="navbar">
+        <h1>Learn German Fast</h1>
+      </div>
+    </nz-header>
+
     <div *ngFor="let item of test">
       <tr class="flex course">
         <td class="field1">
@@ -16,8 +34,6 @@
         </td>
 
       </tr>
-
-
 
 
     </div>

@@ -13,12 +13,11 @@ export class TestComponent implements OnInit {
       title: 'A1',
       description: 'Ich kann mich mit Hilfe von einzelnen Wörtern, kurzen Sätzen, Mimik und Gestik auf einfachste Weise ausdrücken',
       questions: [
-        { label: 'Jemanden begrüßen und mich vorstellen', value: '', },
-        { label: 'Einfache Fragen stellen und beantworten', value: '' },
+        { label: 'Jemanden begrüßen und mich vorstellen', value: true, },
+        { label: 'Einfache Fragen stellen und beantworten', value: true },
         { label: 'Zahlen, Preisangaben und Uhrzeiten verstehen', value: '' },
-        { label: 'Eine kurte Notiz schreiben', value: '' },
+        { label: 'Eine kurze Notiz schreiben', value: '' },
         { label: 'Auf Schilder, Plakaten und Wegweisern einiges verstehen', value: '' },
-
       ]
     },
     {

@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  padding-top: 25px;
+  // padding-top: 25px;
 
   .flex {
     display: flex;
@@ -12,7 +12,6 @@
     flex-wrap: wrap;
     padding: 25px;
     align-items: center;
-    // justify-content: center;
   }
 
   input[type='checkbox'] {
@@ -44,27 +43,32 @@
   h1 {
     color: white;
   }
+
+   .navbar {
+    background: #3c81db;
+    color: black;
+    margin: 0;
+    // width: 100vw;
+  }
 }
 
 .desktop {
-  .field1{
+  .field1 {
     margin-right: 55px;
-    max-width: 300px;
-    min-width: 300px;
+    // max-width: ;
     text-align: left;
 
-    h2{line-height: 32px; letter-spacing: 0.7px;}
+    h2 {
+      line-height: 32px;
+      letter-spacing: 0.7px;
+    }
   }
 
-  .field2{
-    max-width: 60%;
-    min-width: 60%;
+  .field2 {
+    max-width: 700px;
+    min-width: 700px;
     padding-right: 0;
     margin-right: 0;
-  }
-
-  .course{
-    max-width: 90%;
   }
 }
 
