@@ -1,0 +1,49 @@
+<div class="test">
+
+
+  <!-- <div *ngFor="let item of test">
+    <div>
+      <tr style="display: flex;">
+        <td>
+          <h1>{{item.title}} </h1>
+          <h4 class="level-description">{{item.description}} </h4>
+        </td>
+
+        <td>
+          <div class="grid">
+            <div *ngFor="let quetion of item.questions">
+              <input type="checkbox" name="optiona" [(ngModel)]="quetion.value" />
+              <span class="checkboxtext">{{quetion.label}}</span>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </div>
+  </div>
+
+  <br>
+  <button (click)="testd()">save</button> -->
+
+
+  <!-- <nz-divider nzOrientation="left" nzText="Responsive"></nz-divider> -->
+  <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+    <div nz-col class="gutter-row" [nzSpan]="6">
+      <div class="inner-box">col-6</div>
+    </div>
+    <div nz-col class="gutter-row" [nzSpan]="6">
+
+
+      <div class="inner-box">col-6</div>
+    </div>
+    <div nz-col class="gutter-row" [nzSpan]="6">
+      <div class="inner-box">col-6</div>
+    </div>
+    <div nz-col class="gutter-row" [nzSpan]="6">
+      <div class="inner-box">col-6</div>
+    </div>
+  </div>
+
+
+
+
+</div>

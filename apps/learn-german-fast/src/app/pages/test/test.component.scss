@@ -1,0 +1,43 @@
+.test {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // flex-direction: column;
+  margin: 0;
+  padding: 0;
+
+  input[type='checkbox'] {
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    transform: scale(2);
+    padding: 10px;
+  }
+
+  .checkboxtext {
+    padding: 18px;
+    display: inline-flexbox;
+    line-height: 30px;
+  }
+
+  .grid {
+    grid-gap: 19px;
+    display: grid;
+    padding-top: 30px;
+  }
+
+  .level-description {
+    max-width: 300px;
+  }
+
+  .flex {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .inner-box {
+    background: #0092ff;
+    padding: 8px 0;
+  }
+}
