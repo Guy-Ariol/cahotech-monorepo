@@ -48,14 +48,13 @@
     background: #3c81db;
     color: black;
     margin: 0;
-    // width: 100vw;
   }
 }
 
 .desktop {
   .field1 {
     margin-right: 55px;
-    // max-width: ;
+    max-width: 500px;
     text-align: left;
 
     h2 {
@@ -65,8 +64,8 @@
   }
 
   .field2 {
-    max-width: 700px;
-    min-width: 700px;
+    max-width: 600px;
+    min-width: 600px;
     padding-right: 0;
     margin-right: 0;
   }

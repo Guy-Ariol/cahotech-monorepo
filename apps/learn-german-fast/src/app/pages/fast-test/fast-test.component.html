@@ -20,7 +20,7 @@
 
     <div *ngFor="let item of test">
       <tr class="flex course">
-        <td class="field1">
+        <td class="field1" [style.maxWidth]="utilsProv.screenSize=='MD' ? '300px' : utilsProv.screenSize=='SM' ? '1300px' : '500px'">
           <h1>{{item.title}}</h1>
           <h2>{{item.description}} </h2>
         </td>
