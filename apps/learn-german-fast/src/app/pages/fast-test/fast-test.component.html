@@ -1,0 +1,28 @@
+<div class="test">
+  <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
+    <div *ngFor="let item of test">
+      <tr class="flex course">
+        <td class="field1">
+          <h1>{{item.title}}</h1>
+          <h2>{{item.description}} </h2>
+        </td>
+
+        <td class="field2">
+          <h2>Ich kann zum Beispiel</h2>
+          <div *ngFor="let quetion of item.questions" style="padding-bottom: 15px;">
+            <input type="checkbox" [(ngModel)]="quetion.value" />
+            <span class="checkboxtext">{{quetion.label}}</span>
+          </div>
+        </td>
+
+      </tr>
+
+
+
+
+    </div>
+
+  </div>
+
+
+</div>

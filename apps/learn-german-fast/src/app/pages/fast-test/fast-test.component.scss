@@ -1,0 +1,79 @@
+.test {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding-top: 25px;
+
+  .flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 25px;
+    align-items: center;
+    // justify-content: center;
+  }
+
+  input[type='checkbox'] {
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    transform: scale(2);
+    margin-bottom: 10px;
+  }
+
+  .checkboxtext {
+    padding: 18px;
+    line-height: 30px;
+    font-size: 22px;
+  }
+
+  .course {
+    background: rgb(243, 183, 17);
+    margin-bottom: 15px;
+  }
+  .field1 {
+    color: rgb(143, 6, 63);
+    h1 {
+      font-size: 38px;
+    }
+  }
+
+  h1 {
+    color: white;
+  }
+}
+
+.desktop {
+  .field1{
+    margin-right: 55px;
+    max-width: 300px;
+    min-width: 300px;
+    text-align: left;
+
+    h2{line-height: 32px; letter-spacing: 0.7px;}
+  }
+
+  .field2{
+    max-width: 60%;
+    min-width: 60%;
+    padding-right: 0;
+    margin-right: 0;
+  }
+
+  .course{
+    max-width: 90%;
+  }
+}
+
+.mobile {
+  .field1 {
+    padding-top: 5px;
+
+    h1 {
+      margin-top: 0px;
+    }
+  }
+}

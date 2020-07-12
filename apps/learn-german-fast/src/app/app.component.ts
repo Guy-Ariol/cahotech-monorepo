@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { UtilsService } from "libs/service/src/lib/utils/utils.service";
 
 @Component({
   selector: 'cahotech-monorepo-root',
@@ -7,4 +8,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'learn-german-fast';
+
+  constructor(
+    public utilsProv: UtilsService
+  ) {
+
+  }
+
+  ngOnInit () {
+    this.utilsProv.setScreenSize(window.innerWidth * window.devicePixelRatio, window.innerHeight)
+  }
+
+  @HostListener('window:resize', ['$event'])
+  private onResize (event) {
+    this.utilsProv.setScreenSize(window.innerWidth * window.devicePixelRatio, window.innerHeight)
+  }
 }
