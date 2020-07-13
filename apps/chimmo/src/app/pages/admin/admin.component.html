@@ -27,7 +27,7 @@
       <h1>{{currentTitle}}</h1>
 
       <div *ngIf="!isNew && !isEdit" style="width: 70%;">
-        <admin-generic-listing (showForm)="isNew = true" (editUser)="editUser($event)" [currentView]="currentView"></admin-generic-listing>
+        <admin-generic-listing (showForm)="isNew = true" (editUser)="editUser($event)" [currentView]="currentView" ></admin-generic-listing>
       </div>
 
       <div *ngIf="isNew || isEdit">

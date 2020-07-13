@@ -1,6 +1,5 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { adminView } from '../../services/interfaces/interfaces.service';
-import { userType, userEnum } from "@cahotech-monorepo/interfaces";
 import { DataService } from '../../services/data/data.service';
 import { UsersService } from '../../services/users/users.service';
 
@@ -21,19 +20,17 @@ export class AdminComponent implements OnInit {
   isEdit = false
   currentUserIndex: number
 
-  searchUsers: userType[] = []
 
   constructor(
     public dataprov: DataService,
     public userProv: UsersService,
-    private ngZone: NgZone
   ) { }
 
 
   ngOnInit (): void {
     this.topMenuSelected(this.currentView)
-    this.searchUsers = this.userProv.allusers
   }
+
 
 
   topMenuSelected (menu) {
@@ -50,26 +47,29 @@ export class AdminComponent implements OnInit {
   }
 
 
+
   toogleMenu () {
     this.showTopMenu = !this.showTopMenu
     window.scrollTo({ top: 1, behavior: 'smooth' })
   }
 
 
-  editUser (user) {
-    console.log(user);
+
+  editUser (data) {
+    this.currentUserIndex = data.index
 
     this.isNew = false
     this.isEdit = true
 
     if ([this.view.landlord, this.view.renter].includes(this.currentView)) {
-      this.controlArray[0].value = user.lastName
-      this.controlArray[1].value = user.firstName
-      this.controlArray[2].value = user.addres
-      this.controlArray[3].value = user.email
-      this.controlArray[4].value = user.tel
+      this.controlArray[0].value = data.user.lastName
+      this.controlArray[1].value = data.user.firstName
+      this.controlArray[2].value = data.user.addres
+      this.controlArray[3].value = data.user.email
+      this.controlArray[4].value = data.user.tel
     }
   }
+
 
 
   getTimeStamp (index, date) {

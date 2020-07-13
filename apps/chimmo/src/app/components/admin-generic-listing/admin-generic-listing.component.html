@@ -23,7 +23,7 @@
           {{user.firstName}} <br>
           <span style="font-size: 18px; color: rgb(180, 172, 172)">Email: {{user.email}} ; Tel: {{user.tel}}
           </span>
-          <span class="edit-btn" (click)="editUser.emit(user, currentUserIndex=index)">Modifier</span>
+          <span class="edit-btn" (click)="editUser.emit({user: user, index:index})">Modifier</span>
         </p>
 
         <hr>
