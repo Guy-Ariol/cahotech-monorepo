@@ -381,7 +381,7 @@
               "apps/napata-home/src/favicon.ico",
               "apps/napata-home/src/assets"
             ],
-            "styles": ["apps/napata-home/src/styles.scss"],
+            "styles": ["apps/napata-home/src/styles.scss", "apps/napata-home/src/theme.less"],
             "scripts": []
           },
           "configurations": {
