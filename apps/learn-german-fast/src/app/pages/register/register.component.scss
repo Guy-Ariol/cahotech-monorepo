@@ -1,3 +1,44 @@
 .register {
+  .content {
+    padding-top: 65px;
+    padding: 12px;
+    background: #f3b711;
+  }
 
+  .flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .input-form {
+    // flex-wrap: wrap;
+  }
+
+  .right-panel {
+  }
+
+  .left-panel {
+  }
+}
+
+.desktop {
+  .content {
+    margin-top: 45px;
+  }
+
+  .input-form {
+    padding-top: 65px;
+
+    input {
+      font-size: 20px;
+    }
+  }
+}
+
+.mobile {
+  .content {
+    text-align: center;
+  }
 }

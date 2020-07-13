@@ -21,7 +21,10 @@
             "polyfills": "apps/chimmo/src/polyfills.ts",
             "tsConfig": "apps/chimmo/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/chimmo/src/favicon.ico", "apps/chimmo/src/assets"],
+            "assets": [
+              "apps/chimmo/src/favicon.ico",
+              "apps/chimmo/src/assets"
+            ],
             "styles": [
               "apps/chimmo/src/theme.less",
               "apps/chimmo/src/styles.scss"
@@ -83,7 +86,10 @@
               "apps/chimmo/tsconfig.app.json",
               "apps/chimmo/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/chimmo/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/chimmo/**/*"
+            ]
           }
         },
         "test": {
@@ -118,8 +124,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/chimmo-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/chimmo-e2e/**/*"]
+            "tsConfig": [
+              "apps/chimmo-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/chimmo-e2e/**/*"
+            ]
           }
         }
       }
@@ -137,7 +148,10 @@
               "libs/ui/tsconfig.lib.json",
               "libs/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui/**/*"
+            ]
           }
         },
         "test": {
@@ -163,7 +177,10 @@
               "libs/provider/tsconfig.lib.json",
               "libs/provider/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/provider/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/provider/**/*"
+            ]
           }
         },
         "test": {
@@ -189,7 +206,10 @@
               "libs/interfaces/tsconfig.lib.json",
               "libs/interfaces/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/interfaces/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/interfaces/**/*"
+            ]
           }
         },
         "test": {
@@ -215,7 +235,10 @@
               "libs/service/tsconfig.lib.json",
               "libs/service/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/service/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/service/**/*"
+            ]
           }
         },
         "test": {
@@ -252,7 +275,10 @@
               "apps/learn-german-fast/src/favicon.ico",
               "apps/learn-german-fast/src/assets"
             ],
-            "styles": ["apps/learn-german-fast/src/styles.scss"],
+            "styles": [
+              "apps/learn-german-fast/src/styles.scss",
+              "apps/learn-german-fast/src/theme.less"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -310,7 +336,10 @@
               "apps/learn-german-fast/tsconfig.app.json",
               "apps/learn-german-fast/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/learn-german-fast/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/learn-german-fast/**/*"
+            ]
           }
         },
         "test": {
@@ -345,7 +374,9 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/learn-german-fast-e2e/tsconfig.e2e.json"],
+            "tsConfig": [
+              "apps/learn-german-fast-e2e/tsconfig.e2e.json"
+            ],
             "exclude": [
               "**/node_modules/**",
               "!apps/learn-german-fast-e2e/**/*"

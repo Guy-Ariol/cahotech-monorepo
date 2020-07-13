@@ -19,6 +19,8 @@ import { FacebookFill, InstagramOutline } from '@ant-design/icons-angular/icons'
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzInputModule } from 'ng-zorro-antd/input';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { registerLocaleData } from '@angular/common';
@@ -42,7 +44,8 @@ const icons = [FacebookFill, InstagramOutline];
     NzIconModule.forRoot(icons),
     HttpClientModule,
     NzModalModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NzInputModule
 
   ],
   providers: [EventEmitter, { provide: NZ_I18N, useValue: fr_FR }],
