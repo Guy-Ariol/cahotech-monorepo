@@ -1,43 +1,48 @@
 <div class="test">
   <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
-    <!-- <div class="header">
-      <tr class="flex">
-        <td style="min-width: 80%;">
-          <h1>Learn German Fast</h1>
+    <div class="navbar">
+      <tr *ngIf="utilsProv.isDesktop" style="display: flex; align-items: center; justify-content: center;">
+        <td>
+          <img src="assets/imgs/logo-lgf.png" alt="" width="190">
         </td>
 
-        <td style="text-align: right; width: 100%;">
-          <img src="assets/imgs/d-logo.png" alt="" height="60">
+        <td>
+          <h1 style="font-size: 48px; margin-bottom: 5px;">Learn German Fast</h1>
+          <h2 style="color: wheat;"><i>Online Deutsch lernen (A1, A2, B1, B2, C1 und C2) zum besten Preis</i></h2>
         </td>
       </tr>
-    </div> -->
 
-    <nz-header>
-      <div class="navbar">
-        <h1>Learn German Fast</h1>
+      <div *ngIf="utilsProv.isMobile">
+        <img src="assets/imgs/logo-lgf.png" alt="" width="90">
+        <h3 style="margin: 10px; padding-bottom: 15px; color: #021925"><i>Online Deutsch lernen (A1, A2, B1, B2, C1 und
+            C2) zum besten Preis</i></h3>
       </div>
-    </nz-header>
-
-    <div *ngFor="let item of test">
-      <tr class="flex course">
-        <td class="field1" [style.maxWidth]="utilsProv.screenSize=='MD' ? '300px' : utilsProv.screenSize=='SM' ? '1300px' : '500px'">
-          <h1>{{item.title}}</h1>
-          <h2>{{item.description}} </h2>
-        </td>
-
-        <td class="field2">
-          <h2>Ich kann zum Beispiel</h2>
-          <div *ngFor="let quetion of item.questions" style="padding-bottom: 15px;">
-            <input type="checkbox" [(ngModel)]="quetion.value" />
-            <span class="checkboxtext">{{quetion.label}}</span>
-          </div>
-        </td>
-
-      </tr>
-
-
     </div>
 
+    <div class="content">
+      <div *ngFor="let item of test">
+        <tr class="flex course">
+          <td class="field1"
+            [style.maxWidth]="utilsProv.screenSize=='MD' ? '300px' : utilsProv.screenSize=='SM' ? '1300px' : '500px'">
+            <h1>{{item.title}}</h1>
+            <h2>{{item.description}} </h2>
+          </td>
+
+          <td class="field2">
+            <h2>Ich kann zum Beispiel</h2>
+            <div *ngFor="let quetion of item.questions" style="padding-bottom: 15px;">
+              <input type="checkbox" [(ngModel)]="quetion.value" />
+              <span class="checkboxtext">{{quetion.label}}</span>
+            </div>
+          </td>
+
+        </tr>
+      </div>
+    </div>
+
+    <div style="text-align: center; padding-top: 15px; padding-bottom: 35px;">
+      <button nz-button nzSize="large" nzType="primary" class="submit-btn" (click)="check()">Niveau Prüfen</button>
+    </div>
   </div>
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'cahotech-monorepo-test',
@@ -78,7 +79,8 @@ export class TestComponent implements OnInit {
 
   constructor(
 
-    public utilsProv: UtilsService
+    public utilsProv: UtilsService,
+    private modal: NzModalService
 
   ) { }
 
@@ -88,6 +90,54 @@ export class TestComponent implements OnInit {
 
   testd () {
     console.log(this.test)
+
+  }
+
+  check () {
+    const arr = [... this.test]
+    arr.reverse()
+
+    let results = [{ course: 'C2', count: 0 }, { course: 'C1', count: 0 }, { course: 'B2', count: 0 }, { course: 'B1', count: 0 }, { course: 'A2', count: 0 }, { course: 'A1', count: 0 }]
+    let verdict = 'A1'
+    let warning = ''
+    let weaknes = []
+
+    arr.forEach((course, index) => {
+      course.questions.forEach(el => {
+        if (el.value) {
+          results[index].count++
+        }
+      })
+    })
+
+    let index = 0
+    for (let item of results) {
+      if (item.count >= 3) {
+        verdict = item.course
+
+        for (let i = index + 1; i < arr.length; i++) {
+          if (results[i].count < 3) weaknes.push(results[i].course)
+        }
+        break
+      }
+
+      index++
+    }
+
+    if (weaknes.length) {
+      warning = 'Aber Sie haben noch Schwächen bei '
+
+      weaknes.forEach((el, index) => {
+        warning = warning + `${index + 1 == weaknes.length ? ' und' : ','} ${el}`
+      })
+    }
+
+    this.modal.success({
+      nzTitle: 'Einstufung',
+      nzContent: `Ihre kenntnisse entsprechen dem  ${verdict} Niveau. <br><br>  ${warning}`,
+      nzWrapClassName: 'modal-class',
+      nzStyle: {fontSize: '35px'}
+    });
 
   }
 }

@@ -1,10 +1,12 @@
 .test {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  // padding-top: 25px;
+  .content {
+    padding-top: 25px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
 
   .flex {
     display: flex;
@@ -27,14 +29,19 @@
     padding: 18px;
     line-height: 30px;
     font-size: 22px;
+    color: black;
   }
 
   .course {
-    background: rgb(243, 183, 17);
+    background: #f3b711;
     margin-bottom: 15px;
   }
+
   .field1 {
-    color: rgb(143, 6, 63);
+    h2 {
+      color: rgb(143, 6, 63);
+    }
+
     h1 {
       font-size: 38px;
     }
@@ -44,11 +51,21 @@
     color: white;
   }
 
-   .navbar {
+  .navbar {
     background: #3c81db;
-    color: black;
+    color: white;
+
     margin: 0;
+    text-align: center;
+    padding-top: 15px;
+
+    // .desktop {
+    // height: 380px;
+    // }
+
+    border-radius: 0 0 50% 50%;
   }
+
 }
 
 .desktop {
@@ -69,6 +86,13 @@
     padding-right: 0;
     margin-right: 0;
   }
+
+  .submit-btn {
+    font-size: 45px;
+    height: 100px;
+    min-width: 420px;
+    border-radius: 15px;
+  }
 }
 
 .mobile {
@@ -78,5 +102,10 @@
     h1 {
       margin-top: 0px;
     }
+  }
+
+  .submit-btn {
+    width: 250px;
+    border-radius: 15px;
   }
 }

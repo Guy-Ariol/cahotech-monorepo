@@ -1,22 +1,30 @@
-<nz-layout class="app">
+<!-- <nz-layout class="app">
   <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
-    <div class="header">
-      <tr class="flex">
-        <td style="min-width: 80%;">
-          <h1>Learn German Fast</h1>
-        </td>
-
-        <td style="text-align: right; width: 100%;" >
-          <img src="assets/imgs/d-logo.png" alt="" height="60">
-        </td>
-      </tr>
-    </div>
 
     <nz-content>
       <router-outlet></router-outlet>
     </nz-content>
 
-    <!-- <nz-footer>Footer</nz-footer> -->
+    <nz-footer>Footer</nz-footer>
   </div>
 
-</nz-layout>
+</nz-layout> -->
+
+<router-outlet></router-outlet>
+
+<div
+  style="background: gainsboro; height: 230px; display: flex; align-items: center; justify-content: center; font-size: 25px; margin-top: 35px; flex-direction: column;">
+  <p>&copy;2020 Lean German Fast</p>
+
+  <p>
+    <a href="https://www.facebook.com/Learn-German-Fast-115381443578778/">
+      <i nz-icon nzTheme="fill" nzType="facebook" style="color: #4267B2; font-size: 35px; padding-right: 30px;"></i>
+    </a>
+
+    <i nz-icon nzTheme="fill" nzType="instagram-o" style="color: #f525e3; font-size: 35px;"></i>
+  </p>
+
+
+  <p style="font-size: 18px;"><i>Powered by <a href="Napata.tech">Napata.tech</a></i></p>
+
+</div>
