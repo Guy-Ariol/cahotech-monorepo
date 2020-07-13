@@ -21,10 +21,7 @@
             "polyfills": "apps/chimmo/src/polyfills.ts",
             "tsConfig": "apps/chimmo/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/chimmo/src/favicon.ico",
-              "apps/chimmo/src/assets"
-            ],
+            "assets": ["apps/chimmo/src/favicon.ico", "apps/chimmo/src/assets"],
             "styles": [
               "apps/chimmo/src/theme.less",
               "apps/chimmo/src/styles.scss"
@@ -86,10 +83,7 @@
               "apps/chimmo/tsconfig.app.json",
               "apps/chimmo/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/chimmo/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/chimmo/**/*"]
           }
         },
         "test": {
@@ -124,13 +118,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/chimmo-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/chimmo-e2e/**/*"
-            ]
+            "tsConfig": ["apps/chimmo-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/chimmo-e2e/**/*"]
           }
         }
       }
@@ -148,10 +137,7 @@
               "libs/ui/tsconfig.lib.json",
               "libs/ui/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/ui/**/*"]
           }
         },
         "test": {
@@ -177,10 +163,7 @@
               "libs/provider/tsconfig.lib.json",
               "libs/provider/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/provider/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/provider/**/*"]
           }
         },
         "test": {
@@ -206,10 +189,7 @@
               "libs/interfaces/tsconfig.lib.json",
               "libs/interfaces/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/interfaces/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/interfaces/**/*"]
           }
         },
         "test": {
@@ -235,10 +215,7 @@
               "libs/service/tsconfig.lib.json",
               "libs/service/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/service/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/service/**/*"]
           }
         },
         "test": {
@@ -336,10 +313,7 @@
               "apps/learn-german-fast/tsconfig.app.json",
               "apps/learn-german-fast/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/learn-german-fast/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/learn-german-fast/**/*"]
           }
         },
         "test": {
@@ -374,13 +348,134 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/learn-german-fast-e2e/tsconfig.e2e.json"
-            ],
+            "tsConfig": ["apps/learn-german-fast-e2e/tsconfig.e2e.json"],
             "exclude": [
               "**/node_modules/**",
               "!apps/learn-german-fast-e2e/**/*"
             ]
+          }
+        }
+      }
+    },
+    "napata-home": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/napata-home",
+      "sourceRoot": "apps/napata-home/src",
+      "prefix": "cahotech-monorepo",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/napata-home",
+            "index": "apps/napata-home/src/index.html",
+            "main": "apps/napata-home/src/main.ts",
+            "polyfills": "apps/napata-home/src/polyfills.ts",
+            "tsConfig": "apps/napata-home/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/napata-home/src/favicon.ico",
+              "apps/napata-home/src/assets"
+            ],
+            "styles": ["apps/napata-home/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/napata-home/src/environments/environment.ts",
+                  "with": "apps/napata-home/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "napata-home:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "napata-home:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "napata-home:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/napata-home/tsconfig.app.json",
+              "apps/napata-home/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/napata-home/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/napata-home/jest.config.js",
+            "tsConfig": "apps/napata-home/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/napata-home/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "napata-home-e2e": {
+      "root": "apps/napata-home-e2e",
+      "sourceRoot": "apps/napata-home-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/napata-home-e2e/cypress.json",
+            "tsConfig": "apps/napata-home-e2e/tsconfig.e2e.json",
+            "devServerTarget": "napata-home:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "napata-home:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/napata-home-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/napata-home-e2e/**/*"]
           }
         }
       }
