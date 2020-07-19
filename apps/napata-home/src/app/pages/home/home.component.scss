@@ -19,7 +19,7 @@
 
   .flex {
     display: flex;
-    padding: 35px;
+    // padding: 35px;
     flex-wrap: wrap;
     align-items: center;
   }
@@ -56,12 +56,15 @@
 
   .sectors {
     background: rgb(83, 182, 83);
+    min-width: 100%;
 
     tr {
       justify-content: center;
+      min-width: 100%;
 
-      td{
+      td {
         padding: 40px;
+        min-width: 100%;
       }
     }
 
@@ -139,11 +142,33 @@
       }
     }
 
-    .sectors{
-      tr{
-        td{
+    .sectors {
+      tr {
+        td {
           padding: 30px;
         }
+      }
+    }
+
+    .common-service {
+      text-align: center;
+      justify-content: center;
+
+      p {
+        // max-width: 100px;
+        font-size: 28px;
+        color: white;
+        // max-width: 100%;
+        padding: 12px;
+        text-align: left;
+
+        .service-title {
+          font-size: 35px;
+        }
+      }
+
+      img {
+        text-align: left;
       }
     }
   }
