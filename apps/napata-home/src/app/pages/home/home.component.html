@@ -18,7 +18,7 @@
 
     <div class="content">
       <div class="flex common-service service1">
-        <p ><b class="service-title">Mobile application </b><br> We create mobile applications
+        <p><b class="service-title">Mobile application </b><br> We create mobile applications
           for all industries.
           We always strive for perfection by providing the best mobile
           experience. Our many years of experience allow us to bring valuable comments to your product and create
@@ -29,11 +29,11 @@
         </p>
 
         <img src="assets/imgs/mobile-dev.svg" height="160" alt="">
+
       </div>
 
       <div class="flex common-service service2">
-        <img style="max-width: 40%; padding-left: 70px;" class="service-first" src="assets/imgs/web-dev.svg"
-          height="160">
+        <img class="service-first" src="assets/imgs/web-dev.svg" height="160">
 
         <p><b class="service-title">Internet site</b><br> We create web solutions that are scalable and based on the
           latest technologies. Will it be a portal, facilities for
@@ -47,7 +47,7 @@
       </div>
 
       <div class="flex common-service service3">
-        <p style="max-width: 60%;"><b class="service-title">Automate your business</b><br>Managing a business can be
+        <p><b class="service-title">Automate your business</b><br>Managing a business can be
           daunting. It’s easy to get caught up with time-consuming tasks which do not significantly
           affect your company’s bottom line. We provide solutions that keep you right on track on what matters most
 
@@ -55,7 +55,7 @@
           <button nz-button nzSize="large">Contact us</button>
         </p>
 
-        <img src="assets/imgs/support.png" width="390" alt="">
+        <img src="assets/imgs/support.png" [width]="utilsProv.isDesktop? 390 : 230" alt="">
       </div>
     </div>
 
@@ -97,10 +97,5 @@
       </tr>
     </div>
   </div>
-
-  <div style="height: 160px; background: gainsboro; display: flex; justify-content: center; align-items: center; font-size: 32px;">
-    &copy; 2020 Napata.tech
-  </div>
-
 
 </div>

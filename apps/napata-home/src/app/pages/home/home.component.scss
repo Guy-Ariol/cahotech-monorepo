@@ -19,7 +19,6 @@
 
   .flex {
     display: flex;
-    // padding: 35px;
     flex-wrap: wrap;
     align-items: center;
   }
@@ -38,22 +37,6 @@
     text-align: right;
   }
 
-  .common-service {
-    min-width: 1050px;
-
-    p {
-      padding: 80px;
-      padding-bottom: 60px;
-      font-size: 28px;
-      color: white;
-      max-width: 60%;
-
-      .service-title {
-        font-size: 35px;
-      }
-    }
-  }
-
   .sectors {
     background: rgb(83, 182, 83);
     min-width: 100%;
@@ -64,7 +47,7 @@
 
       td {
         padding: 40px;
-        min-width: 100%;
+        // min-width: 100%;
       }
     }
 
@@ -114,6 +97,27 @@
         height: 280px;
       }
     }
+
+    .common-service {
+      min-width: 1050px;
+
+      p {
+        padding: 80px;
+        padding-bottom: 60px;
+        font-size: 28px;
+        color: white;
+        max-width: 60%;
+
+        .service-title {
+          font-size: 35px;
+        }
+      }
+    }
+
+    .service-first {
+      max-width: 40%;
+      padding-left: 70px;
+    }
   }
 
   .mobile {
@@ -155,21 +159,24 @@
       justify-content: center;
 
       p {
-        // max-width: 100px;
-        font-size: 28px;
+        font-size: 18px;
         color: white;
-        // max-width: 100%;
         padding: 12px;
         text-align: left;
 
         .service-title {
-          font-size: 35px;
+          font-size: 30px;
         }
       }
 
       img {
         text-align: left;
+        height: 180px;
       }
+    }
+
+    .service-first{
+      padding-top: 25px;
     }
   }
 }

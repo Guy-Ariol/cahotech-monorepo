@@ -1,9 +1,14 @@
 <div class="app">
-  <nz-layout>
-    <nz-content>
-      <router-outlet></router-outlet>
-    </nz-content>
-  </nz-layout>
+  <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
+    <nz-layout>
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
 
-  <!-- <router-outlet></router-outlet> -->
+      <div class="footer">
+
+        &copy; 2020 Napata.tech
+      </div>
+    </nz-layout>
+  </div>
 </div>

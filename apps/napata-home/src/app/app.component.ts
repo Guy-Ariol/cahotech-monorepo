@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'napata-home';
 
   constructor(
-    private utilsProv: UtilsService) {
+    public utilsProv: UtilsService) {
 
   }
 

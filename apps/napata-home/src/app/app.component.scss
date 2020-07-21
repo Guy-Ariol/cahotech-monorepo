@@ -1,9 +1,18 @@
 .app {
   height: 100vh;
 
-  footer{
+  .footer {
+    height: 110px;
     background: gainsboro;
-    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
   }
 
+  .mobile {
+    .footer {
+      height: 80px;
+    }
+  }
 }
