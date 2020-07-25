@@ -2,7 +2,7 @@
 
 This project was generated using [Nx](https://nx.dev).
 
-<p align="center"><img src="https://github.com/Guy-Ariol/cahotech-monorepo/blob/master/apps/napata-home/src/assets/imgs/logo.png" width="450"></p>
+<p align="center"><img src="https://github.com/Guy-Ariol/cahotech-monorepo/blob/master/apps/napata-home/src/assets/imgs/logo.png" width="150"></p>
 
 🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
 
