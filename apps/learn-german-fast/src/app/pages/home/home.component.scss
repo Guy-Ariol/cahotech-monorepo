@@ -1,0 +1,27 @@
+.home{
+  .content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    min-height: 50vh;
+  }
+
+  .course-selection{
+    max-width: 200px;
+    font-size: 30px;
+  }
+}
+
+.desktop{
+  .content{
+    padding-top: 35px;
+  }
+}
+
+.mobile{
+  .content{
+    padding-top: 25px;
+  }
+}

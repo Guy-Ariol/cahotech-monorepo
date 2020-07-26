@@ -1,6 +1,17 @@
 {
   "projects": {
-    "lgf": "learn-german-fast",
-    "napata-home": "napata-pro"
+    "default": "learn-german-fast"
+  },
+  "targets": {
+    "learn-german-fast": {
+      "hosting": {
+        "lgf": [
+          "learn-german-fast"
+        ],
+        "napata": [
+          "napata-pro"
+        ]
+      }
+    }
   }
 }

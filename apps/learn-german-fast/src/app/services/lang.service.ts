@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 const langFr: langType = {
   expr1: 'langue',
-  expr2: '',
+  expr2: 'Choisir le niveau souhaité',
   expr3: '',
   expr4: '',
   expr5: '',
@@ -105,7 +105,7 @@ const langFr: langType = {
 
 const langEn: langType = {
   expr1: 'language',
-  expr2: '',
+  expr2: 'Select the target level',
   expr3: '',
   expr4: '',
   expr5: '',
@@ -208,7 +208,7 @@ const langEn: langType = {
 
 const langDe: langType = {
   expr1: 'Sprache',
-  expr2: '',
+  expr2: 'Gewünschtes Niveau auswählen',
   expr3: '',
   expr4: '',
   expr5: '',
@@ -419,10 +419,13 @@ interface langType {
 })
 export class LangService {
 
-  lang = langEn
+  lang: langType = langDe
+
   constructor() { }
 
-  changeLanguage (lang: 'fr' | 'de' | '' ) {
-
+  changeLanguage (lang: 'fr' | 'de' | 'en') {
+    if (lang == 'fr') this.lang = langFr
+    else if (lang == 'de') this.lang = langDe
+    else if (lang == 'en') this.lang = langEn
   }
 }

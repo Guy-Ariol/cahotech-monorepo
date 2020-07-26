@@ -1,0 +1,17 @@
+<div class="home">
+  <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
+    <div class="content">
+      <h1>{{l.lang.expr2}} </h1>
+      <input class="course-selection" placeholder="B1" nz-input [(ngModel)]="selectedCourse" [nzAutocomplete]="auto" (ngModelChange)="levelSelected()" />
+
+      <nz-autocomplete #auto>
+        <nz-auto-option *ngFor="let option of courseProv.allCourses" [nzValue]="option" [nzLabel]="option">
+          {{ option }}
+        </nz-auto-option>
+      </nz-autocomplete>
+
+
+
+    </div>
+  </div>
+</div>

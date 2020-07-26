@@ -88,7 +88,6 @@ Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
 
 ## Deploying
 > firebase init
-> delete file content
+> edit firebase.json by adding array for hosting
 
-firebase use --add
-firebase deploy -P project-alias
+firebase target:apply hosting target-name project-name
