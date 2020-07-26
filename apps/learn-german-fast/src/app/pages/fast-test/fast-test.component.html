@@ -1,23 +1,9 @@
 <div class="test">
   <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
-    <!-- <div class="navbar">
-      <tr *ngIf="utilsProv.isDesktop" style="display: flex; align-items: center; justify-content: center;">
-        <td>
-          <img src="assets/imgs/logo-lgf.png" alt="" width="190">
-        </td>
-
-        <td>
-          <h1 style="font-size: 48px; margin-bottom: 5px;">Learn German Fast</h1>
-          <h2 style="color: wheat;"><i>Online Deutsch lernen (A1, A2, B1, B2, C1 und C2) zum besten Preis</i></h2>
-        </td>
-      </tr>
-
-      <div *ngIf="utilsProv.isMobile">
-        <img src="assets/imgs/logo-lgf.png" alt="" width="90">
-        <h3 style="margin: 10px; padding-bottom: 15px; color: #021925"><i>Online Deutsch lernen (A1, A2, B1, B2, C1 und
-            C2) zum besten Preis</i></h3>
-      </div>
-    </div> -->
+    <div style="text-align: center; color: black; padding-top: 25px;">
+      <h2 style="font-size: 24px;">Kleiner Einstufungstest</h2>
+      <h3>Markieren Sie Ihre aktuellen Kenntnisse</h3>
+    </div>
 
     <div class="content">
       <div *ngFor="let item of test">
@@ -44,6 +30,5 @@
       <button nz-button nzSize="large" nzType="primary" class="submit-btn" (click)="check()">Niveau Prüfen</button>
     </div>
   </div>
-
 
 </div>

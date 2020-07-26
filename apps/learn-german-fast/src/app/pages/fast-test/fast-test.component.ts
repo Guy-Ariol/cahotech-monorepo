@@ -133,7 +133,7 @@ export class TestComponent implements OnInit {
     }
 
     this.modal.success({
-      nzTitle: 'Einstufung',
+      nzTitle: 'Einstufung Test',
       nzContent: `Ihre kenntnisse entsprechen dem  ${verdict} Niveau. <br><br>  ${warning}`,
       nzWrapClassName: 'modal-class',
       nzStyle: {fontSize: '35px'}
