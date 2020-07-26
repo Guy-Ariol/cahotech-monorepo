@@ -20,19 +20,21 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { registerLocaleData } from '@angular/common';
 import fr from '@angular/common/locales/fr';
 import { NZ_I18N, fr_FR } from 'ng-zorro-antd/i18n';
+import { HomeComponent } from './pages/home/home.component';
 registerLocaleData(fr);
 
 
 const icons = [FacebookFill, InstagramOutline];
 
 @NgModule({
-  declarations: [AppComponent, TestComponent, AdminComponent, RegisterComponent],
+  declarations: [AppComponent, TestComponent, AdminComponent, RegisterComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -45,7 +47,8 @@ const icons = [FacebookFill, InstagramOutline];
     HttpClientModule,
     NzModalModule,
     BrowserAnimationsModule,
-    NzInputModule
+    NzInputModule,
+    NzAutocompleteModule
 
   ],
   providers: [EventEmitter, { provide: NZ_I18N, useValue: fr_FR }],

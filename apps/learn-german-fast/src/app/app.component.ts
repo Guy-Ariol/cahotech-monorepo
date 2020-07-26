@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { UtilsService } from "libs/service/src/lib/utils/utils.service";
+import { LangService } from './services/lang.service';
 
 @Component({
   selector: 'cahotech-monorepo-root',
@@ -10,7 +11,9 @@ export class AppComponent {
   title = 'learn-german-fast';
 
   constructor(
-    public utilsProv: UtilsService
+    public utilsProv: UtilsService,
+    public l: LangService
+
   ) {
 
   }
