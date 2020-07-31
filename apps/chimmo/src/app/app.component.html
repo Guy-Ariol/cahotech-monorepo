@@ -1,9 +1,11 @@
-<div *ngIf="dataProv.spinner">
-  <div class="spinner">
-    <img src="assets/imgs/spin.svg" alt="">
+<div class="app-chimmo">
+  <div *ngIf="dataProv.spinner">
+    <div class="spinner">
+      <img src="assets/imgs/spin.svg" alt="">
+    </div>
+
+    <div class="backdrop"></div>
   </div>
 
-  <div class="backdrop"></div>
+  <router-outlet></router-outlet>
 </div>
-
-<router-outlet></router-outlet>

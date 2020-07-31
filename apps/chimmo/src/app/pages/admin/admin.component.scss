@@ -38,6 +38,7 @@
     text-align: center;
     font-size: 22px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height: 95px;
   }
 
   .menu-item:hover {
@@ -51,8 +52,6 @@
   }
 
   .content {
-    padding: 45px;
-    padding-top: 105px;
     margin-left: 65px;
     margin-right: 65px;
 
@@ -86,6 +85,42 @@
   .ant-input-affix-wrapper {
     font-size: 25px;
   }
+}
 
+.desktop {
+  .content {
+    padding-top: 80px;
 
+    .new-standard{
+      padding-top: 25px;
+    }
+  }
+}
+
+.mobile {
+  .top-menu-sub {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .menu-item {
+    width: 90px;
+    max-width: 90px;
+    padding: 10px 0px;
+    margin: 10px 10px;
+    font-size: 14px;
+    height: 90px;
+  }
+
+  .content {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-top: 20px;
+
+    .new-standard{
+      padding: 25px;
+      padding-top: 65px;
+
+    }
+  }
 }

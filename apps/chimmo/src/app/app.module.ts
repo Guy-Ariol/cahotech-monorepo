@@ -30,6 +30,8 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminFormsComponent } from './components/admin-forms/admin-forms.component';
 import { AdminGenericListingComponent } from './components/admin-generic-listing/admin-generic-listing.component';
+import { EventEmitter } from 'events';
+import { ToastrModule } from 'ngx-toastr';
 
 
 registerLocaleData(fr);
@@ -62,11 +64,12 @@ const icons = [PlusOutline]
     NzAutocompleteModule,
     NzCheckboxModule,
     AppRoutingModule,
-    NzIconModule.forRoot(icons)
+    NzIconModule.forRoot(icons),
+    ToastrModule.forRoot()
 
   ],
 
-  providers: [{ provide: NZ_I18N, useValue: fr_FR }],
+  providers: [{ provide: NZ_I18N, useValue: fr_FR }, EventEmitter],
 
   bootstrap: [AppComponent],
 })

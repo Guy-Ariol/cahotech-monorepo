@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { adminView } from '../../services/interfaces/interfaces.service';
 import { DataService } from '../../services/data/data.service';
 import { UsersService } from '../../services/users/users.service';
+import { UtilsService } from "../../../../../../libs/service/src/lib/utils/utils.service";
 
 @Component({
   selector: 'cahotech-monorepo-admin',
@@ -24,6 +25,7 @@ export class AdminComponent implements OnInit {
   constructor(
     public dataprov: DataService,
     public userProv: UsersService,
+    public utilsProv: UtilsService
   ) { }
 
 
@@ -38,19 +40,25 @@ export class AdminComponent implements OnInit {
     this.toogleMenu()
     this.currentView = menu
 
-    if (menu == this.view.landlord) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Gestion bailleurs' }
+    if (menu == this.view.landlord) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Gestion bailleurs5' }
     else if (menu == this.view.renter) { this.controlArray = this.dataprov.newRenterForm; this.currentTitle = 'Gestion locataires' }
     else if (menu == this.view.houses) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Gestion résidences' }
     else if (menu == this.view.home) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Gestion logements' }
     else if (menu == this.view.MoneyIn) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Caisse bailleur' }
     else if (menu == this.view.MoneyIn2) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Caisse locataire' }
+
+    console.log(this.currentTitle);
+
   }
 
 
 
   toogleMenu () {
     this.showTopMenu = !this.showTopMenu
-    window.scrollTo({ top: 1, behavior: 'smooth' })
+
+    setTimeout(() => {
+      window.scrollTo({ top: 1, behavior: 'smooth' })
+    }, 100);
   }
 
 

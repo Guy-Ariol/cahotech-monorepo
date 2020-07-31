@@ -3,6 +3,7 @@ import { UsersService } from '../../services/users/users.service';
 import { DataService } from '../../services/data/data.service';
 import { adminView } from '../../services/interfaces/interfaces.service';
 import { userType, userEnum } from '@cahotech-monorepo/interfaces';
+import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 
 @Component({
   selector: 'admin-forms',
@@ -11,7 +12,7 @@ import { userType, userEnum } from '@cahotech-monorepo/interfaces';
 })
 export class AdminFormsComponent implements OnInit {
 
-  @Input() controlArray: Array<{ title: string, value: any, type: string, index: number, list?: Array<any>, id: string }> = [];
+  @Input() controlArray: Array<{ title: string, value: any, type: string, index: number, list?: Array<any>, id: string, error: boolean }> = [];
   @Input() currentView
   @Input() currentUserIndex
   @Input() isEdit: boolean
@@ -21,7 +22,8 @@ export class AdminFormsComponent implements OnInit {
 
   constructor(
     public userProv: UsersService,
-    private dataprov: DataService
+    private dataprov: DataService,
+    public utilsProv: UtilsService
   ) { }
 
   ngOnInit (): void {
@@ -44,11 +46,13 @@ export class AdminFormsComponent implements OnInit {
 
   disableSubtmitBtn () {
     let out = false
+
     for (let el of this.controlArray) {
       if (el.title != 'Adresse' && !el.value) {
         out = true
         break
       }
+
     }
 
     return out
@@ -57,6 +61,8 @@ export class AdminFormsComponent implements OnInit {
 
   submit () {
     this.dataprov.startSpinner()
+
+    if(this.disableSubtmitBtn)
 
     if (this.currentView == this.view.landlord) {
       let data: userType = {

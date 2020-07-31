@@ -155,8 +155,6 @@ export class UtilsService {
    * @memberof UtilsService
    */
   setScreenSize (width: number, height: number) {
-    console.log(width, height);
-
     if (width <= 640) this.screenSize = 'XS'
     else if (width <= 1080) this.screenSize = 'SM'
     else if (width <= 1439) this.screenSize = 'MD'
@@ -164,9 +162,6 @@ export class UtilsService {
 
     if (width <= 600) { this.isMobile = true; this.isDesktop = false }
     else { this.isDesktop = true; this.isMobile = false }
-
-    console.log(this.screenSize, this.isMobile)
-
   }
 
   /** publish generic broadcast event

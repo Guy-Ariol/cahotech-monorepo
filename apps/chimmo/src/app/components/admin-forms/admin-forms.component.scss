@@ -1,18 +1,13 @@
 .admin-forms {
-   padding: 30px;
-    padding-bottom: 65px;
-    background: #fbfbfb;
-    border: 1px solid #d9d9d9;
-    border-radius: 6px;
-
-    justify-content: space-around;
-    display: flex;
-    min-width: 600px;
+  background: #fbfbfb;
+  justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 
   .summary {
     background: rgba(245, 222, 179, 0.397);
-    min-width: 50%;
-    max-width: 50%;
+
     border-radius: 20px;
     padding: 15px;
     color: black;
@@ -36,5 +31,39 @@
     background: gainsboro;
     color: black;
     margin-right: 20px;
+  }
+
+  .validation-error{
+    border-color: red;
+  }
+}
+
+.desktop {
+  .admin-forms {
+    padding: 30px;
+    padding-bottom: 25px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    min-width: 600px;
+  }
+
+  .left-panel {
+    input {
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+  }
+
+  .summary {
+    min-width: 50%;
+    max-width: 50%;
+  }
+}
+
+.mobile {
+  .left-panel {
+    input {
+      margin-bottom: 10px;
+    }
   }
 }
