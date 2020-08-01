@@ -30,9 +30,8 @@ export class AdminComponent implements OnInit {
 
 
   ngOnInit (): void {
-    this.topMenuSelected(this.currentView)
-  }
 
+  }
 
 
   topMenuSelected (menu) {
@@ -40,22 +39,17 @@ export class AdminComponent implements OnInit {
     this.toogleMenu()
     this.currentView = menu
 
-    if (menu == this.view.landlord) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Gestion bailleurs5' }
+    if (menu == this.view.landlord) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Gestion bailleurs' }
     else if (menu == this.view.renter) { this.controlArray = this.dataprov.newRenterForm; this.currentTitle = 'Gestion locataires' }
     else if (menu == this.view.houses) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Gestion résidences' }
     else if (menu == this.view.home) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Gestion logements' }
     else if (menu == this.view.MoneyIn) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Caisse bailleur' }
     else if (menu == this.view.MoneyIn2) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Caisse locataire' }
-
-    console.log(this.currentTitle);
-
   }
 
 
 
   toogleMenu () {
-    this.showTopMenu = !this.showTopMenu
-
     setTimeout(() => {
       window.scrollTo({ top: 1, behavior: 'smooth' })
     }, 100);

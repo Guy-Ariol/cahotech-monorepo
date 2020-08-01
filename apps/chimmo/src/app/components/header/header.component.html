@@ -1,0 +1,24 @@
+<div class="app-header">
+  <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
+<tr class="header-admin">
+  <td style="padding-right: 40px; ">
+    <img src="assets/imgs/menu.png" alt="" (click)="_toogleMenu()">
+  </td>
+
+  <td style="padding-top: 5px;">
+    <h1 style="color: wheat;">Chimmo/Admin</h1>
+  </td>
+</tr>
+
+<tr class="top-menu" *ngIf="showTopMenu">
+  <div class="top-menu-sub">
+    <div *ngFor="let menu of menuList" [class]="currentView==menu.nav ? 'menu-item menu-item-activated' : 'menu-item'"
+      (click)="_menuSelected(menu.nav)">
+      <img [src]="currentView==menu.nav ? menu.iconOn : menu.iconOff" width="40" alt="">
+      <p>{{menu.name}} </p>
+    </div>
+  </div>
+</tr>
+  </div>
+
+</div>

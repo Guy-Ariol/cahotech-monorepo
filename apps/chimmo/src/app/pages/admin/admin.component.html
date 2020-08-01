@@ -1,25 +1,8 @@
 <div class="admin noselect">
   <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
-    <tr class="header-admin">
-      <td style="padding-right: 40px; ">
-        <img src="assets/imgs/menu.png" alt="" (click)="toogleMenu()">
-      </td>
 
-      <td style="padding-top: 5px;">
-        <h1 style="color: wheat;">Chimmo/Admin</h1>
-      </td>
-    </tr>
-
-    <tr class="top-menu" *ngIf="showTopMenu">
-      <div class="top-menu-sub">
-        <div *ngFor="let menu of dataprov.mainMenuAdmin"
-          [class]="currentView==menu.nav ? 'menu-item menu-item-activated' : 'menu-item'"
-          (click)="topMenuSelected(menu.nav)">
-          <img [src]="currentView==menu.nav ? menu.iconOn : menu.iconOff" width="40" alt="">
-          <p>{{menu.name}} </p>
-        </div>
-      </div>
-    </tr>
+    <app-header [menuList]="dataprov.mainMenuAdmin" (menuSeleted)="topMenuSelected($event)" (toogleMenu)="toogleMenu()">
+    </app-header>
 
     <div class="content">
       <h1 *ngIf="currentView==view.none" style="text-align: center;">{{currentTitle}}</h1>
@@ -106,6 +89,6 @@
     </div>
 
 
-</div>
+  </div>
 
 </div>
