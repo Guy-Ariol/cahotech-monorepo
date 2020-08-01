@@ -23,7 +23,7 @@ export class AdminFormsComponent implements OnInit {
   constructor(
     public userProv: UsersService,
     private dataprov: DataService,
-    public utilsProv: UtilsService
+    public utilsProv: UtilsService,
   ) { }
 
   ngOnInit (): void {
@@ -44,42 +44,66 @@ export class AdminFormsComponent implements OnInit {
   }
 
 
-  disableSubtmitBtn () {
-    let out = false
+  checkInputs () {
+    let error = []
 
-    for (let el of this.controlArray) {
-      if (el.title != 'Adresse' && !el.value) {
-        out = true
-        break
-      }
+    this.controlArray.forEach((el) => {
+      if (el.value) this.controlArray[el.index].error = false
 
-    }
+      if (el.title != 'Adresse' && !el.value) { this.controlArray[el.index].error = true; error.push(el.title) }
+      else if (el.title == 'E-mail*' && !this.utilsProv.checkEmail(el.value)) { console.log(el.value); this.controlArray[el.index].error = true; error.push(el.title) }
 
-    return out
+    })
+
+    let msg = 'Verifier '
+
+    error.forEach(el => {
+      msg = msg + ', ' + el.replace('*', '')
+    })
+    return { error: error.length, msg: msg }
   }
 
 
   submit () {
     this.dataprov.startSpinner()
 
-    if(this.disableSubtmitBtn)
+    let res = this.checkInputs()
 
-    if (this.currentView == this.view.landlord) {
-      let data: userType = {
-        firstName: this.controlArray[1].value, lastName: this.controlArray[0].value, type: userEnum.landlord, email: this.controlArray[3].value, addres: this.controlArray[2].value,
-        tel: this.controlArray[4].value
+    if (res.error) {
+      this.dataprov.stopSpinner()
+      window.scrollTo({ top: 2, behavior: 'smooth' })
+
+      this.utilsProv.showToast('error', res.msg, 'Érreur', 'toast-top-center', 4000)
+    }
+    else {
+
+      if (this.currentView == this.view.landlord) {
+        let user = {} as userType
+
+        user.firstName = this.controlArray[1].value
+        user.lastName = this.controlArray[0].value
+        user.type = userEnum.landlord
+        user.email = this.controlArray[3].value
+        user.addres = this.controlArray[2].value
+        user.tel = this.controlArray[4].value
+
+        if (!this.isEdit) this.userProv.allusers.push(user)
+        else this.userProv.allusers[this.currentUserIndex] = user
+
       }
 
-      if (!this.isEdit) this.userProv.allusers.push(data)
-      else this.userProv.allusers[this.currentUserIndex] = data
+      else if (this.currentView == this.view.renter) {
+        let user = {} as userType
 
-    }
+        user.firstName = this.controlArray[1].value
+        user.lastName = this.controlArray[0].value
+        user.type = userEnum.renter
+        user.email = this.controlArray[3].value
+        user.addres = this.controlArray[2].value
+        user.tel = this.controlArray[4].value
 
-    else if (this.currentView == this.view.renter) {
-      this.userProv.allusers.push({
-        firstName: this.controlArray[1].value, lastName: this.controlArray[0].value, type: userEnum.renter, email: this.controlArray[3].value, addres: this.controlArray[2].value,
-        tel: this.controlArray[4].value
-      })
+        this.userProv.allusers.push(user)
+      }
     }
 
     this.dataprov.stopSpinner()
