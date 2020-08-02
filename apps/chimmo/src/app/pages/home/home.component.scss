@@ -1,0 +1,19 @@
+.home {
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    flex-direction: column;
+    padding-top: 22px;
+  }
+}
+
+.mobile {
+  .content {
+    height: 85vh;
+    padding-top: 25px;
+    margin: 0 15px;
+  }
+}

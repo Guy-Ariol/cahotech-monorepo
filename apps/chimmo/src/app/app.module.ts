@@ -15,10 +15,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { LandlordComponent } from './pages/landlord/landlord.component';
 import { RenterComponent } from './pages/renter/renter.component';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+
 import { UiSharedModule } from "@cahotech-monorepo/ui";
 import { GoogleMapsModule } from "../../../../libs/ui/src/lib/google-maps/google-maps.module";
 
-import { PlusOutline } from '@ant-design/icons-angular/icons';
+import { LockOutline, UserOutline, PlusOutline } from '@ant-design/icons-angular/icons';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -32,11 +36,25 @@ import { AdminFormsComponent } from './components/admin-forms/admin-forms.compon
 import { AdminGenericListingComponent } from './components/admin-generic-listing/admin-generic-listing.component';
 import { EventEmitter } from 'events';
 import { ToastrModule } from 'ngx-toastr';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { HeaderComponent } from './components/header/header.component';
 
 
 registerLocaleData(fr);
 
-const icons = [PlusOutline]
+const icons = [LockOutline, UserOutline, PlusOutline]
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAZmwKH69f3URXJLAIfCEUfinEyfb5XaT0",
+  authDomain: "cahotech-napata.firebaseapp.com",
+  databaseURL: "https://cahotech-napata.firebaseio.com",
+  projectId: "cahotech-napata",
+  storageBucket: "cahotech-napata.appspot.com",
+  messagingSenderId: "832448908741",
+  appId: "1:832448908741:web:5800615c7136161ad90fac",
+  measurementId: "G-M50NX0EMC1"
+};
 
 @NgModule({
   declarations: [
@@ -46,7 +64,10 @@ const icons = [PlusOutline]
     LandlordComponent,
     RenterComponent,
     AdminFormsComponent,
-    AdminGenericListingComponent],
+    AdminGenericListingComponent,
+    SignInComponent,
+    SignUpComponent,
+    HeaderComponent],
 
   imports: [
     BrowserModule,
@@ -59,13 +80,17 @@ const icons = [PlusOutline]
     NzFormModule,
     NzInputModule,
     NzIconModule,
+
     NzButtonModule,
     NzDatePickerModule,
     NzAutocompleteModule,
     NzCheckboxModule,
     AppRoutingModule,
     NzIconModule.forRoot(icons),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
 
   ],
 

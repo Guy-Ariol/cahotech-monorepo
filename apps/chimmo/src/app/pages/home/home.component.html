@@ -1,1 +1,13 @@
-<p>home works!</p>
+<div class="home">
+  <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
+    <app-header></app-header>
+
+    <div class="content">
+      <div *ngIf="!userLib.currentUser" class="device-login">
+        <sign-in></sign-in>
+      </div>
+
+      <div *ngIf="userLib.currentUser && !userLib.currentWorker" class="worker-login"></div>
+    </div>
+  </div>
+</div>

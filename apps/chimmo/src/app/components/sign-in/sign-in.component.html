@@ -1,0 +1,19 @@
+<div class="sign-in">
+  <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
+    <h1>Connexion</h1>
+
+    <nz-input-group [nzPrefix]="prefixTemplateUser" [class.validation-error]="formError.includes('email')">
+      <input type="text" nz-input placeholder="Entre votre e-mail" [(ngModel)]="credentials.email" />
+    </nz-input-group>
+    <ng-template #prefixTemplateUser><i nz-icon nzType="user"></i></ng-template>
+
+    <nz-input-group [nzPrefix]="prefixTemplateLock" [class.validation-error]="formError.includes('password')">
+      <input type="password" nz-input placeholder="Entrer votre mot de passe" [(ngModel)]="credentials.password" />
+    </nz-input-group>
+    <ng-template #prefixTemplateLock><i nz-icon nzType="lock"></i></ng-template>
+
+
+    <button nz-button nzSize="large" class="device-login-submit" (click)="signIn()">Valider</button>
+  </div>
+
+</div>
