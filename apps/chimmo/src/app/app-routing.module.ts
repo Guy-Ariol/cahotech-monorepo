@@ -5,7 +5,7 @@ import { LandlordComponent } from './pages/landlord/landlord.component';
 import { AdminComponent } from './pages/admin/admin.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/admin' },
+  { path: '', pathMatch: 'full', redirectTo: '/home' },
   { path: 'home', component: HomeComponent },
   { path: 'locataire', component: LandlordComponent },
   { path: 'admin', component: AdminComponent }

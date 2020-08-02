@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { UsersService } from '../../services/users/users.service';
-import { DataService } from '../../services/data/data.service';
+import { UserService } from 'libs/service/src/lib/user/user.service';
 import { adminView } from '../../services/interfaces/interfaces.service';
 import { userType, userEnum } from '@cahotech-monorepo/interfaces';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
+import { UsersService } from '../../services/users/users.service';
 
 @Component({
   selector: 'admin-forms',
@@ -21,9 +21,9 @@ export class AdminFormsComponent implements OnInit {
   view = adminView
 
   constructor(
-    public userProv: UsersService,
-    private dataprov: DataService,
+    public userLib: UserService,
     public utilsProv: UtilsService,
+    public userProv: UsersService
   ) { }
 
   ngOnInit (): void {
@@ -65,12 +65,12 @@ export class AdminFormsComponent implements OnInit {
 
 
   submit () {
-    this.dataprov.startSpinner()
+    this.utilsProv.startSpinner()
 
     let res = this.checkInputs()
 
     if (res.error) {
-      this.dataprov.stopSpinner()
+      this.utilsProv.stopSpinner()
       window.scrollTo({ top: 2, behavior: 'smooth' })
 
       this.utilsProv.showToast('error', res.msg, 'Érreur', 'toast-top-center', 4000)
@@ -87,8 +87,8 @@ export class AdminFormsComponent implements OnInit {
         user.addres = this.controlArray[2].value
         user.tel = this.controlArray[4].value
 
-        if (!this.isEdit) this.userProv.allusers.push(user)
-        else this.userProv.allusers[this.currentUserIndex] = user
+        if (!this.isEdit) this.userLib.allUsers.push(user)
+        else this.userLib.allUsers[this.currentUserIndex] = user
 
       }
 
@@ -102,11 +102,11 @@ export class AdminFormsComponent implements OnInit {
         user.addres = this.controlArray[2].value
         user.tel = this.controlArray[4].value
 
-        this.userProv.allusers.push(user)
+        this.userLib.allUsers.push(user)
       }
     }
 
-    this.dataprov.stopSpinner()
+    this.utilsProv.stopSpinner()
     this.done.emit()
     this.resetForm()
   }

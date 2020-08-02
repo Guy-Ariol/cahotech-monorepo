@@ -11,8 +11,7 @@ export class AppComponent {
   title = 'chimmo';
 
   constructor(
-    public dataProv: DataService,
-    private utilsProv: UtilsService
+    public utilsProv: UtilsService
 
   ){
 
