@@ -18,6 +18,8 @@ export class DataService {
 
   newHomes
 
+  appName = 'chimmo'
+
   constructor() {
 
     this.mainMenuLandLord = [

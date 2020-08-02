@@ -27,7 +27,7 @@ export class UserService {
 
   constructor(
     private fbAuth: AngularFireAuth,
-    @Inject(EventEmitter)  private event: EventEmitter,
+    @Inject(EventEmitter) private event: EventEmitter,
     private afdb: AngularFireDatabase,
     private utils: UtilsService
   ) { }
@@ -68,7 +68,7 @@ export class UserService {
         this.currentUser = user
 
         if (this.ontimeAction) {
-          this.subscribeAllUser()
+          this.subscribeMyUser()
           this.ontimeAction = false
         }
 
@@ -82,11 +82,10 @@ export class UserService {
     *
     * @memberof UserService
     */
-  subscribeAllUser () {
+  subscribeMyUser () {
     this.afdb.list('users', ref => ref.orderByChild('companyName').equalTo(this.currentUser.companyName)).valueChanges()
       .subscribe((data: userType[]) => {
         this.myUsers = data
-
       })
   }
 
@@ -136,5 +135,19 @@ export class UserService {
         .catch(error => reject(error))
 
     })
+  }
+
+
+  /** get app updated when users get updated in the database
+    *
+    * @memberof UserService
+    */
+  subscribeAllUser () {
+    this.afdb.list('users').valueChanges()
+      .subscribe((data: userType[]) => {
+        this.allUsers = data
+        console.log('all user', this.allUsers)
+
+      })
   }
 }

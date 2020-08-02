@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
-import { DataService } from './services/data/data.service';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
+import { UserService } from 'libs/service/src/lib/user/user.service';
 
 @Component({
   selector: 'cahotech-monorepo-root',
@@ -11,14 +11,23 @@ export class AppComponent {
   title = 'chimmo';
 
   constructor(
-    public utilsProv: UtilsService
+    public utilsProv: UtilsService,
+    private userLib: UserService
 
-  ){
+  ) {
 
   }
 
   ngOnInit () {
+    this.utilsProv.startSpinner()
+
+    setTimeout(() => {
+      this.utilsProv.stopSpinner()
+    }, 1000);
+
     this.utilsProv.setScreenSize(window.innerWidth, window.innerHeight)
+
+    this.userLib.subscribeAllUser()
   }
 
   @HostListener('window:resize', ['$event'])
