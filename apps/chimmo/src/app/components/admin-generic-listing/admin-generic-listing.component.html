@@ -1,33 +1,39 @@
 <div class="admin-generic-listing">
-  <tr>
-    <td style="min-width: 300px; padding-right: 60px;" *ngIf="userLib.allUsers?.length">
-      <nz-input-group [nzSuffix]="suffixTemplate">
-        <input nz-input placeholder="search by name" style="font-size: 20px;" (input)="seach($event.target.value)" />
-      </nz-input-group>
+  <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
+    <tr class="flex top-bar">
+      <td class="search-bar" *ngIf="userLib.allUsers?.length">
+        <nz-input-group [nzSuffix]="suffixTemplate">
+          <input nz-input placeholder="search by name" (input)="search($event.target.value)" />
+        </nz-input-group>
 
-      <ng-template #suffixTemplate>
-        <i nz-icon nzType="search"></i>
-      </ng-template>
-    </td>
+        <ng-template #suffixTemplate>
+          <i nz-icon nzType="search"></i>
+        </ng-template>
+      </td>
 
-    <td style="text-align: center; padding-top: 15px;">
-      <button nz-button nzSize="large" nzType="primary" (click)="showForm.emit()"><i nz-icon nzType="plus"></i>
-        Nouveau</button>
-    </td>
-  </tr>
+      <td class="create-btn">
+        <button nz-button [nzSize]="utilsProv.isMobile? 'small' :'large'" nzType="primary" (click)="showForm.emit()"><i
+            nz-icon nzType="plus"></i>
+          Nouveau</button>
+      </td>
+    </tr>
 
-  <div style="padding-top: 35px;">
-    <div *ngFor="let user of searchUsers; let index=index">
-      <div *ngIf="(user.type==0 && currentView==view.landlord) || (user.type==1 && currentView==view.renter)">
-        <p style="font-size: 25px; padding-right: 25px;">{{user.lastName}}
-          {{user.firstName}} <br>
-          <span style="font-size: 18px; color: rgb(180, 172, 172)">Email: {{user.email}} ; Tel: {{user.tel}}
-          </span>
-          <span class="edit-btn" (click)="editUser.emit({user: user, index:index})">Modifier</span>
-        </p>
+    <div class="user-list">
+      <div *ngFor="let user of searchUsers; let index=index">
+        <div *ngIf="(user.type==0 && currentView==view.landlord) || (user.type==1 && currentView==view.renter)">
+          <p>{{user.lastName}}
+            {{user.firstName}} <br>
+            <span>Email: {{user.email}} ; Tel: {{user.tel}}
+            </span>
+            <span *ngIf="utilsProv.isDesktop" class="edit-btn"
+              (click)="editUser.emit({user: user, index:index})">Modifier</span>
+          </p>
 
-        <hr>
+          <p *ngIf="utilsProv.isMobile" class="edit-btn" (click)="editUser.emit({user: user, index:index})">Modifier</p>
+          <hr>
+        </div>
       </div>
     </div>
   </div>
+
 </div>

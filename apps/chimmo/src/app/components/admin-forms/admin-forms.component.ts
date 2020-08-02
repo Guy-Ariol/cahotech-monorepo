@@ -47,6 +47,7 @@ export class AdminFormsComponent implements OnInit {
   checkInputs () {
     let error = []
 
+    // check if input field is blank. Also check that email formatting is ok
     this.controlArray.forEach((el) => {
       if (el.value) this.controlArray[el.index].error = false
 
@@ -60,6 +61,15 @@ export class AdminFormsComponent implements OnInit {
     error.forEach(el => {
       msg = msg + ', ' + el.replace('*', '')
     })
+
+    // check that email is not already in use
+    for (let user of this.userLib.allUsers) {
+      if (this.controlArray.find(el =>  el.value == user.email )) {
+        console.log('email found');
+        return { error: true, msg: "Cet e-mail existe déja dans le système." }
+      }
+    }
+
     return { error: error.length, msg: msg }
   }
 
@@ -104,11 +114,13 @@ export class AdminFormsComponent implements OnInit {
 
         this.userLib.allUsers.push(user)
       }
+
+      this.done.emit()
+      this.resetForm()
     }
 
     this.utilsProv.stopSpinner()
-    this.done.emit()
-    this.resetForm()
+
   }
 
 

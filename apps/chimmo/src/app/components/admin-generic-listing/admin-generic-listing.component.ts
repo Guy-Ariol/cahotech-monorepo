@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { UserService } from '../../../../../../libs/service/src/lib/user/user.service';
 import { userType } from '@cahotech-monorepo/interfaces';
 import { adminView } from '../../services/interfaces/interfaces.service';
+import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 
 @Component({
   selector: 'admin-generic-listing',
@@ -19,6 +20,7 @@ export class AdminGenericListingComponent implements OnInit {
 
   constructor(
     public userLib: UserService,
+    public utilsProv: UtilsService,
 
   ) { }
 
@@ -27,7 +29,7 @@ export class AdminGenericListingComponent implements OnInit {
   }
 
 
-  seach (text) {
+  search (text) {
     if (!text) this.searchUsers = this.userLib.allUsers
     else this.searchUsers = this.userLib.allUsers.filter(user => { return (user.firstName.toLowerCase().includes(text) || user.lastName.toLowerCase().includes(text)) })
   }

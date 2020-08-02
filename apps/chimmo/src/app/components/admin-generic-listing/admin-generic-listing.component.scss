@@ -1,4 +1,58 @@
 .admin-generic-listing {
+  padding: 15px;
+
+  .flex {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 2px;
+    justify-content: center;
+    width: 300px;
+  }
+
+  .create-btn {
+    padding-top: 15px;
+  }
+
+  .user-list {
+    width: 90vw;
+    padding-top: 25px;
+
+  }
+}
+
+.desktop {
+  .top-bar {
+    width: 600px;
+  }
+
+  .search-bar {
+    min-width: 400px;
+
+    nz-input-group {
+      font-size: 23px;
+    }
+
+    input {
+      font-size: 23px;
+    }
+  }
+
+  .create-btn {
+    padding-top: 0px;
+    padding-left: 30px;
+  }
+
+  .user-list {
+    font-size: 25px;
+    padding-right: 25px;
+
+    span {
+      font-size: 18px;
+      color: rgb(180, 172, 172);
+    }
+  }
+
   .edit-btn {
     float: right;
     padding: 10px 15px;
@@ -6,5 +60,38 @@
     background: #64f064;
     cursor: pointer;
     font-size: 16px;
+  }
+}
+
+.mobile {
+  .search-bar {
+    width: 200px;
+    padding-right: 30px;
+  }
+
+  .create-btn {
+    padding: 2px;
+    text-align: center;
+  }
+
+  .edit-btn {
+    padding: 5px;
+    border: solid 0.5px #64f064;
+    border-radius: 15px;
+    background: #64f064;
+    cursor: pointer;
+    font-size: 16px;
+    width: 80px;
+    text-align: right;
+  }
+
+  .user-list {
+    font-size: 20px;
+    // padding-right: 25px;
+
+    span {
+      font-size: 14px;
+      color: rgb(180, 172, 172);
+    }
   }
 }
