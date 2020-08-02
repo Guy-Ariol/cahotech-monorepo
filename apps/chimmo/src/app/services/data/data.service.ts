@@ -130,8 +130,8 @@ export class DataService {
         index: 1
       },
       {
-        title: 'Adresse',
-        type: 'text',
+        title: 'Adresse', //TODO rename to address
+        type: 'address',
         value: null,
         index: 2,
         id: 'address',
@@ -205,20 +205,4 @@ export class DataService {
     ]
   }
 
-
-  /** show spinner
-  *
-  * @memberof UtilsService
-  */
-  startSpinner () {
-    this.spinner = true
-  }
-
-  /** hide spinner
-   *
-   * @memberof UtilsService
-   */
-  stopSpinner () {
-    this.spinner = false
-  }
 }

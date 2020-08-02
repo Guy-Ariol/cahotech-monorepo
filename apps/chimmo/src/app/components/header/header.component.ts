@@ -9,6 +9,7 @@ import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 })
 export class HeaderComponent implements OnInit {
   @Input() menuList = []
+  @Input() title = 'Chimmo'
   @Output() menuSeleted = new EventEmitter()
   @Output() toogleMenu = new EventEmitter()
 
@@ -27,6 +28,8 @@ export class HeaderComponent implements OnInit {
   _toogleMenu () {
     this.showTopMenu = !this.showTopMenu
     this.toogleMenu.emit()
+    console.log(this.showTopMenu)
+
   }
 
 

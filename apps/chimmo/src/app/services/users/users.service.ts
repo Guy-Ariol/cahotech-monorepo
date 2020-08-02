@@ -6,12 +6,9 @@ import { userType, userEnum } from '@cahotech-monorepo/interfaces';
 })
 export class UsersService {
 
-  currentUser
-  allusers: userType[] = []
-
   constructor() { }
 
   getLandLord () {
-    return this.allusers.filter(user => { return user.type == userEnum.landlord })
+    // return this.allusers.filter(user => { return user.type == userEnum.landlord })
   }
 }

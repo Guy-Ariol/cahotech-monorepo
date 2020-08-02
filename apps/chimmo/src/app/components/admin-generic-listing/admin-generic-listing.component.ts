@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { UsersService } from '../../services/users/users.service';
+import { UserService } from '../../../../../../libs/service/src/lib/user/user.service';
 import { userType } from '@cahotech-monorepo/interfaces';
 import { adminView } from '../../services/interfaces/interfaces.service';
 
@@ -18,17 +18,17 @@ export class AdminGenericListingComponent implements OnInit {
   searchUsers: userType[] = []
 
   constructor(
-    public userProv: UsersService,
+    public userLib: UserService,
 
   ) { }
 
   ngOnInit (): void {
-    this.searchUsers = this.userProv.allusers
+    this.searchUsers = this.userLib.allUsers
   }
 
 
   seach (text) {
-    if (!text) this.searchUsers = this.userProv.allusers
-    else this.searchUsers = this.userProv.allusers.filter(user => { return (user.firstName.toLowerCase().includes(text) || user.lastName.toLowerCase().includes(text)) })
+    if (!text) this.searchUsers = this.userLib.allUsers
+    else this.searchUsers = this.userLib.allUsers.filter(user => { return (user.firstName.toLowerCase().includes(text) || user.lastName.toLowerCase().includes(text)) })
   }
 }

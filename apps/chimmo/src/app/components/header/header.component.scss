@@ -11,6 +11,7 @@
     display: flex;
     width: 100%;
     top: 0;
+    border-bottom: 5px solid #f8d700;
   }
 
   .top-menu {
@@ -56,7 +57,7 @@
 .mobile {
   .top-menu-sub {
     width: 100%;
-    padding-top: 0px;
+    // padding-top: 10px;
   }
 
   .menu-item {
