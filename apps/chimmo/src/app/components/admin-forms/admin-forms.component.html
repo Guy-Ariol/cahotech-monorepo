@@ -33,7 +33,7 @@
         </div>
 
         <div *ngIf="control.type=='address'">
-          <google-maps></google-maps>
+          <google-maps (onPlaceAvailable)="getAddress($event)"></google-maps>
         </div>
 
       </div>
@@ -48,6 +48,7 @@
           <div nz-col style="min-width: 120px;">
             <p><b>{{control.title}}:</b> </p>
           </div>
+
           <div nz-col>
             <div *ngIf="control.type == 'date-range' && control.value">
               <p>{{control?.value[0] | date:'d/MM/yyy'}} - {{control?.value[1] | date:'d/MM/yyy'}} </p>

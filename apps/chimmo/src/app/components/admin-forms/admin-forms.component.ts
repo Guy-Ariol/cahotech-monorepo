@@ -4,6 +4,7 @@ import { adminView } from '../../services/interfaces/interfaces.service';
 import { userType, userEnum } from '@cahotech-monorepo/interfaces';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { UsersService } from '../../services/users/users.service';
+import { DataService } from '../../services/data/data.service';
 
 @Component({
   selector: 'admin-forms',
@@ -23,7 +24,8 @@ export class AdminFormsComponent implements OnInit {
   constructor(
     public userLib: UserService,
     public utilsProv: UtilsService,
-    public userProv: UsersService
+    public userProv: UsersService,
+    private dataProv: DataService
   ) { }
 
   ngOnInit (): void {
@@ -64,7 +66,7 @@ export class AdminFormsComponent implements OnInit {
 
     // check that email is not already in use
     for (let user of this.userLib.allUsers) {
-      if (this.controlArray.find(el =>  el.value == user.email )) {
+      if (this.controlArray.find(el => el.value == user.email)) {
         console.log('email found');
         return { error: true, msg: "Cet e-mail existe déja dans le système." }
       }
@@ -76,6 +78,7 @@ export class AdminFormsComponent implements OnInit {
 
   submit () {
     this.utilsProv.startSpinner()
+    window.scrollTo({top: 2, behavior: 'smooth'})
 
     let res = this.checkInputs()
 
@@ -84,43 +87,48 @@ export class AdminFormsComponent implements OnInit {
       window.scrollTo({ top: 2, behavior: 'smooth' })
 
       this.utilsProv.showToast('error', res.msg, 'Érreur', 'toast-top-center', 4000)
+      this.utilsProv.stopSpinner()
     }
     else {
+      let user = {} as userType
 
       if (this.currentView == this.view.landlord) {
-        let user = {} as userType
-
-        user.firstName = this.controlArray[1].value
-        user.lastName = this.controlArray[0].value
         user.type = userEnum.landlord
-        user.email = this.controlArray[3].value
-        user.addres = this.controlArray[2].value
-        user.tel = this.controlArray[4].value
-
-        if (!this.isEdit) this.userLib.allUsers.push(user)
-        else this.userLib.allUsers[this.currentUserIndex] = user
-
       }
 
       else if (this.currentView == this.view.renter) {
-        let user = {} as userType
-
-        user.firstName = this.controlArray[1].value
-        user.lastName = this.controlArray[0].value
         user.type = userEnum.renter
-        user.email = this.controlArray[3].value
-        user.addres = this.controlArray[2].value
-        user.tel = this.controlArray[4].value
-
-        this.userLib.allUsers.push(user)
       }
 
-      this.done.emit()
-      this.resetForm()
+      user.firstName = this.controlArray[1].value
+      user.lastName = this.controlArray[0].value
+      user.email = this.controlArray[3].value
+      user.addres = this.controlArray[2].value
+      user.tel = this.controlArray[4].value
+      user.apps = [this.dataProv.appName]
+      // user.companyName = this.userLib.currentUser.companyName
+      user.emailSent = false
+      user.id = this.userLib.createPushId()
+      user.timeStamp = Date.now()
+      user.adminPass = ''
+
+      if (!this.isEdit) this.userLib.allUsers.push(user)
+      else this.userLib.allUsers[this.currentUserIndex] = user
+
+      console.log(user);
+
+      this.userLib.signUp(user)
+        .then(() => {
+          this.done.emit()
+          this.resetForm()
+          this.utilsProv.stopSpinner()
+        })
+        .catch(error => {
+          console.log(error);
+          this.utilsProv.stopSpinner()
+        })
+
     }
-
-    this.utilsProv.stopSpinner()
-
   }
 
 
@@ -128,5 +136,12 @@ export class AdminFormsComponent implements OnInit {
     this.controlArray.forEach(el => {
       el.value = null
     })
+  }
+
+
+  /**get address from google map */
+  getAddress (address) {
+    console.log(address);
+    this.controlArray[2].value = address
   }
 }

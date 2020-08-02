@@ -25,6 +25,9 @@ export class UserService {
   /** all users registered */
   allUsers: userType[] = []
 
+  /** flag for deciding beteween sign in and sign up */
+  isSignup = false
+
   constructor(
     private fbAuth: AngularFireAuth,
     @Inject(EventEmitter) private event: EventEmitter,
@@ -48,12 +51,16 @@ export class UserService {
    */
   onAuthChanged () {
     this.fbAuth.onAuthStateChanged(e => {
-      if (e) {
-        this.event.emit('logged in', e.uid)
+      if (!this.isSignup) {
+        if (e) {
+          this.event.emit('logged in', e.uid)
+        }
+        else {
+          this.event.emit('logged out')
+        }
       }
-      else {
-        this.event.emit('logged out')
-      }
+
+      this.isSignup = false
     })
   }
 
@@ -115,25 +122,18 @@ export class UserService {
    */
   signUp (user: userType): Promise<any> {
     user.adminPass = this.utils.randomId(6)
+    this.isSignup = true
 
     return new Promise((resolve, reject) => {
       this.fbAuth.createUserWithEmailAndPassword(user.email, user.adminPass)
         .then(res => {
           user.id = res.user.uid
 
-          let batch = {}
-          batch[`users/${res.user.uid}`] = user
-
-          for (let worker in user.workers) {
-            batch[`users/${worker}`] = user.workers[worker]
-          }
-
-          this.afdb.object('/').update(batch)
+          this.afdb.object(`users/${res.user.uid}`).update(user)
             .then(() => resolve())
             .catch(error => reject(error))
         })
         .catch(error => reject(error))
-
     })
   }
 
@@ -146,8 +146,23 @@ export class UserService {
     this.afdb.list('users').valueChanges()
       .subscribe((data: userType[]) => {
         this.allUsers = data
-        console.log('all user', this.allUsers)
-
       })
+  }
+
+
+  /** create database unique push id */
+  createPushId () {
+    return this.afdb.createPushId()
+  }
+
+
+  /** upadate or create user in the database */
+  updateUser (user: userType): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.afdb.object(`users/${user.id}`).update(user)
+        .then(() => resolve())
+        .catch(error => reject(error))
+    })
+
   }
 }

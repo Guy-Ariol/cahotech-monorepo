@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 
 declare var google
@@ -9,7 +9,7 @@ declare var google
   styleUrls: ['./google-maps.component.scss']
 })
 export class GoogleMapsComponent implements OnInit {
-
+@Output() onPlaceAvailable = new EventEmitter
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone
@@ -47,8 +47,9 @@ export class GoogleMapsComponent implements OnInit {
               return;
             }
 
-            let location = place.address_components[0].long_name + ', ' + place.address_components[1].long_name + place.address_components[place.address_components.length - 1].long_name
-            console.log(location)
+            let location = place.address_components[0].long_name + ', ' + place.address_components[1].long_name +', '+ place.address_components[place.address_components.length - 1].long_name
+            // console.log(location)
+            this.onPlaceAvailable.emit(location)
           });
         });
       } catch (error) {

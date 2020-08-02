@@ -3,6 +3,7 @@ import { UserService } from '../../../../../../libs/service/src/lib/user/user.se
 import { userType } from '@cahotech-monorepo/interfaces';
 import { adminView } from '../../services/interfaces/interfaces.service';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
+import { DataService } from '../../services/data/data.service';
 
 @Component({
   selector: 'admin-generic-listing',
@@ -21,16 +22,19 @@ export class AdminGenericListingComponent implements OnInit {
   constructor(
     public userLib: UserService,
     public utilsProv: UtilsService,
+    private dataProv: DataService
 
   ) { }
 
   ngOnInit (): void {
-    this.searchUsers = this.userLib.allUsers
+    this.searchUsers = this.userLib.allUsers.filter(user => { return user.apps && user.apps.includes(this.dataProv.appName) })
   }
 
 
   search (text) {
-    if (!text) this.searchUsers = this.userLib.allUsers
-    else this.searchUsers = this.userLib.allUsers.filter(user => { return (user.firstName.toLowerCase().includes(text) || user.lastName.toLowerCase().includes(text)) })
+    if (!text) this.searchUsers = this.userLib.allUsers.filter(user => { return user.apps && user.apps.includes(this.dataProv.appName) })
+    else this.searchUsers = this.userLib.allUsers.filter(user => {
+      return (user.firstName?.toLowerCase().includes(text) || user.lastName?.toLowerCase().includes(text)) && (user.apps && user.apps.includes(this.dataProv.appName))
+    })
   }
 }

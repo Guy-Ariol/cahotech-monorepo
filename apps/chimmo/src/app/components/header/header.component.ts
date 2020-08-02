@@ -28,8 +28,6 @@ export class HeaderComponent implements OnInit {
   _toogleMenu () {
     this.showTopMenu = !this.showTopMenu
     this.toogleMenu.emit()
-    console.log(this.showTopMenu)
-
   }
 
 
