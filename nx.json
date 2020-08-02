@@ -32,9 +32,6 @@
     "ui": {
       "tags": []
     },
-    "provider": {
-      "tags": []
-    },
     "interfaces": {
       "tags": ["interfaces"]
     },
