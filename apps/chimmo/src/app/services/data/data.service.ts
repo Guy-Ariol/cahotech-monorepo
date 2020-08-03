@@ -167,9 +167,10 @@ export class DataService {
       },
       {
         title: 'Adresse',
-        type: 'text',
+        type: 'address',
         value: null,
-        index: 2
+        index: 2,
+        id: 'address',
       },
       {
         title: 'E-mail*',
@@ -190,7 +191,7 @@ export class DataService {
         index: 5
       },
       {
-        title: 'Selectioner bailleur',
+        title: 'Bailleur',
         type: 'autocomplete',
         value: null,
         index: 6,

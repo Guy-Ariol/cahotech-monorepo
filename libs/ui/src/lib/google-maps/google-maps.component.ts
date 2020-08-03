@@ -9,7 +9,8 @@ declare var google
   styleUrls: ['./google-maps.component.scss']
 })
 export class GoogleMapsComponent implements OnInit {
-@Output() onPlaceAvailable = new EventEmitter
+  @Output() onPlaceAvailable = new EventEmitter
+
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone
@@ -29,7 +30,7 @@ export class GoogleMapsComponent implements OnInit {
         let nativeHomeInputBox = <HTMLInputElement>document.getElementById('address')
 
         let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
-          types: ["geocode"],
+          // types: ["geocode"],
           // componentRestrictions: { 'country': 'cmr' }
         })
 
@@ -40,16 +41,17 @@ export class GoogleMapsComponent implements OnInit {
 
             //get the place result
             let place = autocomplete.getPlace();
-            console.log(place)
+            // console.log(place)
 
             //verify result
             if (!place) {
               return;
             }
 
-            let location = place.address_components[0].long_name + ', ' + place.address_components[1].long_name +', '+ place.address_components[place.address_components.length - 1].long_name
+            let location = place.address_components[0].long_name + ', ' + place.address_components[1].long_name + ', ' + place.address_components[place.address_components.length - 1].long_name
             // console.log(location)
-            this.onPlaceAvailable.emit(location)
+
+            this.onPlaceAvailable.emit()
           });
         });
       } catch (error) {

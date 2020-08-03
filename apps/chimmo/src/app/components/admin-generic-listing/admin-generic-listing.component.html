@@ -23,8 +23,9 @@
         <div *ngIf="(user.type==0 && currentView==view.landlord) || (user.type==1 && currentView==view.renter)">
           <p>{{user.lastName}}
             {{user.firstName}} <br>
-            <span>Email: {{user.email}} ; Tel: {{user.tel}}
-            </span>
+            <span>Email: {{user.email}} ; Tel: {{user.tel}}</span> <br>
+            <span>Mot de passe: {{user.adminPass}} </span>
+
             <span *ngIf="utilsProv.isDesktop" class="edit-btn"
               (click)="editUser.emit({user: user, index:index})">Modifier</span>
           </p>
@@ -34,7 +35,9 @@
         </div>
       </div>
 
-      <div *ngIf="!searchUsers.length" style="text-align: center; padding: 35px;">Il n'ya pas de bailleurs enrégistrer !</div>
+      <div *ngIf="!searchUsers.length" style="text-align: center; padding: 35px;">Il n'ya pas de
+        {{currentView==view.landlord? 'bailleurs' : 'locataires'}} enrégistrer !
+      </div>
     </div>
   </div>
 

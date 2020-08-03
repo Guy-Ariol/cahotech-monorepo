@@ -73,7 +73,8 @@ export interface userType {
 
 
   // chimmo
-
+  landlordId: string
+  renters: {}
 
   // acb
   /**

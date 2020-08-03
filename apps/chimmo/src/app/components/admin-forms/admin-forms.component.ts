@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, NgZone } from '@angular/core';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { adminView } from '../../services/interfaces/interfaces.service';
 import { userType, userEnum } from '@cahotech-monorepo/interfaces';
@@ -20,15 +20,19 @@ export class AdminFormsComponent implements OnInit {
   @Output() done = new EventEmitter
 
   view = adminView
+  searchLandlord: userType[] = []
 
   constructor(
     public userLib: UserService,
     public utilsProv: UtilsService,
     public userProv: UsersService,
-    private dataProv: DataService
+    private dataProv: DataService,
+    private zone: NgZone,
+
   ) { }
 
   ngOnInit (): void {
+    this.searchLandlord = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
   }
 
 
@@ -40,9 +44,20 @@ export class AdminFormsComponent implements OnInit {
   }
 
 
-  filterInput (index, input) {
-    console.log(input);
+  filterInput (index, input: string) {
+    if (input) {
+      let out = this.userLib.allUsers?.filter(user => {
+        return user.firstName?.toLowerCase().includes(input.toLowerCase()) ||
+          user.lastName?.toLowerCase().includes(input.toLowerCase()) || user.email?.toLowerCase().includes(input.toLowerCase())
+      })
 
+      this.zone.run(() => {
+        this.getLandLord(out)
+      })
+    }
+    else {
+      this.getLandLord()
+    }
   }
 
 
@@ -65,12 +80,17 @@ export class AdminFormsComponent implements OnInit {
     })
 
     // check that email is not already in use
-    for (let user of this.userLib.allUsers) {
-      if (this.controlArray.find(el => el.value == user.email)) {
-        console.log('email found');
-        return { error: true, msg: "Cet e-mail existe déja dans le système." }
-      }
-    }
+    // for (let user of this.userLib.allUsers) {
+    //   // let out = this.controlArray.find(el => el.value == user.email)
+    //   // console.log(out);
+    //   console.log(user);
+
+
+    //   if (user.email == this.controlArray[2].value) {
+    //     console.log('email found', user.email);
+    //     return { error: true, msg: "Cet e-mail existe déja dans le système." }
+    //   }
+    // }
 
     return { error: error.length, msg: msg }
   }
@@ -78,7 +98,7 @@ export class AdminFormsComponent implements OnInit {
 
   submit () {
     this.utilsProv.startSpinner()
-    window.scrollTo({top: 2, behavior: 'smooth'})
+    window.scrollTo({ top: 2, behavior: 'smooth' })
 
     let res = this.checkInputs()
 
@@ -92,14 +112,6 @@ export class AdminFormsComponent implements OnInit {
     else {
       let user = {} as userType
 
-      if (this.currentView == this.view.landlord) {
-        user.type = userEnum.landlord
-      }
-
-      else if (this.currentView == this.view.renter) {
-        user.type = userEnum.renter
-      }
-
       user.firstName = this.controlArray[1].value
       user.lastName = this.controlArray[0].value
       user.email = this.controlArray[3].value
@@ -111,22 +123,48 @@ export class AdminFormsComponent implements OnInit {
       user.id = this.userLib.createPushId()
       user.timeStamp = Date.now()
       user.adminPass = ''
+      user.type = userEnum.landlord
 
-      if (!this.isEdit) this.userLib.allUsers.push(user)
-      else this.userLib.allUsers[this.currentUserIndex] = user
+      if (this.currentView == this.view.landlord) {
+        user.type = userEnum.landlord
 
-      console.log(user);
+        this.userLib.signUp(user)
+          .then(() => {
+            this.done.emit()
+            this.resetForm()
+            this.utilsProv.stopSpinner()
+          })
+          .catch(error => {
+            console.log(error);
+            this.utilsProv.stopSpinner()
+          })
+      }
 
-      this.userLib.signUp(user)
-        .then(() => {
-          this.done.emit()
-          this.resetForm()
-          this.utilsProv.stopSpinner()
-        })
-        .catch(error => {
-          console.log(error);
-          this.utilsProv.stopSpinner()
-        })
+      else if (this.currentView == this.view.renter) {
+        user.type = userEnum.renter
+        user.adminPass = this.utilsProv.randomId(6)
+        user.landlordId = this.controlArray.find(c => c.title == 'Bailleur').value
+
+        let batch = {}
+        batch[`users/${user.id}`] = user
+        batch[`${user.landlordId}/renters/${user.id}`] = user
+
+        this.userLib.batchUpdate(batch)
+          .then(() => {
+            this.done.emit()
+            this.resetForm()
+            this.utilsProv.stopSpinner()
+          })
+          .catch(error => {
+            console.log(error);
+            this.utilsProv.stopSpinner()
+          })
+
+      }
+
+      // if (!this.isEdit) this.userLib.allUsers.push(user)
+      // else this.userLib.allUsers[this.currentUserIndex] = user
+
 
     }
   }
@@ -138,10 +176,42 @@ export class AdminFormsComponent implements OnInit {
     })
   }
 
-
   /**get address from google map */
   getAddress (address) {
-    console.log(address);
+    address = document.getElementsByClassName('maps')[0]['value']
     this.controlArray[2].value = address
+  }
+
+  getLandLord (users?: userType[]) {
+    if (users) {
+      this.searchLandlord = users.filter(user => { return (user.type == userEnum.landlord && user.apps?.includes('chimmo')) })
+    }
+    else {
+      this.searchLandlord = this.userLib.allUsers.filter(user => { return (user.type == userEnum.landlord && user.apps?.includes('chimmo')) })
+    }
+  }
+
+  /** getUserFullName */
+  getUserFullName (userId) {
+    let userFound
+
+    if (userId) {
+      let res = this.userLib.allUsers.find(user => user.id == userId)
+      userFound = res.lastName + ' ' + res.firstName
+    }
+
+    return userFound
+  }
+
+  /** getUserEmail */
+  getUserEmail (userId) {
+    let userFound
+
+    if (userId) {
+      let res = this.userLib.allUsers.find(user => user.id == userId)
+      userFound = res.email
+    }
+
+    return userFound
   }
 }

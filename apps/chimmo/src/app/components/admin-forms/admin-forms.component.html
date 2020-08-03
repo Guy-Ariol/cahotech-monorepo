@@ -5,24 +5,27 @@
         <div *ngIf="['text', 'number',  'email'].includes(control.type)">
           {{control.title}}
           <input nz-input placeholder="" [(ngModel)]="control.value" [class]="control.error ? 'validation-error' : ''"
-            [type]="control.type" [id]="control.id ? control.id : control.index" [placeholder]="control.error ? 'Verifier cette entrée' : ''" />
+            [type]="control.type" [id]="control.id ? control.id : control.index"
+            [placeholder]="control.error ? 'Verifier cette entrée' : ''" />
         </div>
 
         <div *ngIf="control.type=='date-range'">
           {{control.title}} <br>
-          <nz-range-picker nzSize="45px" [nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
-            (ngModelChange)="getTimeStamp(control.index, $event)"></nz-range-picker>
+          <nz-range-picker nzSize="small" [nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
+            [class]="control.error ? 'validation-error' : ''" [nzShowTime]="{ nzFormat: 'HH' }"
+            (ngModelChange)="getTimeStamp(control.index, $event)" nzInputReadOnly>
+          </nz-range-picker>
         </div>
 
         <div *ngIf="control.type=='autocomplete'">
-          <div>
+          <div style="padding-top: 15px;">
             {{control.title}}
-            <input nz-input [nzAutocomplete]="auto" style="font-size: 25px;" [(ngModel)]="control.value"
-              (ngModelChange)="filterInput(control.index, $event)" />
+            <input nz-input [nzAutocomplete]="auto" style="font-size: 15px;" [(ngModel)]="control.value"
+              (ngModelChange)="filterInput(control.index, $event)" [class]="control.error ? 'validation-error' : ''" />
 
             <nz-autocomplete #auto>
-              <nz-auto-option *ngFor="let option of userProv.getLandLord()" [nzLabel]="option.lastName"
-                [nzValue]="option.lastName">
+              <nz-auto-option *ngFor="let option of searchLandlord" [nzLabel]="option.lastName+' '+ option.firstName"
+                [nzValue]="option.id">
                 <p>{{ option.lastName }} {{option.firstName}}
                   <br>
                   <span style="color: gray; padding-left: 25px;">{{ option.email }}</span>
@@ -54,9 +57,15 @@
               <p>{{control?.value[0] | date:'d/MM/yyy'}} - {{control?.value[1] | date:'d/MM/yyy'}} </p>
             </div>
 
-            <div *ngIf="control.type != 'date-range'">
+            <div *ngIf="control.title == 'Bailleur'">
+              <p><u>Nom:</u> {{getUserFullName(control.value)}} </p>
+              <p><u>Email:</u> {{getUserEmail(control.value)}} </p>
+            </div>
+
+            <div *ngIf="control.type!='date-range' && control.title!='Bailleur'">
               <p>{{control.value}}</p>
             </div>
+
           </div>
         </div>
       </div>

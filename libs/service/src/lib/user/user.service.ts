@@ -165,4 +165,12 @@ export class UserService {
     })
 
   }
+
+  batchUpdate (bacth): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.afdb.object('/').update(bacth)
+        .then(() => resolve())
+        .catch(error => reject(error))
+    })
+  }
 }
