@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, NgZone } from '@angular/core';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { adminView } from '../../services/interfaces/interfaces.service';
-import { userType, userEnum } from '@cahotech-monorepo/interfaces';
+import { userType, userEnum, homeEnum, roomTypeEnum } from '@cahotech-monorepo/interfaces';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { UsersService } from '../../services/users/users.service';
 import { DataService } from '../../services/data/data.service';
@@ -21,6 +21,9 @@ export class AdminFormsComponent implements OnInit {
 
   view = adminView
   searchLandlord: userType[] = []
+  homeTypeList = []
+  houseEquipments = []
+  autocompleteList1 = []
 
   constructor(
     public userLib: UserService,
@@ -32,9 +35,16 @@ export class AdminFormsComponent implements OnInit {
   ) { }
 
   ngOnInit (): void {
-    this.searchLandlord = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
+    // init variables
+
   }
 
+  ngAfterViewChecked () {
+    this.searchLandlord = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
+    this.homeTypeList = Object.keys(roomTypeEnum).filter(el => el != '0' && !parseInt(el))
+
+    
+  }
 
   getTimeStamp (index, date) {
     let date1 = new Date(date[0])
@@ -44,19 +54,31 @@ export class AdminFormsComponent implements OnInit {
   }
 
 
-  filterInput (index, input: string) {
+  filterInput (type: 'user' | 'home' | 'room', input: string) {
     if (input) {
-      let out = this.userLib.allUsers?.filter(user => {
-        return user.firstName?.toLowerCase().includes(input.toLowerCase()) ||
-          user.lastName?.toLowerCase().includes(input.toLowerCase()) || user.email?.toLowerCase().includes(input.toLowerCase())
-      })
+      if (type == 'user') {
+        let out = this.userLib.allUsers?.filter(user => {
+          return user.firstName?.toLowerCase().includes(input.toLowerCase()) ||
+            user.lastName?.toLowerCase().includes(input.toLowerCase()) || user.email?.toLowerCase().includes(input.toLowerCase())
+        })
 
-      this.zone.run(() => {
+        // this.zone.run(() => {
         this.getLandLord(out)
-      })
+        // })
+      }
+      else if (type == 'home') {
+
+      }
+
     }
     else {
-      this.getLandLord()
+      if (type == 'user') {
+        this.getLandLord()
+      }
+      else if (type == 'home') {
+
+      }
+
     }
   }
 
@@ -79,7 +101,7 @@ export class AdminFormsComponent implements OnInit {
       msg = msg + ', ' + el.replace('*', '')
     })
 
-    // check that email is not already in use
+    // TODO check that email is not already in use
     // for (let user of this.userLib.allUsers) {
     //   // let out = this.controlArray.find(el => el.value == user.email)
     //   // console.log(out);
@@ -162,10 +184,6 @@ export class AdminFormsComponent implements OnInit {
 
       }
 
-      // if (!this.isEdit) this.userLib.allUsers.push(user)
-      // else this.userLib.allUsers[this.currentUserIndex] = user
-
-
     }
   }
 
@@ -197,7 +215,7 @@ export class AdminFormsComponent implements OnInit {
 
     if (userId) {
       let res = this.userLib.allUsers.find(user => user.id == userId)
-      userFound = res.lastName + ' ' + res.firstName
+      userFound = res?.lastName + ' ' + res?.firstName
     }
 
     return userFound
@@ -209,9 +227,22 @@ export class AdminFormsComponent implements OnInit {
 
     if (userId) {
       let res = this.userLib.allUsers.find(user => user.id == userId)
-      userFound = res.email
+      userFound = res?.email
     }
 
     return userFound
+  }
+
+  /** */
+  //TODO selected all /unselect all checkbox
+  houseEquipmentSelected (val) {
+    this.houseEquipments = val
+
+  }
+
+
+  /** */
+  initAutocompleteLists () {
+
   }
 }

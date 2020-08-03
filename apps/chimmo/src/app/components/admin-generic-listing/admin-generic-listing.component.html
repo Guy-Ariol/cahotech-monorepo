@@ -21,16 +21,19 @@
     <div class="user-list">
       <div *ngFor="let user of searchUsers; let index=index">
         <div *ngIf="(user.type==0 && currentView==view.landlord) || (user.type==1 && currentView==view.renter)">
-          <p>{{user.lastName}}
-            {{user.firstName}} <br>
-            <span>Email: {{user.email}} ; Tel: {{user.tel}}</span> <br>
-            <span>Mot de passe: {{user.adminPass}} </span>
+          <p><b>{{user.lastName}} {{user.firstName}}</b> <br>
+            <span><u>Email:</u> {{user.email}} ; <u>Tel:</u> {{user.tel}}</span> <br>
+            <span style="color: #575151;"><u>Mot de passe:</u> {{user.adminPass}} </span> <br>
+            <span style="color: #575151;"><u>Adresse:</u> {{user.addres}} </span>
 
             <span *ngIf="utilsProv.isDesktop" class="edit-btn"
               (click)="editUser.emit({user: user, index:index})">Modifier</span>
           </p>
 
-          <p *ngIf="utilsProv.isMobile" class="edit-btn" (click)="editUser.emit({user: user, index:index})">Modifier</p>
+          <p *ngIf="utilsProv.isMobile">
+            <span class="edit-btn" (click)="editUser.emit({user: user, index:index})">Modifier</span>
+            <span class="delete-btn" (click)="1">Modifier</span>
+          </p>
           <hr>
         </div>
       </div>

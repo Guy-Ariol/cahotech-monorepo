@@ -7,7 +7,7 @@
     <div class="content">
       <h1 *ngIf="currentView==view.none" style="text-align: center;">{{currentTitle}}</h1>
 
-      <div class="new-standard" *ngIf="[view.landlord, view.renter, view.houses,view.home].includes(currentView)">
+      <div class="new-standard" *ngIf="[view.landlord, view.renter, view.houses, view.home].includes(currentView)">
         <h1>{{currentTitle}}</h1>
 
         <div *ngIf="!isNew && !isEdit" style="width: 70%;">

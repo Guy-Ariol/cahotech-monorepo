@@ -21,7 +21,7 @@
           <div style="padding-top: 15px;">
             {{control.title}}
             <input nz-input [nzAutocomplete]="auto" style="font-size: 15px;" [(ngModel)]="control.value"
-              (ngModelChange)="filterInput(control.index, $event)" [class]="control.error ? 'validation-error' : ''" />
+              (ngModelChange)="filterInput('user', $event)" [class]="control.error ? 'validation-error' : ''" />
 
             <nz-autocomplete #auto>
               <nz-auto-option *ngFor="let option of searchLandlord" [nzLabel]="option.lastName+' '+ option.firstName"
@@ -39,6 +39,34 @@
           <google-maps (onPlaceAvailable)="getAddress($event)"></google-maps>
         </div>
 
+        <div *ngIf="control.type=='checkbox-group'">
+          <nz-checkbox-wrapper style="padding-top: 15px; padding-bottom: 15px;"
+            (nzOnChange)="houseEquipmentSelected($event)">
+            <div nz-row>
+              <div nz-col nzSpan="12" *ngFor="let option of control.value">
+                <label nz-checkbox [nzValue]="option">{{option}}</label>
+              </div>
+            </div>
+          </nz-checkbox-wrapper>
+        </div>
+
+        <div class="add-homes" *ngIf="control.title=='Logements*'">
+          <div style="padding-top: 15px;">
+            {{control.title}}
+            <input nz-input [nzAutocomplete]="auto" style="font-size: 15px;" [(ngModel)]="control.value"
+              (ngModelChange)="filterInput('home', $event)" [class]="control.error ? 'validation-error' : ''" />
+
+            <nz-autocomplete #auto>
+              <nz-auto-option *ngFor="let option of searchLandlord" [nzLabel]="option.lastName+' '+ option.firstName"
+                [nzValue]="option.id">
+                <p>{{ option.lastName }} {{option.firstName}}
+                  <br>
+                  <span style="color: gray; padding-left: 25px;">{{ option.email }}</span>
+                </p>
+              </nz-auto-option>
+            </nz-autocomplete>
+          </div>
+        </div>
       </div>
     </td>
 
@@ -62,7 +90,12 @@
               <p><u>Email:</u> {{getUserEmail(control.value)}} </p>
             </div>
 
-            <div *ngIf="control.type!='date-range' && control.title!='Bailleur'">
+            <div *ngIf="control.type == 'checkbox-group'">
+              <div *ngFor="let item of houseEquipments">{{item}} </div>
+            </div>
+
+            <div
+              *ngIf="!['date-range', 'checkbox-group'].includes(control.type) && !['Bailleur'].includes(control.title)">
               <p>{{control.value}}</p>
             </div>
 

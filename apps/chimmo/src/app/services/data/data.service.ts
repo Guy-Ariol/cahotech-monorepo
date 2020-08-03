@@ -16,7 +16,9 @@ export class DataService {
 
   spinner = false
 
-  newHomes
+  newHome
+
+  newHouse
 
   appName = 'chimmo'
 
@@ -198,12 +200,46 @@ export class DataService {
       }
     ]
 
-    this.newHomes = [
+    this.newHome = [
       {
         title: 'Nom*',
-        type: 'date-range',
+        type: 'text',
         value: null,
-        index: 5
+        index: 1
+      },
+      {
+        title: 'Adresse',
+        type: 'address',
+        value: null,
+        index: 2,
+        id: 'address',
+      },
+      {
+        title: 'Type de logement*',
+        type: 'autocomplete',
+        value: null,
+        index: 1
+      },
+    ]
+
+    this.newHouse = [
+      {
+        title: 'Nom*',
+        type: 'text',
+        value: null,
+        index: 1
+      },
+      {
+        title: 'Équipements*',
+        type: 'checkbox-group',
+        value: ['Piscine', 'Forage', 'Parking', 'Instincteur', 'Gardienage', 'Ascenceur', 'Vidéo surveillance', 'Groupe électrogène', 'Espace jeux enfants'],
+        index: 2
+      },
+      {
+        title: 'Logements*',
+        type: 'complex',
+        value: null,
+        index: 3
       },
     ]
   }
