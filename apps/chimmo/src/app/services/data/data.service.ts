@@ -80,7 +80,7 @@ export class DataService {
         name: 'Résidences',
         iconOn: 'assets/imgs/houses-on.svg',
         iconOff: 'assets/imgs/houses.svg',
-        nav: adminView.houses
+        nav: adminView.house
       },
       {
         name: 'Logements',
@@ -218,7 +218,13 @@ export class DataService {
         title: 'Type de logement*',
         type: 'autocomplete',
         value: null,
-        index: 1
+        index: 3
+      },
+      {
+        title: 'Pièces*',
+        type: 'complex',
+        value: 1,
+        index: 4
       },
     ]
 

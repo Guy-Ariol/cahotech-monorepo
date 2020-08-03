@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, NgZone } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { adminView } from '../../services/interfaces/interfaces.service';
-import { userType, userEnum, homeEnum, roomTypeEnum } from '@cahotech-monorepo/interfaces';
+import { userType, userEnum, roomTypeEnum, roomType, homeEnum, roomEquipmentEnum } from '@cahotech-monorepo/interfaces';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { UsersService } from '../../services/users/users.service';
 import { DataService } from '../../services/data/data.service';
@@ -20,30 +20,33 @@ export class AdminFormsComponent implements OnInit {
   @Output() done = new EventEmitter
 
   view = adminView
-  searchLandlord: userType[] = []
-  homeTypeList = []
   houseEquipments = []
   autocompleteList1 = []
+  rooms: roomType[] = []
 
   constructor(
     public userLib: UserService,
     public utilsProv: UtilsService,
     public userProv: UsersService,
     private dataProv: DataService,
-    private zone: NgZone,
 
   ) { }
 
   ngOnInit (): void {
-    // init variables
 
   }
 
-  ngAfterViewChecked () {
-    this.searchLandlord = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
-    this.homeTypeList = Object.keys(roomTypeEnum).filter(el => el != '0' && !parseInt(el))
+  ngDoCheck () {
+    // init variables
 
-    
+    this.autocompleteList1 = []
+
+    if (this.currentView == adminView.renter)
+      this.autocompleteList1 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
+
+    else if (this.currentView == adminView.home)
+      this.autocompleteList1 = Object.keys(homeEnum).filter(el => el != '0' && !parseInt(el))
+
   }
 
   getTimeStamp (index, date) {
@@ -202,10 +205,10 @@ export class AdminFormsComponent implements OnInit {
 
   getLandLord (users?: userType[]) {
     if (users) {
-      this.searchLandlord = users.filter(user => { return (user.type == userEnum.landlord && user.apps?.includes('chimmo')) })
+      this.autocompleteList1 = users.filter(user => { return (user.type == userEnum.landlord && user.apps?.includes('chimmo')) })
     }
     else {
-      this.searchLandlord = this.userLib.allUsers.filter(user => { return (user.type == userEnum.landlord && user.apps?.includes('chimmo')) })
+      this.autocompleteList1 = this.userLib.allUsers.filter(user => { return (user.type == userEnum.landlord && user.apps?.includes('chimmo')) })
     }
   }
 
@@ -240,9 +243,23 @@ export class AdminFormsComponent implements OnInit {
 
   }
 
+  /** */
+  addRoom () {
+    this.rooms.push({
+      type: null,
+      surface: null,
+      equipment: [],
+      cost: { caution: null, monthly: null, avandce: null, water: null, electricity: null }
+    })
+  }
 
   /** */
-  initAutocompleteLists () {
+  getRoomTypeList () {
+    return Object.keys(roomTypeEnum).filter(el => el != '0' && !parseInt(el))
+  }
 
+  /** */
+  getRoomEquipmentList () {
+    return Object.keys(roomEquipmentEnum).filter(el => el != '0' && !parseInt(el))
   }
 }

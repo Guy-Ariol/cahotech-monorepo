@@ -161,12 +161,7 @@ export interface homeType {
   name: string,
   address: string,
   type: homeEnum,
-  rooms: [{
-    type: roomTypeEnum,
-    surface: string,
-    equipment: roomEquipmentEnum[],
-    cost: { caution: number, monthly: number, avandce: number, water: number, electricity: number }
-  }]
+  rooms: roomType[]
 }
 
 /** */
@@ -177,4 +172,12 @@ export enum roomTypeEnum { chambre, salon, cuisine, douche, magasin, wc, douche_
 
 /** */
 export enum roomEquipmentEnum { eau_chaude, detector_fumee, climatisateur, canal_sat }
+
+/** */
+export interface roomType {
+  type: roomTypeEnum,
+  surface: number,
+  equipment: roomEquipmentEnum[],
+  cost: { caution: number, monthly: number, avandce: number, water: number, electricity: number }
+}
 

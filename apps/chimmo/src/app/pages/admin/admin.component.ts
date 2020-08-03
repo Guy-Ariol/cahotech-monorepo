@@ -41,7 +41,7 @@ export class AdminComponent implements OnInit {
 
     if (menu == this.view.landlord) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Gestion bailleurs' }
     else if (menu == this.view.renter) { this.controlArray = this.dataprov.newRenterForm; this.currentTitle = 'Gestion locataires' }
-    else if (menu == this.view.houses) { this.controlArray = this.dataprov.newHouse; this.currentTitle = 'Gestion résidences' }
+    else if (menu == this.view.house) { this.controlArray = this.dataprov.newHouse; this.currentTitle = 'Gestion résidences' }
     else if (menu == this.view.home) { this.controlArray = this.dataprov.newHome; this.currentTitle = 'Gestion logements' }
     else if (menu == this.view.MoneyIn) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Caisse bailleur' }
     else if (menu == this.view.MoneyIn2) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Caisse locataire' }

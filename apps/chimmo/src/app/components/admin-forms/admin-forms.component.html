@@ -21,15 +21,18 @@
           <div style="padding-top: 15px;">
             {{control.title}}
             <input nz-input [nzAutocomplete]="auto" style="font-size: 15px;" [(ngModel)]="control.value"
-              (ngModelChange)="filterInput('user', $event)" [class]="control.error ? 'validation-error' : ''" />
+              (ngModelChange)="filterInput('home', $event)" [class]="control.error ? 'validation-error' : ''" />
 
             <nz-autocomplete #auto>
-              <nz-auto-option *ngFor="let option of searchLandlord" [nzLabel]="option.lastName+' '+ option.firstName"
-                [nzValue]="option.id">
-                <p>{{ option.lastName }} {{option.firstName}}
+              <nz-auto-option *ngFor="let option of autocompleteList1"
+                [nzLabel]="currentView==view.renter? option.lastName+' '+ option.firstName : option"
+                [nzValue]="currentView==view.renter? option.id : option">
+                <p *ngIf="currentView==view.renter">{{ option.lastName }} {{option.firstName}}
                   <br>
                   <span style="color: gray; padding-left: 25px;">{{ option.email }}</span>
                 </p>
+
+                <p *ngIf="currentView==view.home">{{option}} </p>
               </nz-auto-option>
             </nz-autocomplete>
           </div>
@@ -50,21 +53,39 @@
           </nz-checkbox-wrapper>
         </div>
 
-        <div class="add-homes" *ngIf="control.title=='Logements*'">
-          <div style="padding-top: 15px;">
-            {{control.title}}
-            <input nz-input [nzAutocomplete]="auto" style="font-size: 15px;" [(ngModel)]="control.value"
-              (ngModelChange)="filterInput('home', $event)" [class]="control.error ? 'validation-error' : ''" />
+        <div class="add-homes" *ngIf="control.title=='Pièces*'">
+          <p style="padding-top: 15px; font-weight: bold;">{{control.title}}
+            <button style="float: right;" nz-button nzType="primary" (click)="addRoom()">New</button>
+          </p>
 
-            <nz-autocomplete #auto>
-              <nz-auto-option *ngFor="let option of searchLandlord" [nzLabel]="option.lastName+' '+ option.firstName"
-                [nzValue]="option.id">
-                <p>{{ option.lastName }} {{option.firstName}}
-                  <br>
-                  <span style="color: gray; padding-left: 25px;">{{ option.email }}</span>
-                </p>
-              </nz-auto-option>
-            </nz-autocomplete>
+          <div class="new-room">
+            <div style="padding-top: 15px;" *ngFor="let room of rooms; let index=index">
+
+              Type de la pièce
+              <input nz-input [nzAutocomplete]="typeRoom" style="font-size: 15px;" [(ngModel)]="room.type"
+                (ngModelChange)="filterInput('', $event)" [class]="control.error ? 'validation-error' : ''" />
+
+              <nz-autocomplete #typeRoom>
+                <nz-auto-option *ngFor="let option of getRoomTypeList()" [nzLabel]="option" [nzValue]="option">
+                  <p>{{ option}} </p>
+                </nz-auto-option>
+              </nz-autocomplete>
+
+              <div style="padding-top: 10px;"></div>
+              Superficie de la pièce
+              <input nz-input type="number" [(ngModel)]="room.surface">
+
+              Équipements de la pièce
+              <input nz-input [nzAutocomplete]="equipRoom" style="font-size: 15px;" [(ngModel)]="room.equipment"
+                (ngModelChange)="filterInput('', $event)" [class]="control.error ? 'validation-error' : ''" />
+
+              <nz-autocomplete #equipRoom>
+                <nz-auto-option *ngFor="let option of getRoomEquipmentList()" [nzLabel]="option" [nzValue]="option">
+                  <p>{{ option}} </p>
+                </nz-auto-option>
+              </nz-autocomplete>
+            </div>
+
           </div>
         </div>
       </div>
