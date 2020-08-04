@@ -43,9 +43,10 @@ export class AdminFormsComponent implements OnInit {
 
   ngDoCheck () {
     // init variables
+
     this.autocompleteList1 = []
 
-    if (this.currentView == adminView.renter)
+    if ([adminView.renter, adminView.house].includes(this.currentView))
       this.autocompleteList1 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
 
     else if (this.currentView == adminView.home) {
