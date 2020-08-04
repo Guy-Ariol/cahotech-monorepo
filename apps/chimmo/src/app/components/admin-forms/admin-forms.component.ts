@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { UserService } from 'libs/service/src/lib/user/user.service';
-import { adminView, roomType, homeEnum, roomTypeEnum, roomEquipmentEnum, homeType, houseType } from '../../services/interfaces/interfaces.service';
+import { adminView, roomType, homeEnum, roomTypeEnum, roomEquipmentEnum, homeType, houseType, houseEquipmentEnum } from '../../services/interfaces/interfaces.service';
 import { userType, userEnum } from '@cahotech-monorepo/interfaces';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { UsersService } from '../../services/users/users.service';
 import { DataService } from '../../services/data/data.service';
 import { HomeService } from '../../services/home/home.service';
+import * as internalEvent from 'events';
 
 @Component({
   selector: 'admin-forms',
@@ -33,28 +34,25 @@ export class AdminFormsComponent implements OnInit {
     public utilsProv: UtilsService,
     public userProv: UsersService,
     private dataProv: DataService,
-    private homeProv: HomeService
+    private homeProv: HomeService,
+    // private event: internalEvent
 
   ) { }
 
   ngOnInit (): void {
+    // this.event.on('received data from server', () => {
+    //   console.info('admin-formcomponent Listener');
+
+    //   this.refreshInputData()
+    // })
+  }
+
+  ngOnDestroy() {
 
   }
 
   ngDoCheck () {
-    // init variables
-
-    this.autocompleteList1 = []
-
-    if ([adminView.renter, adminView.house].includes(this.currentView))
-      this.autocompleteList1 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
-
-    else if (this.currentView == adminView.home) {
-      this.autocompleteList1 = Object.keys(homeEnum).filter(el => el != '0' && !parseInt(el))
-      this.autocompleteList2 = this.homeProv.allHouses
-    }
-
-
+    this.refreshInputData()
   }
 
   getTimeStamp (index, date) {
@@ -232,14 +230,14 @@ export class AdminFormsComponent implements OnInit {
           name: this.controlArray[0].value,
           address: this.controlArray[2].value,
           equipment: this.houseEquipments,
-          id: '',
+          id: this.userLib.createPushId(),
           ownerId: this.controlArray[3].value,
           timeStamp: Date.now()
         }
 
         let owner = this.userLib.allUsers.find(user => user.id == newHouse.ownerId)
-        if (owner.houses) owner.houses.push(newHouse.name)
-        else owner.houses = [newHouse.name]
+        if (owner.houses) owner.houses.push(newHouse.id)
+        else owner.houses = [newHouse.id]
 
         this.userLib.updateUser(owner)
           .then(() => {
@@ -248,6 +246,10 @@ export class AdminFormsComponent implements OnInit {
                 this.done.emit()
                 this.resetForm()
                 this.utilsProv.stopSpinner()
+
+                setTimeout(() => {
+                  this.refreshInputData()
+                }, 1000);
               })
               .catch(error => {
                 console.log(error);
@@ -261,7 +263,7 @@ export class AdminFormsComponent implements OnInit {
     }
   }
 
-
+  /** */
   resetForm () {
     this.controlArray.forEach(el => {
       el.value = null
@@ -310,7 +312,11 @@ export class AdminFormsComponent implements OnInit {
   /** */
   //TODO selected all /unselect all checkbox
   houseEquipmentSelected (val) {
+    //TODO get rid of this varible and use only controlArray.value instead
     this.houseEquipments = val
+
+    this.controlArray[1].value = val
+
   }
 
   /** */
@@ -372,8 +378,30 @@ export class AdminFormsComponent implements OnInit {
         if (this.currentView == adminView.home) window.scrollBy(0, 400)
 
         if (this.currentView == adminView.landlord) window.scrollBy(0, 400)
+
+        if (this.currentView == adminView.renter) window.scrollBy(0, 400)
       }, 150);
     }
 
+  }
+
+  /** */
+  getHouseEquipmentList () {
+    return Object.keys(houseEquipmentEnum).filter(el => el != '0' && !parseInt(el))
+  }
+
+  /** */
+  refreshInputData(){
+    // init variables
+
+    this.autocompleteList1 = []
+
+    if ([adminView.renter, adminView.house].includes(this.currentView))
+      this.autocompleteList1 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
+
+    else if (this.currentView == adminView.home) {
+      this.autocompleteList1 = Object.keys(homeEnum).filter(el => el != '0' && !parseInt(el))
+      this.autocompleteList2 = this.homeProv.allHouses
+    }
   }
 }

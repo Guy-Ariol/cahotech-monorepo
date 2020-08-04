@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { UserService } from '../../../../../../libs/service/src/lib/user/user.service';
-import { adminView, homeEnum } from '../../services/interfaces/interfaces.service';
+import { adminView, homeEnum, houseType } from '../../services/interfaces/interfaces.service';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { DataService } from '../../services/data/data.service';
 import { HomeService } from '../../services/home/home.service';
+import { userType } from '@cahotech-monorepo/interfaces';
 
 @Component({
   selector: 'admin-generic-listing',
@@ -71,27 +72,98 @@ export class AdminGenericListingComponent implements OnInit {
   }
 
   /** */
-  deleteUser (userId) {
+  deleteUser (user: userType) {
     this.utilsProv.startSpinner()
 
-    this.userLib.deleteUser(userId)
-      .then(() => {
-        setTimeout(() => {
-          this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
-          this.refreshData()
-        }, 1000);
+    // also delete renter's reference in landlord
+    if (this.currentView == adminView.renter) {
+      const landLord = this.userLib.allUsers.find(el => el.id == user.id)
+      delete landLord.renters[user.id]
 
-      })
-      .catch(error => {
-        console.log(error)
-      })
+      this.userLib.updateUser(landLord)
+        .then(() => {
+          this.userLib.deleteUser(user.id)
+            .then(() => {
+              setTimeout(() => {
+                this.refreshData()
+                this.utilsProv.stopSpinner()
+                this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+
+              }, 1000);
+
+            })
+            .catch(error => {
+              console.log(error)
+              this.utilsProv.stopSpinner()
+            })
+        })
+        .catch(error => {
+          console.log(error);
+          this.utilsProv.stopSpinner()
+        })
+    }
+    else if (this.currentView == adminView.landlord) {
+      this.userLib.deleteUser(user.id)
+        .then(() => {
+          setTimeout(() => {
+            this.refreshData()
+            this.utilsProv.stopSpinner()
+            this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+
+          }, 1000);
+
+        })
+        .catch(error => {
+          console.log(error)
+          this.utilsProv.stopSpinner()
+        })
+    }
+
+  }
+
+  /** */
+  deleteHouse (house: houseType) {
+    this.utilsProv.startSpinner()
+
+    // remove reference by landlord
+    let owner = this.userLib.allUsers.find(user => user.id == house.ownerId)
+    console.log(owner)
+
+
+    if (owner.houses) {
+      owner.houses.splice(owner.houses.indexOf(house.id), 1)
+
+      this.userLib.updateUser(owner)
+        .then(() => {
+          this.homeProv.deleteHouse(house.id)
+            .then(() => {
+              this.utilsProv.stopSpinner()
+              this.utilsProv.showToast('success', 'Opération réussie', '', 'toast-top-center')
+            })
+            .catch(error => {
+              console.log(error);
+              this.utilsProv.stopSpinner()
+            })
+        })
+        .catch(error => {
+          console.log(error);
+          this.utilsProv.stopSpinner()
+        })
+    }
+
+    // in case landlord having house was not found
+    else {
+      this.utilsProv.showToast('error', "Une érreur s'est produite", '', 'toast-top-center')
+      this.utilsProv.stopSpinner()
+    }
+
   }
 
   /** refresh input data */
   refreshData () {
     if ([adminView.landlord, adminView.renter].includes(this.currentView)) {
       this.displayList = this.userLib.allUsers.filter(user => { return user.apps && user.apps.includes(this.dataProv.appName) })
-      this.blankMsg = `Il n'ya pas de ${this.currentView == adminView.landlord ? '' : ''} enrégistrer!`
+      this.blankMsg = `Il n'ya pas de ${this.currentView == adminView.landlord ? 'bailleur' : 'locataire'} enrégistrer!`
     }
     else if (this.currentView == adminView.house) {
       this.displayList = this.homeProv.allHouses
@@ -101,5 +173,29 @@ export class AdminGenericListingComponent implements OnInit {
       this.displayList = this.homeProv.allHomes
       this.blankMsg = `Il n'ya pas de logements enrégistrer!`
     }
+  }
+
+  /** */
+  getlandLordName (id) {
+    if (id) {
+      let out = this.userLib.allUsers.find(user => user.id == id)
+
+      return `${out.firstName} ${out.lastName}`
+    }
+
+    return ''
+  }
+
+  /** */
+  getRenterList (landLord: userType) {
+    let list: userType[] = []
+
+    if (landLord.renters) {
+      for (let renter in landLord.renters) {
+        list.push(this.userLib.allUsers.find(user => user.id == renter))
+      }
+    }
+
+    return list
   }
 }

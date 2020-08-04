@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { homeType, houseType } from '../interfaces/interfaces.service';
+import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
+import { EventEmitter } from 'events';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,8 @@ export class HomeService {
 
   constructor(
     private afdb: AngularFireDatabase,
+    private utilsProv: UtilsService,
+    @Inject(EventEmitter) private event: EventEmitter
 
   ) { }
 
@@ -28,7 +32,7 @@ export class HomeService {
   /** */
   createHouse (house: houseType): Promise<any> {
     return new Promise((resolve, reject) => {
-      house.id = this.afdb.createPushId()
+      // house.id = this.afdb.createPushId()
 
       this.afdb.object(`houses/${house.id}`).set(house)
         .then(() => resolve())
@@ -40,6 +44,8 @@ export class HomeService {
   subscribeAllHouses () {
     this.afdb.list('houses').valueChanges().subscribe((data: houseType[]) => {
       this.allHouses = data
+
+      // this.event.emit('received data from server', '')
     })
   }
 
@@ -47,6 +53,15 @@ export class HomeService {
   subscribeAllHomes () {
     this.afdb.list('homes').valueChanges().subscribe((data: houseType[]) => {
       this.allHomes = data
+    })
+  }
+
+  /** */
+  deleteHouse (houseId): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.afdb.object(`houses/${houseId}`).remove()
+        .then(() => resolve())
+        .catch(error => reject(error))
     })
   }
 }

@@ -7,6 +7,9 @@ export enum adminView { renter, house, bill, issue, repair, saldo, landlord, hom
 export enum homeEnum {Appartement, Studio, Chambre, Commerce }
 
 /** */
+export enum houseEquipmentEnum { 'Piscine', 'Forage', 'Parking', 'Instincteur', 'Gardienage', 'Ascenceur', 'Vidéo surveillance', 'Groupe électrogène', 'Espace jeux enfants'}
+
+/** */
 export enum roomTypeEnum { chambre, salon, cuisine, douche, magasin, wc, douche_wc, terrase, jardin, cave, garage }
 
 /** */

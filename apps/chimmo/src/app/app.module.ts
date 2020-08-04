@@ -39,6 +39,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HeaderComponent } from './components/header/header.component';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 
 registerLocaleData(fr);
@@ -91,7 +92,7 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-
+    NzCollapseModule
   ],
 
   providers: [{ provide: NZ_I18N, useValue: fr_FR }, EventEmitter],

@@ -65,7 +65,7 @@
 
           <nz-checkbox-wrapper style="padding-bottom: 15px;" (nzOnChange)="houseEquipmentSelected($event)">
             <div nz-row>
-              <div nz-col nzSpan="12" *ngFor="let option of control.value">
+              <div nz-col nzSpan="12" *ngFor="let option of getHouseEquipmentList()">
                 <label nz-checkbox [nzValue]="option">{{option}}</label>
               </div>
             </div>

@@ -267,7 +267,7 @@ export class DataService {
       {
         title: 'Équipements*',
         type: 'checkbox-group',
-        value: ['Piscine', 'Forage', 'Parking', 'Instincteur', 'Gardienage', 'Ascenceur', 'Vidéo surveillance', 'Groupe électrogène', 'Espace jeux enfants'],
+        value: null,
         index: 1
       },
       {
