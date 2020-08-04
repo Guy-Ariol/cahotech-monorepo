@@ -173,4 +173,13 @@ export class UserService {
         .catch(error => reject(error))
     })
   }
+
+  /** delete */
+  deleteUser (userId): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.afdb.object(`users/${userId}`).remove()
+        .then(() => resolve())
+        .catch(error => reject(error))
+    })
+  }
 }

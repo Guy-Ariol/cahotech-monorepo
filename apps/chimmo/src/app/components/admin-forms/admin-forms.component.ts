@@ -208,7 +208,8 @@ export class AdminFormsComponent implements OnInit {
             Caution: this.controlArray[3].value, "Tarif mensuel": this.controlArray[4].value,
             "Avance Checkin": this.controlArray[5].value, "Tarif eau": this.controlArray[6].value,
             "Tarif électricité": this.controlArray[7].value
-          }
+          },
+          timeStamp: Date.now()
         }
 
         console.log(newHome)
@@ -232,18 +233,29 @@ export class AdminFormsComponent implements OnInit {
           address: this.controlArray[2].value,
           equipment: this.houseEquipments,
           id: '',
+          ownerId: this.controlArray[3].value,
+          timeStamp: Date.now()
         }
 
-        console.log(newHouse)
-        this.homeProv.createHouse(newHouse)
+        let owner = this.userLib.allUsers.find(user => user.id == newHouse.ownerId)
+        if (owner.houses) owner.houses.push(newHouse.name)
+        else owner.houses = [newHouse.name]
+
+        this.userLib.updateUser(owner)
           .then(() => {
-            this.done.emit()
-            this.resetForm()
-            this.utilsProv.stopSpinner()
+            this.homeProv.createHouse(newHouse)
+              .then(() => {
+                this.done.emit()
+                this.resetForm()
+                this.utilsProv.stopSpinner()
+              })
+              .catch(error => {
+                console.log(error);
+                this.utilsProv.stopSpinner()
+              })
           })
           .catch(error => {
             console.log(error);
-            this.utilsProv.stopSpinner()
           })
       }
     }
@@ -314,8 +326,8 @@ export class AdminFormsComponent implements OnInit {
       else if (this.rooms.length > 1) window.scrollBy(0, 300)
     }, 100);
 
-     /** deactivate input validation */
-     this.controlArray[8].value = 1
+    /** deactivate input validation */
+    this.controlArray[8].value = 1
   }
 
   /** */
@@ -342,14 +354,26 @@ export class AdminFormsComponent implements OnInit {
 
   /** */
   gotoSummary () {
-    this.showSummary = true
-    console.log(this.currentView, adminView.house)
+    let res = this.checkInputs()
 
+    if (res.error) {
+      this.utilsProv.stopSpinner()
+      window.scrollTo({ top: 2, behavior: 'smooth' })
 
-    setTimeout(() => {
-      if (this.currentView == adminView.house) window.scrollBy(0, 400)
+      this.utilsProv.showToast('error', res.msg, 'Érreur', 'toast-top-center', 4000)
+      this.utilsProv.stopSpinner()
+    }
+    else {
+      this.showSummary = true
 
-      if (this.currentView == adminView.home) window.scrollBy(0, 400)
-    }, 150);
+      setTimeout(() => {
+        if (this.currentView == adminView.house) window.scrollBy(0, 400)
+
+        if (this.currentView == adminView.home) window.scrollBy(0, 400)
+
+        if (this.currentView == adminView.landlord) window.scrollBy(0, 400)
+      }, 150);
+    }
+
   }
 }

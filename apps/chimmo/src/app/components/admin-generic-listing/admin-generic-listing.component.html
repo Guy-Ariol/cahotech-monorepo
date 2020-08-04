@@ -19,20 +19,25 @@
     </tr>
 
     <div class="user-list">
-      <div *ngFor="let element of displayList; let index=index">
+      <div *ngFor="let element of displayList.reverse(); let index=index">
         <div *ngIf="(element.type==0 && currentView==view.landlord) || (element.type==1 && currentView==view.renter)">
           <p><b>{{element.lastName}} {{element.firstName}}</b> <br>
-            <span><u>Email:</u> {{element.email}} ; <u>Tel:</u> {{element.tel}}</span> <br>
-            <span style="color: #575151;"><u>Mot de passe:</u> {{element.adminPass}} </span> <br>
-            <span style="color: #575151;"><u>Adresse:</u> {{element.addres}} </span>
+            <span><u><b>Email:</b></u> {{element.email}} ; <u><b>Tel:</b></u> {{element.tel}}</span> <br>
+            <span style="color: #575151;"><u><b>Mot de passe:</b></u> {{element.adminPass}} </span> <br>
+            <span style="color: #575151;"><u><b>Adresse:</b></u> {{element.addres}} </span> <br>
 
             <span *ngIf="utilsProv.isDesktop" class="edit-btn"
               (click)="editUser.emit({user: element, index:index})">Modifier</span>
           </p>
 
+          <b style="font-size: 16px;">Résidences:</b>
+          <p style="font-size: 14px; padding-left: 12px;" *ngFor="let house of element.houses" >
+            {{getHouseDetails(house)}}
+          </p>
+
           <p *ngIf="utilsProv.isMobile">
             <span class="edit-btn" (click)="editUser.emit({user: element, index:index})">Modifier</span>
-            <span class="delete-btn" (click)="1">Modifier</span>
+            <span class="delete-btn" (click)="deleteUser(element.id)">Supprimer</span>
           </p>
           <hr>
         </div>
@@ -40,6 +45,7 @@
         <div *ngIf="currentView == view.house">
           <p><b> {{element.name}}</b> <br>
             <span><b><u>Adresse:</u></b> {{element.address}} </span><br>
+            <span><u><b>Proprietaire:</b></u> &nbsp; {{getUserDetails(element.ownerId)}} </span><br>
             <span><b><u>Equipements: </u></b> </span>
             <span *ngFor="let equip of element.equipment">{{equip}}, </span>
 

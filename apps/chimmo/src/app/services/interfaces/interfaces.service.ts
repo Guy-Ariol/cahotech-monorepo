@@ -29,7 +29,8 @@ export interface homeType {
   rooms: roomType[],
   id: string,
   houseId: string,
-  cost: roomCostType
+  cost: roomCostType,
+  timeStamp: number
 }
 
 /** */
@@ -37,5 +38,7 @@ export interface houseType {
   name: string,
   equipment: string[],
   address: string,
-  id: string
+  id: string,
+  ownerId: string,
+  timeStamp: number
 }
