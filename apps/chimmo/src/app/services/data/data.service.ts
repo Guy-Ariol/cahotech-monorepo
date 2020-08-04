@@ -193,7 +193,7 @@ export class DataService {
         index: 5
       },
       {
-        title: 'Bailleur',
+        title: 'Logement',
         type: 'autocomplete',
         value: null,
         index: 6,

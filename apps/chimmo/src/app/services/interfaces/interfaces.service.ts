@@ -4,10 +4,10 @@ export enum landLordView { renter, houses, bill, issue, repair, saldo }
 export enum adminView { renter, house, bill, issue, repair, saldo, landlord, home, MoneyIn, MoneyIn2, discount, none }
 
 /** */
-export enum homeEnum {Appartement, Studio, Chambre, Commerce }
+export enum homeEnum { Appartement, Studio, Chambre, Commerce }
 
 /** */
-export enum houseEquipmentEnum { 'Piscine', 'Forage', 'Parking', 'Instincteur', 'Gardienage', 'Ascenceur', 'Vidéo surveillance', 'Groupe électrogène', 'Espace jeux enfants'}
+export enum houseEquipmentEnum { 'Piscine', 'Forage', 'Parking', 'Instincteur', 'Gardienage', 'Ascenceur', 'Vidéo surveillance', 'Groupe électrogène', 'Espace jeux enfants' }
 
 /** */
 export enum roomTypeEnum { chambre, salon, cuisine, douche, magasin, wc, douche_wc, terrase, jardin, cave, garage }
@@ -43,5 +43,6 @@ export interface houseType {
   address: string,
   id: string,
   ownerId: string,
-  timeStamp: number
+  timeStamp: number,
+  homeList?: string[]
 }

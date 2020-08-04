@@ -25,20 +25,25 @@
           <div style="padding-top: 15px;">
             {{control.title}}
             <input nz-input [nzAutocomplete]="auto" style="font-size: 15px;" [(ngModel)]="control.value"
-              (ngModelChange)="filterInput([view.renter, view.house].includes(currentView)? 'user' : '', $event)"
+              (ngModelChange)="filterInput([view.house].includes(currentView)? 'user' : '', $event)"
               [class]="control.error ? 'validation-error' : ''" />
+
+            <!-- [nzLabel]="[view.house].includes(currentView)? option.lastName+' '+ option.firstName : option" -->
 
             <nz-autocomplete #auto>
               <nz-auto-option *ngFor="let option of autocompleteList1"
-                [nzLabel]="[view.renter, view.house].includes(currentView)? option.lastName+' '+ option.firstName : option"
-                [nzValue]="[view.renter, view.house].includes(currentView)? option.id : option">
+                [nzValue]="[view.house].includes(currentView)? option.id : option">
 
-                <p *ngIf="[view.renter, view.house].includes(currentView)">{{ option.lastName }} {{option.firstName}}
+                <p *ngIf="[view.house].includes(currentView)">{{ option.lastName }} {{option.firstName}}
                   <br>
                   <span style="color: gray; padding-left: 25px;">{{ option.email }}</span>
                 </p>
 
                 <p *ngIf="currentView==view.home">{{option}} </p>
+
+                <p *ngIf="currentView==view.renter">{{option.name}} <br>
+
+                </p>
               </nz-auto-option>
             </nz-autocomplete>
           </div>

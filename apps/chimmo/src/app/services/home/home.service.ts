@@ -64,4 +64,39 @@ export class HomeService {
         .catch(error => reject(error))
     })
   }
+
+  /** */
+  deleteHome (homeId): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.afdb.object(`homes/${homeId}`).remove()
+        .then(() => resolve())
+        .catch(error => reject(error))
+    })
+  }
+
+  /** */
+  updateHome (home): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.afdb.object(`homes/${home.id}`).update(home)
+        .then(() => {
+          resolve()
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  }
+
+  /** */
+  updateHouse (house): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.afdb.object(`houses/${house.id}`).update(house)
+        .then(() => {
+          resolve()
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  }
 }

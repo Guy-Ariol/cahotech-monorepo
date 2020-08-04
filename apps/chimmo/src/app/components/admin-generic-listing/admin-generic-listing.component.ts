@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { UserService } from '../../../../../../libs/service/src/lib/user/user.service';
-import { adminView, homeEnum, houseType } from '../../services/interfaces/interfaces.service';
+import { adminView, homeEnum, houseType, homeType } from '../../services/interfaces/interfaces.service';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { DataService } from '../../services/data/data.service';
 import { HomeService } from '../../services/home/home.service';
@@ -51,7 +51,7 @@ export class AdminGenericListingComponent implements OnInit {
   getHouseName (houseid) {
     if (houseid) {
       const house = this.homeProv.allHouses.find(house => house.id == houseid)
-      return house.name
+      return house?.name
     }
   }
 
@@ -121,42 +121,76 @@ export class AdminGenericListingComponent implements OnInit {
 
   }
 
+  //TODO check that house does not have homes before deleting it
   /** */
   deleteHouse (house: houseType) {
     this.utilsProv.startSpinner()
 
-    // remove reference by landlord
-    let owner = this.userLib.allUsers.find(user => user.id == house.ownerId)
-    console.log(owner)
+    if (house.homeList) {
+      this.utilsProv.showToast('warning', "Veuillez d'abord supprimer les logements. ", '', 'toast-top-center')
+    }
+    else {
+      // remove reference by landlord
+      let owner = this.userLib.allUsers.find(user => user.id == house.ownerId)
 
+      if (owner.houses) {
+        owner.houses.splice(owner.houses.indexOf(house.id), 1)
 
-    if (owner.houses) {
-      owner.houses.splice(owner.houses.indexOf(house.id), 1)
+        this.userLib.updateUser(owner)
+          .then(() => {
+            this.homeProv.deleteHouse(house.id)
+              .then(() => {
+                this.refreshData()
+                this.utilsProv.stopSpinner()
+                this.utilsProv.showToast('success', 'Opération réussie', '', 'toast-top-center')
+              })
+              .catch(error => {
+                console.log(error);
+                this.utilsProv.stopSpinner()
+              })
+          })
+          .catch(error => {
+            console.log(error);
+            this.utilsProv.stopSpinner()
+          })
+      }
 
-      this.userLib.updateUser(owner)
-        .then(() => {
-          this.homeProv.deleteHouse(house.id)
+      // in case landlord having house was not found
+      else {
+        this.utilsProv.showToast('error', "Une érreur s'est produite", '', 'toast-top-center')
+        this.utilsProv.stopSpinner()
+      }
+    }
+  }
+
+  /** */
+  deleteHome (home: homeType) {
+    this.utilsProv.startSpinner()
+
+    this.homeProv.deleteHome(home.id)
+      .then(() => {
+        // remove reference in house
+        let house = this.homeProv.allHouses.find(house => house.id == home.houseId)
+        if (house) {
+          house.homeList.splice(house.homeList.indexOf(home.id), 1)
+          this.homeProv.updateHouse(house)
             .then(() => {
+              this.refreshData()
               this.utilsProv.stopSpinner()
               this.utilsProv.showToast('success', 'Opération réussie', '', 'toast-top-center')
             })
-            .catch(error => {
-              console.log(error);
-              this.utilsProv.stopSpinner()
-            })
-        })
-        .catch(error => {
-          console.log(error);
+        }
+
+        else {
+          this.refreshData()
           this.utilsProv.stopSpinner()
-        })
-    }
-
-    // in case landlord having house was not found
-    else {
-      this.utilsProv.showToast('error', "Une érreur s'est produite", '', 'toast-top-center')
-      this.utilsProv.stopSpinner()
-    }
-
+          this.utilsProv.showToast('success', 'Opération réussie', '', 'toast-top-center')
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        this.utilsProv.stopSpinner()
+      })
   }
 
   /** refresh input data */

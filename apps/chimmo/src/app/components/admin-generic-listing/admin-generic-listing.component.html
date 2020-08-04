@@ -100,7 +100,7 @@
 
           <p *ngIf="utilsProv.isMobile">
             <span class="edit-btn" (click)="editUser.emit({user: element, index:index})">Modifier</span>
-            <span class="delete-btn" (click)="1">Supprimer</span>
+            <span class="delete-btn" (click)="deleteHome(element)">Supprimer</span>
           </p>
           <hr>
         </div>

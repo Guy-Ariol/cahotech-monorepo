@@ -47,7 +47,7 @@ export class AdminFormsComponent implements OnInit {
     // })
   }
 
-  ngOnDestroy() {
+  ngOnDestroy () {
 
   }
 
@@ -201,7 +201,7 @@ export class AdminFormsComponent implements OnInit {
           rooms: this.rooms,
           type: this.controlArray[1].value,
           id: '',
-          houseId: '',
+          houseId: this.controlArray[2].value,
           cost: {
             Caution: this.controlArray[3].value, "Tarif mensuel": this.controlArray[4].value,
             "Avance Checkin": this.controlArray[5].value, "Tarif eau": this.controlArray[6].value,
@@ -211,6 +211,7 @@ export class AdminFormsComponent implements OnInit {
         }
 
         console.log(newHome)
+
         this.homeProv.createHome(newHome)
           .then(() => {
             this.done.emit()
@@ -391,17 +392,21 @@ export class AdminFormsComponent implements OnInit {
   }
 
   /** */
-  refreshInputData(){
+  refreshInputData () {
     // init variables
 
     this.autocompleteList1 = []
 
-    if ([adminView.renter, adminView.house].includes(this.currentView))
+    if ([adminView.house].includes(this.currentView))
       this.autocompleteList1 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
 
     else if (this.currentView == adminView.home) {
       this.autocompleteList1 = Object.keys(homeEnum).filter(el => el != '0' && !parseInt(el))
       this.autocompleteList2 = this.homeProv.allHouses
+    }
+
+    else if (this.currentView == adminView.renter) {
+      this.autocompleteList1 = this.homeProv.allHomes
     }
   }
 }
