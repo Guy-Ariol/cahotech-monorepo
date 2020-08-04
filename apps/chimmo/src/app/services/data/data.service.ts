@@ -205,26 +205,32 @@ export class DataService {
         title: 'Nom*',
         type: 'text',
         value: null,
-        index: 1
-      },
-      {
-        title: 'Adresse',
-        type: 'address',
-        value: null,
-        index: 2,
-        id: 'address',
+        index: 0
       },
       {
         title: 'Type de logement*',
         type: 'autocomplete',
         value: null,
-        index: 3
+        index: 1
+      },
+      // {
+      //   title: 'Adresse',
+      //   type: 'address',
+      //   value: null,
+      //   index: 2,
+      //   id: 'address',
+      // },
+      {
+        title: 'Résidence*',
+        type: 'autocomplete2',
+        value: null,
+        index: 2
       },
       {
         title: 'Pièces*',
         type: 'complex',
         value: 1,
-        index: 4
+        index: 3
       },
     ]
 
@@ -233,19 +239,20 @@ export class DataService {
         title: 'Nom*',
         type: 'text',
         value: null,
-        index: 1
+        index: 0
       },
       {
         title: 'Équipements*',
         type: 'checkbox-group',
         value: ['Piscine', 'Forage', 'Parking', 'Instincteur', 'Gardienage', 'Ascenceur', 'Vidéo surveillance', 'Groupe électrogène', 'Espace jeux enfants'],
-        index: 2
+        index: 1
       },
       {
-        title: 'Logements*',
-        type: 'complex',
+        title: 'Adresse',
+        type: 'address',
         value: null,
-        index: 3
+        index: 2,
+        id: 'address',
       },
     ]
   }

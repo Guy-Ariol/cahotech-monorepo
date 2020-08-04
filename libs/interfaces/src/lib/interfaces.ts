@@ -156,28 +156,3 @@ export interface sendEmailType {
 export enum sendEmailEnum { newuser, changePass }
 
 
-/** */
-export interface homeType {
-  name: string,
-  address: string,
-  type: homeEnum,
-  rooms: roomType[]
-}
-
-/** */
-export enum homeEnum { Magasin, Appartement, Villa, Studio, Chambre }
-
-/** */
-export enum roomTypeEnum { chambre, salon, cuisine, douche, magasin, wc, douche_wc, terrase, jardin, cave, garage }
-
-/** */
-export enum roomEquipmentEnum { eau_chaude, detector_fumee, climatisateur, canal_sat }
-
-/** */
-export interface roomType {
-  type: roomTypeEnum,
-  surface: number,
-  equipment: roomEquipmentEnum[],
-  cost: { caution: number, monthly: number, avandce: number, water: number, electricity: number }
-}
-

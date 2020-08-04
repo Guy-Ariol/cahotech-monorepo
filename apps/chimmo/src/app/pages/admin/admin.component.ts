@@ -3,6 +3,7 @@ import { adminView } from '../../services/interfaces/interfaces.service';
 import { DataService } from '../../services/data/data.service';
 import { UsersService } from '../../services/users/users.service';
 import { UtilsService } from "../../../../../../libs/service/src/lib/utils/utils.service";
+import { HomeService } from '../../services/home/home.service';
 
 @Component({
   selector: 'cahotech-monorepo-admin',
@@ -21,16 +22,16 @@ export class AdminComponent implements OnInit {
   isEdit = false
   currentUserIndex: number
 
-
   constructor(
     public dataprov: DataService,
     public userProv: UsersService,
-    public utilsProv: UtilsService
+    public utilsProv: UtilsService,
+    private homeProv: HomeService
   ) { }
 
-
   ngOnInit (): void {
-
+    this.homeProv.subscribeAllHouses()
+    this.homeProv.subscribeAllHomes()
   }
 
 
@@ -47,8 +48,7 @@ export class AdminComponent implements OnInit {
     else if (menu == this.view.MoneyIn2) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Caisse locataire' }
   }
 
-
-
+  /** */
   toogleMenu () {
     this.currentView = adminView.none
     this.isNew = false
@@ -59,8 +59,7 @@ export class AdminComponent implements OnInit {
     }, 100);
   }
 
-
-
+  /** */
   editUser (data) {
     this.currentUserIndex = data.index
 
@@ -76,15 +75,12 @@ export class AdminComponent implements OnInit {
     }
   }
 
-
-
+  /** */
   getTimeStamp (index, date) {
     let date1 = new Date(date[0])
     let date2 = new Date(date[1])
 
     this.controlArray[index].value = [date1.getTime(), date2.getTime()]
   }
-
-
 
 }

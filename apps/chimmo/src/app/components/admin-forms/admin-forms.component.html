@@ -17,16 +17,22 @@
           </nz-range-picker>
         </div>
 
+        <div *ngIf="control.type=='address'">
+          <google-maps (onPlaceAvailable)="getAddress($event)"></google-maps>
+        </div>
+
         <div *ngIf="control.type=='autocomplete'">
           <div style="padding-top: 15px;">
             {{control.title}}
             <input nz-input [nzAutocomplete]="auto" style="font-size: 15px;" [(ngModel)]="control.value"
-              (ngModelChange)="filterInput('home', $event)" [class]="control.error ? 'validation-error' : ''" />
+              (ngModelChange)="filterInput(currentView==view.renter? 'user' : '', $event)"
+              [class]="control.error ? 'validation-error' : ''" />
 
             <nz-autocomplete #auto>
               <nz-auto-option *ngFor="let option of autocompleteList1"
                 [nzLabel]="currentView==view.renter? option.lastName+' '+ option.firstName : option"
                 [nzValue]="currentView==view.renter? option.id : option">
+
                 <p *ngIf="currentView==view.renter">{{ option.lastName }} {{option.firstName}}
                   <br>
                   <span style="color: gray; padding-left: 25px;">{{ option.email }}</span>
@@ -38,13 +44,10 @@
           </div>
         </div>
 
-        <div *ngIf="control.type=='address'">
-          <google-maps (onPlaceAvailable)="getAddress($event)"></google-maps>
-        </div>
-
         <div *ngIf="control.type=='checkbox-group'">
-          <nz-checkbox-wrapper style="padding-top: 15px; padding-bottom: 15px;"
-            (nzOnChange)="houseEquipmentSelected($event)">
+          <p style="margin-top: 15px; margin-bottom: 5px;">{{control.title}}</p>
+
+          <nz-checkbox-wrapper style="padding-bottom: 15px;" (nzOnChange)="houseEquipmentSelected($event)">
             <div nz-row>
               <div nz-col nzSpan="12" *ngFor="let option of control.value">
                 <label nz-checkbox [nzValue]="option">{{option}}</label>
@@ -54,12 +57,17 @@
         </div>
 
         <div class="add-homes" *ngIf="control.title=='Pièces*'">
-          <p style="padding-top: 15px; font-weight: bold;">{{control.title}}
-            <button style="float: right;" nz-button nzType="primary" (click)="addRoom()">New</button>
-          </p>
+          <div class="action-btn" (click)="addRoom()">
+            <span>+</span>
+          </div>
+
+          <p style="padding-top: 15px; font-weight: bold;">{{control.title}}        </p>
 
           <div class="new-room">
             <div style="padding-top: 15px;" *ngFor="let room of rooms; let index=index">
+
+              <p style="color: brown;">Pièce Nr. {{index+1}} </p>
+              <hr>
 
               Type de la pièce
               <input nz-input [nzAutocomplete]="typeRoom" style="font-size: 15px;" [(ngModel)]="room.type"
@@ -76,14 +84,29 @@
               <input nz-input type="number" [(ngModel)]="room.surface">
 
               Équipements de la pièce
-              <input nz-input [nzAutocomplete]="equipRoom" style="font-size: 15px;" [(ngModel)]="room.equipment"
-                (ngModelChange)="filterInput('', $event)" [class]="control.error ? 'validation-error' : ''" />
+              <nz-checkbox-wrapper style="padding-top: 15px; padding-bottom: 15px;" (nzOnChange)="room.equipment=$event"
+                [class]="control.error ? 'validation-error' : ''">
+                <div nz-row>
+                  <div nz-col nzSpan="12" *ngFor="let option of getRoomEquipmentList()">
+                    <label nz-checkbox [nzValue]="option">{{option}}</label>
+                  </div>
+                </div>
+              </nz-checkbox-wrapper>
 
-              <nz-autocomplete #equipRoom>
-                <nz-auto-option *ngFor="let option of getRoomEquipmentList()" [nzLabel]="option" [nzValue]="option">
-                  <p>{{ option}} </p>
-                </nz-auto-option>
-              </nz-autocomplete>
+              Caution
+              <input nz-input type="number" [(ngModel)]="room.cost.Caution" />
+
+              Tarif mensuel
+              <input nz-input type="number" [(ngModel)]="room.cost['Tarif mensuel']" />
+
+              Avance Checkin
+              <input nz-input type="number" [(ngModel)]="room.cost['Avance Checkin']" />
+
+              Tarif eau
+              <input nz-input type="number" [(ngModel)]="room.cost['Tarif eau']" />
+
+              Tarif électricité
+              <input nz-input type="number" [(ngModel)]="room.cost['Tarif électricité']" />
             </div>
 
           </div>
@@ -91,7 +114,7 @@
       </div>
     </td>
 
-    <td class="summary" *ngIf="controlArray.length">
+    <td class="summary" *ngIf="controlArray.length && showSummary">
       <h1 style="text-align: center;">Résumé</h1>
       <br>
 
@@ -120,6 +143,10 @@
               <p>{{control.value}}</p>
             </div>
 
+            <!-- <div *ngIf="control.title=='Pièces*'">
+
+            </div> -->
+
           </div>
         </div>
       </div>
@@ -133,5 +160,10 @@
 
     </td>
   </tr>
+
+  <div *ngIf="!showSummary" style="text-align: center; margin-bottom: 25px; padding-top: 25px;">
+    <button nz-button nzSize="large" (click)="done.emit()">Annuler</button>
+    <button nz-button nzSize="large" class="new-home-next-btn" nzType="primary" (click)="gotoSummary()">Suivant</button>
+  </div>
 
 </div>

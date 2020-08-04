@@ -36,10 +36,10 @@
     nz-range-picker {
       font-size: 20px;
     }
+  }
 
-    // nz-range-picker{
-    //   font-size: 20px;
-    // }
+  .new-room {
+    padding: 15px;
   }
 }
 
@@ -76,5 +76,38 @@
     input {
       margin-bottom: 10px;
     }
+  }
+
+  .action-btn {
+    position: fixed;
+    top: 360px;
+    right: 20px;
+    height: 50px;
+    width: 50px;
+    background: tomato;
+    border-radius: 50%;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    z-index: 999999;
+  }
+
+  .action-btn span {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: white;
+  }
+
+  .new-room{
+    input{
+      z-index: 0;
+    }
+  }
+
+  .new-home-next-btn{
+    margin-left: 20px;
   }
 }

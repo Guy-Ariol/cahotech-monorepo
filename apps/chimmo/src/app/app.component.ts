@@ -23,7 +23,7 @@ export class AppComponent {
 
     setTimeout(() => {
       this.utilsProv.stopSpinner()
-    }, 1000);
+    }, 3000);
 
     this.utilsProv.setScreenSize(window.innerWidth, window.innerHeight)
 

@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from 'libs/service/src/lib/user/user.service';
-import { adminView } from '../../services/interfaces/interfaces.service';
-import { userType, userEnum, roomTypeEnum, roomType, homeEnum, roomEquipmentEnum } from '@cahotech-monorepo/interfaces';
+import { adminView, roomType, homeEnum, roomTypeEnum, roomEquipmentEnum, homeType, houseType } from '../../services/interfaces/interfaces.service';
+import { userType, userEnum } from '@cahotech-monorepo/interfaces';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { UsersService } from '../../services/users/users.service';
 import { DataService } from '../../services/data/data.service';
+import { HomeService } from '../../services/home/home.service';
 
 @Component({
   selector: 'admin-forms',
@@ -24,11 +25,14 @@ export class AdminFormsComponent implements OnInit {
   autocompleteList1 = []
   rooms: roomType[] = []
 
+  showSummary = false
+
   constructor(
     public userLib: UserService,
     public utilsProv: UtilsService,
     public userProv: UsersService,
     private dataProv: DataService,
+    private homeProv: HomeService
 
   ) { }
 
@@ -38,7 +42,6 @@ export class AdminFormsComponent implements OnInit {
 
   ngDoCheck () {
     // init variables
-
     this.autocompleteList1 = []
 
     if (this.currentView == adminView.renter)
@@ -65,9 +68,7 @@ export class AdminFormsComponent implements OnInit {
             user.lastName?.toLowerCase().includes(input.toLowerCase()) || user.email?.toLowerCase().includes(input.toLowerCase())
         })
 
-        // this.zone.run(() => {
         this.getLandLord(out)
-        // })
       }
       else if (type == 'home') {
 
@@ -91,7 +92,7 @@ export class AdminFormsComponent implements OnInit {
 
     // check if input field is blank. Also check that email formatting is ok
     this.controlArray.forEach((el) => {
-      if (el.value) this.controlArray[el.index].error = false
+      if (el.value && this.controlArray[el.index]) this.controlArray[el.index].error = false
 
       if (el.title != 'Adresse' && !el.value) { this.controlArray[el.index].error = true; error.push(el.title) }
       else if (el.title == 'E-mail*' && !this.utilsProv.checkEmail(el.value)) { console.log(el.value); this.controlArray[el.index].error = true; error.push(el.title) }
@@ -137,18 +138,20 @@ export class AdminFormsComponent implements OnInit {
     else {
       let user = {} as userType
 
-      user.firstName = this.controlArray[1].value
-      user.lastName = this.controlArray[0].value
-      user.email = this.controlArray[3].value
-      user.addres = this.controlArray[2].value
-      user.tel = this.controlArray[4].value
-      user.apps = [this.dataProv.appName]
-      // user.companyName = this.userLib.currentUser.companyName
-      user.emailSent = false
-      user.id = this.userLib.createPushId()
-      user.timeStamp = Date.now()
-      user.adminPass = ''
-      user.type = userEnum.landlord
+      if (![adminView.home, adminView.house].includes(this.currentView)) {
+        user.firstName = this.controlArray[1].value
+        user.lastName = this.controlArray[0].value
+        user.email = this.controlArray[3].value
+        user.addres = this.controlArray[2].value
+        user.tel = this.controlArray[4].value
+        user.apps = [this.dataProv.appName]
+        // user.companyName = this.userLib.currentUser.companyName
+        user.emailSent = false
+        user.id = this.userLib.createPushId()
+        user.timeStamp = Date.now()
+        user.adminPass = ''
+        user.type = userEnum.landlord
+      }
 
       if (this.currentView == this.view.landlord) {
         user.type = userEnum.landlord
@@ -187,6 +190,53 @@ export class AdminFormsComponent implements OnInit {
 
       }
 
+      else if (this.currentView == adminView.home) {
+        this.utilsProv.startSpinner()
+
+        let newHome: homeType = {
+          name: this.controlArray[0].value,
+          // address: this.controlArray[2].value,
+          rooms: this.rooms,
+          type: this.controlArray[1].value,
+          id: '',
+          houseId: ''
+        }
+
+        console.log(newHome)
+        this.homeProv.createHome(newHome)
+          .then(() => {
+            this.done.emit()
+            this.resetForm()
+            this.utilsProv.stopSpinner()
+          })
+          .catch(error => {
+            console.log(error);
+            this.utilsProv.stopSpinner()
+          })
+      }
+
+      else if (this.currentView == adminView.house) {
+        this.utilsProv.startSpinner()
+
+        let newHouse: houseType = {
+          name: this.controlArray[0].value,
+          address: this.controlArray[2].value,
+          equipment: this.houseEquipments,
+          id: '',
+        }
+
+        console.log(newHouse)
+        this.homeProv.createHouse(newHouse)
+          .then(() => {
+            this.done.emit()
+            this.resetForm()
+            this.utilsProv.stopSpinner()
+          })
+          .catch(error => {
+            console.log(error);
+            this.utilsProv.stopSpinner()
+          })
+      }
     }
   }
 
@@ -240,7 +290,6 @@ export class AdminFormsComponent implements OnInit {
   //TODO selected all /unselect all checkbox
   houseEquipmentSelected (val) {
     this.houseEquipments = val
-
   }
 
   /** */
@@ -249,8 +298,13 @@ export class AdminFormsComponent implements OnInit {
       type: null,
       surface: null,
       equipment: [],
-      cost: { caution: null, monthly: null, avandce: null, water: null, electricity: null }
+      cost: { Caution: null, "Tarif mensuel": null, "Avance Checkin": null, "Tarif eau": null, "Tarif électricité": null }
     })
+
+    setTimeout(() => {
+      if (this.rooms.length == 1) window.scrollBy(0, 200);
+      else if (this.rooms.length > 1) window.scrollBy(0, 300)
+    }, 100);
   }
 
   /** */
@@ -261,5 +315,28 @@ export class AdminFormsComponent implements OnInit {
   /** */
   getRoomEquipmentList () {
     return Object.keys(roomEquipmentEnum).filter(el => el != '0' && !parseInt(el))
+  }
+
+  /** */
+  getRoomCost () {
+    const t = { Caution: null, 'Tarif mensuel': null, 'Avance Checkin': null, 'Tarif eau': null, 'Tarif électricité': null }
+    let out = []
+
+    for (let key in t) {
+      out.push(key)
+    }
+
+    return out
+  }
+
+  /** */
+  gotoSummary () {
+    this.showSummary = true
+    console.log(this.currentView, adminView.house)
+
+
+    setTimeout(() => {
+      if (this.currentView == adminView.house) window.scrollBy(0, 400)
+    }, 150);
   }
 }

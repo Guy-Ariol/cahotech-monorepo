@@ -19,28 +19,69 @@
     </tr>
 
     <div class="user-list">
-      <div *ngFor="let user of searchUsers; let index=index">
-        <div *ngIf="(user.type==0 && currentView==view.landlord) || (user.type==1 && currentView==view.renter)">
-          <p><b>{{user.lastName}} {{user.firstName}}</b> <br>
-            <span><u>Email:</u> {{user.email}} ; <u>Tel:</u> {{user.tel}}</span> <br>
-            <span style="color: #575151;"><u>Mot de passe:</u> {{user.adminPass}} </span> <br>
-            <span style="color: #575151;"><u>Adresse:</u> {{user.addres}} </span>
+      <div *ngFor="let element of displayList; let index=index">
+        <div *ngIf="(element.type==0 && currentView==view.landlord) || (element.type==1 && currentView==view.renter)">
+          <p><b>{{element.lastName}} {{element.firstName}}</b> <br>
+            <span><u>Email:</u> {{element.email}} ; <u>Tel:</u> {{element.tel}}</span> <br>
+            <span style="color: #575151;"><u>Mot de passe:</u> {{element.adminPass}} </span> <br>
+            <span style="color: #575151;"><u>Adresse:</u> {{element.addres}} </span>
 
             <span *ngIf="utilsProv.isDesktop" class="edit-btn"
-              (click)="editUser.emit({user: user, index:index})">Modifier</span>
+              (click)="editUser.emit({user: element, index:index})">Modifier</span>
           </p>
 
           <p *ngIf="utilsProv.isMobile">
-            <span class="edit-btn" (click)="editUser.emit({user: user, index:index})">Modifier</span>
+            <span class="edit-btn" (click)="editUser.emit({user: element, index:index})">Modifier</span>
             <span class="delete-btn" (click)="1">Modifier</span>
+          </p>
+          <hr>
+        </div>
+
+        <div *ngIf="currentView == view.house">
+          <p><b> {{element.name}}</b> <br>
+            <span><b><u>Adresse:</u></b> {{element.address}} </span><br>
+            <span><b><u>Equipements: </u></b> </span>
+            <span *ngFor="let equip of element.equipment">{{equip}}, </span>
+
+            <!-- <span *ngIf="utilsProv.isDesktop" class="edit-btn"
+              (click)="editUser.emit({user: user, index:index})">Modifier</span> -->
+          </p>
+
+          <p *ngIf="utilsProv.isMobile">
+            <span class="edit-btn" (click)="editUser.emit({user: element, index:index})">Modifier</span>
+            <span class="delete-btn" (click)="1">Supprimer</span>
+          </p>
+          <hr>
+        </div>
+
+        <div *ngIf="currentView == view.home">
+          <p><b> {{element.name}}</b> <br>
+            <span><b><u>Type:</u></b> {{element.type}} </span><br>
+
+            <span *ngFor="let room of element.rooms; let index=index">
+              <span><b><u>Pièce Nr {{index+1}}</u></b> </span>
+              {{room.type}}<br>
+
+              <span><u>Superficie:</u> {{element.surface}}</span><br>
+
+              <u style="margin-right: 10px;">Équipements: </u>
+              <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
+            </span>
+
+
+            <!-- <span *ngIf="utilsProv.isDesktop" class="edit-btn"
+                      (click)="editUser.emit({user: user, index:index})">Modifier</span> -->
+          </p>
+
+          <p *ngIf="utilsProv.isMobile">
+            <span class="edit-btn" (click)="editUser.emit({user: element, index:index})">Modifier</span>
+            <span class="delete-btn" (click)="1">Supprimer</span>
           </p>
           <hr>
         </div>
       </div>
 
-      <div *ngIf="!searchUsers.length" style="text-align: center; padding: 35px;">Il n'ya pas de
-        {{currentView==view.landlord? 'bailleurs' : 'locataires'}} enrégistrer !
-      </div>
+      <div *ngIf="!displayList.length" style="text-align: center; padding: 35px;">{{blankMsg}} </div>
     </div>
   </div>
 

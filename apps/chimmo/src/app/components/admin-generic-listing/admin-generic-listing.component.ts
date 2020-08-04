@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { UserService } from '../../../../../../libs/service/src/lib/user/user.service';
-import { userType } from '@cahotech-monorepo/interfaces';
-import { adminView } from '../../services/interfaces/interfaces.service';
+import { adminView, homeEnum } from '../../services/interfaces/interfaces.service';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { DataService } from '../../services/data/data.service';
+import { HomeService } from '../../services/home/home.service';
 
 @Component({
   selector: 'admin-generic-listing',
@@ -17,24 +17,44 @@ export class AdminGenericListingComponent implements OnInit {
   @Input() currentView
 
   view = adminView
-  searchUsers: userType[] = []
+  displayList = []
+  blankMsg = ""
 
   constructor(
     public userLib: UserService,
     public utilsProv: UtilsService,
-    private dataProv: DataService
+    private dataProv: DataService,
+    private homeProv: HomeService
 
   ) { }
 
   ngOnInit (): void {
-    this.searchUsers = this.userLib.allUsers.filter(user => { return user.apps && user.apps.includes(this.dataProv.appName) })
+    if ([adminView.landlord, adminView.renter].includes(this.currentView)) {
+      this.displayList = this.userLib.allUsers.filter(user => { return user.apps && user.apps.includes(this.dataProv.appName) })
+      this.blankMsg = `Il n'ya pas de ${this.currentView == adminView.landlord ? '' : ''} enrégistrer!`
+    }
+    else if (this.currentView == adminView.house) {
+      this.displayList = this.homeProv.allHouses
+      this.blankMsg = `Il n'ya pas de résidences enrégistrer!`
+    }
+    else if (this.currentView == adminView.home) {
+      this.displayList = this.homeProv.allHomes
+      this.blankMsg = `Il n'ya pas de logements enrégistrer!`
+    }
+
   }
 
-
+  /** */
   search (text) {
-    if (!text) this.searchUsers = this.userLib.allUsers.filter(user => { return user.apps && user.apps.includes(this.dataProv.appName) })
-    else this.searchUsers = this.userLib.allUsers.filter(user => {
-      return (user.firstName?.toLowerCase().includes(text) || user.lastName?.toLowerCase().includes(text)) && (user.apps && user.apps.includes(this.dataProv.appName))
-    })
+    if ([adminView.landlord, adminView.renter].includes(this.currentView)) {
+      if (!text) this.displayList = this.userLib.allUsers.filter(user => { return user.apps && user.apps.includes(this.dataProv.appName) })
+      else this.displayList = this.userLib.allUsers.filter(user => {
+        return (user.firstName?.toLowerCase().includes(text) || user.lastName?.toLowerCase().includes(text)) && (user.apps && user.apps.includes(this.dataProv.appName))
+      })
+    }
+  }
+
+  getHomeType (arg) {
+    return homeEnum[arg]
   }
 }
