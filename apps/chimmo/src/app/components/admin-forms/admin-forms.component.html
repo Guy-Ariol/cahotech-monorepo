@@ -44,6 +44,22 @@
           </div>
         </div>
 
+        <div *ngIf="control.type=='autocomplete2'">
+          <div>
+            {{control.title}}
+            <input nz-input [nzAutocomplete]="auto" style="font-size: 15px;" [(ngModel)]="control.value"
+              (ngModelChange)="filterInput($event)" [class]="control.error ? 'validation-error' : ''" />
+
+            <nz-autocomplete #auto>
+              <nz-auto-option *ngFor="let option of autocompleteList2" [nzLabel]=" option.name" [nzValue]="option.id">
+                <p><b>{{option.name}}</b> <br>
+                  <span style="color: rgb(85, 80, 80);">{{option.address}} </span>
+                </p>
+              </nz-auto-option>
+            </nz-autocomplete>
+          </div>
+        </div>
+
         <div *ngIf="control.type=='checkbox-group'">
           <p style="margin-top: 15px; margin-bottom: 5px;">{{control.title}}</p>
 
@@ -92,21 +108,6 @@
                   </div>
                 </div>
               </nz-checkbox-wrapper>
-
-              Caution
-              <input nz-input type="number" [(ngModel)]="room.cost.Caution" />
-
-              Tarif mensuel
-              <input nz-input type="number" [(ngModel)]="room.cost['Tarif mensuel']" />
-
-              Avance Checkin
-              <input nz-input type="number" [(ngModel)]="room.cost['Avance Checkin']" />
-
-              Tarif eau
-              <input nz-input type="number" [(ngModel)]="room.cost['Tarif eau']" />
-
-              Tarif électricité
-              <input nz-input type="number" [(ngModel)]="room.cost['Tarif électricité']" />
             </div>
 
           </div>
@@ -143,9 +144,9 @@
               <p>{{control.value}}</p>
             </div>
 
-            <!-- <div *ngIf="control.title=='Pièces*'">
-
-            </div> -->
+            <div *ngIf="control.title=='Pièces*'">
+              piece ici
+            </div>
 
           </div>
         </div>

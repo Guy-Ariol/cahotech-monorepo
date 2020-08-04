@@ -57,4 +57,12 @@ export class AdminGenericListingComponent implements OnInit {
   getHomeType (arg) {
     return homeEnum[arg]
   }
+
+  /** get house's name from house id*/
+  getHouseName (houseid) {
+    if (houseid) {
+      const house = this.homeProv.allHouses.find(house => house.id == houseid)
+      return house.name
+    }
+  }
 }

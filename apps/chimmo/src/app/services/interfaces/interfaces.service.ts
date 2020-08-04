@@ -19,18 +19,17 @@ export interface roomCostType { Caution: number, 'Tarif mensuel': number, 'Avanc
 export interface roomType {
   type: roomTypeEnum,
   surface: number,
-  equipment: [],
-  cost: roomCostType
+  equipment: []
 }
 
 /** */
 export interface homeType {
   name: string,
-  // address: string,
   type: homeEnum,
   rooms: roomType[],
   id: string,
-  houseId: string
+  houseId: string,
+  cost: roomCostType
 }
 
 /** */

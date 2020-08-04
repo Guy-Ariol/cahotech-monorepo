@@ -56,16 +56,19 @@
 
         <div *ngIf="currentView == view.home">
           <p><b> {{element.name}}</b> <br>
-            <span><b><u>Type:</u></b> {{element.type}} </span><br>
+            <span><b><u>Type:</u></b>&nbsp; {{element.type}} </span><br>
+            <span><b><u>Résidence: </u></b>&nbsp; {{getHouseName(element.houseId)}} </span>
 
             <span *ngFor="let room of element.rooms; let index=index">
-              <span><b><u>Pièce Nr {{index+1}}</u></b> </span>
-              {{room.type}}<br>
+              <br><span><b><u>Pièce Nr {{index+1}}:</u></b> </span>
+              &nbsp; {{room.type}}<br>
 
-              <span><u>Superficie:</u> {{element.surface}}</span><br>
+              <span style="padding-left: 12px;">
+                <span><u>Superficie:</u> {{room.surface}} m²</span><br>
 
-              <u style="margin-right: 10px;">Équipements: </u>
-              <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
+                <u style="padding-left: 12px;">Équipements: </u> &nbsp;
+                <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
+              </span>
             </span>
 
 

@@ -213,13 +213,6 @@ export class DataService {
         value: null,
         index: 1
       },
-      // {
-      //   title: 'Adresse',
-      //   type: 'address',
-      //   value: null,
-      //   index: 2,
-      //   id: 'address',
-      // },
       {
         title: 'Résidence*',
         type: 'autocomplete2',
@@ -227,10 +220,40 @@ export class DataService {
         index: 2
       },
       {
+        title: 'Caution*',
+        type: 'number',
+        value: null,
+        index: 3
+      },
+      {
+        title: 'Tarif mensuel*',
+        type: 'number',
+        value: null,
+        index: 4
+      },
+      {
+        title: 'Avance Checkin*',
+        type: 'number',
+        value: null,
+        index: 5
+      },
+      {
+        title: 'Tarif eau*',
+        type: 'number',
+        value: null,
+        index: 6
+      },
+      {
+        title: 'Tarif électricité*',
+        type: 'number',
+        value: null,
+        index: 7
+      },
+      {
         title: 'Pièces*',
         type: 'complex',
-        value: 1,
-        index: 3
+        value: 0,
+        index: 8
       },
     ]
 

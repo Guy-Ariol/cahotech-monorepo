@@ -23,6 +23,7 @@ export class AdminFormsComponent implements OnInit {
   view = adminView
   houseEquipments = []
   autocompleteList1 = []
+  autocompleteList2 = []
   rooms: roomType[] = []
 
   showSummary = false
@@ -47,8 +48,11 @@ export class AdminFormsComponent implements OnInit {
     if (this.currentView == adminView.renter)
       this.autocompleteList1 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
 
-    else if (this.currentView == adminView.home)
+    else if (this.currentView == adminView.home) {
       this.autocompleteList1 = Object.keys(homeEnum).filter(el => el != '0' && !parseInt(el))
+      this.autocompleteList2 = this.homeProv.allHouses
+    }
+
 
   }
 
@@ -195,11 +199,15 @@ export class AdminFormsComponent implements OnInit {
 
         let newHome: homeType = {
           name: this.controlArray[0].value,
-          // address: this.controlArray[2].value,
           rooms: this.rooms,
           type: this.controlArray[1].value,
           id: '',
-          houseId: ''
+          houseId: '',
+          cost: {
+            Caution: this.controlArray[3].value, "Tarif mensuel": this.controlArray[4].value,
+            "Avance Checkin": this.controlArray[5].value, "Tarif eau": this.controlArray[6].value,
+            "Tarif électricité": this.controlArray[7].value
+          }
         }
 
         console.log(newHome)
@@ -298,13 +306,15 @@ export class AdminFormsComponent implements OnInit {
       type: null,
       surface: null,
       equipment: [],
-      cost: { Caution: null, "Tarif mensuel": null, "Avance Checkin": null, "Tarif eau": null, "Tarif électricité": null }
     })
 
     setTimeout(() => {
       if (this.rooms.length == 1) window.scrollBy(0, 200);
       else if (this.rooms.length > 1) window.scrollBy(0, 300)
     }, 100);
+
+     /** deactivate input validation */
+     this.controlArray[8].value = 1
   }
 
   /** */
@@ -337,6 +347,8 @@ export class AdminFormsComponent implements OnInit {
 
     setTimeout(() => {
       if (this.currentView == adminView.house) window.scrollBy(0, 400)
+
+      if (this.currentView == adminView.home) window.scrollBy(0, 400)
     }, 150);
   }
 }
