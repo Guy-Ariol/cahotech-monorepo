@@ -278,7 +278,7 @@ export class DataService {
         id: 'address',
       },
       {
-        title: 'Proprietaire',
+        title: 'Proprietaire*',
         type: 'autocomplete',
         value: null,
         index: 3,

@@ -28,11 +28,10 @@
               (ngModelChange)="filterInput([view.house].includes(currentView)? 'user' : '', $event)"
               [class]="control.error ? 'validation-error' : ''" />
 
-            <!-- [nzLabel]="[view.house].includes(currentView)? option.lastName+' '+ option.firstName : option" -->
-
             <nz-autocomplete #auto>
               <nz-auto-option *ngFor="let option of autocompleteList1"
-                [nzValue]="[view.house].includes(currentView)? option.id : option">
+                [nzValue]="[view.house].includes(currentView)? option.id : option"
+                [nzLabel]="[view.house].includes(currentView)? option.lastName+' '+ option.firstName : option">
 
                 <p *ngIf="[view.house].includes(currentView)">{{ option.lastName }} {{option.firstName}}
                   <br>
@@ -42,7 +41,6 @@
                 <p *ngIf="currentView==view.home">{{option}} </p>
 
                 <p *ngIf="currentView==view.renter">{{option.name}} <br>
-
                 </p>
               </nz-auto-option>
             </nz-autocomplete>
@@ -140,13 +138,15 @@
               <p><u>Email:</u> {{getUserEmail(control.value)}} </p>
             </div>
 
-            <div *ngIf="control.type == 'checkbox-group'">
+            <div class="summary-checkbox-group" *ngIf="control.type == 'checkbox-group'">
               <div *ngFor="let item of houseEquipments">{{item}} </div>
             </div>
 
             <div
               *ngIf="!['date-range', 'checkbox-group'].includes(control.type) && !['Bailleur'].includes(control.title)">
-              <p>{{control.value}}</p>
+              <span *ngIf="currentView==view.house && control.title=='Proprietaire*'">{{getUserFullName(control.value)}}</span>
+              <span *ngIf="currentView==view.house && control.title!='Proprietaire*'">{{control.value}}</span>
+              <span *ngIf="currentView==!view.house">{{control.value}}</span>
             </div>
 
             <div *ngIf="control.title=='Pièces*'">
@@ -159,7 +159,6 @@
 
       <div style="text-align: center;">
         <button nz-button nzSize="large" class="submit-form2" (click)="done.emit()">Annuler</button>
-
         <button nz-button nzSize="large" class="submit-form" (click)="submit()">{{!isEdit? 'Valider' : 'Actualiser'}}
         </button>
       </div>

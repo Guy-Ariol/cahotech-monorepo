@@ -47,13 +47,16 @@ export class AdminFormsComponent implements OnInit {
     // })
   }
 
+
   ngOnDestroy () {
 
   }
 
+
   ngDoCheck () {
     this.refreshInputData()
   }
+
 
   getTimeStamp (index, date) {
     let date1 = new Date(date[0])
@@ -264,7 +267,7 @@ export class AdminFormsComponent implements OnInit {
     }
   }
 
-  /** */
+
   resetForm () {
     this.controlArray.forEach(el => {
       el.value = null
@@ -310,7 +313,34 @@ export class AdminFormsComponent implements OnInit {
     return userFound
   }
 
-  /** */
+
+  getRoomTypeList () {
+    return Object.keys(roomTypeEnum).filter(el => el != '0' && !parseInt(el))
+  }
+
+
+  getRoomEquipmentList () {
+    return Object.keys(roomEquipmentEnum).filter(el => el != '0' && !parseInt(el))
+  }
+
+
+  getRoomCost () {
+    const t = { Caution: null, 'Tarif mensuel': null, 'Avance Checkin': null, 'Tarif eau': null, 'Tarif électricité': null }
+    let out = []
+
+    for (let key in t) {
+      out.push(key)
+    }
+
+    return out
+  }
+
+
+  getHouseEquipmentList () {
+    return Object.keys(houseEquipmentEnum).filter(el => el != '0' && !parseInt(el))
+  }
+
+
   //TODO selected all /unselect all checkbox
   houseEquipmentSelected (val) {
     //TODO get rid of this varible and use only controlArray.value instead
@@ -320,7 +350,7 @@ export class AdminFormsComponent implements OnInit {
 
   }
 
-  /** */
+
   addRoom () {
     this.rooms.push({
       type: null,
@@ -337,29 +367,7 @@ export class AdminFormsComponent implements OnInit {
     this.controlArray[8].value = 1
   }
 
-  /** */
-  getRoomTypeList () {
-    return Object.keys(roomTypeEnum).filter(el => el != '0' && !parseInt(el))
-  }
 
-  /** */
-  getRoomEquipmentList () {
-    return Object.keys(roomEquipmentEnum).filter(el => el != '0' && !parseInt(el))
-  }
-
-  /** */
-  getRoomCost () {
-    const t = { Caution: null, 'Tarif mensuel': null, 'Avance Checkin': null, 'Tarif eau': null, 'Tarif électricité': null }
-    let out = []
-
-    for (let key in t) {
-      out.push(key)
-    }
-
-    return out
-  }
-
-  /** */
   gotoSummary () {
     let res = this.checkInputs()
 
@@ -386,12 +394,7 @@ export class AdminFormsComponent implements OnInit {
 
   }
 
-  /** */
-  getHouseEquipmentList () {
-    return Object.keys(houseEquipmentEnum).filter(el => el != '0' && !parseInt(el))
-  }
 
-  /** */
   refreshInputData () {
     // init variables
 
