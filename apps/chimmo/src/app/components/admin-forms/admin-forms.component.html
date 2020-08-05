@@ -30,8 +30,8 @@
 
             <nz-autocomplete #auto>
               <nz-auto-option *ngFor="let option of autocompleteList1"
-                [nzValue]="[view.house].includes(currentView)? option.id : option"
-                [nzLabel]="[view.house].includes(currentView)? option.lastName+' '+ option.firstName : option">
+                [nzValue]="[view.house, view.renter].includes(currentView)? option.id :  option"
+                [nzLabel]="[view.house].includes(currentView)? option.lastName+' '+ option.firstName : currentView==view.renter? option.name : option">
 
                 <p *ngIf="[view.house].includes(currentView)">{{ option.lastName }} {{option.firstName}}
                   <br>
@@ -147,10 +147,13 @@
               <span
                 *ngIf="currentView==view.house && control.title=='Proprietaire*'">{{getUserFullName(control.value)}}</span>
               <span *ngIf="currentView==view.house && control.title!='Proprietaire*'">{{control.value}}</span>
-              <span *ngIf="currentView==!view.house">{{control.value}}</span>
+              <span *ngIf="![view.house, view.renter].includes(currentView)">{{control.value}}</span>
+
+              <span *ngIf="currentView==view.renter && control.title=='Logement*'">{{geHomeDetails(control.value)?.name}} </span>
+              <span *ngIf="currentView==view.renter && control.title!='Logement*'">{{control.value}} </span>
             </div>
 
-            <div *ngIf="currentView!=view.house">{{control.value}} </div>
+            <div *ngIf="![view.house, view.renter].includes(currentView)">{{control.value}} </div>
 
             <div *ngIf="control.title=='Pièces*'">
               piece ici

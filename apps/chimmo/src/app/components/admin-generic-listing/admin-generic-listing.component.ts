@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { UserService } from '../../../../../../libs/service/src/lib/user/user.service';
-import { adminView, homeEnum, houseType, homeType } from '../../services/interfaces/interfaces.service';
+import { adminView} from '../../services/interfaces/interfaces.service';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { DataService } from '../../services/data/data.service';
 import { HomeService } from '../../services/home/home.service';
-import { userType } from '@cahotech-monorepo/interfaces';
+import { userType, userEnum, homeEnum, houseType, homeType } from '@cahotech-monorepo/interfaces';
 
 @Component({
   selector: 'admin-generic-listing',
@@ -72,7 +72,7 @@ export class AdminGenericListingComponent implements OnInit {
   }
 
   getHomeList (house: houseType) {
-    let out:homeType[] = []
+    let out: homeType[] = []
 
     house.homeList.forEach(homeId => {
       out.push(this.homeProv.allHomes.find(home => home.id == homeId))
@@ -232,17 +232,25 @@ export class AdminGenericListingComponent implements OnInit {
 
   /** refresh input data */
   refreshData () {
-    if ([adminView.landlord, adminView.renter].includes(this.currentView)) {
+    if (this.currentView == adminView.landlord) {
       this.displayList = this.userLib.allUsers.filter(user => { return user.apps && user.apps.includes(this.dataProv.appName) })
-      this.blankMsg = `Il n'ya pas de ${this.currentView == adminView.landlord ? 'bailleur' : 'locataire'} enrégistrer!`
+
+      if (!this.displayList.filter(user => user.type == userEnum.landlord).length)
+        this.blankMsg = `Il n'ya pas de bailleur enrégistrer!`
+    }
+    else if (this.currentView == adminView.renter) {
+      this.displayList = this.userLib.allUsers.filter(user => { return user.apps && user.apps.includes(this.dataProv.appName) })
+
+      if (!this.displayList.filter(user => user.type == userEnum.renter).length)
+        this.blankMsg = `Il n'ya pas de locataire enrégistrer!`
     }
     else if (this.currentView == adminView.house) {
       this.displayList = this.homeProv.allHouses
-      this.blankMsg = `Il n'ya pas de résidences enrégistrer!`
+      if (!this.displayList.length) this.blankMsg = `Il n'ya pas de résidences enrégistrer!`
     }
     else if (this.currentView == adminView.home) {
       this.displayList = this.homeProv.allHomes
-      this.blankMsg = `Il n'ya pas de logements enrégistrer!`
+      if (!this.displayList.length) this.blankMsg = `Il n'ya pas de logements enrégistrer!`
     }
   }
 

@@ -76,6 +76,7 @@ export interface userType {
   landlordId: string
   renters: {}
   houses: string[]
+  homes: homeType
 
   // acb
   /**
@@ -155,5 +156,44 @@ export interface sendEmailType {
  * doc
  */
 export enum sendEmailEnum { newuser, changePass }
+
+/** */
+export interface homeType {
+  name: string,
+  type: homeEnum,
+  rooms: roomType[],
+  id: string,
+  houseId: string,
+  cost: roomCostType,
+  timeStamp: number
+}
+
+/** */
+export interface houseType {
+  name: string,
+  equipment: string[],
+  address: string,
+  id: string,
+  ownerId?: string,
+  timeStamp: number,
+  homeList?: string[]
+}
+
+/** */
+export enum homeEnum { Appartement, Studio, Chambre, Commerce }
+
+/** */
+export interface roomType {
+  type: roomTypeEnum,
+  surface: number,
+  equipment: []
+}
+
+/** */
+export enum roomTypeEnum { chambre, salon, cuisine, douche, magasin, wc, douche_wc, terrase, jardin, cave, garage }
+
+/** */
+export interface roomCostType { Caution: number, 'Tarif mensuel': number, 'Avance Checkin': number, 'Tarif eau': number, 'Tarif électricité': number }
+
 
 

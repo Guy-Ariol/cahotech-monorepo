@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { UserService } from 'libs/service/src/lib/user/user.service';
-import { adminView, roomType, homeEnum, roomTypeEnum, roomEquipmentEnum, homeType, houseType, houseEquipmentEnum } from '../../services/interfaces/interfaces.service';
-import { userType, userEnum } from '@cahotech-monorepo/interfaces';
+import { adminView, roomEquipmentEnum, houseEquipmentEnum } from '../../services/interfaces/interfaces.service';
+import { userType, userEnum, roomType, homeType, houseType, roomTypeEnum, homeEnum } from '@cahotech-monorepo/interfaces';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { UsersService } from '../../services/users/users.service';
 import { DataService } from '../../services/data/data.service';
@@ -100,7 +100,7 @@ export class AdminFormsComponent implements OnInit {
     this.controlArray.forEach((el) => {
       if (el.value && this.controlArray[el.index]) this.controlArray[el.index].error = false
 
-      if (el.title != 'Adresse' && !el.value) { this.controlArray[el.index].error = true; error.push(el.title) }
+      if (!['Adresse', 'Proprietaire'].includes(el.title) && !el.value) { this.controlArray[el.index].error = true; error.push(el.title) }
       else if (el.title == 'E-mail*' && !this.utilsProv.checkEmail(el.value)) { console.log(el.value); this.controlArray[el.index].error = true; error.push(el.title) }
 
     })
@@ -361,6 +361,10 @@ export class AdminFormsComponent implements OnInit {
     return Object.keys(houseEquipmentEnum).filter(el => el != '0' && !parseInt(el))
   }
 
+
+  geHomeDetails (homeId): homeType {
+    return this.homeProv.allHomes.find(home => home.id == homeId)
+  }
 
   //TODO selected all /unselect all checkbox
   houseEquipmentSelected (val) {
