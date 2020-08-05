@@ -108,7 +108,7 @@ export class AdminFormsComponent implements OnInit {
     let msg = 'Verifier '
 
     error.forEach(el => {
-      msg = msg + ', ' + el.replace('*', '')
+      msg = msg + el.replace('*', '') + ', '
     })
 
     // TODO check that email is not already in use
@@ -203,7 +203,7 @@ export class AdminFormsComponent implements OnInit {
           name: this.controlArray[0].value,
           rooms: this.rooms,
           type: this.controlArray[1].value,
-          id: '',
+          id: this.userLib.createPushId(),
           houseId: this.controlArray[2].value,
           cost: {
             Caution: this.controlArray[3].value, "Tarif mensuel": this.controlArray[4].value,
@@ -213,18 +213,39 @@ export class AdminFormsComponent implements OnInit {
           timeStamp: Date.now()
         }
 
-        console.log(newHome)
+        // get the corresponding house
+        let house = this.homeProv.allHouses.find(house => house.id == newHome.houseId)
+        if (house) {
 
-        this.homeProv.createHome(newHome)
-          .then(() => {
-            this.done.emit()
-            this.resetForm()
-            this.utilsProv.stopSpinner()
-          })
-          .catch(error => {
-            console.log(error);
-            this.utilsProv.stopSpinner()
-          })
+          // update home reference in house
+          if (house.homeList) house.homeList.push(newHome.id)
+          else house.homeList = [newHome.id]
+
+          // update house in the server
+          this.homeProv.updateHouse(house)
+            .then(() => {
+
+              // upload new home to the server
+              this.homeProv.createHome(newHome)
+                .then(() => {
+                  this.done.emit()
+                  this.resetForm()
+                  this.utilsProv.stopSpinner()
+                  this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+                })
+                .catch(error => {
+                  console.log(error);
+                  this.utilsProv.stopSpinner()
+                })
+            })
+            .catch(error => {
+              console.log(error);
+              this.utilsProv.stopSpinner()
+            })
+        }
+        else {
+          this.utilsProv.showToast('error', "Une érreur s'est produite", '', 'toast-top-center')
+        }
       }
 
       else if (this.currentView == adminView.house) {
@@ -411,5 +432,11 @@ export class AdminFormsComponent implements OnInit {
     else if (this.currentView == adminView.renter) {
       this.autocompleteList1 = this.homeProv.allHomes
     }
+  }
+
+  scrollTop () {
+    setTimeout(() => {
+      window.scrollTo({ top: 1, behavior: 'smooth' })
+    }, 100);
   }
 }

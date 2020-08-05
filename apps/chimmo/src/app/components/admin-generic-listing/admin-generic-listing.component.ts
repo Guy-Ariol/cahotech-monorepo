@@ -33,7 +33,7 @@ export class AdminGenericListingComponent implements OnInit {
     this.refreshData()
   }
 
-  /** */
+
   search (text) {
     if ([adminView.landlord, adminView.renter].includes(this.currentView)) {
       if (!text) this.displayList = this.userLib.allUsers.filter(user => { return user.apps && user.apps.includes(this.dataProv.appName) })
@@ -71,7 +71,41 @@ export class AdminGenericListingComponent implements OnInit {
     }
   }
 
-  /** */
+  getHomeList (house: houseType) {
+    let out:homeType[] = []
+
+    house.homeList.forEach(homeId => {
+      out.push(this.homeProv.allHomes.find(home => home.id == homeId))
+    })
+
+    return out
+  }
+
+
+  getlandLordName (id) {
+    if (id) {
+      let out = this.userLib.allUsers.find(user => user.id == id)
+
+      return `${out.firstName} ${out.lastName}`
+    }
+
+    return ''
+  }
+
+
+  getRenterList (landLord: userType) {
+    let list: userType[] = []
+
+    if (landLord.renters) {
+      for (let renter in landLord.renters) {
+        list.push(this.userLib.allUsers.find(user => user.id == renter))
+      }
+    }
+
+    return list
+  }
+
+
   deleteUser (user: userType) {
     this.utilsProv.startSpinner()
 
@@ -122,7 +156,7 @@ export class AdminGenericListingComponent implements OnInit {
   }
 
   //TODO check that house does not have homes before deleting it
-  /** */
+
   deleteHouse (house: houseType) {
     this.utilsProv.startSpinner()
 
@@ -163,16 +197,20 @@ export class AdminGenericListingComponent implements OnInit {
     }
   }
 
-  /** */
+
   deleteHome (home: homeType) {
     this.utilsProv.startSpinner()
 
     this.homeProv.deleteHome(home.id)
       .then(() => {
-        // remove reference in house
+        // look for corresponding house
         let house = this.homeProv.allHouses.find(house => house.id == home.houseId)
-        if (house) {
+
+        if (house.homeList) {
+          // remove home reference in house
           house.homeList.splice(house.homeList.indexOf(home.id), 1)
+
+          // update house in the server
           this.homeProv.updateHouse(house)
             .then(() => {
               this.refreshData()
@@ -180,11 +218,10 @@ export class AdminGenericListingComponent implements OnInit {
               this.utilsProv.showToast('success', 'Opération réussie', '', 'toast-top-center')
             })
         }
-
         else {
-          this.refreshData()
+          // this.refreshData()
           this.utilsProv.stopSpinner()
-          this.utilsProv.showToast('success', 'Opération réussie', '', 'toast-top-center')
+          this.utilsProv.showToast('error', "Une érreur est survenue !", '', 'toast-top-center')
         }
       })
       .catch(error => {
@@ -209,27 +246,4 @@ export class AdminGenericListingComponent implements OnInit {
     }
   }
 
-  /** */
-  getlandLordName (id) {
-    if (id) {
-      let out = this.userLib.allUsers.find(user => user.id == id)
-
-      return `${out.firstName} ${out.lastName}`
-    }
-
-    return ''
-  }
-
-  /** */
-  getRenterList (landLord: userType) {
-    let list: userType[] = []
-
-    if (landLord.renters) {
-      for (let renter in landLord.renters) {
-        list.push(this.userLib.allUsers.find(user => user.id == renter))
-      }
-    }
-
-    return list
-  }
 }

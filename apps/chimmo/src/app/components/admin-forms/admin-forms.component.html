@@ -144,10 +144,13 @@
 
             <div
               *ngIf="!['date-range', 'checkbox-group'].includes(control.type) && !['Bailleur'].includes(control.title)">
-              <span *ngIf="currentView==view.house && control.title=='Proprietaire*'">{{getUserFullName(control.value)}}</span>
+              <span
+                *ngIf="currentView==view.house && control.title=='Proprietaire*'">{{getUserFullName(control.value)}}</span>
               <span *ngIf="currentView==view.house && control.title!='Proprietaire*'">{{control.value}}</span>
               <span *ngIf="currentView==!view.house">{{control.value}}</span>
             </div>
+
+            <div *ngIf="currentView!=view.house">{{control.value}} </div>
 
             <div *ngIf="control.title=='Pièces*'">
               piece ici
@@ -158,7 +161,7 @@
       </div>
 
       <div style="text-align: center;">
-        <button nz-button nzSize="large" class="submit-form2" (click)="done.emit()">Annuler</button>
+        <button nz-button nzSize="large" class="submit-form2" (click)="done.emit(); scrollTop()">Annuler</button>
         <button nz-button nzSize="large" class="submit-form" (click)="submit()">{{!isEdit? 'Valider' : 'Actualiser'}}
         </button>
       </div>
@@ -167,7 +170,7 @@
   </tr>
 
   <div *ngIf="!showSummary" style="text-align: center; margin-bottom: 25px; padding-top: 25px;">
-    <button nz-button nzSize="large" (click)="done.emit()">Annuler</button>
+    <button nz-button nzSize="large" (click)="done.emit(); scrollTop()">Annuler</button>
     <button nz-button nzSize="large" class="new-home-next-btn" nzType="primary" (click)="gotoSummary()">Suivant</button>
   </div>
 

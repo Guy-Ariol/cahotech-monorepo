@@ -10,7 +10,7 @@ import { EventEmitter } from 'events';
 export class HomeService {
 
   allHouses: houseType[] = []
-  allHomes: houseType[] = []
+  allHomes: homeType[] = []
 
   constructor(
     private afdb: AngularFireDatabase,
@@ -21,15 +21,13 @@ export class HomeService {
 
   createHome (home: homeType): Promise<any> {
     return new Promise((resolve, reject) => {
-      home.id = this.afdb.createPushId()
       this.afdb.object(`homes/${home.id}`).set(home)
         .then(() => resolve())
         .catch(error => reject(error))
     })
-
   }
 
-  /** */
+
   createHouse (house: houseType): Promise<any> {
     return new Promise((resolve, reject) => {
       // house.id = this.afdb.createPushId()
@@ -51,12 +49,12 @@ export class HomeService {
 
   /** subscribe homes from the server */
   subscribeAllHomes () {
-    this.afdb.list('homes').valueChanges().subscribe((data: houseType[]) => {
+    this.afdb.list('homes').valueChanges().subscribe((data: homeType[]) => {
       this.allHomes = data
     })
   }
 
-  /** */
+
   deleteHouse (houseId): Promise<any> {
     return new Promise((resolve, reject) => {
       this.afdb.object(`houses/${houseId}`).remove()
@@ -65,7 +63,7 @@ export class HomeService {
     })
   }
 
-  /** */
+
   deleteHome (homeId): Promise<any> {
     return new Promise((resolve, reject) => {
       this.afdb.object(`homes/${homeId}`).remove()
@@ -74,7 +72,7 @@ export class HomeService {
     })
   }
 
-  /** */
+
   updateHome (home): Promise<any> {
     return new Promise((resolve, reject) => {
       this.afdb.object(`homes/${home.id}`).update(home)
@@ -87,7 +85,7 @@ export class HomeService {
     })
   }
 
-  /** */
+
   updateHouse (house): Promise<any> {
     return new Promise((resolve, reject) => {
       this.afdb.object(`houses/${house.id}`).update(house)

@@ -31,7 +31,7 @@
           </p>
 
           <div *ngIf="currentView==view.landlord">
-            <b style="font-size: 16px;">Résidences:</b>
+            <b style="font-size: 16px;"><u>Résidences:</u></b>
             <p style="font-size: 14px; padding-left: 12px;" *ngFor="let house of element.houses; let index=index">
               {{index+1}}. {{getHouseDetails(house)}}
             </p>
@@ -46,7 +46,8 @@
 
               <div *ngIf="currentView==view.landlord">
                 <u><b>Locataires</b></u>
-              <p *ngFor="let renter of getRenterList(element)">{{renter?.lastName}} {{renter?.firstName}} / {{renter?.tel}} </p>
+                <p *ngFor="let renter of getRenterList(element)">{{renter?.lastName}} {{renter?.firstName}} /
+                  {{renter?.tel}} </p>
               </div>
             </nz-collapse-panel>
           </nz-collapse>
@@ -62,9 +63,18 @@
           <p><b> {{element.name}}</b> <br>
             <span><b><u>Adresse:</u></b> {{element.address}} </span><br>
             <span><u><b>Proprietaire:</b></u> &nbsp; {{getUserDetails(element.ownerId)}} </span><br>
-            <span><b><u>Equipements: </u></b> </span>
+            <span><b><u>Equipements:</u></b> </span>
             <span *ngFor="let equip of element.equipment">{{equip}}, </span>
 
+            <nz-collapse style="padding-top: 12px;" nzBordered="false">
+              <nz-collapse-panel nzHeader="Show more ..." [nzActive]="false">
+                <u><b>Date de création:</b></u>&nbsp; {{element.timeStamp |date}}<br><br>
+
+                <u><b>Logements</b></u>
+                <p *ngFor="let home of getHomeList(element); let index=index">{{index+1}}. {{home.name}} / {{home.type}}
+                  / {{home.rooms?.length}} Pièces</p>
+              </nz-collapse-panel>
+            </nz-collapse>
             <!-- <span *ngIf="utilsProv.isDesktop" class="edit-btn"
               (click)="editUser.emit({user: user, index:index})">Modifier</span> -->
           </p>
@@ -81,7 +91,25 @@
             <span><b><u>Type:</u></b>&nbsp; {{element.type}} </span><br>
             <span><b><u>Résidence: </u></b>&nbsp; {{getHouseName(element.houseId)}} </span>
 
-            <span *ngFor="let room of element.rooms; let index=index">
+            <nz-collapse style="padding-top: 0; margin: 0;" nzBordered="false">
+              <nz-collapse-panel style="padding-top: 0; margin: 0;" [nzHeader]="element.rooms.length+' Pièces ...'" [nzActive]="false">
+                <!-- <u><b>Date de création:</b></u>&nbsp; {{element.timeStamp | date}}<br><br> -->
+
+                <p *ngFor="let room of element.rooms; let index=index">
+                  <span><b><u>Pièce Nr {{index+1}}:</u></b> </span>
+                  &nbsp; {{room.type}}<br>
+
+                  <span style="padding-left: 12px;">
+                    <span><u>Superficie:</u> {{room.surface}} m²</span><br>
+
+                    <u style="padding-left: 12px;">Équipements: </u> &nbsp;
+                    <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
+                  </span>
+                </p>
+              </nz-collapse-panel>
+            </nz-collapse>
+
+            <!-- <span *ngFor="let room of element.rooms; let index=index">
               <br><span><b><u>Pièce Nr {{index+1}}:</u></b> </span>
               &nbsp; {{room.type}}<br>
 
@@ -91,7 +119,7 @@
                 <u style="padding-left: 12px;">Équipements: </u> &nbsp;
                 <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
               </span>
-            </span>
+            </span> -->
 
 
             <!-- <span *ngIf="utilsProv.isDesktop" class="edit-btn"
