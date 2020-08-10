@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { UserService } from '../../../../../../libs/service/src/lib/user/user.service';
-import { adminView} from '../../services/interfaces/interfaces.service';
+import { adminView } from '../../services/interfaces/interfaces.service';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { DataService } from '../../services/data/data.service';
 import { HomeService } from '../../services/home/home.service';
@@ -74,7 +74,7 @@ export class AdminGenericListingComponent implements OnInit {
   getHomeList (house: houseType) {
     let out: homeType[] = []
 
-    house.homeList.forEach(homeId => {
+    house.homeList?.forEach(homeId => {
       out.push(this.homeProv.allHomes.find(home => home.id == homeId))
     })
 
@@ -86,7 +86,7 @@ export class AdminGenericListingComponent implements OnInit {
     if (id) {
       let out = this.userLib.allUsers.find(user => user.id == id)
 
-      return `${out.firstName} ${out.lastName}`
+      return `${out?.firstName} ${out?.lastName}`
     }
 
     return ''
@@ -105,6 +105,29 @@ export class AdminGenericListingComponent implements OnInit {
     return list
   }
 
+  getRelations (home: homeType) {
+    let out: { bail: string, locat: string }[] = []
+
+    for (let rel in home.landLord) {
+      out.push({ bail: home.landLord[rel].Id, locat: home.landLord[rel].renterId })
+    }
+
+    return out
+  }
+
+  getUserDetails2 (userId) {
+    let user = this.userLib.allUsers.find(user => user.id == userId)
+    return user?.lastName ? user.lastName : '' + ' ' + user?.firstName ? user?.firstName : ''
+  }
+
+  getHomeDetails (homeObject) {
+    for (let homeId in homeObject) {
+      let home = this.homeProv.allHomes.find(home => home.id == homeId)
+      let house = this.homeProv.allHouses.find(house => house.id == home.houseId)
+
+      return { home: home, house: house }
+    }
+  }
 
   deleteUser (user: userType) {
     this.utilsProv.startSpinner()
@@ -112,7 +135,12 @@ export class AdminGenericListingComponent implements OnInit {
     // also delete renter's reference in landlord
     if (this.currentView == adminView.renter) {
       const landLord = this.userLib.allUsers.find(el => el.id == user.id)
-      delete landLord.renters[user.id]
+
+      try {
+        delete landLord.renters[user.id]
+      } catch (error) {
+
+      }
 
       this.userLib.updateUser(landLord)
         .then(() => {
@@ -152,7 +180,6 @@ export class AdminGenericListingComponent implements OnInit {
           this.utilsProv.stopSpinner()
         })
     }
-
   }
 
   //TODO check that house does not have homes before deleting it
@@ -162,6 +189,7 @@ export class AdminGenericListingComponent implements OnInit {
 
     if (house.homeList) {
       this.utilsProv.showToast('warning', "Veuillez d'abord supprimer les logements. ", '', 'toast-top-center')
+      this.utilsProv.stopSpinner()
     }
     else {
       // remove reference by landlord
@@ -253,5 +281,6 @@ export class AdminGenericListingComponent implements OnInit {
       if (!this.displayList.length) this.blankMsg = `Il n'ya pas de logements enrégistrer!`
     }
   }
+
 
 }

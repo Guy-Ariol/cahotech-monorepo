@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { adminView, roomEquipmentEnum, houseEquipmentEnum } from '../../services/interfaces/interfaces.service';
 import { userType, userEnum, roomType, homeType, houseType, roomTypeEnum, homeEnum } from '@cahotech-monorepo/interfaces';
@@ -6,7 +6,6 @@ import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { UsersService } from '../../services/users/users.service';
 import { DataService } from '../../services/data/data.service';
 import { HomeService } from '../../services/home/home.service';
-import * as internalEvent from 'events';
 
 @Component({
   selector: 'admin-forms',
@@ -25,6 +24,7 @@ export class AdminFormsComponent implements OnInit {
   houseEquipments = []
   autocompleteList1 = []
   autocompleteList2 = []
+  autocompleteList3 = []
   rooms: roomType[] = []
 
   showSummary = false
@@ -35,7 +35,6 @@ export class AdminFormsComponent implements OnInit {
     public userProv: UsersService,
     private dataProv: DataService,
     private homeProv: HomeService,
-    // private event: internalEvent
 
   ) { }
 
@@ -130,6 +129,7 @@ export class AdminFormsComponent implements OnInit {
 
   submit () {
     this.utilsProv.startSpinner()
+
     window.scrollTo({ top: 2, behavior: 'smooth' })
 
     let res = this.checkInputs()
@@ -177,11 +177,18 @@ export class AdminFormsComponent implements OnInit {
       else if (this.currentView == this.view.renter) {
         user.type = userEnum.renter
         user.adminPass = this.utilsProv.randomId(6)
-        user.landlordId = this.controlArray.find(c => c.title == 'Bailleur').value
+        user.landlordId = this.controlArray.find(c => c.title == 'Bailleur*').value
+        user.homes = {}
+
+        let home = this.homeProv.allHomes.find(home => home.id == this.controlArray[6].value)
+        user.homes[home.id] = home.cost
+
+        home.landLord[user.landlordId] = user.id
 
         let batch = {}
         batch[`users/${user.id}`] = user
-        batch[`${user.landlordId}/renters/${user.id}`] = user
+        batch[`users/${user.landlordId}/renters/${user.id}`] = user
+        batch[`homes/${home.id}`] = home
 
         this.userLib.batchUpdate(batch)
           .then(() => {
@@ -210,7 +217,8 @@ export class AdminFormsComponent implements OnInit {
             "Avance Checkin": this.controlArray[5].value, "Tarif eau": this.controlArray[6].value,
             "Tarif électricité": this.controlArray[7].value
           },
-          timeStamp: Date.now()
+          timeStamp: Date.now(),
+          landLord: [{ Id: this.controlArray[3].value, renterId: '' }]
         }
 
         // get the corresponding house
@@ -228,10 +236,23 @@ export class AdminFormsComponent implements OnInit {
               // upload new home to the server
               this.homeProv.createHome(newHome)
                 .then(() => {
-                  this.done.emit()
-                  this.resetForm()
-                  this.utilsProv.stopSpinner()
-                  this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+
+                  // update landlord as well
+                  let landlord = this.userLib.allUsers.find(user => user.id == this.controlArray[3].value)
+                  if (landlord.homes) landlord.homes[newHome.id] = newHome.cost
+                  else { landlord['homes'] = {}; landlord.homes[newHome.id] = newHome.cost }
+
+                  this.userLib.updateUser(landlord)
+                    .then(() => {
+                      this.done.emit()
+                      this.resetForm()
+                      this.utilsProv.stopSpinner()
+                      this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+                    })
+                    .catch(error => {
+                      console.log(error);
+
+                    })
                 })
                 .catch(error => {
                   console.log(error);
@@ -366,6 +387,10 @@ export class AdminFormsComponent implements OnInit {
     return this.homeProv.allHomes.find(home => home.id == homeId)
   }
 
+  getHouseDetails (houseId) {
+    return this.homeProv.allHouses.find(house => house.id == houseId)
+  }
+
   //TODO selected all /unselect all checkbox
   houseEquipmentSelected (val) {
     //TODO get rid of this varible and use only controlArray.value instead
@@ -389,7 +414,7 @@ export class AdminFormsComponent implements OnInit {
     }, 100);
 
     /** deactivate input validation */
-    this.controlArray[8].value = 1
+    this.controlArray[9].value = 1
   }
 
 
@@ -431,10 +456,12 @@ export class AdminFormsComponent implements OnInit {
     else if (this.currentView == adminView.home) {
       this.autocompleteList1 = Object.keys(homeEnum).filter(el => el != '0' && !parseInt(el))
       this.autocompleteList2 = this.homeProv.allHouses
+      this.autocompleteList3 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
     }
 
     else if (this.currentView == adminView.renter) {
       this.autocompleteList1 = this.homeProv.allHomes
+      this.autocompleteList2 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
     }
   }
 

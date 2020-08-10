@@ -37,12 +37,16 @@
             </p>
           </div>
 
+          <div style="font-size: 14px;" *ngIf="currentView==view.renter">
+            <p><u><b>Bailleur: </b></u> {{getlandLordName(element.landlordId)}} </p>
+            <p><u><b>Résidence: </b></u> {{getHomeDetails(element.homes).house?.name}} </p>
+            <p><u><b>Logement: </b></u> {{getHomeDetails(element.homes).home?.name}} </p>
+          </div>
+
           <nz-collapse style="padding-top: 12px;" nzBordered="false">
             <nz-collapse-panel nzHeader="Show more ..." [nzActive]="false">
               <p style="color: #575151;"><u><b>Mot de passe:</b></u> {{element.adminPass}} </p>
               <p><u><b>Date de création:</b></u> {{element.timeStamp |date}} </p>
-
-              <p *ngIf="currentView==view.renter"><u><b>Bailleur: </b></u> {{getlandLordName(element.landlordId)}} </p>
 
               <div *ngIf="currentView==view.landlord">
                 <u><b>Locataires</b></u>
@@ -91,8 +95,13 @@
             <span><b><u>Type:</u></b>&nbsp; {{element.type}} </span><br>
             <span><b><u>Résidence: </u></b>&nbsp; {{getHouseName(element.houseId)}} </span>
 
+            <br><span><b><u>Bailleurs/Locataires</u></b></span>
+            <span *ngFor="let item of getRelations(element)"> {{getUserDetails2(item.bail)}} /
+              {{getUserDetails2(item.locat)}} </span>
+
             <nz-collapse style="padding-top: 0; margin: 0;" nzBordered="false">
-              <nz-collapse-panel style="padding-top: 0; margin: 0;" [nzHeader]="element.rooms.length+' Pièces ...'" [nzActive]="false">
+              <nz-collapse-panel style="padding-top: 0; margin: 0;" [nzHeader]="element.rooms.length+' Pièces ...'"
+                [nzActive]="false">
                 <!-- <u><b>Date de création:</b></u>&nbsp; {{element.timeStamp | date}}<br><br> -->
 
                 <p *ngFor="let room of element.rooms; let index=index">
@@ -134,7 +143,7 @@
         </div>
       </div>
 
-      <div *ngIf="blankMsg"  style="text-align: center; padding: 35px;">{{blankMsg}} </div>
+      <div *ngIf="blankMsg" style="text-align: center; padding: 35px;">{{blankMsg}} </div>
     </div>
   </div>
 

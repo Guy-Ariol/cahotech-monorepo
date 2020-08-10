@@ -76,7 +76,7 @@ export interface userType {
   landlordId: string
   renters: {}
   houses: string[]
-  homes: homeType
+  homes: {[homeId: string]: roomCostType}
 
   // acb
   /**
@@ -165,7 +165,8 @@ export interface homeType {
   id: string,
   houseId: string,
   cost: roomCostType,
-  timeStamp: number
+  timeStamp: number,
+  landLord: {Id: string, renterId: string}[]
 }
 
 /** */

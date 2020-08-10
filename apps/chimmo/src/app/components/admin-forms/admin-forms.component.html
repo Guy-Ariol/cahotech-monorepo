@@ -51,13 +51,43 @@
           <div>
             {{control.title}}
             <input nz-input [nzAutocomplete]="auto" style="font-size: 15px;" [(ngModel)]="control.value"
-              (ngModelChange)="filterInput($event)" [class]="control.error ? 'validation-error' : ''" />
+              (ngModelChange)="filterInput([view.renter].includes(currentView)? 'user' : '', $event)" [class]="control.error ? 'validation-error' : ''" />
 
             <nz-autocomplete #auto>
-              <nz-auto-option *ngFor="let option of autocompleteList2" [nzLabel]=" option.name" [nzValue]="option.id">
-                <p><b>{{option.name}}</b> <br>
+              <nz-auto-option *ngFor="let option of autocompleteList2"
+              [nzLabel]="[view.renter].includes(currentView)? option.lastName+' '+ option.firstName :  option.name"
+               [nzValue]="[view.renter].includes(currentView)? option.id : option">
+
+                <p *ngIf="currentView!=view.renter"  ><b>{{option.name}}</b> <br>
                   <span style="color: rgb(85, 80, 80);">{{option.address}} </span>
                 </p>
+
+                <p *ngIf="[view.renter].includes(currentView)">{{ option.lastName }} {{option.firstName}}
+                  <br>
+                  <span style="color: gray; padding-left: 25px;">{{ option.email }}</span>
+                </p>
+              </nz-auto-option>
+            </nz-autocomplete>
+          </div>
+        </div>
+
+        <div *ngIf="control.type=='autocomplete3'">
+          <div>
+            {{control.title}}
+            <input nz-input [nzAutocomplete]="auto3" style="font-size: 15px;" [(ngModel)]="control.value"
+              (ngModelChange)="filterInput([view.house].includes(currentView)? 'user' : '', $event)"
+              [class]="control.error ? 'validation-error' : ''" />
+
+            <nz-autocomplete #auto3>
+              <nz-auto-option *ngFor="let option of autocompleteList3"
+                [nzValue]="[view.home].includes(currentView)? option.id :  option"
+                [nzLabel]="[view.home].includes(currentView)? option.lastName+' '+ option.firstName : currentView==view.renter? option.name : option">
+
+                <p *ngIf="[view.home].includes(currentView)">{{ option.lastName }} {{option.firstName}}
+                  <br>
+                  <span style="color: gray; padding-left: 25px;">{{ option.email }}</span>
+                </p>
+
               </nz-auto-option>
             </nz-autocomplete>
           </div>
@@ -124,11 +154,11 @@
 
       <div *ngFor="let control of controlArray">
         <div nz-row style="padding-left: 25px;">
-          <div nz-col style="min-width: 120px;">
+          <div nz-col nzSpan="8"  style="min-width: 120px; max-width: 150px;">
             <p><b>{{control.title}}:</b> </p>
           </div>
 
-          <div nz-col>
+          <div nz-col style="padding-left: 12px; width: 60%;">
             <div *ngIf="control.type == 'date-range' && control.value">
               <p>{{control?.value[0] | date:'d/MM/yyy'}} - {{control?.value[1] | date:'d/MM/yyy'}} </p>
             </div>
@@ -145,18 +175,23 @@
             <div
               *ngIf="!['date-range', 'checkbox-group'].includes(control.type) && !['Bailleur'].includes(control.title)">
               <span
-                *ngIf="currentView==view.house && control.title=='Proprietaire*'">{{getUserFullName(control.value)}}</span>
-              <span *ngIf="currentView==view.house && control.title!='Proprietaire*'">{{control.value}}</span>
-              <span *ngIf="![view.house, view.renter].includes(currentView)">{{control.value}}</span>
+                *ngIf="[view.house, view.home].includes(currentView) && ['Proprietaire*', 'Bailleur*'].includes(control.title)">{{getUserFullName(control.value)}}</span>
+              <span *ngIf="currentView==view.house && control.title!='Proprietaire*'">{{control.value}} </span>
+              <span *ngIf="![view.house, view.renter].includes(currentView) && !['Bailleur*', 'Résidence*', 'Pièces*'].includes(control.title)">{{control.value}} </span>
+              <span *ngIf="control.title=='Résidence*'" > {{getHouseDetails(control.value).name}} </span>
 
               <span *ngIf="currentView==view.renter && control.title=='Logement*'">{{geHomeDetails(control.value)?.name}} </span>
               <span *ngIf="currentView==view.renter && control.title!='Logement*'">{{control.value}} </span>
             </div>
 
-            <div *ngIf="![view.house, view.renter].includes(currentView)">{{control.value}} </div>
+            <div *ngIf="![view.house, view.renter, view.landlord, view.home].includes(currentView)">{{control.value}} </div>
 
             <div *ngIf="control.title=='Pièces*'">
-              piece ici
+              <p>Nombre: {{rooms.length}} </p>
+              <div *ngFor="let room of rooms"  >
+                <b>{{room.type}} </b> <br>
+                <u style="font-size: 12px;">Equip:</u> <div style="padding-left: 8px; font-size: 12px;" *ngFor="let equip of room.equipment" >{{equip}} </div>
+              </div>
             </div>
 
           </div>

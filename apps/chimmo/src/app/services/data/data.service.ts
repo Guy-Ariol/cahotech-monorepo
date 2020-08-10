@@ -197,6 +197,12 @@ export class DataService {
         type: 'autocomplete',
         value: null,
         index: 6,
+      },
+      {
+        title: 'Bailleur*',
+        type: 'autocomplete2',
+        value: null,
+        index: 7,
       }
     ]
 
@@ -220,40 +226,46 @@ export class DataService {
         index: 2
       },
       {
-        title: 'Caution*',
-        type: 'number',
+        title: 'Bailleur*',
+        type: 'autocomplete3',
         value: null,
-        index: 3
+        index: 3,
       },
       {
-        title: 'Tarif mensuel*',
+        title: 'Caution*',
         type: 'number',
         value: null,
         index: 4
       },
       {
-        title: 'Avance Checkin*',
+        title: 'Tarif mensuel*',
         type: 'number',
         value: null,
         index: 5
       },
       {
-        title: 'Tarif eau*',
+        title: 'Avance Checkin*',
         type: 'number',
         value: null,
         index: 6
       },
       {
-        title: 'Tarif électricité*',
+        title: 'Tarif eau*',
         type: 'number',
         value: null,
         index: 7
       },
       {
+        title: 'Tarif électricité*',
+        type: 'number',
+        value: null,
+        index: 8
+      },
+      {
         title: 'Pièces*',
         type: 'complex',
         value: 0,
-        index: 8
+        index: 9
       },
     ]
 
@@ -278,7 +290,7 @@ export class DataService {
         id: 'address',
       },
       {
-        title: 'Proprietaire',
+        title: 'Proprietaire*',
         type: 'autocomplete',
         value: null,
         index: 3,

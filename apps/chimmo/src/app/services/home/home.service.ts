@@ -1,8 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { homeType, houseType } from '../interfaces/interfaces.service';
-import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { EventEmitter } from 'events';
+import { houseType, homeType } from 'libs/interfaces/src/lib/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,6 @@ export class HomeService {
 
   constructor(
     private afdb: AngularFireDatabase,
-    private utilsProv: UtilsService,
     @Inject(EventEmitter) private event: EventEmitter
 
   ) { }
