@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { landLordView, adminView } from '../interfaces/interfaces.service';
+import { landLordView, adminView, renterView } from '../interfaces/interfaces.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,8 @@ export class DataService {
   mainMenuLandLord
 
   mainMenuAdmin
+
+  renterMenu
 
   newLandlordForm
 
@@ -23,6 +25,39 @@ export class DataService {
   appName = 'chimmo'
 
   constructor() {
+
+    this.renterMenu = [
+      {
+        name: 'Compte',
+        iconOn: 'assets/imgs/account-on.svg',
+        iconOff: 'assets/imgs/account.svg',
+        nav: renterView.account
+      },
+      {
+        name: 'logement',
+        iconOn: 'assets/imgs/home-on.svg',
+        iconOff: 'assets/imgs/home.svg',
+        nav: renterView.home
+      },
+      {
+        name: 'Factures',
+        iconOn: 'assets/imgs/bill-on.svg',
+        iconOff: 'assets/imgs/bill.svg',
+        nav: renterView.bill
+      },
+      {
+        name: 'Solde',
+        iconOn: 'assets/imgs/bill-on.svg',
+        iconOff: 'assets/imgs/bill.svg',
+        nav: renterView.bill
+      },
+      {
+        name: 'Réquetes',
+        iconOn: 'assets/imgs/bill-on.svg',
+        iconOff: 'assets/imgs/bill.svg',
+        nav: renterView.bill
+      },
+    ]
 
     this.mainMenuLandLord = [
       {

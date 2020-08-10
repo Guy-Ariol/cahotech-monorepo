@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { UserService } from 'libs/service/src/lib/user/user.service';
+import { userEnum } from '@cahotech-monorepo/interfaces';
 
 @Component({
   selector: 'sign-in',
@@ -9,6 +10,7 @@ import { UserService } from 'libs/service/src/lib/user/user.service';
 })
 export class SignInComponent implements OnInit {
 
+  @Output() loggedIn = new EventEmitter
   credentials = { email: '', password: '' }
   formError = []
 
@@ -37,22 +39,40 @@ export class SignInComponent implements OnInit {
       this.formError.push('password')
     }
 
-
     if (!this.formError.length) {
-      this.userLib.signIn(this.credentials)
-        .then(() => {
-          this.utilsProv.stopSpinner()
-        })
-        .catch(error => {
-          this.utilsProv.stopSpinner()
+      let user = this.userLib.allUsers.find(user => user.email == this.credentials.email)
 
-          let msg = ''
-          if (error.code == 'auth/user-not-found') msg = "Ce compte n'existe pas !"
-          if (error.code == 'auth/wrong-password') msg ="Mot de passe incorrect !"
+      if (user) {
+        let out
+        if(user.type == userEnum.landlord) out = 'bailleur'
+        else if(user.type == userEnum.renter) out = 'locataire'
 
-          this.utilsProv.showToast('error', msg, '', 'toast-top-center')
-        })
+        this.userLib.currentUser = user
+
+        this.loggedIn.emit(out)
+        this.utilsProv.stopSpinner()
+      }
+      else {
+        this.utilsProv.showToast('error', "Aucun utilisateur à cet email", '', 'toast-top-center')
+        this.utilsProv.stopSpinner()
+      }
     }
+
+    // if (!this.formError.length) {
+    //   this.userLib.signIn(this.credentials)
+    //     .then(() => {
+    //       this.utilsProv.stopSpinner()
+    //     })
+    //     .catch(error => {
+    //       this.utilsProv.stopSpinner()
+
+    //       let msg = ''
+    //       if (error.code == 'auth/user-not-found') msg = "Ce compte n'existe pas !"
+    //       if (error.code == 'auth/wrong-password') msg ="Mot de passe incorrect !"
+
+    //       this.utilsProv.showToast('error', msg, '', 'toast-top-center')
+    //     })
+    // }
 
   }
 }

@@ -22,7 +22,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { UiSharedModule } from "@cahotech-monorepo/ui";
 import { GoogleMapsModule } from "../../../../libs/ui/src/lib/google-maps/google-maps.module";
 
-import { LockOutline, UserOutline, PlusOutline } from '@ant-design/icons-angular/icons';
+import { LockOutline, UserOutline, PlusOutline, HomeOutline } from '@ant-design/icons-angular/icons';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -44,7 +44,7 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 registerLocaleData(fr);
 
-const icons = [LockOutline, UserOutline, PlusOutline]
+const icons = [LockOutline, UserOutline, PlusOutline, HomeOutline]
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZmwKH69f3URXJLAIfCEUfinEyfb5XaT0",
