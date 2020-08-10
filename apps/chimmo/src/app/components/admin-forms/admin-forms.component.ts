@@ -18,6 +18,7 @@ export class AdminFormsComponent implements OnInit {
   @Input() currentView
   @Input() currentUserIndex
   @Input() isEdit: boolean
+  @Input() data
   @Output() done = new EventEmitter
 
   view = adminView
@@ -139,7 +140,6 @@ export class AdminFormsComponent implements OnInit {
       window.scrollTo({ top: 2, behavior: 'smooth' })
 
       this.utilsProv.showToast('error', res.msg, 'Érreur', 'toast-top-center', 4000)
-      this.utilsProv.stopSpinner()
     }
     else {
       let user = {} as userType
@@ -150,28 +150,52 @@ export class AdminFormsComponent implements OnInit {
         user.email = this.controlArray[3].value
         user.addres = this.controlArray[2].value
         user.tel = this.controlArray[4].value
-        user.apps = [this.dataProv.appName]
-        // user.companyName = this.userLib.currentUser.companyName
-        user.emailSent = false
-        user.id = this.userLib.createPushId()
-        user.timeStamp = Date.now()
-        user.adminPass = ''
-        user.type = userEnum.landlord
+
+        if (!this.isEdit) {
+          user.apps = [this.dataProv.appName]
+          user.id = this.userLib.createPushId()
+          user.timeStamp = Date.now()
+          user.adminPass = ''
+          user.type = userEnum.landlord
+          user.emailSent = false
+        }
+        else {
+          user.id = this.data.id
+        }
       }
 
       if (this.currentView == this.view.landlord) {
         user.type = userEnum.landlord
 
-        this.userLib.signUp(user)
-          .then(() => {
-            this.done.emit()
-            this.resetForm()
-            this.utilsProv.stopSpinner()
-          })
-          .catch(error => {
-            console.log(error);
-            this.utilsProv.stopSpinner()
-          })
+        if (this.isEdit) {
+          console.log(user);
+
+          this.userLib.updateUser(user)
+            .then(() => {
+              this.done.emit()
+              this.resetForm()
+              this.utilsProv.stopSpinner()
+              this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+            })
+            .catch(error => {
+              console.log(error);
+              this.utilsProv.stopSpinner()
+            })
+        }
+        else {
+          this.userLib.signUp(user)
+            .then(() => {
+              this.done.emit()
+              this.resetForm()
+              this.utilsProv.stopSpinner()
+              this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+            })
+            .catch(error => {
+              console.log(error);
+              this.utilsProv.stopSpinner()
+            })
+        }
+
       }
 
       else if (this.currentView == this.view.renter) {
@@ -195,6 +219,7 @@ export class AdminFormsComponent implements OnInit {
             this.done.emit()
             this.resetForm()
             this.utilsProv.stopSpinner()
+            this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
           })
           .catch(error => {
             console.log(error);
@@ -220,6 +245,7 @@ export class AdminFormsComponent implements OnInit {
           timeStamp: Date.now(),
           landLord: [{ Id: this.controlArray[3].value, renterId: '' }]
         }
+        // console.log(newHome)
 
         // get the corresponding house
         let house = this.homeProv.allHouses.find(house => house.id == newHome.houseId)
@@ -292,6 +318,7 @@ export class AdminFormsComponent implements OnInit {
                 this.done.emit()
                 this.resetForm()
                 this.utilsProv.stopSpinner()
+                this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
 
                 setTimeout(() => {
                   this.refreshInputData()
@@ -387,15 +414,14 @@ export class AdminFormsComponent implements OnInit {
     return this.homeProv.allHomes.find(home => home.id == homeId)
   }
 
-  getHouseDetails (houseId) {
-    return this.homeProv.allHouses.find(house => house.id == houseId)
+  getHouseDetails (house) {
+    return this.homeProv.allHouses.find(house => house.id == house.id)
   }
 
   //TODO selected all /unselect all checkbox
   houseEquipmentSelected (val) {
     //TODO get rid of this varible and use only controlArray.value instead
     this.houseEquipments = val
-
     this.controlArray[1].value = val
 
   }
@@ -450,8 +476,10 @@ export class AdminFormsComponent implements OnInit {
 
     this.autocompleteList1 = []
 
-    if ([adminView.house].includes(this.currentView))
+    if ([adminView.house].includes(this.currentView)) {
       this.autocompleteList1 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
+      this.houseEquipments = this.controlArray[1].value
+    }
 
     else if (this.currentView == adminView.home) {
       this.autocompleteList1 = Object.keys(homeEnum).filter(el => el != '0' && !parseInt(el))

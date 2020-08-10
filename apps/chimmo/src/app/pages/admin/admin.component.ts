@@ -21,6 +21,7 @@ export class AdminComponent implements OnInit {
   isNew = false
   isEdit = false
   currentUserIndex: number
+  data = {}
 
   constructor(
     public dataprov: DataService,
@@ -72,6 +73,14 @@ export class AdminComponent implements OnInit {
       this.controlArray[2].value = data.user.addres
       this.controlArray[3].value = data.user.email
       this.controlArray[4].value = data.user.tel
+
+      this.data['id'] = data.user.id
+
+    }
+    else if ([adminView.house].includes(this.currentView)) {
+      this.controlArray[0].value = data.house.name
+      this.controlArray[1].value = data.house.equipment
+      this.controlArray[3].value = data.house.ownerId
     }
   }
 

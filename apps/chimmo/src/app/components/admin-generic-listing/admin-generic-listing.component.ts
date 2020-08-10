@@ -123,7 +123,7 @@ export class AdminGenericListingComponent implements OnInit {
   getHomeDetails (homeObject) {
     for (let homeId in homeObject) {
       let home = this.homeProv.allHomes.find(home => home.id == homeId)
-      let house = this.homeProv.allHouses.find(house => house.id == home.houseId)
+      let house = this.homeProv.allHouses.find(house => house.id == home?.houseId)
 
       return { home: home, house: house }
     }

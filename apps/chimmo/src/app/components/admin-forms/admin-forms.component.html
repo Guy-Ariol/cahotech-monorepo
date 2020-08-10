@@ -31,7 +31,7 @@
             <nz-autocomplete #auto>
               <nz-auto-option *ngFor="let option of autocompleteList1"
                 [nzValue]="[view.house, view.renter].includes(currentView)? option.id :  option"
-                [nzLabel]="[view.house].includes(currentView)? option.lastName+' '+ option.firstName : currentView==view.renter? option.name : option">
+                [nzLabel]="[view.house].includes(currentView)? option.lastName+' '+ option.firstName : currentView==view.renter? option?.name : option">
 
                 <p *ngIf="[view.house].includes(currentView)">{{ option.lastName }} {{option.firstName}}
                   <br>
@@ -40,7 +40,7 @@
 
                 <p *ngIf="currentView==view.home">{{option}} </p>
 
-                <p *ngIf="currentView==view.renter">{{option.name}} <br>
+                <p *ngIf="currentView==view.renter">{{option?.name}} <br>
                 </p>
               </nz-auto-option>
             </nz-autocomplete>
@@ -55,10 +55,10 @@
 
             <nz-autocomplete #auto>
               <nz-auto-option *ngFor="let option of autocompleteList2"
-              [nzLabel]="[view.renter].includes(currentView)? option.lastName+' '+ option.firstName :  option.name"
-               [nzValue]="[view.renter].includes(currentView)? option.id : option">
+              [nzLabel]="[view.renter].includes(currentView)? option.lastName+' '+ option.firstName :  option?.name"
+               [nzValue]="[view.renter, view.home].includes(currentView)? option.id : option">
 
-                <p *ngIf="currentView!=view.renter"  ><b>{{option.name}}</b> <br>
+                <p *ngIf="currentView!=view.renter"  ><b>{{option?.name}}</b> <br>
                   <span style="color: rgb(85, 80, 80);">{{option.address}} </span>
                 </p>
 
@@ -99,7 +99,7 @@
           <nz-checkbox-wrapper style="padding-bottom: 15px;" (nzOnChange)="houseEquipmentSelected($event)">
             <div nz-row>
               <div nz-col nzSpan="12" *ngFor="let option of getHouseEquipmentList()">
-                <label nz-checkbox [nzValue]="option">{{option}}</label>
+                <label nz-checkbox [nzChecked]="houseEquipments?.includes(option)" [nzValue]="option">{{option}}</label>
               </div>
             </div>
           </nz-checkbox-wrapper>
@@ -178,7 +178,7 @@
                 *ngIf="[view.house, view.home].includes(currentView) && ['Proprietaire*', 'Bailleur*'].includes(control.title)">{{getUserFullName(control.value)}}</span>
               <span *ngIf="currentView==view.house && control.title!='Proprietaire*'">{{control.value}} </span>
               <span *ngIf="![view.house, view.renter].includes(currentView) && !['Bailleur*', 'Résidence*', 'Pièces*'].includes(control.title)">{{control.value}} </span>
-              <span *ngIf="control.title=='Résidence*'" > {{getHouseDetails(control.value).name}} </span>
+              <span *ngIf="control.title=='Résidence*'" > {{getHouseDetails(control.value)?.name}} </span>
 
               <span *ngIf="currentView==view.renter && control.title=='Logement*'">{{geHomeDetails(control.value)?.name}} </span>
               <span *ngIf="currentView==view.renter && control.title!='Logement*'">{{control.value}} </span>

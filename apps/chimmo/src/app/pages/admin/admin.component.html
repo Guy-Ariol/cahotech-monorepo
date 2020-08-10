@@ -16,7 +16,7 @@
         </div>
 
         <div *ngIf="isNew || isEdit">
-          <admin-forms [controlArray]="controlArray" [isEdit]="isEdit" [currentUserIndex]="currentUserIndex"
+          <admin-forms [controlArray]="controlArray" [isEdit]="isEdit" [currentUserIndex]="currentUserIndex" [data]="data"
             [currentView]="currentView" (done)="isEdit= false; isNew = false">
           </admin-forms>
         </div>
