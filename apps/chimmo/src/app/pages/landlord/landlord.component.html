@@ -1,1 +1,40 @@
-<p>landlord works!</p>
+<div class="landlord noselect">
+  <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
+    <app-header [menuList]="dataprov.landlordMenu" (menuSeleted)="topMenuSelected($event)" (toogleMenu)="toogleMenu()">
+    </app-header>
+
+    <div class="content">
+      <div *ngIf="currentView==view.account">
+        <div style="text-align: center; padding-bottom: 24px;">
+          <div nz-icon nzType="user" style="font-size: 40px;"></div>
+          <h1>Compte</h1>
+        </div>
+
+        <p><b><u>Nom:</u></b> {{userLib.currentUser?.lastName}} {{userLib.currentUser?.firstName}} </p>
+        <p><b><u>Email:</u></b> {{userLib.currentUser?.email}} </p>
+        <p><b><u>Adresse:</u></b> {{userLib.currentUser?.addres}} </p>
+        <p><b><u>Tel:</u></b> {{userLib.currentUser?.tel}} </p>
+        <p><b><u>Contrat:</u></b> </p>
+      </div>
+
+      <div *ngIf="currentView==view.home">
+        <div style="text-align: center; padding-bottom: 24px;">
+          <div nz-icon nzType="home" style="font-size: 40px;"></div>
+          <h1>Logement</h1>
+        </div>
+
+        <p><b><u>Bailleur:</u></b> {{userLib.currentUser?.lastName}} {{userLib.currentUser?.firstName}} </p>
+        <p>asdf {{getHomeDetails()?.name}}</p>
+
+      </div>
+
+      <div *ngIf="currentView==view.bill">
+        bill
+      </div>
+
+      <div *ngIf="currentView==view.saldo">
+        saldo
+      </div>
+    </div>
+  </div>
+</div>

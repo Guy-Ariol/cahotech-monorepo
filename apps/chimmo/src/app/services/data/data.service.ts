@@ -12,6 +12,8 @@ export class DataService {
 
   renterMenu
 
+  landlordMenu
+
   newLandlordForm
 
   newRenterForm
@@ -57,6 +59,52 @@ export class DataService {
         iconOff: 'assets/imgs/bill.svg',
         nav: renterView.bill
       },
+    ]
+
+    this.landlordMenu = [
+      {
+        name: 'Compte',
+        iconOn: 'assets/imgs/account-on.svg',
+        iconOff: 'assets/imgs/account.svg',
+        nav: landLordView.account
+      },
+      {
+        name: 'Résidences',
+        iconOn: 'assets/imgs/houses-on.svg',
+        iconOff: 'assets/imgs/houses.svg',
+        nav: landLordView.home
+      },
+      {
+        name: 'Locataires',
+        iconOn: 'assets/imgs/bill-on.svg',
+        iconOff: 'assets/imgs/bill.svg',
+        nav: landLordView.bill
+      },
+      {
+        name: 'Factures',
+        iconOn: 'assets/imgs/bill-on.svg',
+        iconOff: 'assets/imgs/bill.svg',
+        nav: landLordView.bill
+      },
+      {
+        name: 'Réparations',
+        iconOn: 'assets/imgs/hammer-on.svg',
+        iconOff: 'assets/imgs/hammer.svg',
+        nav: landLordView.bill
+      },
+      {
+        name: 'Réquetes',
+        iconOn: 'assets/imgs/flash-on.svg',
+        iconOff: 'assets/imgs/flash.svg',
+        nav: landLordView.bill
+      },
+      {
+        name: 'Solde',
+        iconOn: 'assets/imgs/bill-on.svg',
+        iconOff: 'assets/imgs/bill.svg',
+        nav: landLordView.bill
+      },
+
     ]
 
     this.mainMenuLandLord = [

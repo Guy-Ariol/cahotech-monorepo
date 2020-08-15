@@ -1,5 +1,5 @@
 /** */
-export enum landLordView { renter, houses, bill, issue, repair, saldo }
+export enum landLordView { renter, houses, bill, issue, repair, saldo, account, home, none }
 
 export enum renterView { home, bill, issue, repair, saldo, account, none }
 
