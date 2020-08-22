@@ -29,6 +29,36 @@
           "destination": "/index.html"
         }
       ]
+    },
+    {
+      "target": "cahocenter",
+      "public": "dist/apps/event-planner",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "griot",
+      "public": "dist/apps/griot-moderne",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     }
   ]
 }

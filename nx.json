@@ -58,6 +58,13 @@
     "event-planner-e2e": {
       "tags": [],
       "implicitDependencies": ["event-planner"]
+    },
+    "griot-moderne": {
+      "tags": []
+    },
+    "griot-moderne-e2e": {
+      "tags": [],
+      "implicitDependencies": ["griot-moderne"]
     }
   }
 }
