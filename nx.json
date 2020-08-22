@@ -51,6 +51,13 @@
     "napata-home-e2e": {
       "tags": [],
       "implicitDependencies": ["napata-home"]
+    },
+    "event-planner": {
+      "tags": []
+    },
+    "event-planner-e2e": {
+      "tags": [],
+      "implicitDependencies": ["event-planner"]
     }
   }
 }
