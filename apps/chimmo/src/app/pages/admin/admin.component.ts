@@ -38,7 +38,7 @@ export class AdminComponent implements OnInit {
 
   topMenuSelected (menu) {
     this.controlArray = []
-    this.toogleMenu()
+    // this.toogleMenu()
     this.currentView = menu
 
     if (menu == this.view.landlord) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Gestion bailleurs' }

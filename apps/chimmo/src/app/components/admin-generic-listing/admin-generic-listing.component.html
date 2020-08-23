@@ -21,46 +21,49 @@
     <div class="user-list">
       <div *ngFor="let element of displayList.reverse(); let index=index">
         <div *ngIf="(element.type==0 && currentView==view.landlord) || (element.type==1 && currentView==view.renter)">
-          <p><b>{{element.lastName}} {{element.firstName}}</b> <br>
-            <span><u><b>Email:</b></u> {{element.email}} ; <u><b>Tel:</b></u> {{element.tel}}</span> <br>
-            <!-- <span style="color: #575151;"><u><b>Mot de passe:</b></u> {{element.adminPass}} </span> <br> -->
-            <span style="color: #575151;"><u><b>Adresse:</b></u> {{element.addres}} </span> <br>
+          <h3><b>{{element.lastName}} {{element.firstName}}</b></h3>
 
-            <span *ngIf="utilsProv.isDesktop" class="edit-btn"
-              (click)="editUser.emit({user: element, index:index})">Modifier</span>
-          </p>
+          <div class="pl">
+            <p><u><b>Email:</b></u> {{element.email}}</p>
 
-          <div *ngIf="currentView==view.landlord">
-            <b style="font-size: 16px;"><u>Résidences:</u></b>
-            <p style="font-size: 14px; padding-left: 12px;" *ngFor="let house of element.houses; let index=index">
-              {{index+1}}. {{getHouseDetails(house)}}
-            </p>
+            <nz-collapse style="margin-top: 12px;" [nzBordered]="false">
+              <nz-collapse-panel [nzHeader]="'Show more ...'" [nzActive]="false">
+                <p><u><b>Tel:</b></u> {{element.tel}}</p>
+
+                <p><u><b>Adresse:</b></u> {{element.addres}}</p>
+
+                <div *ngIf="currentView==view.landlord">
+                  <b style="font-size: 16px;"><u>Résidences:</u></b>
+                  <p style="font-size: 14px; padding-left: 12px;" *ngFor="let house of element.houses; let index=index">
+                    {{index+1}}. {{getHouseDetails(house)}}
+                  </p>
+                </div>
+
+                <div style="font-size: 14px;" *ngIf="currentView==view.renter">
+                  <p><u><b>Bailleur: </b></u> {{getlandLordName(element.landlordId)}} </p>
+                  <p><u><b>Résidence: </b></u> {{getHomeDetails(element.homes).house?.name}} </p>
+                  <p><u><b>Logement: </b></u> {{getHomeDetails(element.homes).home?.name}} </p>
+                </div>
+
+                <p style="color: #575151; padding-top: 12px;"><u><b>Mot de passe:</b></u> {{element.adminPass}} </p>
+                <p><u><b>Date de création:</b></u> {{element.timeStamp |date}} </p>
+
+                <div *ngIf="currentView==view.landlord">
+                  <u style="font-size: 16px;"><b>Locataires: </b></u>
+                  <p style="font-size: 14px; padding-left: 12px;"
+                    *ngFor="let renter of getRenterList(element); let index=index">
+                    {{index+1}}. {{renter?.lastName}} {{renter?.firstName}} / {{renter?.tel}} </p>
+                </div>
+              </nz-collapse-panel>
+            </nz-collapse>
           </div>
 
-          <div style="font-size: 14px;" *ngIf="currentView==view.renter">
-            <p><u><b>Bailleur: </b></u> {{getlandLordName(element.landlordId)}} </p>
-            <p><u><b>Résidence: </b></u> {{getHomeDetails(element.homes).house?.name}} </p>
-            <p><u><b>Logement: </b></u> {{getHomeDetails(element.homes).home?.name}} </p>
-          </div>
-
-          <nz-collapse style="padding-top: 12px;" nzBordered="false">
-            <nz-collapse-panel nzHeader="Show more ..." [nzActive]="false">
-              <p style="color: #575151;"><u><b>Mot de passe:</b></u> {{element.adminPass}} </p>
-              <p><u><b>Date de création:</b></u> {{element.timeStamp |date}} </p>
-
-              <div *ngIf="currentView==view.landlord">
-                <u><b>Locataires</b></u>
-                <p *ngFor="let renter of getRenterList(element)">{{renter?.lastName}} {{renter?.firstName}} /
-                  {{renter?.tel}} </p>
-              </div>
-            </nz-collapse-panel>
-          </nz-collapse>
-
-          <p *ngIf="utilsProv.isMobile">
-            <span class="edit-btn" (click)="editUser.emit({user: element, index:index})">Modifier</span>
-            <span class="delete-btn" (click)="deleteUser(element)">Supprimer</span>
+          <p style="padding-top: 25px; ">
+            <span style="color: black;" class="edit-btn" (click)="editUser.emit({user: element, index:index})">Modifier</span>
+            <span  style="color: black;" class="delete-btn" (click)="deleteUser(element)">Supprimer</span>
           </p>
           <hr>
+          <br>
         </div>
 
         <div *ngIf="currentView == view.house">
