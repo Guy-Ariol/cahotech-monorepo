@@ -472,8 +472,6 @@ export class AdminFormsComponent implements OnInit {
 
 
   refreshInputData () {
-    // init variables
-
     this.autocompleteList1 = []
 
     if ([adminView.house].includes(this.currentView)) {

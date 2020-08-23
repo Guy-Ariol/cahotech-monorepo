@@ -1,9 +1,9 @@
 .admin-forms {
-  background: #fbfbfb;
+  // background: #fbfbfb;
   justify-content: space-around;
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  align-items: center;
 
   .summary {
     background: rgba(245, 222, 179, 0.397);
@@ -25,7 +25,6 @@
     margin-top: 30px;
     background: gainsboro;
     color: black;
-    margin-right: 20px;
   }
 
   .validation-error {
@@ -42,25 +41,29 @@
     padding: 5px 15px;
   }
 
-  .summary-checkbox-group{
+  .summary-checkbox-group {
     padding-bottom: 12px;
   }
 }
 
 .desktop {
-  .admin-forms {
-    padding: 30px;
-    padding-bottom: 25px;
+  .left-panel {
+    padding: 30px 90px 25px 90px;
     border: 1px solid #d9d9d9;
     border-radius: 6px;
-    min-width: 600px;
-  }
 
-  .left-panel {
     input {
       font-size: 15px;
       margin-bottom: 25px;
     }
+  }
+
+  .new-home-next-btn {
+    margin-left: 20px;
+  }
+
+  .submit-form2 {
+    margin-right: 20px;
   }
 
   .summary {
@@ -105,13 +108,13 @@
     color: white;
   }
 
-  .new-room{
-    input{
+  .new-room {
+    input {
       z-index: 0;
     }
   }
 
-  .new-home-next-btn{
+  .new-home-next-btn {
     margin-left: 20px;
   }
 }

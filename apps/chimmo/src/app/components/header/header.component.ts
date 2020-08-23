@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
 
 
   _menuSelected (menu) {
+    this.currentView=menu
     this.showTopMenu = !this.showTopMenu
     this.menuSeleted.emit(menu)
   }

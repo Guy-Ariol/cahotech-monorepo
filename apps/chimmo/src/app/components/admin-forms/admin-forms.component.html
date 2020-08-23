@@ -168,6 +168,10 @@
               <p><u>Email:</u> {{getUserEmail(control.value)}} </p>
             </div>
 
+            <div *ngIf="control.title=='Adresse'">
+              <p>{{control.value}} </p>
+            </div>
+
             <div class="summary-checkbox-group" *ngIf="control.type == 'checkbox-group'">
               <div *ngFor="let item of houseEquipments">{{item}} </div>
             </div>
@@ -177,7 +181,7 @@
               <span
                 *ngIf="[view.house, view.home].includes(currentView) && ['Proprietaire*', 'Bailleur*'].includes(control.title)">{{getUserFullName(control.value)}}</span>
               <span *ngIf="currentView==view.house && control.title!='Proprietaire*'">{{control.value}} </span>
-              <span *ngIf="![view.house, view.renter].includes(currentView) && !['Bailleur*', 'Résidence*', 'Pièces*'].includes(control.title)">{{control.value}} </span>
+              <span *ngIf="![view.house, view.renter].includes(currentView) && !['Bailleur*', 'Résidence*', 'Pièces*', 'Adresse'].includes(control.title)">{{control.value}} </span>
               <span *ngIf="control.title=='Résidence*'" > {{getHouseDetails(control.value)?.name}} </span>
 
               <span *ngIf="currentView==view.renter && control.title=='Logement*'">{{geHomeDetails(control.value)?.name}} </span>
@@ -208,7 +212,7 @@
   </tr>
 
   <div *ngIf="!showSummary" style="text-align: center; margin-bottom: 25px; padding-top: 25px;">
-    <button nz-button nzSize="large" (click)="done.emit(); scrollTop()">Annuler</button>
+    <button nz-button nzSize="large" (click)="done.emit(); scrollTop(); ">Annuler</button>
     <button nz-button nzSize="large" class="new-home-next-btn" nzType="primary" (click)="gotoSummary()">Suivant</button>
   </div>
 
