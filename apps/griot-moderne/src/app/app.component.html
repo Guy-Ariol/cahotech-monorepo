@@ -1,12 +1,23 @@
-<header class="flex">
-  <img
-    alt="Nx logo"
-    width="75"
-    src="assets/imgs/banner.png"
-  />
-  <h1>Welcome to {{ title }}!</h1>
-</header>
+<div class="app">
+  <div [class]="utilsProv.isDesktop? 'desktop' : 'mobile'">
+    <div class="head">
+      <h1>Le Griot Moderne</h1>
+    </div>
 
-<main>
+    <div class="content flex">
+      <div class="banner">
+        <img src="assets/imgs/banner.png" [height]="utilsProv.isDesktop? 380 : 250" />
+      </div>
 
-</main>
+      <div class="features flex">
+        <div *ngFor="let feature of features">
+          <div class="feature">
+            <img [src]="feature.pic" alt="">
+            <p>{{feature.title}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
