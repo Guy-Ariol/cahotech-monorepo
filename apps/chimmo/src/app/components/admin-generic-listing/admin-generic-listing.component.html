@@ -59,8 +59,15 @@
           </div>
 
           <p style="padding-top: 25px; ">
-            <span style="color: black;" class="edit-btn" (click)="editUser.emit({user: element, index:index})">Modifier</span>
-            <span  style="color: black;" class="delete-btn" (click)="deleteUser(element)">Supprimer</span>
+            <!-- <span style="color: black;" class="edit-btn" (click)="editUser.emit({user: element, index:index})">Modifier</span> -->
+            <button class="edit-btn" (click)="editUser.emit({user: element, index:index})" nz-button nzType="primary">Modifier</button>
+
+            <!-- <span  style="color: black;" class="delete-btn" (click)="deleteUser(element)">Supprimer</span> -->
+
+            <button nz-popconfirm nzPopconfirmTitle="Éffacer définitevement ?" (nzOnConfirm)="deleteUser(element)"
+              (nzOnCancel)="1" nzPopconfirmPlacement="top" nz-button nzType="danger" class="delete-btn">
+              Supprimer
+            </button>
           </p>
           <hr>
           <br>

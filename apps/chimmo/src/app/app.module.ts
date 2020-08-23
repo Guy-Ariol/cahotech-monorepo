@@ -40,6 +40,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 
 registerLocaleData(fr);
@@ -92,7 +93,8 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    NzCollapseModule
+    NzCollapseModule,
+    NzPopconfirmModule
   ],
 
   providers: [{ provide: NZ_I18N, useValue: fr_FR }, EventEmitter],

@@ -15,7 +15,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "D:/_Napata/dev/apps/cahotech-monorepo/apps/chimmo-native/www",
+            "outputPath": "D:/_Napata/dev/apps/cahotech-monorepo/dist/apps/chimmo",
             "index": "apps/chimmo/src/index.html",
             "main": "apps/chimmo/src/main.ts",
             "polyfills": "apps/chimmo/src/polyfills.ts",
