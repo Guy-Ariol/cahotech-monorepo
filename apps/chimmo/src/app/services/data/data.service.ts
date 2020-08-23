@@ -200,6 +200,12 @@ export class DataService {
         iconOn: 'assets/imgs/hammer-on.svg',
         iconOff: 'assets/imgs/hammer.svg',
         nav: adminView.repair
+      },
+      {
+        name: 'Config',
+        iconOn: 'assets/imgs/setting-on.svg',
+        iconOff: 'assets/imgs/setting.svg',
+        nav: adminView.config
       }
     ]
 
@@ -331,18 +337,6 @@ export class DataService {
         type: 'number',
         value: null,
         index: 6
-      },
-      {
-        title: 'Tarif eau*',
-        type: 'number',
-        value: null,
-        index: 7
-      },
-      {
-        title: 'Tarif électricité*',
-        type: 'number',
-        value: null,
-        index: 8
       },
       {
         title: 'Pièces*',

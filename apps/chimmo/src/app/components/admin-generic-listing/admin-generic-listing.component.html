@@ -59,10 +59,9 @@
           </div>
 
           <p style="padding-top: 25px; ">
-            <!-- <span style="color: black;" class="edit-btn" (click)="editUser.emit({user: element, index:index})">Modifier</span> -->
-            <button class="edit-btn" (click)="editUser.emit({user: element, index:index})" nz-button nzType="primary">Modifier</button>
-
-            <!-- <span  style="color: black;" class="delete-btn" (click)="deleteUser(element)">Supprimer</span> -->
+            <button class="edit-btn" (click)="editUser.emit({user: element, index:index})" nz-button
+              nzType="primary">Modifier
+            </button>
 
             <button nz-popconfirm nzPopconfirmTitle="Éffacer définitevement ?" (nzOnConfirm)="deleteUser(element)"
               (nzOnCancel)="1" nzPopconfirmPlacement="top" nz-button nzType="danger" class="delete-btn">
@@ -101,22 +100,23 @@
         </div>
 
         <div *ngIf="currentView == view.home">
-          <p><b> {{element.name}}</b> <br>
-            <span><b><u>Type:</u></b>&nbsp; {{element.type}} </span><br>
-            <span><b><u>Résidence: </u></b>&nbsp; {{getHouseName(element.houseId)}} </span>
+          <h3>{{element.name}} </h3>
 
-            <br><span><b><u>Bailleurs/Locataires</u></b></span>
-            <span *ngFor="let item of getRelations(element)"> {{getUserDetails2(item.bail)}} /
-              {{getUserDetails2(item.locat)}} </span>
+          <div class="pl">
+            <p><b><u>Type:</u></b>&nbsp; {{element.type}}</p>
+            <p><b><u>Résidence: </u></b>&nbsp; {{getHouseName(element.houseId)}} </p>
+
+            <p style="margin-bottom: 5px;"><b><u>Bailleurs/Locataires</u></b> </p>
+            <p style="padding-left: 12px; padding-top: 3px; margin-top: 0px;" *ngFor="let item of getRelations(element)"> {{getUserDetails2(item.bail)}} /
+              {{getUserDetails2(item.locat)}} </p>
 
             <nz-collapse style="padding-top: 0; margin: 0;" nzBordered="false">
               <nz-collapse-panel style="padding-top: 0; margin: 0;" [nzHeader]="element.rooms.length+' Pièces ...'"
                 [nzActive]="false">
-                <!-- <u><b>Date de création:</b></u>&nbsp; {{element.timeStamp | date}}<br><br> -->
 
                 <p *ngFor="let room of element.rooms; let index=index">
                   <span><b><u>Pièce Nr {{index+1}}:</u></b> </span>
-                  &nbsp; {{room.type}}<br>
+                  &nbsp; <span style="text-transform: capitalize; font-weight: bold;">{{room.type}}</span><br>
 
                   <span style="padding-left: 12px;">
                     <span><u>Superficie:</u> {{room.surface}} m²</span><br>
@@ -125,29 +125,22 @@
                     <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
                   </span>
                 </p>
+
+                <span><u><b>Date de création:</b></u>&nbsp; {{element.timeStamp | date}}</span><br><br>
+
               </nz-collapse-panel>
             </nz-collapse>
 
-            <!-- <span *ngFor="let room of element.rooms; let index=index">
-              <br><span><b><u>Pièce Nr {{index+1}}:</u></b> </span>
-              &nbsp; {{room.type}}<br>
+          </div>
 
-              <span style="padding-left: 12px;">
-                <span><u>Superficie:</u> {{room.surface}} m²</span><br>
+          <p style="padding-top: 25px; ">
+            <button class="edit-btn" (click)="editUser.emit({user: element, index:index})" nz-button nzType="primary">Modifier
+            </button>
 
-                <u style="padding-left: 12px;">Équipements: </u> &nbsp;
-                <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
-              </span>
-            </span> -->
-
-
-            <!-- <span *ngIf="utilsProv.isDesktop" class="edit-btn"
-                      (click)="editUser.emit({user: user, index:index})">Modifier</span> -->
-          </p>
-
-          <p *ngIf="utilsProv.isMobile">
-            <span class="edit-btn" (click)="editUser.emit({user: element, index:index})">Modifier</span>
-            <span class="delete-btn" (click)="deleteHome(element)">Supprimer</span>
+            <button nz-popconfirm nzPopconfirmTitle="Éffacer définitevement ?" (nzOnConfirm)="deleteHome(element)"
+              (nzOnCancel)="1" nzPopconfirmPlacement="top" nz-button nzType="danger" class="delete-btn">
+              Supprimer
+            </button>
           </p>
           <hr>
         </div>
