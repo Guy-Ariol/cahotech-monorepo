@@ -1,1 +1,84 @@
-<p>conscience works!</p>
+<div class="conscience">
+  <navbar title="Prendre conscience"></navbar>
+
+  <div class="topic">
+    <tr style="display: flex; justify-content: center;">
+      <td [class]="currentTopic=='test' ? 'underline' : ''" (click)="currentTopic='test'">Test QA</td>
+      <td [class]="currentTopic=='sign' ? 'underline' : ''" (click)="currentTopic='sign'">Symtomes</td>
+    </tr>
+  </div>
+
+  <div class="content">
+    <div *ngIf="currentTopic=='test'">
+      <div class="msg">
+        Le quotient d'aliénation est un indicateur aidant toute personne à constater son dégré de liberté par rapport a
+        lui même.
+        <br><br>
+        Il est recommandé a tout africain de connaitre son QA avant tout autre quotient (par ex. QI).
+
+        <br><br>
+        Plus le QA est bas mieux on se porte et mieux on peut construire ensemble.
+      </div>
+
+      <h2 style="text-align: center;">Le test est en cours d'implementation ... </h2>
+    </div>
+
+    <div style="padding: 12px;" *ngIf="currentTopic=='sign'">
+
+      <div *ngIf="isNewSign">
+        <h3 style="text-align: center;">Ajouter un signe</h3>
+
+        <p>Texte:</p>
+        <textarea name="" id="" cols="40" rows="10" [(ngModel)]="newSign.text"></textarea>
+
+        <br>
+        <p>Auteur:</p>
+        <input style="width: 85%;" type="text" [(ngModel)]="newSign.author">
+
+        <div style="text-align: center; padding-top: 25px;">
+          <button class="cancel" style="margin-right: 25px;" (click)="isNewSign=false">Annuler</button>
+          <button class="submit" (click)="addSign()">Valider</button>
+        </div>
+      </div>
+
+      <div *ngIf="!isNewSign">
+        <h3>Indicateurs d'aliénation</h3>
+
+        <p>
+          <span style="margin-right: 25px;"><input type="text" placeholder="search"> </span>
+          <button class="info">Go</button>
+          <button class="info" style="margin-left: 15px;" (click)="isNewSign=true">+ Add</button>
+        </p>
+
+        <div class="sign-list" style="padding-top: 25px;">
+          <div *ngFor="let sign of allSigns.reverse(); let index=index">
+            <p class="sign-item">
+              <b>#Signe {{index+1}}</b> <br>
+              {{sign.text}} <br>
+            </p>
+
+            <tr style="display: flex; justify-content: center; align-items: center;">
+              <td style="width: 40%; ">
+                <button (click)="updateSign('like',sign)">👍🏽 {{sign.like}}</button> </td>
+
+              <td style="width: 40%; ">
+                <button (click)="updateSign('dislike',sign)">👎🏼 {{sign.dislike*-1}}</button>
+              </td>
+
+              <td style="width: 40%; ">
+                <button>✍🏾</button>
+              </td>
+
+              <td style="width: 100%; font-size: 12px;">
+                {{sign.author}}
+              </td>
+            </tr>
+
+            <hr>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

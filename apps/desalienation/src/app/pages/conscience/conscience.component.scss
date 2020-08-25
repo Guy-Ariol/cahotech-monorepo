@@ -1,0 +1,70 @@
+.conscience {
+  .topic {
+    position: fixed;
+    top: 55px;
+    width: 100vw;
+    background: rgba(0, 0, 0);
+    color: white;
+
+    td {
+      text-align: center;
+      width: 100%;
+      height: 30px;
+      padding-top: 10px;
+    }
+  }
+
+  .underline {
+    border-bottom: solid 6px #f82c2c;
+  }
+
+  .content {
+    padding-top: 115px;
+    text-align: left;
+  }
+
+  .msg {
+    border: solid 2px #457cf1;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 25px;
+  }
+
+  .submit {
+    padding: 15px;
+    background: #457cf1;
+    border: none;
+    color: white;
+    font-family: 'Courier New';
+  }
+
+  .cancel {
+    padding: 15px;
+    background: tomato;
+    border: none;
+    color: white;
+    font-family: 'Courier New';
+  }
+
+  .info {
+    padding: 3px 6px;
+    background: #457cf1;
+    border: none;
+    color: white;
+    font-family: 'Courier New';
+  }
+
+  .sign-list {
+    button {
+      padding: 5px;
+      width: 50px;
+      background: white;
+      border: solid 1px gainsboro;
+      border-radius: 10px;
+    }
+
+    td {
+      text-align: center;
+    }
+  }
+}

@@ -6,7 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'desalienation';
+  error = false;
 
-
+  ngOnInit () {
+    if (screen.width > 400) this.error = true
+    else this.error = false
+  }
 }
