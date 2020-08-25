@@ -65,6 +65,13 @@
     "griot-moderne-e2e": {
       "tags": [],
       "implicitDependencies": ["griot-moderne"]
+    },
+    "desalienation": {
+      "tags": []
+    },
+    "desalienation-e2e": {
+      "tags": [],
+      "implicitDependencies": ["desalienation"]
     }
   }
 }

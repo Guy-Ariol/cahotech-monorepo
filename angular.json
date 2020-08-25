@@ -702,6 +702,129 @@
           }
         }
       }
+    },
+    "desalienation": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/desalienation",
+      "sourceRoot": "apps/desalienation/src",
+      "prefix": "cahotech-monorepo",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/desalienation",
+            "index": "apps/desalienation/src/index.html",
+            "main": "apps/desalienation/src/main.ts",
+            "polyfills": "apps/desalienation/src/polyfills.ts",
+            "tsConfig": "apps/desalienation/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/desalienation/src/favicon.ico",
+              "apps/desalienation/src/assets"
+            ],
+            "styles": ["apps/desalienation/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/desalienation/src/environments/environment.ts",
+                  "with": "apps/desalienation/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "desalienation:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "desalienation:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "desalienation:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/desalienation/tsconfig.app.json",
+              "apps/desalienation/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/desalienation/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/desalienation/jest.config.js",
+            "tsConfig": "apps/desalienation/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/desalienation/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "desalienation-e2e": {
+      "root": "apps/desalienation-e2e",
+      "sourceRoot": "apps/desalienation-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/desalienation-e2e/cypress.json",
+            "tsConfig": "apps/desalienation-e2e/tsconfig.e2e.json",
+            "devServerTarget": "desalienation:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "desalienation:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/desalienation-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/desalienation-e2e/**/*"]
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -74,6 +74,21 @@
           "destination": "/index.html"
         }
       ]
+    },
+    {
+      "target": "desalienation",
+      "public": "dist/apps/desalienation",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     }
   ]
 }
