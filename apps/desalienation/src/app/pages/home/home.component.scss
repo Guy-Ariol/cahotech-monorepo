@@ -1,0 +1,72 @@
+.home{
+   h2 {
+    color: rgb(69, 124, 241);
+  }
+
+  .logo {
+    padding-top: 25px;
+    padding-bottom: 15px;
+  }
+
+  .logo-line {
+    border-bottom: solid 1px gainsboro;
+    margin-left: 30%;
+    margin-right: 30%;
+    text-align: center;
+    border-bottom-width: 3px;
+    padding-top: 12px;
+  }
+
+  .content {
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+
+    h2 {
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      color: beige;
+    }
+
+    .section1 {
+      padding: 12px;
+      border-left: solid 12px #f82c2c;
+      color: rgb(218, 78, 14);
+      background: hsla(0, 94%, 57%, 0.2);
+
+      h2 {
+        color: #f82c2c;
+      }
+    }
+
+    .section2 {
+      padding: 12px;
+      border-left: solid 12px green;
+      color: rgb(13, 109, 80);
+      background: rgba(0, 128, 0, 0.233);
+
+      h2 {
+        color: green;
+      }
+    }
+
+    .section3 {
+      border-left: solid 12px black;
+      padding: 12px;
+      color: rgb(56, 53, 53);
+      background: rgba(0, 0, 0, 0.226);
+
+      h2 {
+        color: black;
+      }
+
+      p{
+        height: 25px;
+        background: rgb(241, 238, 238);
+        padding: 12px;
+        cursor: pointer;
+      }
+
+    }
+  }
+}
