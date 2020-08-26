@@ -1,0 +1,30 @@
+.menu {
+  position: fixed;
+  padding-right: 15px;
+  top: 8px;
+  width: 100vw;
+  text-align: right;
+  right: 1px;
+
+  p {
+    font-size: 22px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .menu-list {
+    padding-top: 25px;
+    margin-top: 15px;
+    background: rgba(0, 0, 0, 0.856);
+    text-align: left;
+    padding-left: 35px;
+    padding-bottom: 25px;
+
+    p{
+      z-index: 99999;
+      color: beige;
+    }
+
+
+  }
+}

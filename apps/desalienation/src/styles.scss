@@ -19,3 +19,19 @@ body {
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+ .submit {
+    padding: 15px;
+    background: #457cf1;
+    border: none;
+    color: white;
+    font-family: 'Courier New';
+  }
+
+  .cancel {
+    padding: 15px;
+    background: tomato;
+    border: none;
+    color: white;
+    font-family: 'Courier New';
+  }

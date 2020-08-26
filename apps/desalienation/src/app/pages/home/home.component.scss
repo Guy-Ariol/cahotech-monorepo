@@ -1,5 +1,5 @@
-.home{
-   h2 {
+.home {
+  h2 {
     color: #457cf1;
   }
 
@@ -60,13 +60,19 @@
         color: black;
       }
 
-      p{
+      p {
         height: 25px;
         background: rgb(241, 238, 238);
         padding: 12px;
         cursor: pointer;
       }
+    }
 
+    .section4 {
+      // min-height: 65px;
+      color: black;
+      padding: 12px;
+      text-align: center;
     }
   }
 }

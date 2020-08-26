@@ -1,10 +1,13 @@
 .conscience {
+  width: 100vw;
+
   .topic {
     position: fixed;
-    top: 55px;
+    top: 75px;
     width: 100vw;
     background: rgba(0, 0, 0);
     color: white;
+    z-index: 1;
 
     td {
       text-align: center;
@@ -19,7 +22,6 @@
   }
 
   .content {
-    padding-top: 115px;
     text-align: left;
   }
 
@@ -28,22 +30,6 @@
     border-radius: 15px;
     padding: 25px;
     margin: 25px;
-  }
-
-  .submit {
-    padding: 15px;
-    background: #457cf1;
-    border: none;
-    color: white;
-    font-family: 'Courier New';
-  }
-
-  .cancel {
-    padding: 15px;
-    background: tomato;
-    border: none;
-    color: white;
-    font-family: 'Courier New';
   }
 
   .info {
@@ -66,5 +52,9 @@
     td {
       text-align: center;
     }
+  }
+
+  .login {
+    padding-top: 5px;
   }
 }

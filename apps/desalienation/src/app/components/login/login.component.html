@@ -1,0 +1,40 @@
+<div class="login">
+  <p>{{msg}} </p>
+
+  <tr>
+    <td [class]="mode=='register' ? 'uderline' : ''" (click)="mode='register'">
+      <h3>Inscription</h3>
+    </td>
+    <td [class]="mode=='login' ? 'uderline' : ''" (click)="mode='login'">
+      <h3>Connexion</h3>
+    </td>
+  </tr>
+
+  <div *ngIf="mode=='register'">
+    <div style="padding-top: 25px;">
+      <input type="text" placeholder="Votre nom" [(ngModel)]="newUser.name">
+      <input type="text" placeholder="Votre e-mail" [(ngModel)]="newUser.email">
+    </div>
+
+    <div style="padding-top: 25px; text-align: center;">
+      <button class="cancel" (click)="cancel.emit()">Annuler</button>
+      <button class="submit" (click)="register()">Valider</button>
+    </div>
+  </div>
+
+  <div *ngIf="mode=='login'">
+    <div style="padding-top: 25px;">
+      <input type="password" placeholder="Identifiant" [(ngModel)]="newUser.password">
+    </div>
+
+    <div style="padding-top: 25px; text-align: center;">
+      <button class="cancel" (click)="cancel.emit()">Annuler</button>
+      <button class="submit" (click)="login()">Valider</button>
+
+      <p style="margin-top: 15px; color: blue; font-size: 12px;" (click)="dev('msg1')">J'ai oublié mon identifiant</p>
+    </div>
+
+
+  </div>
+
+</div>

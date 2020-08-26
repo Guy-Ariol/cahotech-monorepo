@@ -14,6 +14,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireAuthModule } from "@angular/fire/auth";
+import { LoginComponent } from './components/login/login.component';
+import { ReleasesComponent } from './pages/releases/releases.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAtikgM0hsu6EoP2MAUhCS6o8nFiqb4Ulc",
@@ -27,7 +30,7 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, ConscienceComponent, EducationComponent, ArchivesComponent, TransmissionComponent, HomeComponent, NavbarComponent],
+  declarations: [AppComponent, ConscienceComponent, EducationComponent, ArchivesComponent, TransmissionComponent, HomeComponent, NavbarComponent, LoginComponent, ReleasesComponent, MenuComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

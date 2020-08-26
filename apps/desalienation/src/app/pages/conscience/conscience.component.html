@@ -1,7 +1,8 @@
 <div class="conscience">
+
   <navbar title="Prendre conscience"></navbar>
 
-  <div class="topic">
+  <div class="topic" *ngIf="currentView!=view.login">
     <tr style="display: flex; justify-content: center;">
       <td [class]="currentTopic=='test' ? 'underline' : ''" (click)="currentTopic='test'">Test QA</td>
       <td [class]="currentTopic=='sign' ? 'underline' : ''" (click)="currentTopic='sign'">Symtomes</td>
@@ -9,24 +10,25 @@
   </div>
 
   <div class="content">
-    <div *ngIf="currentTopic=='test'">
+    <div style="padding-top: 115px;" *ngIf="currentTopic=='test'">
       <div class="msg">
-        Le quotient d'aliénation est un indicateur aidant toute personne à constater son dégré de liberté par rapport a
+        Le quotient d'aliénation est un indicateur aidant toute personne à constater son dégré de <b>liberté</b> par
+        rapport a
         lui même.
         <br><br>
-        Il est recommandé a tout africain de connaitre son QA avant tout autre quotient (par ex. QI).
+        Il est recommandé a chaque africain de connaitre son QA avant tout autre quotient (par ex. QI, QE, etc...)
 
         <br><br>
         Plus le QA est bas mieux on se porte et mieux on peut construire ensemble.
       </div>
 
-      <h2 style="text-align: center;">Le test est en cours d'implementation ... </h2>
+      <h2 style="text-align: center;">Le test est en construction ... </h2>
     </div>
 
     <div style="padding: 12px;" *ngIf="currentTopic=='sign'">
 
-      <div *ngIf="isNewSign">
-        <h3 style="text-align: center;">Ajouter un signe</h3>
+      <div style="padding-top: 115px;" *ngIf="currentView==view.newSign">
+        <h3 style="text-align: center;">Ajouter un symptome</h3>
 
         <p>Texte:</p>
         <textarea name="" id="" cols="40" rows="10" [(ngModel)]="newSign.text"></textarea>
@@ -36,37 +38,58 @@
         <input style="width: 85%;" type="text" [(ngModel)]="newSign.author">
 
         <div style="text-align: center; padding-top: 25px;">
-          <button class="cancel" style="margin-right: 25px;" (click)="isNewSign=false">Annuler</button>
+          <button class="cancel" style="margin-right: 25px;"
+            (click)="currentView=view.listSign; resetNewSign()">Annuler</button>
           <button class="submit" (click)="addSign()">Valider</button>
         </div>
       </div>
 
-      <div *ngIf="!isNewSign">
+      <div style="padding-top: 115px;" *ngIf="currentView==view.editSign">
+        <h3 style="text-align: center;">Modifier un symtome</h3>
+
+        <p>Texte:</p>
+        <textarea name="" id="" cols="40" rows="10" [(ngModel)]="newSign.text"></textarea>
+
+        <br>
+        <p>Auteur:</p>
+        <input style="width: 85%;" type="text" [(ngModel)]="newSign.author">
+
+        <div style="text-align: center; padding-top: 25px;">
+          <button class="cancel" style="margin-right: 25px;"
+            (click)="currentView=view.listSign; resetNewSign()">Annuler</button>
+          <button class="submit" (click)="updateSign()">Valider</button>
+        </div>
+      </div>
+
+      <div style="padding-top: 115px;" *ngIf="currentView==view.listSign">
         <h3>Indicateurs d'aliénation</h3>
 
         <p>
           <span style="margin-right: 25px;"><input type="text" placeholder="search"> </span>
-          <button class="info">Go</button>
-          <button class="info" style="margin-left: 15px;" (click)="isNewSign=true">+ Add</button>
+          <!-- <button class="info">Go</button> -->
+          <button class="info" style="margin-left: 5px;" (click)="currentView=view.newSign">+ Ajouter</button>
         </p>
+
+        <p style="font-size: 12px; text-align: center; padding: 8px 25px; padding-bottom: 8px; margin-bottom: 8px;">Nous
+          comptons sur ta participation. Appuie sur Ajouter.</p>
 
         <div class="sign-list" style="padding-top: 25px;">
           <div *ngFor="let sign of allSigns.reverse(); let index=index">
             <p class="sign-item">
-              <b>#Signe {{index+1}}</b> <br>
+              <b>#Signe {{allSigns.length - index}}</b> <br>
               {{sign.text}} <br>
             </p>
 
             <tr style="display: flex; justify-content: center; align-items: center;">
               <td style="width: 40%; ">
-                <button (click)="updateSign('like',sign)">👍🏽 {{sign.like}}</button> </td>
+                <button (click)="updateSign('like',sign)">👍🏽 {{sign.like?.length|| 0}}</button> </td>
 
               <td style="width: 40%; ">
-                <button (click)="updateSign('dislike',sign)">👎🏼 {{sign.dislike*-1}}</button>
+                <button (click)="updateSign('dislike',sign)">👎🏼 {{sign.dislike?.length || 0}}</button>
               </td>
 
               <td style="width: 40%; ">
-                <button>✍🏾</button>
+                <button (click)="editSign(sign)">✍🏾</button>
               </td>
 
               <td style="width: 100%; font-size: 12px;">
@@ -79,6 +102,10 @@
         </div>
       </div>
 
+      <div style="padding-top: 55px;" class="login" *ngIf="currentView==view.login">
+        <login [msg]="loginMsg" [mode]="loginMode" (cancel)="currentView=view.listSign" (done)="onLoggedIn($event)">
+        </login>
+      </div>
     </div>
   </div>
 </div>

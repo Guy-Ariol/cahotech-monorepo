@@ -1,0 +1,22 @@
+<div class="menu">
+  <p (click)="isOpen=!isOpen">&#9776; Menu</p>
+
+  <div *ngIf="isOpen" class="menu-list">
+    <p routerLink="/home">Home</p>
+    <hr>
+
+    <p routerLink="/conscience">Prendre conscience</p>
+    <hr>
+
+    <p routerLink="/education">S'éduquer</p>
+    <hr>
+
+    <p routerLink="/archives">Archiver les acquis</p>
+    <hr>
+
+    <p routerLink="/transmission">Passer le témoin</p>
+    <hr>
+
+    <p style="text-align: right; padding: 15px 15px 5px; color: red" (click)="isOpen=false" >Fermer</p>
+  </div>
+</div>

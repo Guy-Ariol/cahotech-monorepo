@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { EducationComponent } from './pages/education/education.component';
 import { ArchivesComponent } from './pages/archives/archives.component';
 import { TransmissionComponent } from './pages/transmission/transmission.component';
+import { ReleasesComponent } from './pages/releases/releases.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/home' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'conscience', component: ConscienceComponent },
   { path: 'education', component: EducationComponent },
   { path: 'archives', component: ArchivesComponent },
-  { path: 'transmission', component: TransmissionComponent }
+  { path: 'transmission', component: TransmissionComponent },
+  { path: 'release', component: ReleasesComponent }
 ];
 
 @NgModule({
