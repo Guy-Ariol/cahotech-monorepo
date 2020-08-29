@@ -71,10 +71,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  .app-layout {
-    // height: 100vh;
-  }
-
   .menu-sidebar {
     position: relative;
     z-index: 10;
@@ -129,8 +125,8 @@
   }
 
   nz-content {
-    // margin: 24px;
     overflow: initial;
+    margin: 24px;
   }
 
   .inner-content {
@@ -174,7 +170,7 @@
     border-color: black;
   }
 
-  .nz-sider{
+  .nz-sider {
     max-height: 100%;
   }
 

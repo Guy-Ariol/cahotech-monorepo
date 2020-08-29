@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
@@ -28,12 +30,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { EventEmitter } from 'events';
 import { ToastrModule } from 'ngx-toastr';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { GuardService } from './services/guard.service';
+import { ScanCardComponent } from './components/scan-card/scan-card.component';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 
-/** database access key
- *
- */
+/** database access key*/
 const firebaseConfig = {
   apiKey: "AIzaSyAZmwKH69f3URXJLAIfCEUfinEyfb5XaT0",
   authDomain: "cahotech-napata.firebaseapp.com",
@@ -58,23 +60,27 @@ const firebaseConfig = {
     HomeComponent,
     LoadComponent,
     TransfertComponent,
-    UnloadComponent, UsersComponent],
+    UnloadComponent, UsersComponent, ScanCardComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     ToastrModule.forRoot(),
-
-    NzLayoutModule,
-    NzGridModule,
-    NzMenuModule,
-    NzIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
 
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
 
-    NzButtonModule
+    NzButtonModule,
+    NzFormModule,
+    NzInputModule,
+    NzLayoutModule,
+    NzGridModule,
+    NzMenuModule,
+    NzIconModule,
 
   ],
   providers: [EventEmitter],
