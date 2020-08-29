@@ -91,6 +91,8 @@ export interface userType {
   * doc
   */
   points: any   //{ compagnyId: { list: { catalog: string, points: number, workerID: string, timeStamp: number }[]} },
+  /** */
+  scanType: 'nfc' | 'barcode'
 
 }
 

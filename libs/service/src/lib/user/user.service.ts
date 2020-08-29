@@ -182,4 +182,19 @@ export class UserService {
         .catch(error => reject(error))
     })
   }
+
+  /** get worker from the database
+    *
+    * @returns {userType[]}
+    * @memberof UserService
+    */
+  getWorkers (): userType[] {
+    let out = []
+
+    for (let worker in this.currentUser.workers) {
+      out.push(this.currentUser.workers[worker])
+    }
+
+    return out
+  }
 }
