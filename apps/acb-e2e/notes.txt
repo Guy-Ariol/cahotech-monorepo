@@ -1,0 +1,15 @@
+entry: mobile
+  stimulation: open side main menu
+  expectation: no overscroll, screen size remain mobile
+
+entry: mobile
+  stimulation:
+  expectation:
+
+entry: mobile
+  stimulation:
+  expectation:
+
+entry: mobile
+  stimulation:
+  expectation:

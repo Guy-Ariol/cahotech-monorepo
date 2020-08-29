@@ -28,6 +28,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { EventEmitter } from 'events';
 import { ToastrModule } from 'ngx-toastr';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { GuardService } from './services/guard.service';
 
 
 /** database access key
