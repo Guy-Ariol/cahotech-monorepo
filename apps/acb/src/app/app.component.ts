@@ -43,8 +43,6 @@ export class AppComponent {
 
   ngOnInit () {
     this.utils.setScreenSize(window.innerWidth, window.innerHeight)
-    console.log(this.utils.isDesktop, this.utils.isMobile)
-
   }
 
 
