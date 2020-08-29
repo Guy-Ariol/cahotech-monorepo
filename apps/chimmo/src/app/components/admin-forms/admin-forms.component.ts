@@ -238,9 +238,9 @@ export class AdminFormsComponent implements OnInit {
           id: this.userLib.createPushId(),
           houseId: this.controlArray[2].value,
           cost: {
-            Caution: this.controlArray[3].value, "Tarif mensuel": this.controlArray[4].value,
-            "Avance Checkin": this.controlArray[5].value, "Tarif eau": this.controlArray[6].value,
-            "Tarif électricité": this.controlArray[7].value
+            Caution: this.controlArray[3].value,
+            "Tarif mensuel": this.controlArray[4].value,
+            "Montant prérequis": this.controlArray[5].value
           },
           timeStamp: Date.now(),
           landLord: [{ Id: this.controlArray[3].value, renterId: '' }]
@@ -440,7 +440,7 @@ export class AdminFormsComponent implements OnInit {
     }, 100);
 
     /** deactivate input validation */
-    this.controlArray[9].value = 1
+    this.controlArray[7].value = 1
   }
 
 
@@ -458,13 +458,15 @@ export class AdminFormsComponent implements OnInit {
       this.showSummary = true
 
       setTimeout(() => {
-        if (this.currentView == adminView.house) window.scrollBy(0, 400)
+        if(this.utilsProv.isDesktop) window.scrollTo({top: 1, behavior: 'smooth'})
 
-        if (this.currentView == adminView.home) window.scrollBy(0, 400)
+        else if (this.currentView == adminView.house) window.scrollBy(0, 400)
 
-        if (this.currentView == adminView.landlord) window.scrollBy(0, 400)
+        else if (this.currentView == adminView.home) window.scrollBy(0, 400)
 
-        if (this.currentView == adminView.renter) window.scrollBy(0, 400)
+        else if (this.currentView == adminView.landlord) window.scrollBy(0, 400)
+
+        else if (this.currentView == adminView.renter) window.scrollBy(0, 400)
       }, 150);
     }
 

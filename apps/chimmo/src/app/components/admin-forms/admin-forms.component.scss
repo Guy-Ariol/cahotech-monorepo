@@ -3,7 +3,7 @@
   justify-content: space-around;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  // align-items: center;
 
   .summary {
     background: rgba(245, 222, 179, 0.397);
@@ -37,12 +37,43 @@
     }
   }
 
-  .new-room {
-    padding: 5px 15px;
-  }
-
   .summary-checkbox-group {
     padding-bottom: 12px;
+  }
+
+  .action-btn {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    height: 50px;
+    width: 50px;
+    background: tomato;
+    border-radius: 50%;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    z-index: 999999;
+  }
+
+  .action-btn span {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: white;
+  }
+
+  .new-room {
+    padding: 5px 15px;
+
+    input {
+      z-index: 0;
+    }
+  }
+
+  .add-homes{
+    max-width: 400px;
   }
 }
 
@@ -82,35 +113,6 @@
   .left-panel {
     input {
       margin-bottom: 10px;
-    }
-  }
-
-  .action-btn {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    height: 50px;
-    width: 50px;
-    background: tomato;
-    border-radius: 50%;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-    z-index: 999999;
-  }
-
-  .action-btn span {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    color: white;
-  }
-
-  .new-room {
-    input {
-      z-index: 0;
     }
   }
 

@@ -342,7 +342,7 @@ export class DataService {
         title: 'Pièces*',
         type: 'complex',
         value: 0,
-        index: 9
+        index: 7
       },
     ]
 
