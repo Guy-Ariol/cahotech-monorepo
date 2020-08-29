@@ -65,7 +65,7 @@
         <h3>Indicateurs d'aliénation</h3>
 
         <p>
-          <span style="margin-right: 25px;"><input type="text" placeholder="search"> </span>
+          <span style="margin-right: 25px;"><input type="text" placeholder="search" (input)="search($event.target.value)"> </span>
           <!-- <button class="info">Go</button> -->
           <button class="info" style="margin-left: 5px;" (click)="currentView=view.newSign">+ Ajouter</button>
         </p>
@@ -74,7 +74,7 @@
           comptons sur ta participation. Appuie sur Ajouter.</p>
 
         <div class="sign-list" style="padding-top: 25px;">
-          <div *ngFor="let sign of allSigns.reverse(); let index=index">
+          <div *ngFor="let sign of searchSigns.reverse(); let index=index">
             <p class="sign-item">
               <b>#Signe {{allSigns.length - index}}</b> <br>
               {{sign.text}} <br>

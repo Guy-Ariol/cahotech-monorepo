@@ -15,6 +15,7 @@ export class ConscienceComponent implements OnInit {
 
   currentTopic = 'test'
   allSigns: signsType[] = []
+  searchSigns: signsType[] = []
   newSign: signsType = { text: '', author: '', like: [], dislike: [], timeStamp: null, id: '', authorID: '' }
   currentView: view = view.listSign
   view = view
@@ -34,6 +35,7 @@ export class ConscienceComponent implements OnInit {
 
     this.afdb.list('des_signs').valueChanges().subscribe((data: signsType[]) => {
       this.allSigns = data
+      this.searchSigns = data
     })
 
     this.route.queryParams.subscribe(params => {
@@ -165,6 +167,16 @@ export class ConscienceComponent implements OnInit {
 
     }
     else alert('Pas possible de modifier ce symtome, veuillez contacter le support.')
+
+  }
+
+  search (txt: string) {
+    if (txt) {
+      this.searchSigns = this.searchSigns.filter(sign => sign.author.toLowerCase().includes(txt.toLowerCase()) || sign.text.toLowerCase().includes(txt.toLocaleLowerCase()))
+    }
+    else {
+      this.searchSigns = this.allSigns
+    }
 
   }
 }
