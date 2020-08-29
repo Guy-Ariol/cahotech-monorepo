@@ -194,7 +194,7 @@ export interface roomType {
 export enum roomTypeEnum { chambre, salon, cuisine, douche, magasin, wc, douche_wc, terrase, jardin, cave, garage }
 
 /** */
-export interface roomCostType { Caution: number, 'Tarif mensuel': number, 'Avance Checkin': number, 'Tarif eau': number, 'Tarif électricité': number }
+export interface roomCostType { Caution: number, 'Tarif mensuel': number, 'Montant prérequis': number }
 
 
 

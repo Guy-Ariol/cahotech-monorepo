@@ -825,6 +825,131 @@
           }
         }
       }
+    },
+    "acb": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/acb",
+      "sourceRoot": "apps/acb/src",
+      "prefix": "cahotech-monorepo",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/acb",
+            "index": "apps/acb/src/index.html",
+            "main": "apps/acb/src/main.ts",
+            "polyfills": "apps/acb/src/polyfills.ts",
+            "tsConfig": "apps/acb/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/acb/src/favicon.ico", "apps/acb/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }],
+            "styles": ["apps/acb/src/theme.less","apps/acb/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/acb/src/environments/environment.ts",
+                  "with": "apps/acb/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "acb:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "acb:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "acb:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/acb/tsconfig.app.json",
+              "apps/acb/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/acb/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/acb/jest.config.js",
+            "tsConfig": "apps/acb/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/acb/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "acb-e2e": {
+      "root": "apps/acb-e2e",
+      "sourceRoot": "apps/acb-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/acb-e2e/cypress.json",
+            "tsConfig": "apps/acb-e2e/tsconfig.e2e.json",
+            "devServerTarget": "acb:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "acb:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/acb-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/acb-e2e/**/*"]
+          }
+        }
+      }
     }
   },
   "cli": {
