@@ -1,0 +1,25 @@
+<h1 class="login-title">Connexion</h1>
+
+<form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Vérifier l'email !">
+      <nz-input-group nzPrefixIcon="user">
+        <input class="email" type="email" nz-input formControlName="email" placeholder="E-mail" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Vérifier le mot de passe !">
+      <nz-input-group nzPrefixIcon="lock">
+        <input class="pass" type="password" nz-input formControlName="password" placeholder="Mot de passe" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <button nz-button class="login-subBtn" nzShape="round" nzType="primary">Log in</button>
+
+  <div class="login-form-forgot">
+    <a>Forgot password</a>
+  </div>
+</form>
