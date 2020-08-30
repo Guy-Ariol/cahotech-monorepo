@@ -1,13 +1,4 @@
 .app {
-  .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 960px;
-    flex-direction: column;
-    align-items: center;
-  }
-
   .card {
     border-radius: 4px;
     border: 1px solid #eee;
@@ -173,6 +164,4 @@
     height: 100%;
     width: 100%;
   }
-
-
 }

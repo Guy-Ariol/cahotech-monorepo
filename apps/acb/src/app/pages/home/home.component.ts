@@ -89,6 +89,9 @@ export class HomeComponent implements OnInit {
           if (error.code == "auth/user-not-found") msg = "Cet email n'existe pas!"
           else if (error.code = "auth/wrong-password") msg = "Mot de passe incorrect"
 
+          console.log(msg);
+
+
           this.utils.stopSpinner()
           this.utils.showToast('error', msg, 'Érreur')
         })

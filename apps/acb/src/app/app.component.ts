@@ -26,7 +26,6 @@ export class AppComponent {
     public utils: UtilsService,
     public userProv: UserService,
 
-
   ) { }
 
   /** check current device dimensions
@@ -39,15 +38,14 @@ export class AppComponent {
   private onResize (event) {
     this.utils.setScreenSize(window.innerWidth, window.innerHeight)
 
-    if(window.innerHeight < 400){
-      // document.getElementById('footer').remove()
-    }
+    if (window.innerHeight < 400) document.getElementById('footer').style.visibility = "hidden"
+    else document.getElementById('footer').style.visibility = "visible"
+
   }
 
   ngOnInit () {
     this.utils.setScreenSize(window.innerWidth, window.innerHeight)
   }
-
 
   /** close side bar menu
      *
@@ -66,4 +64,6 @@ export class AppComponent {
   checkNav () {
 
   }
+
+
 }
