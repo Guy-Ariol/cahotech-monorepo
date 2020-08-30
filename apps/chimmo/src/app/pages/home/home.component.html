@@ -4,7 +4,9 @@
 
     <div class="content">
       <div *ngIf="!userLib.currentUser" class="device-login">
-        <sign-in (loggedIn)="onLogIn($event)"></sign-in>
+        <!-- <sign-in (loggedIn)="onLogIn($event)"></sign-in> -->
+
+        <lib-sign-in></lib-sign-in>
       </div>
 
       <div *ngIf="userLib.currentUser && !userLib.currentWorker" class="worker-login"></div>

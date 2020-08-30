@@ -13,19 +13,36 @@
 .spinner {
   display: flex;
   justify-content: center;
-  align-items: center;
   position: absolute;
   top: 0;
   width: 99%;
   height: 99%;
   z-index: 999999;
   color: #3988f0;
+  left: 0;
 }
 
 .backdrop {
-  min-height: 100%;
+  min-height: 100vh;
   min-width: 100%;
   background: rgba(0, 0, 0, 0.7);
   position: absolute;
   z-index: 999;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #f0f2f5;
+}
+
+nz-content {
+  overflow: initial;
+}
+
+.inner-content {
+  background: #fff;
+  height: 100%;
 }

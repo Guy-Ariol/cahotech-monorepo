@@ -22,7 +22,8 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { UiSharedModule } from "@cahotech-monorepo/ui";
 import { GoogleMapsModule } from "../../../../libs/ui/src/lib/google-maps/google-maps.module";
 
-import { LockOutline, UserOutline, PlusOutline, HomeOutline } from '@ant-design/icons-angular/icons';
+import { LockOutline, UserOutline, PlusOutline, HomeOutline, MenuOutline , PhoneOutline, MailOutline} from '@ant-design/icons-angular/icons';
+
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -41,11 +42,14 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-
+import { ReleaseComponent } from './pages/release/release.component';
+import { SuperAdminComponent } from './pages/super-admin/super-admin.component';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { ReactiveFormsModule } from '@angular/forms';
 
 registerLocaleData(fr);
 
-const icons = [LockOutline, UserOutline, PlusOutline, HomeOutline]
+const icons = [LockOutline, UserOutline, PlusOutline, HomeOutline, MenuOutline, PhoneOutline, MailOutline]
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZmwKH69f3URXJLAIfCEUfinEyfb5XaT0",
@@ -69,7 +73,9 @@ const firebaseConfig = {
     AdminGenericListingComponent,
     SignInComponent,
     SignUpComponent,
-    HeaderComponent],
+    HeaderComponent,
+    ReleaseComponent,
+    SuperAdminComponent],
 
   imports: [
     BrowserModule,
@@ -78,11 +84,11 @@ const firebaseConfig = {
     BrowserAnimationsModule,
     UiSharedModule,
     GoogleMapsModule,
+    ReactiveFormsModule,
+
     NzLayoutModule,
     NzFormModule,
     NzInputModule,
-    NzIconModule,
-
     NzButtonModule,
     NzDatePickerModule,
     NzAutocompleteModule,
@@ -94,7 +100,8 @@ const firebaseConfig = {
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     NzCollapseModule,
-    NzPopconfirmModule
+    NzPopconfirmModule,
+    NzPageHeaderModule,
   ],
 
   providers: [{ provide: NZ_I18N, useValue: fr_FR }, EventEmitter],
