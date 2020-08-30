@@ -234,7 +234,7 @@ export class AdminFormsComponent implements OnInit {
         let newHome: homeType = {
           name: this.controlArray[0].value,
           rooms: this.rooms,
-          type: this.controlArray[1].value,
+          type: parseInt(homeEnum[this.controlArray[1].value]),
           id: this.userLib.createPushId(),
           houseId: this.controlArray[2].value,
           cost: {

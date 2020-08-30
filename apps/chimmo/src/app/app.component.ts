@@ -4,6 +4,7 @@ import { UserService } from 'libs/service/src/lib/user/user.service';
 import { EventEmitter } from 'events';
 import { Router } from '@angular/router';
 import { userEnum } from '@cahotech-monorepo/interfaces';
+import { HomeService } from './services/home/home.service';
 
 @Component({
   selector: 'cahotech-monorepo-root',
@@ -19,6 +20,7 @@ export class AppComponent {
     @Inject(EventEmitter) private event: EventEmitter,
     private router: Router,
     private zone: NgZone,
+    private homeProv: HomeService
 
 
   ) {
@@ -27,19 +29,21 @@ export class AppComponent {
 
   ngOnInit () {
     this.utilsProv.startSpinner()
+    this.utilsProv.setScreenSize(window.innerWidth, window.innerHeight)
 
     // App subscriptions
     this.userLib.onAuthChanged()
     this.onLoginChanged()
 
+    this.userLib.subscribeAllUser()
+    this.homeProv.subscribeAllHomes()
+    this.homeProv.subscribeAllHouses()
+
+
     //TODO changed to 3s instead of 1s
     setTimeout(() => {
       this.utilsProv.stopSpinner()
     }, 1000);
-
-    this.utilsProv.setScreenSize(window.innerWidth, window.innerHeight)
-
-    this.userLib.subscribeAllUser()
   }
 
   @HostListener('window:resize', ['$event'])

@@ -39,16 +39,14 @@ export class HomeService {
   /** subscribe house from the server */
   subscribeAllHouses () {
     this.afdb.list('houses').valueChanges().subscribe((data: houseType[]) => {
-      this.allHouses = data
-
-      // this.event.emit('received data from server', '')
+      if (data) this.allHouses = data
     })
   }
 
   /** subscribe homes from the server */
   subscribeAllHomes () {
     this.afdb.list('homes').valueChanges().subscribe((data: homeType[]) => {
-      this.allHomes = data
+      if (data) this.allHomes = data
     })
   }
 

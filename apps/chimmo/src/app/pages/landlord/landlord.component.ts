@@ -4,6 +4,7 @@ import { DataService } from '../../services/data/data.service';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { HomeService } from '../../services/home/home.service';
 import { landLordView } from '../../services/interfaces/interfaces.service';
+import { houseType, homeType, homeEnum } from '@cahotech-monorepo/interfaces';
 
 @Component({
   selector: 'cahotech-monorepo-landlord',
@@ -22,7 +23,7 @@ export class LandlordComponent implements OnInit {
     public homeProv: HomeService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
   // ariol@napata.tech
@@ -44,13 +45,31 @@ export class LandlordComponent implements OnInit {
     return this.userLib.allUsers.find(user => user.id == landlordId)
   }
 
-  getHomeDetails () {
-    for (let key in this.userLib.currentUser?.homes) {
+  getHomeDetails (house: houseType): homeType[] {
+    let homes = []
+
+    for (let key of house?.homeList) {
       if (key) {
-        return this.homeProv.allHomes.find(home => home.id == key)
+        homes.push(this.homeProv.allHomes.find(home => home.id == key))
       }
     }
 
+    return homes
   }
 
+  getHouseDetails (): houseType[] {
+    let houses = []
+
+    for (let key of this.userLib.currentUser?.houses) {
+      if (key) {
+        houses.push(this.homeProv.allHouses.find(house => house.id == key))
+      }
+    }
+
+    return houses
+  }
+
+  getHomeTypeString (typeEnum) {
+    return homeEnum[typeEnum]
+  }
 }

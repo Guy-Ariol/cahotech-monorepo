@@ -15,6 +15,7 @@
         <p><b><u>Adresse:</u></b> {{userLib.currentUser?.addres}} </p>
         <p><b><u>Tel:</u></b> {{userLib.currentUser?.tel}} </p>
         <p><b><u>Contrat:</u></b> </p>
+
       </div>
 
       <div *ngIf="currentView==view.home">
@@ -34,6 +35,42 @@
 
       <div *ngIf="currentView==view.saldo">
         saldo
+      </div>
+
+      <div *ngIf="currentView==view.houses">
+        <div *ngFor="let house of getHouseDetails(); let index=index">
+          <h2>Résidence {{index+1}} </h2>
+
+          <div style="padding-left: 12px;">
+            <p><u>Nom:</u> {{house?.name}}</p>
+            <p><u>Adresse:</u> {{house.address}} </p>
+
+            <p><u>Équipements:</u>
+              <span *ngFor="let equip of house.equipment"> {{equip}}, </span>
+            </p>
+
+            <p><u>Logements:</u></p>
+            <nz-collapse>
+              <nz-collapse-panel *ngFor="let home of getHomeDetails(house)" [nzHeader]="home.name">
+                <p><u>Type:</u> {{getHomeTypeString(home.type)}} </p>
+
+                <p style="margin:0;"><u>Loyer:</u> {{home.cost.Caution}} </p>
+
+                <p><u>Pièces:</u></p>
+                <div style="padding-left: 12px;">
+                  <div *ngFor="let room of home.rooms">
+                    <p>{{room.type}}:
+                      <span *ngFor="let equip of room.equipment">{{equip}} </span>
+                    </p>
+                  </div>
+
+                </div>
+              </nz-collapse-panel>
+            </nz-collapse>
+
+          </div>
+
+        </div>
       </div>
     </div>
   </div>

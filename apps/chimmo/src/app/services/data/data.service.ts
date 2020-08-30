@@ -72,13 +72,13 @@ export class DataService {
         name: 'Résidences',
         iconOn: 'assets/imgs/houses-on.svg',
         iconOff: 'assets/imgs/houses.svg',
-        nav: landLordView.home
+        nav: landLordView.houses
       },
       {
         name: 'Locataires',
         iconOn: 'assets/imgs/bill-on.svg',
         iconOff: 'assets/imgs/bill.svg',
-        nav: landLordView.bill
+        nav: landLordView.renter
       },
       {
         name: 'Factures',
@@ -90,19 +90,19 @@ export class DataService {
         name: 'Réparations',
         iconOn: 'assets/imgs/hammer-on.svg',
         iconOff: 'assets/imgs/hammer.svg',
-        nav: landLordView.bill
+        nav: landLordView.repair
       },
       {
         name: 'Réquetes',
         iconOn: 'assets/imgs/flash-on.svg',
         iconOff: 'assets/imgs/flash.svg',
-        nav: landLordView.bill
+        nav: landLordView.issue
       },
       {
         name: 'Solde',
         iconOn: 'assets/imgs/bill-on.svg',
         iconOff: 'assets/imgs/bill.svg',
-        nav: landLordView.bill
+        nav: landLordView.saldo
       },
 
     ]
