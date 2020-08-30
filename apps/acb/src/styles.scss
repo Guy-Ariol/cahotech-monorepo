@@ -1,6 +1,28 @@
-body{
+body {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
+  background: #f0f2f5;
+}
+
+nz-content {
+  overflow: initial;
+}
+
+.inner-content {
+  background: #fff;
+  height: 100%;
+}
+
+.footer {
+  text-align: center;
+  font-family: 'Balsamiq Sans', cursive;
+  span {
+    font-size: 18px;
+  }
+  position: fixed;
+  bottom: 5px;
+  width: 100%;
+  background: #f0f2f5;
 }

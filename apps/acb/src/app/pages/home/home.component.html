@@ -1,1 +1,46 @@
-<p>home works!</p>
+<!-- <div class="home"> -->
+<div [class.mobile]="utils.isMobile" [class.desktop]="utils.isDesktop">
+  <div class="home">
+    <div *ngIf="userProv.currentUser && !userProv.currentWorker" class="worker-login">
+      <scan-card [subTitle]="'Déposer la carte de service'" title="Connexion employé" (onChanged)="onTag($event)"
+        pic="assets/imgs/avatar-woman-4.png">
+      </scan-card>
+    </div>
+
+    <div nz-row class="device-login">
+      <div *ngIf="utils.isDesktop" nz-col nzSpan="10" class="bg-img">
+        <img src="assets/imgs/ceo-login.jpg" width="100%" alt="">
+      </div>
+
+      <div nz-col [nzSpan]="utils.isDesktop? 10 : 24">
+        <h1 class="login-title">Connexion</h1>
+
+        <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Vérifier l'email !">
+              <nz-input-group nzPrefixIcon="user">
+                <input class="email" type="email" nz-input formControlName="email" placeholder="E-mail" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Vérifier le mot de passe !">
+              <nz-input-group nzPrefixIcon="lock">
+                <input class="pass" type="password" nz-input formControlName="password" placeholder="Mot de passe" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <button nz-button class="login-subBtn" nzShape="round" nzType="primary">Log in</button>
+
+          <div class="login-form-forgot">
+            <a>Forgot password</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- </div> -->

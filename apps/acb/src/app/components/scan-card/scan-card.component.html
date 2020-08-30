@@ -1,0 +1,46 @@
+<div class="nfc-tap">
+  <div [class.mobile]="utils.isMobile" [class.desktop]="utils.isDesktop">
+    <tr>
+      <td>
+        <div class="sub-col">
+          <h1 class="title" [style.color]="'white'">{{title}}</h1>
+          <img [src]="pic" height="500" alt="">
+        </div>
+      </td>
+
+      <td>
+        <div class="sub-col">
+          <div *ngIf="!focussed" class="sub-col-2">
+            <button nz-button nzType="danger" nzSize="large" nzBlock class="activate-nfc-tap" id="activate-nfc-tap"
+              (click)="activateNFCpad(tapInput)">Activer le
+              terminal</button>
+          </div>
+
+          <div *ngIf="focussed">
+            <h1 class="subtitle">{{subTitle}} </h1>
+            <img src="assets/imgs/tap-nfc.png" (click)="tapInput.focus()" [class]="focussed? 'blink-2' : ''" />
+          </div>
+        </div>
+
+      </td>
+    </tr>
+
+    <input id="tap-input" #tapInput [(ngModel)]="currentValue" (input)="inputUpdate.next($event)"
+      class="hide-card-input" (blur)="focussed=false" autocomplete="off" />
+
+    <tr style="justify-content: right;">
+      <td style="width: 100%; text-align: right;">
+        <div id="tap-input-sos" class="hide-card-input">
+          <input type="password" #pass placeholder=" Mot de passe" style="color: black;"
+            (keyup)="checkInput($event.key, pass.value)">
+
+          <button nz-button style="margin-left: 15px; background: rgb(247, 3, 247); color: white;"
+            (click)="submit(pass.value)">Valider</button>
+        </div>
+      </td>
+
+      <button nz-button (click)="showInput()"><i nz-icon [nzType]="isSOS? 'close' : 'edit'"></i>SOS input</button>
+    </tr>
+
+  </div>
+</div>

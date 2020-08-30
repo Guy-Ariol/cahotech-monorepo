@@ -1,0 +1,103 @@
+.home {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  background: #f0f2f5;
+  height: 100%;
+
+  .login-subBtn {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .login-form-forgot {
+    text-align: center;
+    padding: 15px 0px;
+  }
+}
+
+.desktop {
+  td {
+    padding: 25px;
+  }
+
+  tr {
+    margin: 35px;
+    padding: 35px;
+    justify-content: center;
+  }
+
+  .bg-img {
+    margin-right: 60px;
+  }
+
+  .login-title {
+    padding-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 32px;
+  }
+
+  nz-input-group {
+    font-size: 25px;
+
+    input {
+      font-size: 25px;
+      padding-left: 15px;
+    }
+  }
+
+  .device-login {
+    background: rgba(247, 147, 16, 0.493);
+    border-radius: 25px;
+    border-style: solid;
+    border-color: orange;
+    border-width: 1px;
+    align-items: center;
+    padding: 24px;
+    margin: 25px 35px;
+    min-width: 600px;
+    max-width: 1000px;
+    justify-content: center;
+  }
+
+  .login-subBtn {
+    margin-top: 55px;
+    height: 50px;
+    font-size: 25px;
+  }
+
+  .worker-login {
+    background: rgb(0, 255, 158);
+    background: linear-gradient(
+      49deg,
+      rgba(0, 255, 158, 1) 0%,
+      rgba(9, 121, 112, 0.4234068627450981) 40%,
+      rgba(0, 146, 255, 1) 100%
+    );
+    width: 100vw;
+    z-index: 99999;
+
+    padding: 35px;
+  }
+
+  .login-form {
+    padding: 25px;
+    width: 100%;
+  }
+}
+
+.mobile {
+  margin-top: 15px;
+  height: 100%;
+
+  .login-form {
+    min-width: 300px;
+    background: #fff;
+    padding: 25px;
+  }
+
+  .login-title {
+    padding-bottom: 15px;
+  }
+}

@@ -38,7 +38,10 @@ export class AppComponent {
   @HostListener('window:resize', ['$event'])
   private onResize (event) {
     this.utils.setScreenSize(window.innerWidth, window.innerHeight)
-    console.log(this.utils.isDesktop, this.utils.isMobile)
+
+    if(window.innerHeight < 400){
+      // document.getElementById('footer').remove()
+    }
   }
 
   ngOnInit () {

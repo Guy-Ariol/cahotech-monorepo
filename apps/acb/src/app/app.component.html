@@ -83,6 +83,18 @@
       <nz-content>
         <div class="inner-content">
           <router-outlet [class]="!isCollapsed ? 'backdrop2' : ''"></router-outlet>
+
+          <div class="footer" id="footer">
+            <div *ngIf="utils.isDesktop">
+              &copy;2020 Cahotech all rights reserved, Powered by <a href="https://napata.tech">napata.tech</a>
+            </div>
+
+            <div *ngIf="!utils.isDesktop">
+              &copy;2020 Cahotech all rights reserved
+              <p>Powered by <a href="">napata.tech</a></p>
+            </div>
+
+          </div>
         </div>
       </nz-content>
     </nz-layout>
