@@ -1,5 +1,6 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 import { UtilsService } from "libs/service/src/lib/utils/utils.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -7,13 +8,16 @@ import { UtilsService } from "libs/service/src/lib/utils/utils.service";
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
+  @Input() version = ''
+  visible = false
 
   constructor(
     public utils: UtilsService,
+    private route: Router
 
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
   @HostListener('window:resize', ['$event'])
@@ -24,4 +28,18 @@ export class FooterComponent implements OnInit {
     else document.getElementById('footer').style.visibility = "visible"
   }
 
+
+  openAdmin (): void {
+    this.route.navigate(['super-admin'])
+    this.visible = false;
+  }
+
+  change (value: boolean): void {
+    console.log(value);
+  }
+
+  openReleasePage () {
+    this.route.navigate(['release'])
+    this.visible = false;
+  }
 }

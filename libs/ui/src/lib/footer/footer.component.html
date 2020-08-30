@@ -1,11 +1,37 @@
 <div class="footer" id="footer">
   <div *ngIf="utils.isDesktop">
-    &copy;2020 Cahotech all rights reserved, Powered by <a href="https://napata.tech">napata.tech</a>
+    &copy;2020 Cahotech all rights reserved, Powered by <a href="https://napata.tech">napata.tech,</a>
+
+    &nbsp;&nbsp;<a (click)="visible=true" class="footer-version">V1.0</a>
+
+    <nz-modal [(nzVisible)]="visible" nzTitle="" [nzOkDisabled]="true" [nzWidth]="300" [nzClosable]="false" class="f"
+      (nzOnCancel)="visible=false">
+      <p (click)="openAdmin()">Ouvrir l'espace super Admin</p>
+      <hr>
+      <p (click)="openReleasePage()">Historique des chagements</p>
+    </nz-modal>
   </div>
 
   <div *ngIf="!utils.isDesktop">
     &copy;2020 Cahotech all rights reserved
-    <p>Powered by <a href="">napata.tech</a></p>
+    <p>Powered by <a href="">napata.tech</a>,
+
+      <a (click)="visible=true" class="footer-version">V1.0</a>
+
+      <nz-modal [(nzVisible)]="visible" nzTitle="" [nzOkDisabled]="true" [nzWidth]="300" [nzClosable]="false"
+        (nzOnCancel)="visible=false">
+        <div class="footer-action">
+          <p (click)="openAdmin()">Ouvrir l'espace super Admin</p>
+          <hr>
+          <p (click)="openReleasePage()">Historique des chagements</p>
+        </div>
+
+      </nz-modal>
+    </p>
+
+
   </div>
+
+
 
 </div>
