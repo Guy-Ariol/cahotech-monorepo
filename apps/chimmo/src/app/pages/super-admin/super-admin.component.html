@@ -1,1 +1,64 @@
-<p>super-admin works!</p>
+<div [class]="utils.isDesktop? 'desktop' : 'mobile'">
+  <div class="superAdmin">
+    <nz-page-header class="page-header" (nzBack)="currentView=view.menu" [nzBackIcon]="'menu'" nzTitle="Super Admin">
+    </nz-page-header>
+
+    <div class="content">
+      <div *ngIf="currentView==view.menu">
+        <h1>Menu</h1>
+
+        <div *ngFor="let menu of menuList" class="main-menu">
+          <p (click)="currentView=menu.view">
+            <span style="font-size: 18px;">{{menu.name}} </span>
+            <span style="font-size: 22px; float: right;">&rarr;</span>
+          </p>
+          <hr>
+        </div>
+      </div>
+
+      <div *ngIf="currentView==view.newAdmin">
+        <h1>Créer super admin</h1>
+
+        <form nz-form [formGroup]="validateForm" class="new-super-admin-form" (ngSubmit)="submitForm()">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Vérifier">
+              <nz-input-group nzPrefixIcon="user">
+                <input class="pass" type="text" nz-input formControlName="lastName" placeholder="Nom" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Vérifier">
+              <nz-input-group nzPrefixIcon="user">
+                <input class="pass" type="text" nz-input formControlName="firstName" placeholder="Prénom" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Vérifier">
+              <nz-input-group nzPrefixIcon="mail">
+                <input class="pass" type="email" nz-input formControlName="email" placeholder="E-mail" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Vérifier">
+              <nz-input-group nzPrefixIcon="phone">
+                <input class="pass" type="tel" nz-input formControlName="tel" placeholder="Tel" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <div style="padding-top: 25px;">
+          <button nz-button nzSize="large" nzType="primary">Valider</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+  </div>
+</div>
