@@ -90,10 +90,15 @@ export class UserService {
     * @memberof UserService
     */
   subscribeMyUser () {
-    this.afdb.list('users', ref => ref.orderByChild('companyName').equalTo(this.currentUser.companyName)).valueChanges()
-      .subscribe((data: userType[]) => {
-        this.myUsers = data
-      })
+    if (this.currentUser.companyName) {
+      this.afdb.list('users', ref => ref.orderByChild('companyName').equalTo(this.currentUser.companyName)).valueChanges()
+        .subscribe((data: userType[]) => {
+          this.myUsers = data
+        })
+    }
+    else {
+      console.log('My-user subscription failed');
+    }
   }
 
   /**
@@ -137,7 +142,6 @@ export class UserService {
     })
   }
 
-
   /** get app updated when users get updated in the database
     *
     * @memberof UserService
@@ -149,12 +153,10 @@ export class UserService {
       })
   }
 
-
   /** create database unique push id */
   createPushId () {
     return this.afdb.createPushId()
   }
-
 
   /** upadate or create user in the database */
   updateUser (user: userType): Promise<any> {
