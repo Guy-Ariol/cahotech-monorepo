@@ -21,7 +21,10 @@
             "polyfills": "apps/chimmo/src/polyfills.ts",
             "tsConfig": "apps/chimmo/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/chimmo/src/favicon.ico", "apps/chimmo/src/assets"],
+            "assets": [
+              "apps/chimmo/src/favicon.ico",
+              "apps/chimmo/src/assets"
+            ],
             "styles": [
               "apps/chimmo/src/theme.less",
               "apps/chimmo/src/styles.scss"
@@ -83,7 +86,10 @@
               "apps/chimmo/tsconfig.app.json",
               "apps/chimmo/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/chimmo/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/chimmo/**/*"
+            ]
           }
         },
         "test": {
@@ -118,8 +124,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/chimmo-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/chimmo-e2e/**/*"]
+            "tsConfig": [
+              "apps/chimmo-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/chimmo-e2e/**/*"
+            ]
           }
         }
       }
@@ -137,7 +148,10 @@
               "libs/ui/tsconfig.lib.json",
               "libs/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui/**/*"
+            ]
           }
         },
         "test": {
@@ -163,7 +177,10 @@
               "libs/interfaces/tsconfig.lib.json",
               "libs/interfaces/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/interfaces/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/interfaces/**/*"
+            ]
           }
         },
         "test": {
@@ -189,7 +206,10 @@
               "libs/service/tsconfig.lib.json",
               "libs/service/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/service/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/service/**/*"
+            ]
           }
         },
         "test": {
@@ -287,7 +307,10 @@
               "apps/learn-german-fast/tsconfig.app.json",
               "apps/learn-german-fast/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/learn-german-fast/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/learn-german-fast/**/*"
+            ]
           }
         },
         "test": {
@@ -322,7 +345,9 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/learn-german-fast-e2e/tsconfig.e2e.json"],
+            "tsConfig": [
+              "apps/learn-german-fast-e2e/tsconfig.e2e.json"
+            ],
             "exclude": [
               "**/node_modules/**",
               "!apps/learn-german-fast-e2e/**/*"
@@ -416,7 +441,10 @@
               "apps/napata-home/tsconfig.app.json",
               "apps/napata-home/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/napata-home/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/napata-home/**/*"
+            ]
           }
         },
         "test": {
@@ -451,8 +479,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/napata-home-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/napata-home-e2e/**/*"]
+            "tsConfig": [
+              "apps/napata-home-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/napata-home-e2e/**/*"
+            ]
           }
         }
       }
@@ -479,9 +512,13 @@
             "aot": true,
             "assets": [
               "apps/event-planner/src/favicon.ico",
-              "apps/event-planner/src/assets"
+              "apps/event-planner/src/assets",
+              "apps/event-planner/src/manifest.webmanifest"
             ],
-            "styles": ["apps/event-planner/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "apps/event-planner/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -511,7 +548,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/event-planner/ngsw-config.json"
             }
           }
         },
@@ -539,7 +578,10 @@
               "apps/event-planner/tsconfig.app.json",
               "apps/event-planner/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/event-planner/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/event-planner/**/*"
+            ]
           }
         },
         "test": {
@@ -574,8 +616,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/event-planner-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/event-planner-e2e/**/*"]
+            "tsConfig": [
+              "apps/event-planner-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/event-planner-e2e/**/*"
+            ]
           }
         }
       }
@@ -604,7 +651,9 @@
               "apps/griot-moderne/src/favicon.ico",
               "apps/griot-moderne/src/assets"
             ],
-            "styles": ["apps/griot-moderne/src/styles.scss"],
+            "styles": [
+              "apps/griot-moderne/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -662,7 +711,10 @@
               "apps/griot-moderne/tsconfig.app.json",
               "apps/griot-moderne/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/griot-moderne/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/griot-moderne/**/*"
+            ]
           }
         },
         "test": {
@@ -697,8 +749,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/griot-moderne-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/griot-moderne-e2e/**/*"]
+            "tsConfig": [
+              "apps/griot-moderne-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/griot-moderne-e2e/**/*"
+            ]
           }
         }
       }
@@ -727,7 +784,9 @@
               "apps/desalienation/src/favicon.ico",
               "apps/desalienation/src/assets"
             ],
-            "styles": ["apps/desalienation/src/styles.scss"],
+            "styles": [
+              "apps/desalienation/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -785,7 +844,10 @@
               "apps/desalienation/tsconfig.app.json",
               "apps/desalienation/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/desalienation/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/desalienation/**/*"
+            ]
           }
         },
         "test": {
@@ -820,8 +882,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/desalienation-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/desalienation-e2e/**/*"]
+            "tsConfig": [
+              "apps/desalienation-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/desalienation-e2e/**/*"
+            ]
           }
         }
       }
@@ -846,13 +913,19 @@
             "polyfills": "apps/acb/src/polyfills.ts",
             "tsConfig": "apps/acb/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/acb/src/favicon.ico", "apps/acb/src/assets",
+            "assets": [
+              "apps/acb/src/favicon.ico",
+              "apps/acb/src/assets",
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
                 "output": "/assets/"
-              }],
-            "styles": ["apps/acb/src/theme.less","apps/acb/src/styles.scss"],
+              }
+            ],
+            "styles": [
+              "apps/acb/src/theme.less",
+              "apps/acb/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -910,7 +983,10 @@
               "apps/acb/tsconfig.app.json",
               "apps/acb/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/acb/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/acb/**/*"
+            ]
           }
         },
         "test": {
@@ -945,8 +1021,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/acb-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/acb-e2e/**/*"]
+            "tsConfig": [
+              "apps/acb-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/acb-e2e/**/*"
+            ]
           }
         }
       }

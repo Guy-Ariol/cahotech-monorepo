@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: 'cahotech-monorepo-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'event-planner';
+
+  constructor(
+    public platform: Platform
+  ){
+
+  }
 }
