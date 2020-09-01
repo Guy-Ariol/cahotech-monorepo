@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZmwKH69f3URXJLAIfCEUfinEyfb5XaT0",
@@ -48,7 +49,8 @@ const firebaseConfig = {
     AppRoutingModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent],

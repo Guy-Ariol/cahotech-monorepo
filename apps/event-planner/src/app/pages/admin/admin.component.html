@@ -1,1 +1,44 @@
-<p>admin works!</p>
+<div class="admin">
+  <div class="head">
+    <tr>
+      <td style="width: 60px;">
+        <mat-icon (click)="toogleMenu()">menu</mat-icon>
+      </td>
+
+      <td style="text-align: left; padding-left: 15px;">
+        <h1>Cahocenter</h1>
+      </td>
+    </tr>
+  </div>
+
+  <div class="content">
+    <div class="main-menu" *ngIf="isMenuOpen">
+      <div *ngFor="let menu of mainMenu">
+        <div class="menu-item">
+          {{menu.title}}
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="currentView==view.newEvent">
+      <h1>New event</h1>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Outline form field</mat-label>
+        <input matInput placeholder="Placeholder">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="view.eventList">
+
+    </div>
+
+    <div *ngIf="view">
+
+    </div>
+
+
+  </div>
+</div>
