@@ -1,0 +1,40 @@
+.home {
+  background-image: url('../../../assets/imgs/home_bg.jpg');
+  background-size: cover;
+  background-position: center;
+
+  .content {
+    background: rgba(0, 0, 0, 0.658);
+    text-align: center;
+    height: 100vh;
+
+    .title {
+      padding-top: 15vh;
+
+      h1,
+      h3 {
+        font-family: 'Balsamiq Sans', cursive;
+        color: gold;
+        font-size: 8vw;
+        letter-spacing: 4px;
+        padding-bottom: 2vw;
+      }
+
+      h3 {
+        font-size: 32px;
+      }
+    }
+
+    .event-input {
+      height: 100%;
+      margin-top: 10vh;
+      padding: 15px;
+      font-size: 28px;
+      border-radius: 10px;
+      border: solid 0.5px gold;
+      width: 60%;
+      background: rgba(0, 0, 0, 0.322);
+      color: white;
+    }
+  }
+}

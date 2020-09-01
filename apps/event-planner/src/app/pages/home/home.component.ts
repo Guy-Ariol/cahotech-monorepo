@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+screen
 
-  constructor() { }
+  constructor(
+
+  ) { }
 
   ngOnInit(): void {
+// this.screen = screen.
+
   }
 
 }
