@@ -7,3 +7,18 @@ body {
   height: 100vh;
   width: 100vw;
 }
+
+.toast-error{
+  background: tomato;
+  color: white;
+}
+
+.toast-success{
+  background: rgb(33, 240, 33);
+  color: white;
+}
+
+.toast-warning{
+  background: rgb(241, 157, 31);
+  color: white;
+}

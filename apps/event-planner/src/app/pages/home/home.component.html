@@ -12,7 +12,9 @@
     </div>
 
     <div>
-      <input class="event-input" type="text" placeholder="Event number">
+      <input class="event-input" type="text" placeholder="Event number" [(ngModel)]="eventId"
+        (keyup)="$event.key=='Enter' ? getEvent() : ''">
+      <button class="get-event-btn" (click)="getEvent()">OK</button>
     </div>
 
 

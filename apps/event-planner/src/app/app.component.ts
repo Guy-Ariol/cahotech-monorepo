@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
+import { EventService } from './services/event.service';
 
 @Component({
   selector: 'cahotech-monorepo-root',
@@ -10,8 +10,14 @@ export class AppComponent {
   title = 'event-planner';
 
   constructor(
-    public platform: Platform
-  ){
+    private eventProv: EventService,
+
+  ) {
+
+  }
+
+  ngOnInit () {
+    this.eventProv.subscribeEvents()
 
   }
 }
