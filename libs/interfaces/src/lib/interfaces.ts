@@ -74,9 +74,9 @@ export interface userType {
 
   // chimmo
   landlordId: string
-  renters: {}
+  renters: string[]
   houses: string[]
-  homes: {[homeId: string]: roomCostType}
+  homes: string[]
 
   // acb
   /**

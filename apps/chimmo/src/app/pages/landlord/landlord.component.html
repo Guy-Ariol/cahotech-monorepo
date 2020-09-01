@@ -10,6 +10,10 @@
           <h1>Compte</h1>
         </div>
 
+        <div style="text-align: right;">
+        <button nz-button (click)="userLib.signOut()">Log out</button>
+        </div>
+
         <p><b><u>Nom:</u></b> {{userLib.currentUser?.lastName}} {{userLib.currentUser?.firstName}} </p>
         <p><b><u>Email:</u></b> {{userLib.currentUser?.email}} </p>
         <p><b><u>Adresse:</u></b> {{userLib.currentUser?.addres}} </p>
@@ -25,7 +29,7 @@
         </div>
 
         <p><b><u>Bailleur:</u></b> {{userLib.currentUser?.lastName}} {{userLib.currentUser?.firstName}} </p>
-        <p>asdf {{getHomeDetails()?.name}}</p>
+        <!-- <p>asdf {{getHomeDetails()}}</p> -->
 
       </div>
 
@@ -60,7 +64,7 @@
                 <div style="padding-left: 12px;">
                   <div *ngFor="let room of home.rooms">
                     <p>{{room.type}}:
-                      <span *ngFor="let equip of room.equipment">{{equip}} </span>
+                      <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
                     </p>
                   </div>
 

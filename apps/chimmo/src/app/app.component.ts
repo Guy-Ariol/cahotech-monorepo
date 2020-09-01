@@ -39,6 +39,7 @@ export class AppComponent {
     this.homeProv.subscribeAllHomes()
     this.homeProv.subscribeAllHouses()
 
+    console.log(this.router.url);
 
     //TODO changed to 3s instead of 1s
     setTimeout(() => {
@@ -82,9 +83,9 @@ export class AppComponent {
 
     })
 
-    this.event.on('logged out', () => {
-      this.zone.run(() => {
-        this.router.navigate(['/'])
+    this.event.on('logged out', (results) => {
+      if(results) this.zone.run(() => {
+        // this.router.navigate(['/'])+
       })
     })
   }

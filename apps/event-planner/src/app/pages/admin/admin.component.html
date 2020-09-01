@@ -14,21 +14,25 @@
   <div class="content">
     <div class="main-menu" *ngIf="isMenuOpen">
       <div *ngFor="let menu of mainMenu">
-        <div class="menu-item">
+        <div class="menu-item" (click)="currentView=menu.view; toogleMenu()">
           {{menu.title}}
         </div>
       </div>
     </div>
 
-    <div *ngIf="currentView==view.newEvent">
+    <div class="new-event" *ngIf="currentView==view.newEvent">
       <h1>New event</h1>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Outline form field</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
-      </mat-form-field>
+      Nom de l'evénement
+      <input type="text" [(ngModel)]="newEvent.name">
+
+      Nombre estimé d'invités
+      <input type="text" [(ngModel)]="newEvent.totalSeats">
+
+      Début de l'évènement
+      <input type="datetime" [(ngModel)]="newEvent.name">
+
+      Fin de l'évènement
     </div>
 
     <div *ngIf="view.eventList">

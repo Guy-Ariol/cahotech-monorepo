@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { eventType } from '../../services/event.service';
 
 enum view { newEvent, eventList }
 
@@ -15,6 +16,7 @@ export class AdminComponent implements OnInit {
   mainMenu = [
     {title: 'New event', view: view.newEvent}, {title: 'All events', view: view.eventList}
   ]
+  newEvent = {} as eventType
 
   constructor() { }
 

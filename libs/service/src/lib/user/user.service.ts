@@ -56,7 +56,7 @@ export class UserService {
           this.event.emit('logged in', e.uid)
         }
         else {
-          this.event.emit('logged out')
+          this.event.emit('logged out', true)
         }
       }
 
@@ -199,4 +199,5 @@ export class UserService {
 
     return out
   }
+
 }
