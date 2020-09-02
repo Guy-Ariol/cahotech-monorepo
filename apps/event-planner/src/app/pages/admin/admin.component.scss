@@ -1,6 +1,20 @@
 .admin {
   height: 100vh;
-  color: bisque;
+  color: #ffe4c4;
+
+  button {
+    font-family: 'Montserrat';
+  }
+
+  .cancel-btn {
+    background: gainsboro;
+    color: black;
+  }
+
+  .submit-btn {
+    background: #1976d2;
+    color: white;
+  }
 
   .head {
     tr {
@@ -29,10 +43,12 @@
   .content {
     padding: 25px;
     padding-top: 100px;
-    height: 100%;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.658);
 
     .new-event {
+      font-family: 'Montserrat';
+
       tr {
         display: flex;
         flex-direction: column;
@@ -54,9 +70,22 @@
         width: 100%;
       }
 
-      .submit-newEvent {
+      .cancel-newEvent {
+        margin-right: 15px;
+      }
+
+      button {
         margin-top: 35;
         padding: 15px;
+      }
+    }
+
+    .event-list {
+      font-family: 'Montserrat';
+
+      h1 {
+        letter-spacing: 3px;
+        font-weight: bold;
       }
     }
   }
@@ -77,5 +106,42 @@
   .main-menu {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .big-screen {
+    .event-list {
+      padding: 60px;
+
+      p {
+        font-size: 2vw;
+        padding-bottom: 1vw;
+        padding-left: 15px;
+      }
+
+      h1 {
+        font-size: 32px;
+        padding-bottom: 15px;
+      }
+    }
+
+    .new-event {
+      td {
+        width: 40vw;
+        // max-width: 600px;
+      }
+
+      h1 {
+        font-size: 35px;
+      }
+
+      input,
+      select {
+        color: #f44336;
+        height: 40px;
+        margin-bottom: 25px;
+        width: 100%;
+      }
+    }
   }
 }
