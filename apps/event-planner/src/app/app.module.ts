@@ -20,9 +20,12 @@ import { AngularFireDatabaseModule } from "@angular/fire/database";
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
+
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZmwKH69f3URXJLAIfCEUfinEyfb5XaT0",
@@ -41,18 +44,22 @@ const firebaseConfig = {
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
 
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+
     AppRoutingModule,
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
-    MatIconModule
+    MatIconModule,
   ],
-  providers: [],
+  providers: [{provide: OWL_DATE_TIME_LOCALE, useValue: 'fr'}],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

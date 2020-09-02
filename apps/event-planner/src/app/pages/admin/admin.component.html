@@ -30,9 +30,24 @@
       <input type="text" [(ngModel)]="newEvent.totalSeats">
 
       Début de l'évènement
-      <input type="datetime" [(ngModel)]="newEvent.name">
+      <p style="margin-bottom: 22px; min-width: 300px; width: 300px;">
+        <input [owlDateTime]="sd" [(ngModel)]="newEvent.startDate" hidden>
+        <span *ngIf="newEvent.startDate"
+          style="padding:  8px; background: white; color: #F44336">{{newEvent.startDate |date:'d/MM/yy, HH:mm'}}
+        </span>
+        <button [owlDateTimeTrigger]="sd" style="padding: 5px; margin-left: 12px;">Date</button>
+        <owl-date-time #sd></owl-date-time>
+      </p>
 
       Fin de l'évènement
+      <p style="margin-bottom: 22px; min-width: 300px; width: 300px;">
+        <input [owlDateTime]="ed" [(ngModel)]="newEvent.endDate" hidden>
+        <span *ngIf="newEvent.endDate"
+          style="padding:  8px; background: white; color: #F44336">{{newEvent.endDate |date:'d/MM/yy, HH:mm'}}
+        </span>
+        <button [owlDateTimeTrigger]="ed" style="padding: 5px; margin-left: 12px;">Date</button>
+        <owl-date-time #ed></owl-date-time>
+      </p>
     </div>
 
     <div *ngIf="view.eventList">
