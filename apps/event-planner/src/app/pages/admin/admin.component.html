@@ -2,7 +2,7 @@
   <div class="head">
     <tr>
       <td style="width: 60px;">
-        <mat-icon (click)="toogleMenu()">menu</mat-icon>
+        <mat-icon (click)="toogleMenu(); currentView=view.none">menu</mat-icon>
       </td>
 
       <td style="text-align: left; padding-left: 15px;">
@@ -12,7 +12,7 @@
   </div>
 
   <div class="content">
-    <div class="main-menu" *ngIf="isMenuOpen">
+    <div class="main-menu" *ngIf="isMenuOpen && currentView==view.none">
       <div *ngFor="let menu of mainMenu">
         <div class="menu-item" (click)="currentView=menu.view; toogleMenu()">
           {{menu.title}}
@@ -21,33 +21,65 @@
     </div>
 
     <div class="new-event" *ngIf="currentView==view.newEvent">
-      <h1>New event</h1>
+      <tr>
+        <td>
+          <h1 style="text-align: center; color: white">New event</h1>
 
-      Nom de l'evénement
-      <input type="text" [(ngModel)]="newEvent.name">
+          <p>
+            Nom de l'evénement
+            <input type="text" [(ngModel)]="newEvent.name">
+          </p>
 
-      Nombre estimé d'invités
-      <input type="text" [(ngModel)]="newEvent.totalSeats">
+          <p>
+            Nombre estimé d'invités
+            <input type="number" [(ngModel)]="newEvent.totalSeats">
+          </p>
 
-      Début de l'évènement
-      <p style="margin-bottom: 22px; min-width: 300px; width: 300px;">
-        <input [owlDateTime]="sd" [(ngModel)]="newEvent.startDate" hidden>
-        <span *ngIf="newEvent.startDate"
-          style="padding:  8px; background: white; color: #F44336">{{newEvent.startDate |date:'d/MM/yy, HH:mm'}}
-        </span>
-        <button [owlDateTimeTrigger]="sd" style="padding: 5px; margin-left: 12px;">Date</button>
-        <owl-date-time #sd></owl-date-time>
-      </p>
+          <p style="margin-bottom: 22px;">
+            Début de l'évènement <br>
+            <input [owlDateTime]="sd" [(ngModel)]="newEvent.startDate" hidden>
+            <span *ngIf="newEvent.startDate"
+              style="padding:  8px; background: white; color: #F44336">{{newEvent.startDate |date:'d/MM/yy, HH:mm'}}
+            </span>
+            <button [owlDateTimeTrigger]="sd" style="padding: 5px; margin-left: 12px;">Date</button>
+            <owl-date-time #sd></owl-date-time>
+          </p>
 
-      Fin de l'évènement
-      <p style="margin-bottom: 22px; min-width: 300px; width: 300px;">
-        <input [owlDateTime]="ed" [(ngModel)]="newEvent.endDate" hidden>
-        <span *ngIf="newEvent.endDate"
-          style="padding:  8px; background: white; color: #F44336">{{newEvent.endDate |date:'d/MM/yy, HH:mm'}}
-        </span>
-        <button [owlDateTimeTrigger]="ed" style="padding: 5px; margin-left: 12px;">Date</button>
-        <owl-date-time #ed></owl-date-time>
-      </p>
+          <p style="margin-bottom: 22px; ">
+            Fin de l'évènement <br>
+            <input [owlDateTime]="ed" [(ngModel)]="newEvent.endDate" hidden>
+            <span *ngIf="newEvent.endDate"
+              style="padding:  8px; background: white; color: #F44336">{{newEvent.endDate |date:'d/MM/yy, HH:mm'}}
+            </span>
+            <button [owlDateTimeTrigger]="ed" style="padding: 5px; margin-left: 12px;">Date</button>
+            <owl-date-time #ed></owl-date-time>
+          </p>
+
+          <p>
+            Choisir la salle
+            <select (change)="newEvent.room = $event.target.value">
+              <option value="Vida">Vida</option>
+              <option value="Pythagore">Pythagore</option>
+            </select>
+          </p>
+
+          <p>
+            Disposition des tables
+            <select (change)="newEvent.tableType = $event.target.value">
+              <option value="Banquet">Banquet</option>
+              <option value="Réunion">Réunion</option>
+              <option value="Salle de classe">Salle de classe</option>
+              <option value="Theâtre">Theâtre</option>
+              <option value="U">U</option>
+            </select>
+          </p>
+
+          <div style="text-align: center;">
+            <button class="submit-newEvent" (click)="submit()">Valider</button>
+          </div>
+        </td>
+      </tr>
+
     </div>
 
     <div *ngIf="view.eventList">

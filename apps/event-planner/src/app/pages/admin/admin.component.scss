@@ -1,6 +1,5 @@
 .admin {
   height: 100vh;
-  background: rgba(0, 0, 0, 0.658);
   color: bisque;
 
   .head {
@@ -30,16 +29,34 @@
   .content {
     padding: 25px;
     padding-top: 100px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.658);
 
     .new-event {
-      display: flex;
-      flex-direction: column;
+      tr {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
 
-      input {
-        color: #F44336;
+      td {
+        width: 300px;
         max-width: 600px;
+      }
+
+      input,
+      select {
+        color: #f44336;
         height: 30px;
         margin-bottom: 25px;
+        width: 100%;
+      }
+
+      .submit-newEvent {
+        margin-top: 35;
+        padding: 15px;
       }
     }
   }

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { eventType } from '../../services/event.service';
-import { FormControl } from '@angular/forms';
 
-enum view { newEvent, eventList }
+enum view { newEvent, eventList, none }
 
 @Component({
   selector: 'cahotech-monorepo-admin',
@@ -11,26 +10,40 @@ enum view { newEvent, eventList }
 })
 export class AdminComponent implements OnInit {
   isMenuOpen = true
-  currentView: view = view.eventList
+  currentView: view = view.none
   view = view
 
   mainMenu = [
     { title: 'New event', view: view.newEvent }, { title: 'All events', view: view.eventList }
   ]
   newEvent = {} as eventType
+  screen = 0
 
-  dateControl = new FormControl(new Date(2021, 9, 4, 5, 6, 7));
-  selectedMoment = new Date()
+  constructor(
 
-  constructor() { }
+  ) {
+    this.screen = window.innerWidth
+  }
 
   ngOnInit (): void {
 
+    this.newEvent.room = 'Vida'
   }
 
   toogleMenu () {
     this.isMenuOpen = !this.isMenuOpen
+    window.scrollTo({top: 1, behavior: 'smooth'})
   }
 
+  submit () {
+    if(!this.newEvent.endDate || !this.newEvent.name || this.newEvent.room || !this.newEvent.startDate || this.newEvent.tableType){
 
+    }
+
+  }
+
+  test (ar) {
+    console.log(ar);
+
+  }
 }

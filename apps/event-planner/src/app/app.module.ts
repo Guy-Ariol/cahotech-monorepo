@@ -23,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
@@ -58,6 +59,7 @@ const firebaseConfig = {
     MatInputModule,
     MatSnackBarModule,
     MatIconModule,
+    MatSelectModule
   ],
   providers: [{provide: OWL_DATE_TIME_LOCALE, useValue: 'fr'}],
   bootstrap: [AppComponent],

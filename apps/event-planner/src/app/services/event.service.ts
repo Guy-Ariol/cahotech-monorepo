@@ -12,6 +12,7 @@ export enum tableEnum { U, Réunion, Banquet, 'Salle de classe', 'Theâtre' }
   providedIn: 'root'
 })
 export class EventService {
+
   allEvents: eventType[] = []
   currentEvent: eventType = null
 
@@ -24,5 +25,19 @@ export class EventService {
     this.afdb.list('events').valueChanges().subscribe((events: eventType[]) => {
       this.allEvents = events
     })
+  }
+
+  createEvent (event: eventType): Promise<any> {
+    return new Promise((resolve, reject) => {
+      event.id = this.afdb.createPushId()
+      this.afdb.object(`events/${event.id}`).update(event)
+        .then(() => {
+          resolve()
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+
   }
 }
