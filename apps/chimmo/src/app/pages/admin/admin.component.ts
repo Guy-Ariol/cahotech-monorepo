@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { adminView } from '../../services/interfaces/interfaces.service';
+import { appView } from '../../services/interfaces/interfaces.service';
 import { DataService } from '../../services/data/data.service';
 import { UsersService } from '../../services/users/users.service';
 import { UtilsService } from "../../../../../../libs/service/src/lib/utils/utils.service";
@@ -12,8 +12,8 @@ import { HomeService } from '../../services/home/home.service';
 })
 export class AdminComponent implements OnInit {
 
-  currentView = adminView.none
-  view = adminView
+  currentView = appView.none
+  view = appView
   currentTitle = 'Selectioner un menu'
 
   controlArray: Array<{ title: string, value: any, type: string, index: number, list?: Array<any>, id: string }> = [];
@@ -51,7 +51,7 @@ export class AdminComponent implements OnInit {
 
   /** */
   toogleMenu () {
-    this.currentView = adminView.none
+    this.currentView = appView.none
     this.isNew = false
     this.isEdit = false
 
@@ -77,7 +77,7 @@ export class AdminComponent implements OnInit {
       this.data['id'] = data.user.id
 
     }
-    else if ([adminView.house].includes(this.currentView)) {
+    else if ([appView.house].includes(this.currentView)) {
       this.controlArray[0].value = data.house.name
       this.controlArray[1].value = data.house.equipment
       this.controlArray[3].value = data.house.ownerId

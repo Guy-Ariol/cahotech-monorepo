@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { adminView } from '../../services/interfaces/interfaces.service';
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
+import { appView } from '../../services/interfaces/interfaces.service';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 
 @Component({
@@ -14,11 +14,13 @@ export class HeaderComponent implements OnInit {
   @Output() toogleMenu = new EventEmitter()
 
   showTopMenu = false
-  currentView = adminView.none
-  view = adminView
+  view = appView
+  currentView = appView.none
 
   constructor(
-    public utilsProv: UtilsService
+    public utilsProv: UtilsService,
+
+
   ) { }
 
   ngOnInit (): void {
@@ -27,12 +29,14 @@ export class HeaderComponent implements OnInit {
 
   _toogleMenu () {
     this.showTopMenu = !this.showTopMenu
-    this.toogleMenu.emit()
+    this.toogleMenu.emit(this.showTopMenu)
+
+    this.menuSeleted.emit(this.currentView)
   }
 
 
   _menuSelected (menu) {
-    this.currentView=menu
+    this.currentView = menu
     this.showTopMenu = !this.showTopMenu
     this.menuSeleted.emit(menu)
   }
