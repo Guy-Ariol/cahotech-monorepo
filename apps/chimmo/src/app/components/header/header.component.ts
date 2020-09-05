@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
   _toogleMenu () {
-    this.showTopMenu = true
+    this.showTopMenu = !this.showTopMenu
     this.toogleMenu.emit()
   }
 
