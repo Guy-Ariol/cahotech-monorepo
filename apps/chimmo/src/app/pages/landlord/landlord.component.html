@@ -5,20 +5,21 @@
 
     <div class="content">
       <div *ngIf="currentView==view.account">
-        <div style="text-align: center; padding-bottom: 24px;">
+        <div style="text-align: center; padding-bottom: 8px;">
           <div nz-icon nzType="user" style="font-size: 40px;"></div>
-          <h1>Compte</h1>
+          <h1 style="border-bottom:  solid 1px black;">Compte
+            {{userLib?.currentUser?.type == userEnum.landlord ? 'Bailleur' : userLib?.currentUser?.type == userEnum.renter ? 'Locataire' : ''}}
+          </h1>
         </div>
 
-        <div style="text-align: right;">
-        <button nz-button (click)="userLib.signOut()">Log out</button>
+        <div style="text-align: center; padding-bottom: 22px;">
+          <button nz-button (click)="userLib.signOut()">Log out</button>
         </div>
 
         <p><b><u>Nom:</u></b> {{userLib.currentUser?.lastName}} {{userLib.currentUser?.firstName}} </p>
         <p><b><u>Email:</u></b> {{userLib.currentUser?.email}} </p>
         <p><b><u>Adresse:</u></b> {{userLib.currentUser?.addres}} </p>
         <p><b><u>Tel:</u></b> {{userLib.currentUser?.tel}} </p>
-        <p><b><u>Contrat:</u></b> </p>
 
       </div>
 
@@ -75,6 +76,10 @@
           </div>
 
         </div>
+      </div>
+
+      <div *ngIf="currentView==view.none" class="blank-view">
+        <h2>Allez dans le menu principal</h2>
       </div>
     </div>
   </div>

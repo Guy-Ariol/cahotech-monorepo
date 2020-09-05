@@ -4,7 +4,7 @@ import { DataService } from '../../services/data/data.service';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { HomeService } from '../../services/home/home.service';
 import { landLordView } from '../../services/interfaces/interfaces.service';
-import { houseType, homeType, homeEnum } from '@cahotech-monorepo/interfaces';
+import { houseType, homeType, homeEnum, userEnum } from '@cahotech-monorepo/interfaces';
 
 @Component({
   selector: 'cahotech-monorepo-landlord',
@@ -15,6 +15,7 @@ export class LandlordComponent implements OnInit {
 
   currentView
   view = landLordView
+  userEnum = userEnum
 
   constructor(
     public utilsProv: UtilsService,
@@ -26,19 +27,14 @@ export class LandlordComponent implements OnInit {
   ngOnInit (): void {
   }
 
-  // ariol@napata.tech
   topMenuSelected (menu) {
     this.currentView = menu
-
-    setTimeout(() => {
-      window.scrollTo({ top: 1, behavior: 'smooth' })
-    }, 100);
+    this.scrollToTop()
   }
 
   toogleMenu () {
     this.currentView = landLordView.none
-
-
+    this.scrollToTop()
   }
 
   getLandLord (landlordId) {
@@ -60,7 +56,7 @@ export class LandlordComponent implements OnInit {
   getHouseDetails (): houseType[] {
     let houses = []
 
-    for (let key of this.userLib.currentUser?.houses) {
+    for (let key of this.userLib.currentUser?.housesID) {
       if (key) {
         houses.push(this.homeProv.allHouses.find(house => house.id == key))
       }
@@ -71,5 +67,11 @@ export class LandlordComponent implements OnInit {
 
   getHomeTypeString (typeEnum) {
     return homeEnum[typeEnum]
+  }
+
+  scrollToTop(){
+    setTimeout(() => {
+      window.scrollTo({ top: 1, behavior: 'smooth' })
+    }, 100);
   }
 }
