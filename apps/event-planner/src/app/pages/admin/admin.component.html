@@ -86,11 +86,12 @@
 
       <div class="event-list" *ngIf="currentView==view.eventList">
         <div *ngFor="let event of eventProv.allEvents">
-          <div style="background: rgba(255, 255, 255, 0.253); padding: 15px;">
-            <h1>{{event.name}} </h1>
+          <div style="background: rgba(255, 255, 255, 0.253); padding: 15px;" (click)="openDetails(event)" >
+            <h1>{{event.name}}</h1>
             <p>{{event.startDate | date:'d/MM/yy, HH:mm'}} - {{event.endDate | date:'d/MM/yy, HH:mm'}}</p>
             <p><u>Salle:</u> {{event.room}}, &nbsp; <u>Invités enregistrés:</u> {{event.guests?.length || 0}} </p>
-            <p>Places attribuées: {{event.seats?.length || 0}} </p>
+            <p>Places attribuées: {{event.seats?.length || 0}} <span style="text-align: right;">id: {{event.id}}</span>
+            </p>
             <hr>
           </div>
         </div>

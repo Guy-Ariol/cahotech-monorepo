@@ -1,1 +1,33 @@
-<p>event-details works!</p>
+<div class="event-details">
+  <div [class]="screen > 1000 ? 'big-screen' : 'small-screen'">
+    <div class="head">
+      <tr>
+        <td style="width: 60px;">
+          <mat-icon (click)="goback()">keyboard_backspace</mat-icon>
+        </td>
+
+        <td style="text-align: left; padding-left: 15px;">
+          <h1>Cahocenter</h1>
+        </td>
+      </tr>
+    </div>
+
+    <div class="content">
+      <tr>
+        <td id="td1" style="min-width: 300px;">
+          tz
+        </td>
+
+        <td id="target" class="brd">
+          <div style="text-align: right;">
+            <button (click)="addTable()">+ Table</button>
+            <button>+ Chaise</button>
+          </div>
+
+          <div id="temp" class="example-box" cdkDrag>
+            Drag me around
+          </div>
+        </td>
+      </tr>
+    </div>
+  </div>

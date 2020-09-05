@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { eventType, EventService, tableEnum } from '../../services/event.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 enum view { newEvent, eventList, none, table }
 
@@ -25,10 +26,10 @@ export class AdminComponent implements OnInit {
   constructor(
     private toast: MatSnackBar,
     public eventProv: EventService,
+    private router: Router
 
   ) {
     this.screen = window.innerWidth
-    console.log(this.screen);
 
   }
 
@@ -49,6 +50,20 @@ export class AdminComponent implements OnInit {
         { verticalPosition: 'bottom', horizontalPosition: 'center', duration: 3000, panelClass: 'toast-error' })
     }
     else {
+      let continuer = true
+
+      while (continuer) {
+        this.newEvent.id = this.randomId(6, false)
+        continuer = false
+
+        for (let event of this.eventProv.allEvents) {
+          if (event.id == this.newEvent.id) {
+            continuer = true
+            break
+          }
+        }
+      }
+
       this.eventProv.createEvent(this.newEvent)
         .then(() => {
           this.toast.open('Opération réussie', '',
@@ -68,5 +83,32 @@ export class AdminComponent implements OnInit {
 
   scrollTop () {
     window.scrollTo({ top: 1, behavior: 'smooth' })
+  }
+
+  /** generate random code
+  *
+  * @param {number} length
+  * @param {boolean} [numericOnly=true]
+  * @returns
+  * @memberof UtilsService
+  */
+  randomId (length: number, numericOnly: boolean = true) {
+    let result = '';
+    let characters
+
+    if (!numericOnly) characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    else characters = '0123456789'
+
+    var charactersLength = characters.length;
+
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  openDetails (event){
+    this.eventProv.currentEvent = event
+    this.router.navigate(['event-details'])
   }
 }

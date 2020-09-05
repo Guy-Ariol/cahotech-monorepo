@@ -29,7 +29,6 @@ export class EventService {
 
   createEvent (event: eventType): Promise<any> {
     return new Promise((resolve, reject) => {
-      event.id = this.afdb.createPushId()
       this.afdb.object(`events/${event.id}`).update(event)
         .then(() => {
           resolve()
