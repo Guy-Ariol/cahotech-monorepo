@@ -44,7 +44,7 @@ export class AppComponent {
     //TODO changed to 3s instead of 1s
     setTimeout(() => {
       this.utilsProv.stopSpinner()
-    }, 1000);
+    }, 3000);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -58,7 +58,11 @@ export class AppComponent {
     */
   onLoginChanged () {
     this.event.on('logged in', userId => {
+      console.log('event');
+
       this.userLib.subscribeUser(userId)
+
+      this.utilsProv.startSpinner()
 
       setTimeout(() => {
         if (this.userLib.currentUser.type == userEnum.admin) {
@@ -78,6 +82,8 @@ export class AppComponent {
             this.router.navigate(['/locataire'])
           })
         }
+
+        this.utilsProv.stopSpinner()
       }, 3000);
 
 
@@ -85,7 +91,7 @@ export class AppComponent {
 
     this.event.on('logged out', (results) => {
       if(results) this.zone.run(() => {
-        // this.router.navigate(['/'])+
+        this.router.navigate(['/'])
       })
     })
   }

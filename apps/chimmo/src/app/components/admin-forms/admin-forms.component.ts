@@ -202,10 +202,10 @@ export class AdminFormsComponent implements OnInit {
         user.type = userEnum.renter
         user.adminPass = this.utilsProv.randomId(6)
         user.landlordId = this.controlArray.find(c => c.title == 'Bailleur*').value
-        user.homes = {}
+        user.homesID = []
 
         let home = this.homeProv.allHomes.find(home => home.id == this.controlArray[6].value)
-        user.homes[home.id] = home.cost
+        user.homesID[home.id] = home.cost
 
         home.landLord[user.landlordId] = user.id
 
@@ -265,8 +265,12 @@ export class AdminFormsComponent implements OnInit {
 
                   // update landlord as well
                   let landlord = this.userLib.allUsers.find(user => user.id == this.controlArray[3].value)
-                  if (landlord.homes) landlord.homes[newHome.id] = newHome.cost
-                  else { landlord['homes'] = {}; landlord.homes[newHome.id] = newHome.cost }
+
+                  if (landlord?.homesID) landlord.homesID.push(newHome.id)
+                  else {
+                    landlord['homesID'] = [];
+                    landlord.homesID.push(newHome.id)
+                  }
 
                   this.userLib.updateUser(landlord)
                     .then(() => {
@@ -308,8 +312,8 @@ export class AdminFormsComponent implements OnInit {
         }
 
         let owner = this.userLib.allUsers.find(user => user.id == newHouse.ownerId)
-        if (owner.houses) owner.houses.push(newHouse.id)
-        else owner.houses = [newHouse.id]
+        if (owner.housesID) owner.housesID.push(newHouse.id)
+        else owner.housesID = [newHouse.id]
 
         this.userLib.updateUser(owner)
           .then(() => {
@@ -458,7 +462,7 @@ export class AdminFormsComponent implements OnInit {
       this.showSummary = true
 
       setTimeout(() => {
-        if(this.utilsProv.isDesktop) window.scrollTo({top: 1, behavior: 'smooth'})
+        if (this.utilsProv.isDesktop) window.scrollTo({ top: 1, behavior: 'smooth' })
 
         else if (this.currentView == adminView.house) window.scrollBy(0, 400)
 
