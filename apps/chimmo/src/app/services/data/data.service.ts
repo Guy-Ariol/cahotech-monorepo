@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { landLordView, adminView, renterView } from '../interfaces/interfaces.service';
+import { appView } from '../interfaces/interfaces.service';
 
 @Injectable({
   providedIn: 'root'
@@ -33,76 +33,76 @@ export class DataService {
         name: 'Compte',
         iconOn: 'assets/imgs/account-on.svg',
         iconOff: 'assets/imgs/account.svg',
-        nav: renterView.account
+        nav: appView.account
       },
       {
         name: 'logement',
         iconOn: 'assets/imgs/home-on.svg',
         iconOff: 'assets/imgs/home.svg',
-        nav: renterView.home
+        nav: appView.home
       },
       {
         name: 'Factures',
         iconOn: 'assets/imgs/bill-on.svg',
         iconOff: 'assets/imgs/bill.svg',
-        nav: renterView.bill
+        nav: appView.bill
       },
       {
         name: 'Solde',
         iconOn: 'assets/imgs/bill-on.svg',
         iconOff: 'assets/imgs/bill.svg',
-        nav: renterView.bill
+        nav: appView.bill
       },
       {
         name: 'Réquetes',
         iconOn: 'assets/imgs/bill-on.svg',
         iconOff: 'assets/imgs/bill.svg',
-        nav: renterView.bill
+        nav: appView.bill
       },
     ]
 
     this.landlordMenu = [
       {
         name: 'Compte',
-        iconOn: 'assets/imgs/account-on.svg',
-        iconOff: 'assets/imgs/account.svg',
-        nav: landLordView.account
+        iconOn: 'assets/imgs/account-tie-on.svg',
+        iconOff: 'assets/imgs/account-tie.svg',
+        nav: appView.account
       },
       {
         name: 'Résidences',
         iconOn: 'assets/imgs/houses-on.svg',
         iconOff: 'assets/imgs/houses.svg',
-        nav: landLordView.houses
+        nav: appView.house
       },
       {
         name: 'Locataires',
-        iconOn: 'assets/imgs/bill-on.svg',
-        iconOff: 'assets/imgs/bill.svg',
-        nav: landLordView.renter
+        iconOn: 'assets/imgs/account-cash-on.svg',
+        iconOff: 'assets/imgs/account-cash.svg',
+        nav: appView.renter
       },
       {
         name: 'Factures',
         iconOn: 'assets/imgs/bill-on.svg',
         iconOff: 'assets/imgs/bill.svg',
-        nav: landLordView.bill
+        nav: appView.bill
       },
       {
         name: 'Réparations',
         iconOn: 'assets/imgs/hammer-on.svg',
         iconOff: 'assets/imgs/hammer.svg',
-        nav: landLordView.repair
+        nav: appView.repair
       },
       {
         name: 'Réquetes',
         iconOn: 'assets/imgs/flash-on.svg',
         iconOff: 'assets/imgs/flash.svg',
-        nav: landLordView.issue
+        nav: appView.issue
       },
       {
         name: 'Solde',
-        iconOn: 'assets/imgs/bill-on.svg',
-        iconOff: 'assets/imgs/bill.svg',
-        nav: landLordView.saldo
+        iconOn: 'assets/imgs/cash-check-on.svg',
+        iconOff: 'assets/imgs/cash-check.svg',
+        nav: appView.saldo
       },
 
     ]
@@ -112,37 +112,37 @@ export class DataService {
         name: 'Locataires',
         iconOn: 'assets/imgs/account-cash-on.svg',
         iconOff: 'assets/imgs/account-cash.svg',
-        nav: landLordView.renter
+        nav: appView.renter
       },
       {
         name: 'Résidences',
         iconOn: 'assets/imgs/houses-on.svg',
         iconOff: 'assets/imgs/houses.svg',
-        nav: landLordView.houses
+        nav: appView.house
       },
       {
         name: 'Factures',
         iconOn: 'assets/imgs/cash-register-on.svg',
         iconOff: 'assets/imgs/cash-register.svg',
-        nav: landLordView.bill
+        nav: appView.bill
       },
       {
         name: 'Réclamations',
         iconOn: 'assets/imgs/flash-alert-on.svg',
         iconOff: 'assets/imgs/flash-alert.svg',
-        nav: landLordView.issue
+        nav: appView.issue
       },
       {
         name: 'Réparations',
         iconOn: 'assets/imgs/hammer-on.svg',
         iconOff: 'assets/imgs/hammer.svg',
-        nav: landLordView.repair
+        nav: appView.repair
       },
       {
         name: 'Mon solde',
         iconOn: 'assets/imgs/cash-check-on.svg',
         iconOff: 'assets/imgs/cash-check.svg',
-        nav: landLordView.saldo
+        nav: appView.saldo
       }
     ]
 
@@ -151,61 +151,61 @@ export class DataService {
         name: 'Bailleurs',
         iconOn: 'assets/imgs/account-tie-on.svg',
         iconOff: 'assets/imgs/account-tie.svg',
-        nav: adminView.landlord
+        nav: appView.landlord
       },
       {
         name: 'Locataires',
         iconOn: 'assets/imgs/account-on.svg',
         iconOff: 'assets/imgs/account.svg',
-        nav: adminView.renter
+        nav: appView.renter
       },
       {
         name: 'Résidences',
         iconOn: 'assets/imgs/houses-on.svg',
         iconOff: 'assets/imgs/houses.svg',
-        nav: adminView.house
+        nav: appView.house
       },
       {
         name: 'Logements',
         iconOn: 'assets/imgs/home-on.svg',
         iconOff: 'assets/imgs/home.svg',
-        nav: adminView.home
+        nav: appView.home
       },
       {
         name: 'Bailleur',
         iconOn: 'assets/imgs/cash-register-on.svg',
         iconOff: 'assets/imgs/cash-register.svg',
-        nav: adminView.MoneyIn
+        nav: appView.MoneyIn
       },
       {
         name: 'Locataire',
         iconOn: 'assets/imgs/cash-register-on.svg',
         iconOff: 'assets/imgs/cash-register.svg',
-        nav: adminView.MoneyIn2
+        nav: appView.MoneyIn2
       },
       {
         name: 'Factures',
         iconOn: 'assets/imgs/bill-on.svg',
         iconOff: 'assets/imgs/bill.svg',
-        nav: adminView.bill
+        nav: appView.bill
       },
       {
         name: 'Rémises',
         iconOn: 'assets/imgs/sale-on.svg',
         iconOff: 'assets/imgs/sale.svg',
-        nav: adminView.discount
+        nav: appView.discount
       },
       {
         name: 'Réparations',
         iconOn: 'assets/imgs/hammer-on.svg',
         iconOff: 'assets/imgs/hammer.svg',
-        nav: adminView.repair
+        nav: appView.repair
       },
       {
         name: 'Config',
         iconOn: 'assets/imgs/setting-on.svg',
         iconOff: 'assets/imgs/setting.svg',
-        nav: adminView.config
+        nav: appView.config
       }
     ]
 

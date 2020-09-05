@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { DataService } from '../../services/data/data.service';
-import { renterView } from '../../services/interfaces/interfaces.service';
+import { appView } from '../../services/interfaces/interfaces.service';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { HomeService } from '../../services/home/home.service';
 
@@ -13,7 +13,7 @@ import { HomeService } from '../../services/home/home.service';
 export class RenterComponent implements OnInit {
 
   currentView
-  view = renterView
+  view = appView
 
   constructor(
     public utilsProv: UtilsService,
@@ -49,7 +49,7 @@ export class RenterComponent implements OnInit {
   }
 
   getHomeDetails () {
-    for (let key in this.userLib.currentUser.homes) {
+    for (let key in this.userLib.currentUser.homesID) {
       if (key) {
         return this.homeProv.allHomes.find(home => home.id == key)
       }

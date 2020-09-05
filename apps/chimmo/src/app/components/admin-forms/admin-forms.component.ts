@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from 'libs/service/src/lib/user/user.service';
-import { adminView, roomEquipmentEnum, houseEquipmentEnum } from '../../services/interfaces/interfaces.service';
+import { appView, roomEquipmentEnum, houseEquipmentEnum } from '../../services/interfaces/interfaces.service';
 import { userType, userEnum, roomType, homeType, houseType, roomTypeEnum, homeEnum } from '@cahotech-monorepo/interfaces';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { UsersService } from '../../services/users/users.service';
@@ -21,7 +21,7 @@ export class AdminFormsComponent implements OnInit {
   @Input() data
   @Output() done = new EventEmitter
 
-  view = adminView
+  view = appView
   houseEquipments = []
   autocompleteList1 = []
   autocompleteList2 = []
@@ -144,7 +144,7 @@ export class AdminFormsComponent implements OnInit {
     else {
       let user = {} as userType
 
-      if (![adminView.home, adminView.house].includes(this.currentView)) {
+      if (![this.view.home, this.view.house].includes(this.currentView)) {
         user.firstName = this.controlArray[1].value
         user.lastName = this.controlArray[0].value
         user.email = this.controlArray[3].value
@@ -228,7 +228,7 @@ export class AdminFormsComponent implements OnInit {
 
       }
 
-      else if (this.currentView == adminView.home) {
+      else if (this.currentView == this.view.home) {
         this.utilsProv.startSpinner()
 
         let newHome: homeType = {
@@ -299,7 +299,7 @@ export class AdminFormsComponent implements OnInit {
         }
       }
 
-      else if (this.currentView == adminView.house) {
+      else if (this.currentView == this.view.house) {
         this.utilsProv.startSpinner()
 
         let newHouse: houseType = {
@@ -464,13 +464,13 @@ export class AdminFormsComponent implements OnInit {
       setTimeout(() => {
         if (this.utilsProv.isDesktop) window.scrollTo({ top: 1, behavior: 'smooth' })
 
-        else if (this.currentView == adminView.house) window.scrollBy(0, 400)
+        else if (this.currentView == this.view.house) window.scrollBy(0, 400)
 
-        else if (this.currentView == adminView.home) window.scrollBy(0, 400)
+        else if (this.currentView == this.view.home) window.scrollBy(0, 400)
 
-        else if (this.currentView == adminView.landlord) window.scrollBy(0, 400)
+        else if (this.currentView == this.view.landlord) window.scrollBy(0, 400)
 
-        else if (this.currentView == adminView.renter) window.scrollBy(0, 400)
+        else if (this.currentView == this.view.renter) window.scrollBy(0, 400)
       }, 150);
     }
 
@@ -480,18 +480,18 @@ export class AdminFormsComponent implements OnInit {
   refreshInputData () {
     this.autocompleteList1 = []
 
-    if ([adminView.house].includes(this.currentView)) {
+    if ([this.view.house].includes(this.currentView)) {
       this.autocompleteList1 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
       this.houseEquipments = this.controlArray[1].value
     }
 
-    else if (this.currentView == adminView.home) {
+    else if (this.currentView == this.view.home) {
       this.autocompleteList1 = Object.keys(homeEnum).filter(el => el != '0' && !parseInt(el))
       this.autocompleteList2 = this.homeProv.allHouses
       this.autocompleteList3 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
     }
 
-    else if (this.currentView == adminView.renter) {
+    else if (this.currentView == this.view.renter) {
       this.autocompleteList1 = this.homeProv.allHomes
       this.autocompleteList2 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
     }

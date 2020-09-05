@@ -1,6 +1,6 @@
 <div class="landlord noselect">
   <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
-    <app-header [menuList]="dataprov.landlordMenu" (menuSeleted)="topMenuSelected($event)" (toogleMenu)="toogleMenu()">
+    <app-header [menuList]="dataprov.landlordMenu" (menuSeleted)="topMenuSelected($event)" (toogleMenu)="toogleMenu($event)">
     </app-header>
 
     <div class="content">
@@ -42,7 +42,7 @@
         saldo
       </div>
 
-      <div *ngIf="currentView==view.houses">
+      <div *ngIf="currentView==view.house">
         <div *ngFor="let house of getHouseDetails(); let index=index">
           <h2>Résidence {{index+1}} </h2>
 
@@ -78,7 +78,7 @@
         </div>
       </div>
 
-      <div *ngIf="currentView==view.none" class="blank-view">
+      <div *ngIf="currentView==view.mainMenuClosed" class="blank-view">
         <h2>Allez dans le menu principal</h2>
       </div>
     </div>
