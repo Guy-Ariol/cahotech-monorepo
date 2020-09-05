@@ -55,11 +55,11 @@ export class SignInComponent implements OnInit {
       this.validateForm.get('password').setErrors({})
 
     else if (this.validateForm.valid) {
-      this.utils.startSpinner()
+      // this.utils.startSpinner()
 
       this.userLib.signIn(this.validateForm.value)
         .then(res => {
-          this.utils.stopSpinner()
+          // this.utils.stopSpinner()
           // this.utils.showToast('success', 'Vous etes connecté', 'Félicitation')
           this.validateForm.reset()
           // this.router.navigate(['load'])
@@ -74,7 +74,7 @@ export class SignInComponent implements OnInit {
           console.log(msg);
 
 
-          this.utils.stopSpinner()
+          // this.utils.stopSpinner()
           this.utils.showToast('error', msg, 'Érreur')
         })
     }
