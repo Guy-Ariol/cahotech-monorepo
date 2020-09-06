@@ -5,6 +5,7 @@ import { EventEmitter } from 'events';
 import { Router } from '@angular/router';
 import { userEnum } from '@cahotech-monorepo/interfaces';
 import { HomeService } from './services/home/home.service';
+import { HeaderComponent } from './components/header/header.component';
 
 @Component({
   selector: 'cahotech-monorepo-root',
@@ -13,6 +14,7 @@ import { HomeService } from './services/home/home.service';
 })
 export class AppComponent {
   title = 'chimmo';
+  debouncing = false
 
   constructor(
     public utilsProv: UtilsService,
@@ -20,11 +22,23 @@ export class AppComponent {
     @Inject(EventEmitter) private event: EventEmitter,
     private router: Router,
     private zone: NgZone,
-    private homeProv: HomeService
+    private homeProv: HomeService,
 
 
   ) {
+    this.router.events.subscribe(ev => {
+      if (!this.debouncing) {
+        this.debouncing = true
+        if (ev['url'].includes('11')) {
+          // this.header._toogleMenu()
+        }
+      }
 
+      setTimeout(() => {
+        this.debouncing = false
+      }, 2000);
+
+    })
   }
 
   ngOnInit () {
@@ -39,12 +53,10 @@ export class AppComponent {
     this.homeProv.subscribeAllHomes()
     this.homeProv.subscribeAllHouses()
 
-    console.log(this.router.url);
-
-    //TODO changed to 3s instead of 1s
+    //TODO changed to 4s instead of 1s
     setTimeout(() => {
       this.utilsProv.stopSpinner()
-    }, 3000);
+    }, 4000);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -58,39 +70,37 @@ export class AppComponent {
     */
   onLoginChanged () {
     this.event.on('logged in', userId => {
-      console.log('event');
-
       this.userLib.subscribeUser(userId)
 
       this.utilsProv.startSpinner()
 
       setTimeout(() => {
+        let currentRouteParam = parseInt(this.router.url.split('view=')[1]) || null
+
         if (this.userLib.currentUser.type == userEnum.admin) {
           this.zone.run(() => {
-            this.router.navigate(['/admin'])
+            this.router.navigate(['/admin'], { queryParams: { view: currentRouteParam != null ? currentRouteParam : 11 } })
           })
         }
 
         else if (this.userLib.currentUser.type == userEnum.landlord) {
           this.zone.run(() => {
-            this.router.navigate(['/bailleur'])
+            this.router.navigate(['/bailleur'], { queryParams: { view: currentRouteParam != null ? currentRouteParam : 11 } })
           })
         }
 
         else if (this.userLib.currentUser.type == userEnum.renter) {
           this.zone.run(() => {
-            this.router.navigate(['/locataire'])
+            this.router.navigate(['/locataire'], { queryParams: { view: currentRouteParam != null ? currentRouteParam : 11 } })
           })
         }
 
         this.utilsProv.stopSpinner()
       }, 3000);
-
-
     })
 
     this.event.on('logged out', (results) => {
-      if(results) this.zone.run(() => {
+      if (results) this.zone.run(() => {
         this.router.navigate(['/'])
       })
     })

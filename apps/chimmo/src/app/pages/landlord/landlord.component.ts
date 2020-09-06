@@ -3,8 +3,9 @@ import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { DataService } from '../../services/data/data.service';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { HomeService } from '../../services/home/home.service';
-import { landLordView } from '../../services/interfaces/interfaces.service';
-import { houseType, homeType, homeEnum, userEnum } from '@cahotech-monorepo/interfaces';
+import { appView } from '../../services/interfaces/interfaces.service';
+import { houseType, homeType, homeEnum, userEnum, userType } from '@cahotech-monorepo/interfaces';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'cahotech-monorepo-landlord',
@@ -13,27 +14,42 @@ import { houseType, homeType, homeEnum, userEnum } from '@cahotech-monorepo/inte
 })
 export class LandlordComponent implements OnInit {
 
-  currentView
-  view = landLordView
+  currentView: appView
+  view = appView
   userEnum = userEnum
 
   constructor(
     public utilsProv: UtilsService,
     public dataprov: DataService,
     public userLib: UserService,
-    public homeProv: HomeService
-  ) { }
+    public homeProv: HomeService,
+    private route: ActivatedRoute,
+    private router: Router
+
+  ) {
+
+    // setting the right context. Especially usefull when browsing back
+    this.route.queryParams.subscribe(params => {
+      this.currentView = params.view
+      this.scrollToTop()
+    })
+  }
+
 
   ngOnInit (): void {
   }
 
   topMenuSelected (menu) {
-    this.currentView = menu
-    this.scrollToTop()
+    if (menu != this.view.none) {
+      this.currentView = menu
+      this.router.navigate(['/bailleur'], { queryParams: { view: menu } })
+      this.scrollToTop()
+    }
   }
 
-  toogleMenu () {
-    this.currentView = landLordView.none
+  toogleMenu (view) {
+    if (!view) this.currentView = this.view.mainMenuClosed
+    else this.currentView = this.view.none
     this.scrollToTop()
   }
 
@@ -41,14 +57,14 @@ export class LandlordComponent implements OnInit {
     return this.userLib.allUsers.find(user => user.id == landlordId)
   }
 
-  getHomeDetails (house: houseType): homeType[] {
+  getHomesFromHouse (house: houseType): homeType[] {
     let homes = []
 
-    for (let key of house?.homeList) {
+    house?.homeList.forEach(key => {
       if (key) {
         homes.push(this.homeProv.allHomes.find(home => home.id == key))
       }
-    }
+    })
 
     return homes
   }
@@ -56,11 +72,11 @@ export class LandlordComponent implements OnInit {
   getHouseDetails (): houseType[] {
     let houses = []
 
-    for (let key of this.userLib.currentUser?.housesID) {
+    this.userLib?.currentUser?.housesID.forEach(key => {
       if (key) {
         houses.push(this.homeProv.allHouses.find(house => house.id == key))
       }
-    }
+    })
 
     return houses
   }
@@ -69,9 +85,31 @@ export class LandlordComponent implements OnInit {
     return homeEnum[typeEnum]
   }
 
-  scrollToTop(){
+  scrollToTop () {
     setTimeout(() => {
       window.scrollTo({ top: 1, behavior: 'smooth' })
     }, 100);
+  }
+
+  getRenterDetails (): userType[] {
+    let renter = []
+
+    this.userLib?.currentUser?.rentersID.forEach(key => {
+      if (key) {
+        renter.push(this.userLib.allUsers.find(user => user.id == key))
+      }
+    })
+
+    return renter
+  }
+
+  getHomeDetails (homesId): homeType[] {
+    let homes = []
+
+    if (homesId) homesId.forEach(homeId => {
+      homes.push(this.homeProv.allHomes.find(home => home.id == homeId))
+    })
+
+    return homes
   }
 }

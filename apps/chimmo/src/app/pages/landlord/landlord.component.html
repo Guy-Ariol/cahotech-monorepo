@@ -1,6 +1,7 @@
 <div class="landlord noselect">
   <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
-    <app-header [menuList]="dataprov.landlordMenu" (menuSeleted)="topMenuSelected($event)" (toogleMenu)="toogleMenu($event)">
+    <app-header [menuList]="dataprov.landlordMenu" (menuSeleted)="topMenuSelected($event)"
+      (toogleMenu)="toogleMenu($event)">
     </app-header>
 
     <div class="content">
@@ -48,15 +49,15 @@
 
           <div style="padding-left: 12px;">
             <p><u>Nom:</u> {{house?.name}}</p>
-            <p><u>Adresse:</u> {{house.address}} </p>
+            <p><u>Adresse:</u> {{house?.address}} </p>
 
             <p><u>Équipements:</u>
-              <span *ngFor="let equip of house.equipment"> {{equip}}, </span>
+              <span *ngFor="let equip of house?.equipment"> {{equip}}, </span>
             </p>
 
             <p><u>Logements:</u></p>
             <nz-collapse>
-              <nz-collapse-panel *ngFor="let home of getHomeDetails(house)" [nzHeader]="home.name">
+              <nz-collapse-panel *ngFor="let home of getHomesFromHouse(house)" [nzHeader]="home.name">
                 <p><u>Type:</u> {{getHomeTypeString(home.type)}} </p>
 
                 <p style="margin:0;"><u>Loyer:</u> {{home.cost.Caution}} </p>
@@ -75,6 +76,38 @@
 
           </div>
 
+        </div>
+      </div>
+
+      <div *ngIf="currentView==view.renter">
+        <div *ngFor="let renter of getRenterDetails()">
+          <h1>{{renter?.lastName}} {{renter?.firstName}}</h1>
+
+          <div style="padding-left: 15px;">
+            <p><span class="sub">Adresse</span> {{renter?.addres}} </p>
+            <p><span class="sub">Tel</span> {{renter?.tel}} </p>
+
+            <p class="sub">Logement </p>
+
+            <nz-collapse>
+              <nz-collapse-panel *ngFor="let home of getHomeDetails(renter?.homesID)" [nzHeader]="home?.name">
+                <p><u>Type:</u> {{getHomeTypeString(home.type)}} </p>
+
+                <p style="margin:0;"><u>Caution:</u> {{home.cost.Caution}} </p>
+
+                <p><u>Pièces:</u></p>
+                <div style="padding-left: 12px;">
+                  <div *ngFor="let room of home.rooms">
+                    <p><b>{{room.type}}</b>:
+                      <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
+                    </p>
+                  </div>
+                </div>
+              </nz-collapse-panel>
+            </nz-collapse>
+          </div>
+
+          <hr>
         </div>
       </div>
 

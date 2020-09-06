@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   ) {
     this.route.queryParams.subscribe(params => {
       this.currentView = params.view
-      this.showTopMenu = !this.showTopMenu
+      // this.showTopMenu = !this.showTopMenu
     })
   }
 
