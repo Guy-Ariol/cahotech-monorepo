@@ -10,6 +10,10 @@
           <h1>Compte</h1>
         </div>
 
+        <div style="text-align: center; padding-bottom: 22px;">
+          <button nz-button (click)="userLib.signOut()">Log out</button>
+        </div>
+
         <p><b><u>Nom:</u></b> {{userLib.currentUser?.lastName}} {{userLib.currentUser?.firstName}} </p>
         <p><b><u>Email:</u></b> {{userLib.currentUser?.email}}  </p>
         <p><b><u>Adresse:</u></b> {{userLib.currentUser?.addres}} </p>
