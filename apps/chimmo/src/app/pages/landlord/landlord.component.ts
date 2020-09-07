@@ -6,6 +6,7 @@ import { HomeService } from '../../services/home/home.service';
 import { appView } from '../../services/interfaces/interfaces.service';
 import { houseType, homeType, homeEnum, userEnum, userType } from '@cahotech-monorepo/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UsersService } from '../../services/users/users.service';
 
 @Component({
   selector: 'cahotech-monorepo-landlord',
@@ -18,13 +19,16 @@ export class LandlordComponent implements OnInit {
   view = appView
   userEnum = userEnum
 
+  currentHome: homeType
+
   constructor(
     public utilsProv: UtilsService,
     public dataprov: DataService,
     public userLib: UserService,
     public homeProv: HomeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public userProv: UsersService
 
   ) {
 
@@ -69,18 +73,6 @@ export class LandlordComponent implements OnInit {
     return homes
   }
 
-  getHouseDetails (): houseType[] {
-    let houses = []
-
-    this.userLib?.currentUser?.housesID.forEach(key => {
-      if (key) {
-        houses.push(this.homeProv.allHouses.find(house => house.id == key))
-      }
-    })
-
-    return houses
-  }
-
   getHomeTypeString (typeEnum) {
     return homeEnum[typeEnum]
   }
@@ -111,5 +103,11 @@ export class LandlordComponent implements OnInit {
     })
 
     return homes
+  }
+
+  openDocList (home) {
+    this.currentHome = home
+    this.currentView = this.view.document
+    this.router.navigate(['/bailleur'], { queryParams: { view: this.view.document } })
   }
 }

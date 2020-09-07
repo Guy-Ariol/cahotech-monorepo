@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { EventEmitter } from 'events';
 import { houseType, homeType } from 'libs/interfaces/src/lib/interfaces';
+import { UserService } from 'libs/service/src/lib/user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class HomeService {
 
   constructor(
     private afdb: AngularFireDatabase,
-    @Inject(EventEmitter) private event: EventEmitter
+    @Inject(EventEmitter) private event: EventEmitter,
+    private userLib: UserService
 
   ) { }
 
@@ -92,5 +94,21 @@ export class HomeService {
           reject(error)
         })
     })
+  }
+
+  getHouseDetails (houseId) {
+    return this.allHouses.find(house => house.id == houseId)
+  }
+
+  getHousesDetails (): houseType[] {
+    let houses = []
+
+    this.userLib?.currentUser?.housesID.forEach(key => {
+      if (key) {
+        houses.push(this.allHouses.find(house => house.id == key))
+      }
+    })
+
+    return houses
   }
 }

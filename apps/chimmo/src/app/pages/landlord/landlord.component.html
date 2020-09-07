@@ -1,7 +1,7 @@
 <div class="landlord noselect">
   <div [class.mobile]="utilsProv.isMobile" [class.desktop]="utilsProv.isDesktop">
     <app-header [menuList]="dataprov.landlordMenu" (menuSeleted)="topMenuSelected($event)"
-      (toogleMenu)="toogleMenu($event)">
+      (toogleMenu)="toogleMenu($event)" *ngIf="currentView!=view.document">
     </app-header>
 
     <div class="content">
@@ -36,7 +36,38 @@
       </div>
 
       <div *ngIf="currentView==view.bill">
-        bill
+        <div *ngFor="let house of this.homeProv.getHousesDetails(); let index=index">
+          <div style="padding-left: 12px;">
+            <h1> {{house?.name}}</h1>
+
+            <div style="padding-left: 12px;">
+              <p> {{house?.address}} </p>
+
+              <p><u>Logements:</u></p>
+              <nz-collapse>
+                <nz-collapse-panel *ngFor="let home of getHomesFromHouse(house)" [nzHeader]="home.name">
+                  <p style="margin:0;"><u>Type:</u> {{getHomeTypeString(home.type)}} </p>
+
+                  <p style="margin:0;"><u>Locataire:</u> {{userProv.getRenterbyHomeID(home.id)?.lastName}} </p>
+                  <p style="margin:0;"><u>Solde:</u> {{userProv.getRenterbyHomeID(home.id)?.saldo}} </p>
+
+                  <br>
+                  <nz-collapse>
+                    <nz-collapse-panel [nzHeader]="'Factures'"></nz-collapse-panel>
+                  </nz-collapse>
+
+                  <br>
+                  <nz-collapse>
+                    <nz-collapse-panel [nzHeader]="'Réclamations'"></nz-collapse-panel>
+                  </nz-collapse>
+                </nz-collapse-panel>
+              </nz-collapse>
+            </div>
+
+            <hr>
+
+          </div>
+        </div>
       </div>
 
       <div *ngIf="currentView==view.saldo">
@@ -44,7 +75,7 @@
       </div>
 
       <div *ngIf="currentView==view.house">
-        <div *ngFor="let house of getHouseDetails(); let index=index">
+        <div *ngFor="let house of this.homeProv.getHousesDetails(); let index=index">
           <h2>Résidence {{index+1}} </h2>
 
           <div style="padding-left: 12px;">
@@ -84,27 +115,40 @@
           <h1>{{renter?.lastName}} {{renter?.firstName}}</h1>
 
           <div style="padding-left: 15px;">
-            <p><span class="sub">Adresse</span> {{renter?.addres}} </p>
-            <p><span class="sub">Tel</span> {{renter?.tel}} </p>
+            <p><span class="sub">Adresse: </span> {{renter?.addres}} </p>
+            <p><span class="sub">Tel: </span> {{renter?.tel}} </p>
 
-            <p class="sub">Logement </p>
+            <p class="sub">Logements: </p>
 
             <nz-collapse>
               <nz-collapse-panel *ngFor="let home of getHomeDetails(renter?.homesID)" [nzHeader]="home?.name">
-                <p><u>Type:</u> {{getHomeTypeString(home.type)}} </p>
+                <div *ngIf="home as home">
+                  <p style="text-align:right">
+                    <i style="border: 0.5px grey solid; padding: 6px; border-radius: 50%; background: gold; color: white;"
+                      nz-icon nzType="file" (click)="openDocList(home)"></i>
+                  </p>
 
-                <p style="margin:0;"><u>Caution:</u> {{home.cost.Caution}} </p>
+                  <p><u>Type: </u> {{getHomeTypeString(home.type)}} </p>
+                  <p><u>Résidence: </u> {{homeProv.getHouseDetails(home.houseId)?.name}} </p>
 
-                <p><u>Pièces:</u></p>
-                <div style="padding-left: 12px;">
-                  <div *ngFor="let room of home.rooms">
-                    <p><b>{{room.type}}</b>:
-                      <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
-                    </p>
+                  <p style="margin:0;"><u>Caution:</u> {{home.cost.Caution}} </p>
+
+                  <p><u>Pièces:</u></p>
+                  <div style="padding-left: 12px;">
+                    <div *ngFor="let room of home.rooms">
+                      <p><b>{{room.type}}</b>:
+                        <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
+                      </p>
+                    </div>
                   </div>
                 </div>
+
               </nz-collapse-panel>
             </nz-collapse>
+
+            <!-- <ng-template #openDoc>
+              <i style="border: 0.5px grey solid; padding: 6px; border-radius: 50%; background: gold; color: white;" nz-icon nzType="file" (click)="openDocList()"></i>
+            </ng-template> -->
           </div>
 
           <hr>
@@ -113,6 +157,18 @@
 
       <div *ngIf="currentView==view.mainMenuClosed" class="blank-view">
         <h2>Allez dans le menu principal</h2>
+      </div>
+
+      <div *ngIf="currentView==view.document" style="max-height: 100%; background: red;">
+        <app-doc [docList]="currentHome?.doc"></app-doc>
+      </div>
+
+      <div *ngIf="currentView==view.repair">
+        repair
+      </div>
+
+      <div *ngIf="currentView==view.issue">
+        request
       </div>
     </div>
   </div>
