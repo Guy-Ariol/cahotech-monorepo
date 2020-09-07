@@ -49,6 +49,7 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DocComponent } from './components/doc/doc.component';
 import { WebcamModule } from 'ngx-webcam';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 registerLocaleData(fr);
 
@@ -108,6 +109,7 @@ const firebaseConfig = {
     NzCollapseModule,
     NzPopconfirmModule,
     NzPageHeaderModule,
+    NzTabsModule
   ],
 
   providers: [{ provide: NZ_I18N, useValue: fr_FR }, EventEmitter],

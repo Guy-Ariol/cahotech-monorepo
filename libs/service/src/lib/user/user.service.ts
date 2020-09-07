@@ -200,4 +200,8 @@ export class UserService {
     return out
   }
 
+
+  emitEvent(name, param){
+    this.event.emit(name, param)
+  }
 }

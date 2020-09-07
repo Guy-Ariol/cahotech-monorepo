@@ -24,21 +24,12 @@
 
       </div>
 
-      <div *ngIf="currentView==view.home">
-        <div style="text-align: center; padding-bottom: 24px;">
-          <div nz-icon nzType="home" style="font-size: 40px;"></div>
-          <h1>Logement</h1>
-        </div>
-
-        <p><b><u>Bailleur:</u></b> {{userLib.currentUser?.lastName}} {{userLib.currentUser?.firstName}} </p>
-        <!-- <p>asdf {{getHomeDetails()}}</p> -->
-
-      </div>
-
       <div *ngIf="currentView==view.bill">
+        <h1 style="text-align: center; color: brown;">Les factures clients</h1>
+
         <div *ngFor="let house of this.homeProv.getHousesDetails(); let index=index">
           <div style="padding-left: 12px;">
-            <h1> {{house?.name}}</h1>
+            <h2> {{house?.name}}</h2>
 
             <div style="padding-left: 12px;">
               <p> {{house?.address}} </p>
@@ -71,10 +62,27 @@
       </div>
 
       <div *ngIf="currentView==view.saldo">
-        saldo
+        <h1 style="text-align: center;">Mon solde</h1>
+
+        <nz-tabset>
+          <nz-tab nzTitle="Tous">
+
+          </nz-tab>
+
+          <nz-tab nzTitle="Dépôts">
+
+          </nz-tab>
+
+          <nz-tab nzTitle="Retraits">
+
+          </nz-tab>
+
+        </nz-tabset>
       </div>
 
       <div *ngIf="currentView==view.house">
+        <h1 style="text-align: center; color: brown;">Mes résidences</h1>
+
         <div *ngFor="let house of this.homeProv.getHousesDetails(); let index=index">
           <h2>Résidence {{index+1}} </h2>
 
@@ -111,8 +119,10 @@
       </div>
 
       <div *ngIf="currentView==view.renter">
+        <h1 style="text-align: center; color: brown;">Mes locataires</h1>
+
         <div *ngFor="let renter of getRenterDetails()">
-          <h1>{{renter?.lastName}} {{renter?.firstName}}</h1>
+          <h2>{{renter?.lastName}} {{renter?.firstName}}</h2>
 
           <div style="padding-left: 15px;">
             <p><span class="sub">Adresse: </span> {{renter?.addres}} </p>
@@ -164,11 +174,43 @@
       </div>
 
       <div *ngIf="currentView==view.repair">
-        repair
+        <h1 style="text-align: center; color: brown;">Les réparations</h1>
+
+        <div style="text-align: center; padding-bottom: 15px; padding-top: 15px;">
+          <button nz-button nzSize="small" nzType="primary">Demander une réparation</button>
+        </div>
+
+        <div *ngFor="let house of this.homeProv.getHousesDetails(); let index=index">
+          <div style="padding-left: 12px;">
+            <h1> {{house?.name}}</h1>
+
+            <div style="padding-left: 12px;">
+              <p> {{house?.address}} </p>
+
+              <p><u>Logements:</u></p>
+              <nz-collapse>
+                <nz-collapse-panel *ngFor="let home of getHomesFromHouse(house)" [nzHeader]="home.name">
+                  <p style="margin:0;"><u>Type:</u> {{getHomeTypeString(home.type)}} </p>
+
+                  <p style="margin:0;"><u>Locataire:</u> {{userProv.getRenterbyHomeID(home.id)?.lastName}} </p>
+                  <p style="margin:0;"><u>Total:</u> {{userProv.getRenterbyHomeID(home.id)?.saldo || 0}} fcfa</p>
+
+                  <br>
+                  <nz-collapse>
+                    <nz-collapse-panel [nzHeader]="'Réparations'"></nz-collapse-panel>
+                  </nz-collapse>
+
+                </nz-collapse-panel>
+              </nz-collapse>
+            </div>
+            <hr>
+
+          </div>
+        </div>
       </div>
 
       <div *ngIf="currentView==view.issue">
-        request
+        <h1 style="text-align: center; color: brown;">Mes réquetes</h1>
       </div>
     </div>
   </div>

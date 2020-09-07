@@ -16,19 +16,21 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     NzInputModule,
     ReactiveFormsModule,
     NzButtonModule,
-    NzModalModule
+    NzModalModule,
   ],
 
   declarations: [
     SignInComponent,
     FooterComponent,
 
-    SignInComponent],
+    SignInComponent
+  ],
 
   exports: [
     FooterComponent,
-    SignInComponent
+    SignInComponent,
   ]
+
 })
 
 export class UiSharedModule { }
