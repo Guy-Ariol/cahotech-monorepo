@@ -4,7 +4,7 @@
 // export enum renterView { home, bill, issue, repair, saldo, account, none }
 
 /** */
-export enum appView { renter, house, bill, issue, repair, saldo, landlord, home, MoneyIn, MoneyIn2, discount, none, config, account, mainMenuClosed }
+export enum appView { renter, house, bill, issue, repair, saldo, landlord, home, MoneyIn, MoneyIn2, discount, none, config, account, mainMenuClosed, document }
 
 /** */
 export enum houseEquipmentEnum { 'Piscine', 'Forage', 'Parking', 'Instincteur', 'Gardienage', 'Ascenceur', 'Vidéo surveillance', 'Groupe électrogène', 'Espace jeux enfants' }

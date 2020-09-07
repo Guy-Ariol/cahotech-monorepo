@@ -243,7 +243,8 @@ export class AdminFormsComponent implements OnInit {
             "Montant prérequis": this.controlArray[5].value
           },
           timeStamp: Date.now(),
-          landLord: [{ Id: this.controlArray[3].value, renterId: '' }]
+          landLord: [{ Id: this.controlArray[3].value, renterId: '' }],
+          doc: []
         }
         // console.log(newHome)
 

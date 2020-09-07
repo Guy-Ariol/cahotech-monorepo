@@ -22,7 +22,8 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { UiSharedModule } from "@cahotech-monorepo/ui";
 import { GoogleMapsModule } from "../../../../libs/ui/src/lib/google-maps/google-maps.module";
 
-import { LockOutline, UserOutline, PlusOutline, HomeOutline, MenuOutline , PhoneOutline, MailOutline} from '@ant-design/icons-angular/icons';
+import { LockOutline, UserOutline, PlusOutline, HomeOutline, MenuOutline , PhoneOutline, MailOutline, CameraOutline,
+ArrowLeftOutline} from '@ant-design/icons-angular/icons';
 
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -46,10 +47,12 @@ import { ReleaseComponent } from './pages/release/release.component';
 import { SuperAdminComponent } from './pages/super-admin/super-admin.component';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DocComponent } from './components/doc/doc.component';
+import { WebcamModule } from 'ngx-webcam';
 
 registerLocaleData(fr);
 
-const icons = [LockOutline, UserOutline, PlusOutline, HomeOutline, MenuOutline, PhoneOutline, MailOutline]
+const icons = [LockOutline, UserOutline, PlusOutline, HomeOutline, MenuOutline, PhoneOutline, MailOutline, CameraOutline, ArrowLeftOutline]
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZmwKH69f3URXJLAIfCEUfinEyfb5XaT0",
@@ -75,7 +78,8 @@ const firebaseConfig = {
     SignUpComponent,
     HeaderComponent,
     ReleaseComponent,
-    SuperAdminComponent],
+    SuperAdminComponent,
+    DocComponent],
 
   imports: [
     BrowserModule,
@@ -85,6 +89,8 @@ const firebaseConfig = {
     UiSharedModule,
     GoogleMapsModule,
     ReactiveFormsModule,
+
+    WebcamModule,
 
     NzLayoutModule,
     NzFormModule,

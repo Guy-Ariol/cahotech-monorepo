@@ -70,6 +70,8 @@ export interface userType {
   cards: cardType,
   /** user's adress */
   addres: string
+  /** */
+  saldo: number,
 
 
   // chimmo
@@ -168,7 +170,8 @@ export interface homeType {
   houseId: string,
   cost: roomCostType,
   timeStamp: number,
-  landLord: {Id: string, renterId: string}[]
+  landLord: {Id: string, renterId: string}[],
+  doc: string[]
 }
 
 /** */
