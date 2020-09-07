@@ -5,7 +5,6 @@ import { EventEmitter } from 'events';
 import { Router } from '@angular/router';
 import { userEnum } from '@cahotech-monorepo/interfaces';
 import { HomeService } from './services/home/home.service';
-import { HeaderComponent } from './components/header/header.component';
 
 @Component({
   selector: 'cahotech-monorepo-root',
@@ -75,23 +74,25 @@ export class AppComponent {
       this.utilsProv.startSpinner()
 
       setTimeout(() => {
-        let currentRouteParam = parseInt(this.router.url.split('view=')[1]) || null
+        let currentRouteParam = parseInt(this.router.url.split('view=')[1])
+        let restore = false
+        if (currentRouteParam || currentRouteParam == 0) restore = true
 
         if (this.userLib.currentUser.type == userEnum.admin) {
           this.zone.run(() => {
-            this.router.navigate(['/admin'], { queryParams: { view: currentRouteParam != null ? currentRouteParam : 11 } })
+            this.router.navigate(['/admin'], { queryParams: { view: restore ? currentRouteParam : 11 } })
           })
         }
 
         else if (this.userLib.currentUser.type == userEnum.landlord) {
           this.zone.run(() => {
-            this.router.navigate(['/bailleur'], { queryParams: { view: currentRouteParam != null ? currentRouteParam : 11 } })
+            this.router.navigate(['/bailleur'], { queryParams: { view: restore ? currentRouteParam : 11 } })
           })
         }
 
         else if (this.userLib.currentUser.type == userEnum.renter) {
           this.zone.run(() => {
-            this.router.navigate(['/locataire'], { queryParams: { view: currentRouteParam != null ? currentRouteParam : 11 } })
+            this.router.navigate(['/locataire'], { queryParams: { view: restore ? currentRouteParam : 11 } })
           })
         }
 
@@ -100,8 +101,10 @@ export class AppComponent {
     })
 
     this.event.on('logged out', (results) => {
+      console.log('log out');
+
       if (results) this.zone.run(() => {
-        this.router.navigate(['/'])
+        this.router.navigate(['/home'])
       })
     })
   }

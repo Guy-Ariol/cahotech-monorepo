@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular
 import { appView } from '../../services/interfaces/interfaces.service';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { ActivatedRoute } from '@angular/router';
+import { DataService } from '../../services/data/data.service';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +15,14 @@ export class HeaderComponent implements OnInit {
   @Output() menuSeleted = new EventEmitter()
   @Output() toogleMenu = new EventEmitter()
 
-  showTopMenu = false
+  // showTopMenu = false
   view = appView
   currentView = appView.none
 
   constructor(
     public utilsProv: UtilsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dataProv: DataService
 
   ) {
     this.route.queryParams.subscribe(params => {
@@ -30,12 +32,15 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit (): void {
-    this._menuSelected(this.currentView)
+    // this._menuSelected(this.currentView)
+    // this.currentView = menu
+    this.dataProv.showTopMenu = !this.dataProv.showTopMenu
+    this.menuSeleted.emit(this.currentView)
   }
 
   _toogleMenu () {
-    this.showTopMenu = !this.showTopMenu
-    this.toogleMenu.emit(this.showTopMenu)
+    this.dataProv.showTopMenu = !this.dataProv.showTopMenu
+    this.toogleMenu.emit(this.dataProv.showTopMenu)
 
     this.menuSeleted.emit(this.currentView)
   }
@@ -43,7 +48,7 @@ export class HeaderComponent implements OnInit {
 
   _menuSelected (menu) {
     this.currentView = menu
-    this.showTopMenu = !this.showTopMenu
+    this.dataProv.showTopMenu = !this.dataProv.showTopMenu
     this.menuSeleted.emit(menu)
   }
 }

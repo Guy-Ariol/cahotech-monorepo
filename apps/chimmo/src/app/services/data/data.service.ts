@@ -26,6 +26,8 @@ export class DataService {
 
   appName = 'chimmo'
 
+  showTopMenu = false
+
   constructor() {
 
     this.renterMenu = [

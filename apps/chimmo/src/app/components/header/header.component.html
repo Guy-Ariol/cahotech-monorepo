@@ -10,7 +10,7 @@
       </td>
     </tr>
 
-    <tr class="top-menu" *ngIf="showTopMenu">
+    <tr class="top-menu" *ngIf="dataProv.showTopMenu">
       <div class="top-menu-sub">
         <div *ngFor="let menu of menuList"
           [class]="currentView==menu.nav ? 'menu-item menu-item-activated' : 'menu-item'"
