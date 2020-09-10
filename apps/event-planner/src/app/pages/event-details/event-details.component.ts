@@ -1,4 +1,5 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'cahotech-monorepo-event-details',
@@ -8,15 +9,24 @@ import { Component, OnInit, NgZone } from '@angular/core';
 export class EventDetailsComponent implements OnInit {
 
   screen
+  isStockOpen = true
+
+  index = '0'
+  // room: any
 
   constructor(
-    private zone: NgZone,
+    private eventProv: EventService
 
   ) {
     this.screen = window.innerWidth
   }
 
   ngOnInit (): void {
+    // this.room = localStorage.getItem('room')
+
+    setTimeout(() => {
+      this.updateRoomPosition()
+    }, 1000);
   }
 
 
@@ -24,32 +34,44 @@ export class EventDetailsComponent implements OnInit {
     window.history.back()
   }
 
-  addTable () {
-    // let orig = document.getElementById("temp");
-    // console.log(orig);
-    // let element  = orig.cloneNode(true)
+  getMonotonList (number) {
+    return [...Array(number).keys()]
+  }
 
-    // // element['id'] = 'aweraesr'
-    // // element['style.transform'] = 'translate3d(72px, 215px, 0px)'
+  add (id) {
+    let el = document.getElementById(this.index)
+    // console.log(el);
 
-    // console.log(element);
-    // let target = document.getElementById("target")
-    // target.append(element)
+    el.className = "table"
+    el.innerText = this.index
 
-    let orig = document.getElementById('temp')
-    let target = document.getElementById('td1')
+    this.index = (parseInt(this.index) + 1).toString()
 
-    target.append(orig)
+    let r = document.getElementById('room')
+    // console.log(r.innerHTML);
+
+     this.eventProv.currentEvent.tablePosition = r.innerHTML
 
   }
 
-  myFunction () {
-  //   var element = document.getElementById("myDIV");
+  updateRoomPosition () {
+    // console.log(this.room)
+    let el: HTMLElement = document.createElement('div')
+    el.innerHTML = this.eventProv.currentEvent?.tablePosition
+    let children = el.children
 
-  //   let New = document.createElement('div')
-  //   New.innerHTML = '<p class="example-box" >hello</p>'
 
-  //   element.append(New)
-  //   element.classList.add("example-box");
+    for (let i = 0; i < children.length; i++) {
+
+      let element = document.getElementById(children.item(i).id)
+
+      if (element) {
+        element.className = children.item(i).className
+        element.innerText = children.item(i).innerHTML
+        element.style.transform = children.item(i).getAttribute('style')?.replace('transform: ', '').replace(';', '')
+      }
+    }
   }
+
+
 }

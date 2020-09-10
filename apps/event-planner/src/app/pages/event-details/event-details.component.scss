@@ -1,5 +1,9 @@
 .event-details {
   font-family: 'Montserrat';
+  width: 100vw;
+  color: white;
+  overflow: hidden;
+  height: 100vh;
 
   .head {
     tr {
@@ -27,21 +31,24 @@
   }
 
   .content {
-    padding: 25px;
+    padding-left: 15px;
     padding-top: 100px;
     height: 100vh;
     background: rgba(0, 0, 0, 0.658);
 
     tr {
       display: flex;
-      justify-content: center;
       height: 80%;
-      flex-wrap: wrap;
     }
 
-    .example-box {
+    td {
+      border: solid 1px gainsboro;
+      position: relative;
+    }
+
+    .table {
       width: 100px;
-      height: 50px;
+      height: 30px;
       border: solid 1px #ccc;
       color: rgba(0, 0, 0, 0.87);
       cursor: move;
@@ -51,6 +58,30 @@
       text-align: center;
       background: #fff;
       border-radius: 4px;
+      position: absolute;
+      z-index: 9999;
+      transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+      box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .table:active {
+      box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    }
+
+    .chair {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: solid 1px #ccc;
+      color: rgba(0, 0, 0, 0.87);
+      cursor: move;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: #fff;
       position: relative;
       z-index: 1;
       transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
@@ -58,25 +89,21 @@
         0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     }
 
-    .example-box:active {
+    .chair:active {
       box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
         0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
     }
 
+    .stock {
+      display: flex;
+      flex-wrap: wrap;
+      // overflow-y: auto;
+      // overflow-x: hidden;
+    }
 
-  }
-
-  .big-screen {
-    .content {
-      .brd {
-        border-left: solid 1px bisque;
-
-        button {
-          padding: 15px;
-          margin: 15px;
-          font-family: 'Montserrat';
-        }
-      }
+    .bg {
+      background: red;
+      padding: 25px;
     }
   }
 }
