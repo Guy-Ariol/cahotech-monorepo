@@ -23,25 +23,84 @@
             <button nz-button (click)="isStockOpen=!isStockOpen">{{!isStockOpen? 'Magasin' : 'Fermer'}}</button>
           </div>
           <div id="room">
-            <!-- <div *ngFor="let item of getMonotonList(50); let index=index" [id]="index" cdkDrag> </div> -->
+            <div *ngFor="let item of getMonotonList(20); let index=index" [id]="index" cdkDrag style="position: absolute; width: 170px;">
+              <div class="T1 container" style="display: none;">
+                <div class="all stock-chair2">1</div>
+                <div class="all stock-chair2">2</div>
+                <div class="break-row"></div>
+                <div class="stock-table1">{{index}}</div>
+                <div class="all stock-chair2" style="margin-top: 15px">3</div>
+                <div class="break-row"></div>
+                <div class="all stock-chair2">5</div>
+                <div class="all stock-chair2">4</div>
+              </div>
+
+            </div>
           </div>
         </td>
 
-        <td style="width: 20%;  color: black; " *ngIf="isStockOpen">
+        <td style="width: 20%;  color: black;" *ngIf="isStockOpen">
           <h2 style="text-align: center; color: white">Clicker pour ajouter</h2>
 
+          <div style="overflow-y: scroll; height: 90%;">
+            <div id="t1" class="container" (click)="add('T1 container')">
+              <div class="all stock-chair2">1</div>
+              <div class="all stock-chair2">2</div>
+              <div class="break-row"></div>
+              <div class="stock-table1">T1</div>
+              <div class="all stock-chair2" style="margin-top: 15px">3</div>
+              <div class="break-row"></div>
+              <div class="all stock-chair2">5</div>
+              <div class="all stock-chair2">4</div>
+            </div>
 
+            <br>
+            <hr>
+            <br>
 
-          <div id="t1" class="container" (click)="add()" cdkDrag>
-            <div class="all stock-chair2">1</div>
-            <div class="all stock-chair2">2</div>
-            <div class="break-row"></div>
-            <div class="stock-table1"></div>
-            <div class="all stock-chair2" style="margin-top: 25px">3</div>
-            <div class="break-row"></div>
-            <div class="all stock-chair2">5</div>
-            <div class="all stock-chair2">4</div>
+            <div id="t2" class="container" (click)="add('T2')">
+              <div class="all stock-chair2">1</div>
+              <div class="all stock-chair2">2</div>
+              <div class="break-row"></div>
+              <div class="stock-table1">T2</div>
+              <div class="break-row"></div>
+              <div class="all stock-chair2">5</div>
+              <div class="all stock-chair2">4</div>
+            </div>
+
+            <br>
+            <hr>
+            <br>
+
+            <div id="t3" class="container" (click)="add()">
+              <div class="all stock-chair2" style="margin-left: 58px;">1</div>
+              <div class="all stock-chair2">2</div>
+              <div class="break-row"></div>
+              <div class="all stock-chair2" style="margin-top: 16px; margin-right: 6px;">6</div>
+              <div class="stock-table1">T3</div>
+              <div class="all stock-chair2" style="margin-top: 15px; margin-left: 8px;">3</div>
+              <div class="break-row"></div>
+              <div class="all stock-chair2" style="margin-left: 58px;">5</div>
+              <div class="all stock-chair2">4</div>
+            </div>
+
+            <br>
+            <hr>
+            <br>
+
+            <div id="t4">
+              <div class="stock-table1">T4</div>
+            </div>
+
+            <br>
+            <hr>
+            <br>
+
+            <div id="c1">
+              <div class="all stock-chair2">C1</div>
+            </div>
           </div>
+
         </td>
       </tr>
     </div>

@@ -104,14 +104,13 @@
 
     .stock-table1 {
       background: white;
-      height: 65px;
+      height: 35px;
       width: 100px;
       color: black;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 12px;
-      margin-left: 0;
+      margin: 12px 6px;
     }
 
     .stock-chair {
@@ -129,9 +128,10 @@
     }
 
     .stock-chair2 {
-      height: 40px;
-      width: 40px;
+      height: 30px;
+      width: 30px;
       border-radius: 50%;
+      margin-left: 8px;
     }
 
     .stock3 {
@@ -163,7 +163,11 @@
     .container {
       display: flex;
       flex-wrap: wrap;
-      // justify-content: center;
+    }
+
+    .container2 {
+      position: absolute;
+      top: 5px;
     }
   }
 }

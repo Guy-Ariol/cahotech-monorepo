@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { ActivatedRoute } from "@angular/router";
 
@@ -12,12 +12,11 @@ export class EventDetailsComponent implements OnInit {
   screen
   isStockOpen = true
 
-  index = '0'
+  index = 0
 
   constructor(
     private eventProv: EventService,
     private routerParam: ActivatedRoute,
-    private zone: NgZone
 
   ) {
     this.screen = window.innerWidth
@@ -51,7 +50,26 @@ export class EventDetailsComponent implements OnInit {
     return [...Array(number).keys()]
   }
 
-  add (id) {
+  add (type) {
+    let r = document.getElementById('room').children
+
+    for (let i = 0; i < r.length; i++) {
+      let c = <HTMLElement>r.item(i).firstChild
+
+      if (c.className == type) {
+        if (c.style.display == 'none') {
+          c.getElementsByClassName('stock-table1').item(0).innerHTML = this.index.toString()
+          console.log();
+          c.style.display = 'flex'
+          this.index++
+          break
+        }
+
+      }
+
+    }
+
+
     // let el = document.getElementById(this.index)
     // // console.log(el);
 
@@ -65,18 +83,18 @@ export class EventDetailsComponent implements OnInit {
 
     // this.eventProv.currentEvent.tablePosition = r.innerHTML
 
-    let source = document.getElementById('t1')
-    let copy = <HTMLElement>source.cloneNode(true)
-    let destination = document.getElementById('room')
+    // let source = document.getElementById('t1')
+    // let copy = <HTMLElement>source.cloneNode(true)
+    // let destination = document.getElementById('room')
 
-    console.log(source);
-    console.log(copy);
-    copy.id = this.index
+    // console.log(source);
+    // console.log(copy);
+    // copy.id = this.index
 
 
-    destination.append(copy)
+    // destination.append(copy)
 
-    console.log(destination);
+    // console.log(destination);
 
     // setTimeout(() => {
     //   this.zone.run(() => {
@@ -84,11 +102,8 @@ export class EventDetailsComponent implements OnInit {
     //   })
     // }, 500);
 
-    this.zone.runTask(() => {
-      copy.draggable = true
-    })
 
-    this.index = (parseInt(this.index) + 1).toString()
+    // this.index = (parseInt(this.index) + 1).toString()
   }
 
   updateRoomPosition () {
