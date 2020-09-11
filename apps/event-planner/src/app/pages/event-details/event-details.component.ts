@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { EventService } from '../../services/event.service';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'cahotech-monorepo-event-details',
@@ -12,21 +13,33 @@ export class EventDetailsComponent implements OnInit {
   isStockOpen = true
 
   index = '0'
-  // room: any
 
   constructor(
-    private eventProv: EventService
+    private eventProv: EventService,
+    private routerParam: ActivatedRoute,
+    private zone: NgZone
 
   ) {
     this.screen = window.innerWidth
   }
 
   ngOnInit (): void {
-    // this.room = localStorage.getItem('room')
 
-    setTimeout(() => {
-      this.updateRoomPosition()
-    }, 1000);
+    this.routerParam.queryParams.subscribe(params => {
+      if (!this.eventProv.currentEvent.id) {
+        console.log('reloading page');
+
+        setTimeout(() => {
+          this.eventProv.currentEvent = this.eventProv.allEvents.find(event => event.id == params.event)
+          this.updateRoomPosition()
+        }, 2000);
+      }
+
+    })
+
+    // populate the room
+    this.updateRoomPosition()
+
   }
 
 
@@ -39,22 +52,49 @@ export class EventDetailsComponent implements OnInit {
   }
 
   add (id) {
-    let el = document.getElementById(this.index)
-    // console.log(el);
+    // let el = document.getElementById(this.index)
+    // // console.log(el);
 
-    el.className = "table"
-    el.innerText = this.index
+    // el.className = "table"
+    // el.innerText = this.index
+
+
+
+    // let r = document.getElementById('room')
+    // // console.log(r.innerHTML);
+
+    // this.eventProv.currentEvent.tablePosition = r.innerHTML
+
+    let source = document.getElementById('t1')
+    let copy = <HTMLElement>source.cloneNode(true)
+    let destination = document.getElementById('room')
+
+    console.log(source);
+    console.log(copy);
+    copy.id = this.index
+
+
+    destination.append(copy)
+
+    console.log(destination);
+
+    // setTimeout(() => {
+    //   this.zone.run(() => {
+    //     // copy.setAttribute('cdkDrag', '')
+    //   })
+    // }, 500);
+
+    this.zone.runTask(() => {
+      copy.draggable = true
+    })
 
     this.index = (parseInt(this.index) + 1).toString()
-
-    let r = document.getElementById('room')
-    // console.log(r.innerHTML);
-
-     this.eventProv.currentEvent.tablePosition = r.innerHTML
-
   }
 
   updateRoomPosition () {
+    // console.log(this.eventProv.currentEvent);
+
+
     // console.log(this.room)
     let el: HTMLElement = document.createElement('div')
     el.innerHTML = this.eventProv.currentEvent?.tablePosition

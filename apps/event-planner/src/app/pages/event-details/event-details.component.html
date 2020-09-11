@@ -13,65 +13,36 @@
     </div>
 
     <div class="content">
-      <tr style="display: flex; justify-content: center; flex-direction: row;">
+      <tr style="display: flex;  flex-direction: row;">
         <td style="width: 30%;">
 
         </td>
 
-        <td style="width: 55%;">
+        <td style="min-width: 45%; ">
+          <div style="text-align: right;">
+            <button nz-button (click)="isStockOpen=!isStockOpen">{{!isStockOpen? 'Magasin' : 'Fermer'}}</button>
+          </div>
           <div id="room">
-            <div *ngFor="let item of getMonotonList(50); let index=index" [id]="index" cdkDrag> </div>
+            <!-- <div *ngFor="let item of getMonotonList(50); let index=index" [id]="index" cdkDrag> </div> -->
           </div>
         </td>
 
-        <td style="width: 10%;">
-          <div id="table1">
-            <div class="table" cdkDrag=true (click)="add('table')">Test</div>
+        <td style="width: 20%;  color: black; " *ngIf="isStockOpen">
+          <h2 style="text-align: center; color: white">Clicker pour ajouter</h2>
+
+
+
+          <div id="t1" class="container" (click)="add()" cdkDrag>
+            <div class="all stock-chair2">1</div>
+            <div class="all stock-chair2">2</div>
+            <div class="break-row"></div>
+            <div class="stock-table1"></div>
+            <div class="all stock-chair2" style="margin-top: 25px">3</div>
+            <div class="break-row"></div>
+            <div class="all stock-chair2">5</div>
+            <div class="all stock-chair2">4</div>
           </div>
         </td>
       </tr>
-
-      <!-- <tr>
-        <td style="width: 20%">
-          tz asd f
-        </td>
-
-        <td style="min-width: 45%; z-index: 0; background: transparent">
-          <div style="text-align: right;" (click)="isStockOpen=!isStockOpen">
-            <button>Magasin</button>
-          </div>
-
-          <div class="table" cdkDrag>test</div>
-
-        </td>
-
-        <td style="width: 30%; " *ngIf="isStockOpen">
-          <br>
-          <div style="text-align: center; color:gold">
-            <h1>Tables dans le magasin</h1>
-          </div>
-
-          <div style="max-height: 300px; padding: 15px; background: red; position: relative; display: ;">
-            <div class="stock" style="max-height: 100px ;">
-              <div style="padding: 10px;" *ngFor="let item of getMonotonList(20)">
-                <div class="table" cdkDrag>{{item}}</div>
-              </div>
-            </div>
-          </div>
-
-          <br>
-          <hr>
-
-          <div style="text-align: center; color:gold">
-            <h1>Chaises dans le magasin</h1>
-          </div>
-
-          <div class="stock" style="height: 35%; ">
-            <div style="padding: 10px;" *ngFor="let item of getMonotonList(100)">
-              <div class="chair" cdkDrag>{{item}}</div>
-            </div>
-          </div>
-        </td>
-      </tr> -->
     </div>
   </div>

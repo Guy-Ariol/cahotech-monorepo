@@ -44,6 +44,7 @@
     td {
       border: solid 1px gainsboro;
       position: relative;
+      padding: 12px;
     }
 
     .table {
@@ -101,9 +102,68 @@
       // overflow-x: hidden;
     }
 
-    .bg {
-      background: red;
-      padding: 25px;
+    .stock-table1 {
+      background: white;
+      height: 65px;
+      width: 100px;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 12px;
+      margin-left: 0;
+    }
+
+    .stock-chair {
+      background: white;
+      height: 65px;
+      width: 65px;
+      border-radius: 50%;
+    }
+
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+    }
+
+    .stock-chair2 {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
+
+    .stock3 {
+      margin-top: 35px;
+      position: relative;
+      display: flex;
+    }
+
+    .all {
+      background: white;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      margin-right: 12px;
+    }
+
+    .break-row {
+      flex-basis: 100%;
+      height: 0;
+    }
+
+    .break-col {
+      flex-basis: 100%;
+      width: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      // justify-content: center;
     }
   }
 }

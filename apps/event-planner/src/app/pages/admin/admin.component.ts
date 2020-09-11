@@ -107,8 +107,8 @@ export class AdminComponent implements OnInit {
     return result;
   }
 
-  openDetails (event){
+  openDetails (event: eventType){
     this.eventProv.currentEvent = event
-    this.router.navigate(['event-details'])
+    this.router.navigate(['event-details'], {queryParams: {event: event.id}})
   }
 }
