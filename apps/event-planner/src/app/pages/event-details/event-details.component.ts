@@ -51,23 +51,37 @@ export class EventDetailsComponent implements OnInit {
   }
 
   add (type) {
+    // console.log(type);
+
     let r = document.getElementById('room').children
+    // console.log(r);
+
 
     for (let i = 0; i < r.length; i++) {
       let c = <HTMLElement>r.item(i).firstChild
+      // console.log(c.className);
+
 
       if (c.className == type) {
+        // console.log(c);
+
         if (c.style.display == 'none') {
-          c.getElementsByClassName('stock-table1').item(0).innerHTML = this.index.toString()
+          if (type != 'C1') c.getElementsByClassName('stock-table1').item(0).innerHTML = this.index.toString()
+
           console.log();
+          c.style.position = 'absolute'
+          c.style.top = '0px'
           c.style.display = 'flex'
+          console.log(c);
+
           this.index++
           break
         }
-
       }
 
     }
+
+    document.getElementById('room').scrollTo({top: 1, behavior: 'smooth'})
 
 
     // let el = document.getElementById(this.index)

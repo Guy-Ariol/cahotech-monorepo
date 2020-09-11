@@ -14,17 +14,19 @@
 
     <div class="content">
       <tr style="display: flex;  flex-direction: row;">
-        <td style="width: 30%;">
+        <td style="width: 15%;">
 
         </td>
 
-        <td style="min-width: 45%; ">
+        <td style="min-width: 55%;">
           <div style="text-align: right;">
             <button nz-button (click)="isStockOpen=!isStockOpen">{{!isStockOpen? 'Magasin' : 'Fermer'}}</button>
           </div>
-          <div id="room">
-            <div *ngFor="let item of getMonotonList(20); let index=index" [id]="index" cdkDrag style="position: absolute; width: 170px;">
-              <div class="T1 container" style="display: none;">
+
+          <div id="room" style="height: 90%; overflow-y: scroll; ">
+            <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
+              style="position: relative; width: 170px;">
+              <div [id]="index" class="T1 container" style="display: none;">
                 <div class="all stock-chair2">1</div>
                 <div class="all stock-chair2">2</div>
                 <div class="break-row"></div>
@@ -34,12 +36,63 @@
                 <div class="all stock-chair2">5</div>
                 <div class="all stock-chair2">4</div>
               </div>
+            </div>
 
+            <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
+              style="position: relative; width: 170px;">
+              <div [id]="20+index" class="T2 container" style="display: none;">
+                <div class="all stock-chair2">1</div>
+                <div class="all stock-chair2">2</div>
+                <div class="break-row"></div>
+                <div class="stock-table1">T2</div>
+                <div class="break-row"></div>
+                <div class="all stock-chair2">5</div>
+                <div class="all stock-chair2">4</div>
+              </div>
+            </div>
+
+            <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
+              style="position: relative; width: 210px;">
+              <div [id]="40+index" class="T3 container" style="display: none;">
+                <div class="all stock-chair2" style="margin-left: 58px;">1</div>
+                <div class="all stock-chair2">2</div>
+                <div class="break-row"></div>
+                <div class="all stock-chair2" style="margin-top: 16px; margin-right: 6px;">6</div>
+                <div class="stock-table1">T3</div>
+                <div class="all stock-chair2" style="margin-top: 15px; margin-left: 8px;">3</div>
+                <div class="break-row"></div>
+                <div class="all stock-chair2" style="margin-left: 58px;">5</div>
+                <div class="all stock-chair2">4</div>
+              </div>
+            </div>
+
+            <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
+              style="position: relative; width: 100px;">
+              <div [id]="20+index" class="T4" style="display: none;">
+                <div class="stock-table1"></div>
+              </div>
+            </div>
+
+            <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
+              style="position: relative; width: 170px;">
+              <div [id]="20+index" class="T5 container" style="display: none;">
+                <div class="all stock-chair2" style="margin-left: 16px;">1</div>
+                <div class="all stock-chair2">2</div>
+                <div class="break-row"></div>
+                <div class="stock-table1">T5</div>
+              </div>
+            </div>
+
+            <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
+              style="position: relative; width: 50px;">
+              <div [id]="index" class="C1" style="display: none;">
+                <div class="all stock-chair2">X{{index}}</div>
+              </div>
             </div>
           </div>
         </td>
 
-        <td style="width: 20%;  color: black;" *ngIf="isStockOpen">
+        <td style="width: 25%;  color: black;" *ngIf="isStockOpen">
           <h2 style="text-align: center; color: white">Clicker pour ajouter</h2>
 
           <div style="overflow-y: scroll; height: 90%;">
@@ -58,7 +111,7 @@
             <hr>
             <br>
 
-            <div id="t2" class="container" (click)="add('T2')">
+            <div id="t2" class="container" (click)="add('T2 container')">
               <div class="all stock-chair2">1</div>
               <div class="all stock-chair2">2</div>
               <div class="break-row"></div>
@@ -72,7 +125,7 @@
             <hr>
             <br>
 
-            <div id="t3" class="container" (click)="add()">
+            <div id="t3" class="container" (click)="add('T3 container')">
               <div class="all stock-chair2" style="margin-left: 58px;">1</div>
               <div class="all stock-chair2">2</div>
               <div class="break-row"></div>
@@ -89,14 +142,25 @@
             <br>
 
             <div id="t4">
-              <div class="stock-table1">T4</div>
+              <div class="stock-table1" (click)="add('T4')">T4</div>
             </div>
 
             <br>
             <hr>
             <br>
 
-            <div id="c1">
+            <div id="t5" class="container" (click)="add('T5 container')">
+              <div class="all stock-chair2" style="margin-left: 16px;">1</div>
+              <div class="all stock-chair2">2</div>
+              <div class="break-row"></div>
+              <div class="stock-table1">T5</div>
+            </div>
+
+            <br>
+            <hr>
+            <br>
+
+            <div id="c1" (click)="add('C1')">
               <div class="all stock-chair2">C1</div>
             </div>
           </div>
