@@ -95,6 +95,7 @@
             <h2 style="text-align: center;">{{eventProv.currentEvent?.name}} </h2>
             <p>{{eventProv.currentEvent?.startDate | date:'dd/MM HH:mm'}} -
               {{eventProv.currentEvent?.endDate | date:'dd/MM HH:mm'}}</p>
+            <hr>
 
             <br>
             <p>
@@ -128,14 +129,38 @@
               style="text-align: c; background: red; padding: 5px 12px; width: 160px; position: absolute;">Select table
             </p>
 
-            <div style="text-align: center;">
+            <div style="display: flex; flex-direction: row; justify-content: center;">
+              <div *ngIf="this.showTableMenu">
+                <button type="button" mat-button (click)="rotateTable()"
+                  style="padding: 8px; background: rgb(53, 212, 240); border: none; color: white; margin-right: 15px;">
+                  Roter
+                </button>
+
+                <button type="button" mat-button (click)="deleteTable()"
+                  style="padding: 8px; background: tomato; border: none; color: white; margin-right: 25px;">
+                  Suppr
+                </button>
+              </div>
+
+              <button type="button" mat-button (click)="drawer.toggle()"
+                style="padding: 8px; background: orangered; border: none; color: white; ">
+                Ajouter tables
+              </button>
+
+                <button type="button" mat-button (click)="saveConfig()"
+                  style="padding: 8px; background: orange; border: none; color: white; margin-left: 35px;">
+                  Sauvegarder
+                </button>
+            </div>
+
+            <!-- <div style="text-align: center;">
               <button type="button" mat-button (click)="drawer.toggle()"
                 style="padding: 8px; background: gold; border: none; color: brown;">
                 Ajouter tables
               </button>
-            </div>
+            </div> -->
 
-            <div id="room" style="height: 90%; overflow-y: scroll; ">
+            <div id="room" style="height: 90%; overflow: auto; ">
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 170px;">
                 <div [id]="index" class="T1 container" style="display: none;" (click)="selectPlace(table1.innerText)">
@@ -182,14 +207,14 @@
 
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 100px;">
-                <div [id]="20+index" class="T4" style="display: none;" (click)="selectPlace(table4.innerText)">
+                <div [id]="60+index" class="T4" style="display: none;" (click)="selectPlace(table4.innerText)">
                   <div #table4 class="stock-table1"></div>
                 </div>
               </div>
 
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 170px;">
-                <div [id]="20+index" class="T5 container" style="display: none;"
+                <div [id]="80+index" class="T5 container" style="display: none;"
                   (click)="selectPlace(table5.innerText)">
                   <div class="all stock-chair2" style="margin-left: 16px;">1</div>
                   <div class="all stock-chair2">2</div>
@@ -200,7 +225,7 @@
 
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 50px;">
-                <div [id]="index" class="C1" style="display: none;" (click)="selectPlace(index)">
+                <div [id]="100+index" class="C1" style="display: none;" (click)="selectPlace(index)">
                   <div class="all stock-chair2">X{{index}}</div>
                 </div>
               </div>

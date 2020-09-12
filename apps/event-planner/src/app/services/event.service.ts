@@ -57,4 +57,15 @@ export class EventService {
     if (this.currentEvent.seats) return this.currentEvent.seats.find(seat => seat.tableId == this.currentTableID)
     else null
   }
+
+  updateCurrentEvent () {
+    this.afdb.object(`events/${this.currentEvent.id}`).update(this.currentEvent)
+      .then(() => {
+
+      })
+      .catch(error => {
+        console.log(error);
+
+      })
+  }
 }

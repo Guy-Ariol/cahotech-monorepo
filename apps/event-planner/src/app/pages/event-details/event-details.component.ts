@@ -19,6 +19,8 @@ export class EventDetailsComponent implements OnInit {
   currentAction = action.none
   action = action
 
+  showTableMenu = false
+
   constructor(
     public eventProv: EventService,
     private routerParam: ActivatedRoute,
@@ -37,7 +39,7 @@ export class EventDetailsComponent implements OnInit {
         setTimeout(() => {
           this.eventProv.currentEvent = this.eventProv.allEvents.find(event => event.id == params.event)
           this.updateRoomPosition()
-        }, 2000);
+        }, 3000);
       }
 
     })
@@ -88,7 +90,7 @@ export class EventDetailsComponent implements OnInit {
   }
 
   updateRoomPosition () {
-    // console.log(this.eventProv.currentEvent);
+    // console.log(this.eventProv.currentEvent.tablePosition);
 
 
     // console.log(this.room)
@@ -97,9 +99,14 @@ export class EventDetailsComponent implements OnInit {
     let children = el.children
 
 
-    for (let i = 0; i < children.length; i++) {
 
-      let element = document.getElementById(children.item(i).id)
+    for (let i = 0; i < children.length; i++) {
+      let fc = <HTMLElement>children.item(i).firstChild
+      console.log(fc.id)
+
+      let element = document.getElementById(fc.id)
+      // console.log(element)
+
 
       if (element) {
         element.className = children.item(i).className
@@ -123,11 +130,11 @@ export class EventDetailsComponent implements OnInit {
 
   selectPlace (table) {
     console.log(table);
+    this.eventProv.currentTableID = table
 
     if (this.eventProv.selectedGuest) {
       let temp = this.eventProv.currentEvent.guests.find(guest => guest.name == this.eventProv.selectedGuest)
       temp.seat.table = table
-      this.eventProv.currentTableID = table
 
       // if list exits
       if (this.eventProv.currentEvent.seats) {
@@ -169,16 +176,62 @@ export class EventDetailsComponent implements OnInit {
       })
     }
     else {
-
+      this.showTableMenu = true
     }
 
-    console.log(this.eventProv.currentEvent)
+    // console.log(this.eventProv.currentEvent)
 
   }
 
   selectGuest (name) {
     this.currentAction = action.seletTable
     this.eventProv.selectedGuest = name
+  }
+
+  rotateTable () {
+    // console.log(this.eventProv.currentTableID)
+    let r = document.getElementById('room').children
+    // console.log(r);
+
+    if (this.eventProv.rotationAngle == 'rotate(0deg)') this.eventProv.rotationAngle = 'rotate(45deg)'
+    else if (this.eventProv.rotationAngle == 'rotate(45deg)') this.eventProv.rotationAngle = 'rotate(90deg)'
+    else if (this.eventProv.rotationAngle == 'rotate(90deg)') this.eventProv.rotationAngle = 'rotate(135deg)'
+    else if (this.eventProv.rotationAngle == 'rotate(135deg)') this.eventProv.rotationAngle = 'rotate(180deg)'
+    else if (this.eventProv.rotationAngle == 'rotate(180deg)') this.eventProv.rotationAngle = 'rotate(225deg)'
+    else if (this.eventProv.rotationAngle == 'rotate(225deg)') this.eventProv.rotationAngle = 'rotate(270deg)'
+    else if (this.eventProv.rotationAngle == 'rotate(270deg)') this.eventProv.rotationAngle = 'rotate(0deg)'
+
+
+    for (let i = 0; i < r.length; i++) {
+
+      if (r.item(i).getElementsByClassName('stock-table1').item(0)?.innerHTML == this.eventProv.currentTableID) {
+
+        let c = <HTMLElement>r.item(i).firstChild
+        c.style.transform = this.eventProv.rotationAngle
+      }
+    }
+
+  }
+
+  deleteTable () {
+    let r = document.getElementById('room').children
+
+    for (let i = 0; i < r.length; i++) {
+      let c = <HTMLElement>r.item(i).firstChild
+
+      if (c.getElementsByClassName('stock-table1').item(0).innerHTML == this.eventProv.currentTableID) {
+        c.style.display = 'none'
+        break
+      }
+    }
+  }
+
+  saveConfig () {
+    console.log('test');
+
+    this.eventProv.currentEvent.tablePosition = (document.getElementById('room').innerHTML)
+    this.eventProv.updateCurrentEvent()
+
   }
 }
 
