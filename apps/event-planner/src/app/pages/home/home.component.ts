@@ -9,7 +9,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
   eventId = ''
+  screen
 
   constructor(
     private router: Router,
@@ -17,7 +19,9 @@ export class HomeComponent implements OnInit {
     private toast: MatSnackBar,
 
 
-  ) { }
+  ) {
+    this.screen = window.innerWidth
+  }
 
   ngOnInit (): void {
 
@@ -28,9 +32,10 @@ export class HomeComponent implements OnInit {
     if (this.eventId.toLowerCase() == 'admin') this.router.navigate(['admin'])
     else {
       let event = this.eventProv.allEvents.find(event => event.id == this.eventId)
+
       if (event) {
         this.eventProv.currentEvent = event
-        this.router.navigate(['event-details'])
+        this.router.navigate(['event-details'], { queryParams: { event: event.id } })
       }
       else {
         this.toast.open('Event not found', '',

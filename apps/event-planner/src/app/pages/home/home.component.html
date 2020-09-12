@@ -1,21 +1,21 @@
 <div class="home">
-  <div class="head">
-
-  </div>
-
-  <div class="content">
-    <div class="title">
-      <h1>Welcome</h1>
-      <h3>to the</h3>
-      <h1>Cahocenter</h1>
+  <div [class]="screen > 400 ? 'big-screen' : 'small-screen'">
+    <div class="head">
 
     </div>
 
-    <div>
-      <input class="event-input" type="text" placeholder="Event number" [(ngModel)]="eventId"
-        (keyup)="$event.key=='Enter' ? getEvent() : ''">
-      <button class="get-event-btn" (click)="getEvent()">OK</button>
+    <div class="content">
+      <div class="title">
+        <h1>Welcome</h1>
+        <h3>to the</h3>
+        <h1>Cahocenter</h1>
+
+      </div>
+
+      <div>
+        <input class="event-input" type="text" placeholder="Event number" [(ngModel)]="eventId"
+          (keyup)="$event.key=='Enter' ? getEvent() : ''">
+        <button class="get-event-btn" (click)="getEvent()">OK</button>
+      </div>
     </div>
-
-
   </div>

@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { ActivatedRoute } from "@angular/router";
+import { MatBottomSheetRef, MatBottomSheet } from '@angular/material/bottom-sheet';
+import { ta } from 'date-fns/locale';
+
+enum action { seletTable, none, newGuest }
 
 @Component({
   selector: 'cahotech-monorepo-event-details',
@@ -10,13 +14,17 @@ import { ActivatedRoute } from "@angular/router";
 export class EventDetailsComponent implements OnInit {
 
   screen
-  isStockOpen = true
 
   index = 0
+  currentAction = action.none
+  action = action
+  selectedGuest = ''
+
 
   constructor(
-    private eventProv: EventService,
+    public eventProv: EventService,
     private routerParam: ActivatedRoute,
+    private _bottomSheet: MatBottomSheet
 
   ) {
     this.screen = window.innerWidth
@@ -51,73 +59,34 @@ export class EventDetailsComponent implements OnInit {
   }
 
   add (type) {
-    // console.log(type);
+    if (this.screen > 400) {
+      let r = document.getElementById('room').children
 
-    let r = document.getElementById('room').children
-    // console.log(r);
+      for (let i = 0; i < r.length; i++) {
+        let c = <HTMLElement>r.item(i).firstChild
 
+        if (c.className == type) {
+          // console.log(c);
 
-    for (let i = 0; i < r.length; i++) {
-      let c = <HTMLElement>r.item(i).firstChild
-      // console.log(c.className);
+          if (c.style.display == 'none') {
+            if (type != 'C1') c.getElementsByClassName('stock-table1').item(0).innerHTML = this.index.toString()
 
+            console.log();
+            c.style.position = 'absolute'
+            c.style.top = '-0px'
+            c.style.display = 'flex'
 
-      if (c.className == type) {
-        // console.log(c);
-
-        if (c.style.display == 'none') {
-          if (type != 'C1') c.getElementsByClassName('stock-table1').item(0).innerHTML = this.index.toString()
-
-          console.log();
-          c.style.position = 'absolute'
-          c.style.top = '0px'
-          c.style.display = 'flex'
-          console.log(c);
-
-          this.index++
-          break
+            this.index++
+            break
+          }
         }
       }
 
+      document.getElementById('room').scrollTo({ top: 1, behavior: 'smooth' })
     }
+    else {
 
-    document.getElementById('room').scrollTo({top: 1, behavior: 'smooth'})
-
-
-    // let el = document.getElementById(this.index)
-    // // console.log(el);
-
-    // el.className = "table"
-    // el.innerText = this.index
-
-
-
-    // let r = document.getElementById('room')
-    // // console.log(r.innerHTML);
-
-    // this.eventProv.currentEvent.tablePosition = r.innerHTML
-
-    // let source = document.getElementById('t1')
-    // let copy = <HTMLElement>source.cloneNode(true)
-    // let destination = document.getElementById('room')
-
-    // console.log(source);
-    // console.log(copy);
-    // copy.id = this.index
-
-
-    // destination.append(copy)
-
-    // console.log(destination);
-
-    // setTimeout(() => {
-    //   this.zone.run(() => {
-    //     // copy.setAttribute('cdkDrag', '')
-    //   })
-    // }, 500);
-
-
-    // this.index = (parseInt(this.index) + 1).toString()
+    }
   }
 
   updateRoomPosition () {
@@ -142,5 +111,98 @@ export class EventDetailsComponent implements OnInit {
     }
   }
 
+  addNewGuest (name) {
+    this.selectedGuest = name
 
+    try {
+      this.eventProv.currentEvent.guests.push({ name: name, seat: { table: '', place: '' } })
+    } catch (error) {
+      this.eventProv.currentEvent.guests = [{ name: name, seat: { table: '', place: '' } }]
+    }
+
+    this.currentAction = action.seletTable
+  }
+
+  selectPlace (table) {
+    console.log(table);
+
+    if (this.selectedGuest) {
+      let temp = this.eventProv.currentEvent.guests.find(guest => guest.name == this.selectedGuest)
+      temp.seat.table = table
+      this.eventProv.currentTableID = table
+
+      // if list exits
+      if (this.eventProv.currentEvent.seats) {
+
+        // table id already rgistered, do nothing
+        if (this.eventProv.currentEvent.seats.find(s => s.tableId == table)) {
+          console.log('table found');
+
+        }
+        else {
+          this.eventProv.currentEvent.seats.push({ tableId: table, place: { 1: '', 2: '', 3: '', 4: '', 5: '', 6: '' } })
+
+        }
+      }
+      else {
+        console.log('seat list undef');
+        this.eventProv.currentEvent.seats = [{ tableId: table, place: { 1: '', 2: '', 3: '', 4: '', 5: '', 6: '' } }]
+
+      }
+
+      this._bottomSheet.open(BottomSheetSheet).afterDismissed().subscribe(data => {
+        console.log(data);
+
+        let temp = this.eventProv.currentEvent.guests.find(guest => guest.name == this.selectedGuest)
+        temp.seat.place = data
+
+        this.eventProv.currentEvent.seats.find(seat => this.eventProv.getCurrentTable().tableId == seat.tableId).place[data] = this.selectedGuest
+
+        this.selectedGuest = ''
+        this.currentAction = action.none
+
+      })
+
+    }
+    else {
+
+    }
+
+    console.log(this.eventProv.currentEvent)
+
+  }
+
+  selectGuest (name) {
+    this.currentAction = action.seletTable
+    this.selectedGuest = name
+  }
+}
+
+@Component({
+  selector: 'bottom-sheet-overview-example-sheet',
+  templateUrl: 'bottom-sheet.html',
+})
+export class BottomSheetSheet {
+
+  tableBooking
+
+  constructor(
+    private _bottomSheetRef: MatBottomSheetRef<BottomSheetSheet>,
+    private eventProv: EventService
+
+  ) {
+    this.tableBooking = this.eventProv.getCurrentTable()?.place
+    console.log(this.tableBooking);
+
+  }
+
+  openLink (event: MouseEvent): void {
+    this._bottomSheetRef.dismiss();
+    event.preventDefault();
+  }
+
+  Done (place) {
+
+    this._bottomSheetRef.dismiss(place);
+  }
 }

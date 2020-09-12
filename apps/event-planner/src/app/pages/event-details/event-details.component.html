@@ -1,5 +1,5 @@
 <div class="event-details">
-  <div [class]="screen > 1000 ? 'big-screen' : 'small-screen'">
+  <div [class]="screen > 400 ? 'large-screen' : 'small-screen'">
     <div class="head">
       <tr>
         <td style="width: 60px;">
@@ -13,89 +13,13 @@
     </div>
 
     <div class="content">
-      <tr style="display: flex;  flex-direction: row;">
-        <td style="width: 15%;">
+      <mat-drawer-container autosize>
+        <mat-drawer #drawer mode="over" position="end">
+          <button style="padding: 8px;" type="button" mat-button (click)="drawer.toggle()">X Fermer </button>
 
-        </td>
+          <h1 style="text-align: center; color: white; padding: 15px 5px;">Clicker pour ajouter</h1>
 
-        <td style="min-width: 55%;">
-          <div style="text-align: right;">
-            <button nz-button (click)="isStockOpen=!isStockOpen">{{!isStockOpen? 'Magasin' : 'Fermer'}}</button>
-          </div>
-
-          <div id="room" style="height: 90%; overflow-y: scroll; ">
-            <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
-              style="position: relative; width: 170px;">
-              <div [id]="index" class="T1 container" style="display: none;">
-                <div class="all stock-chair2">1</div>
-                <div class="all stock-chair2">2</div>
-                <div class="break-row"></div>
-                <div class="stock-table1">{{index}}</div>
-                <div class="all stock-chair2" style="margin-top: 15px">3</div>
-                <div class="break-row"></div>
-                <div class="all stock-chair2">5</div>
-                <div class="all stock-chair2">4</div>
-              </div>
-            </div>
-
-            <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
-              style="position: relative; width: 170px;">
-              <div [id]="20+index" class="T2 container" style="display: none;">
-                <div class="all stock-chair2">1</div>
-                <div class="all stock-chair2">2</div>
-                <div class="break-row"></div>
-                <div class="stock-table1">T2</div>
-                <div class="break-row"></div>
-                <div class="all stock-chair2">5</div>
-                <div class="all stock-chair2">4</div>
-              </div>
-            </div>
-
-            <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
-              style="position: relative; width: 210px;">
-              <div [id]="40+index" class="T3 container" style="display: none;">
-                <div class="all stock-chair2" style="margin-left: 58px;">1</div>
-                <div class="all stock-chair2">2</div>
-                <div class="break-row"></div>
-                <div class="all stock-chair2" style="margin-top: 16px; margin-right: 6px;">6</div>
-                <div class="stock-table1">T3</div>
-                <div class="all stock-chair2" style="margin-top: 15px; margin-left: 8px;">3</div>
-                <div class="break-row"></div>
-                <div class="all stock-chair2" style="margin-left: 58px;">5</div>
-                <div class="all stock-chair2">4</div>
-              </div>
-            </div>
-
-            <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
-              style="position: relative; width: 100px;">
-              <div [id]="20+index" class="T4" style="display: none;">
-                <div class="stock-table1"></div>
-              </div>
-            </div>
-
-            <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
-              style="position: relative; width: 170px;">
-              <div [id]="20+index" class="T5 container" style="display: none;">
-                <div class="all stock-chair2" style="margin-left: 16px;">1</div>
-                <div class="all stock-chair2">2</div>
-                <div class="break-row"></div>
-                <div class="stock-table1">T5</div>
-              </div>
-            </div>
-
-            <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
-              style="position: relative; width: 50px;">
-              <div [id]="index" class="C1" style="display: none;">
-                <div class="all stock-chair2">X{{index}}</div>
-              </div>
-            </div>
-          </div>
-        </td>
-
-        <td style="width: 25%;  color: black;" *ngIf="isStockOpen">
-          <h2 style="text-align: center; color: white">Clicker pour ajouter</h2>
-
-          <div style="overflow-y: scroll; height: 90%;">
+          <div style="max-height: 60%;">
             <div id="t1" class="container" (click)="add('T1 container')">
               <div class="all stock-chair2">1</div>
               <div class="all stock-chair2">2</div>
@@ -164,8 +88,123 @@
               <div class="all stock-chair2">C1</div>
             </div>
           </div>
+        </mat-drawer>
 
-        </td>
-      </tr>
+        <tr class="workbench" style="display: flex;  flex-direction: row; margin: 15px;">
+          <td class="left-panel" >
+            <h2 style="text-align: center;">{{eventProv.currentEvent?.name}} </h2>
+            <p>{{eventProv.currentEvent?.startDate | date:'dd/MM HH:mm'}} -
+              {{eventProv.currentEvent?.endDate | date:'dd/MM HH:mm'}}</p>
+
+            <br>
+            <p>
+              <span style="font-size: 18px;">Invités</span>
+              <span style="float: right;">
+                <button nz-button (click)="currentAction=action.newGuest">+</button>
+              </span>
+            </p>
+
+            <div *ngIf="currentAction==action.newGuest">
+              <input #name type="text" placeholder="nom">
+
+              <div style="text-align: right;">
+                <br>
+                <button nz-button (click)="addNewGuest(name.value)">Okay</button>
+              </div>
+            </div>
+
+            <div *ngFor="let guest of eventProv.currentEvent?.guests?.reverse()">
+              <p (click)="selectGuest(guest.name)" style="border-bottom: 0.5px solid gainsboro; padding-bottom: 6px">
+                <span>{{guest.name}}</span>
+                <span style="float: right;">{{guest.seat.table.toString()  || '-' }} /
+                  {{guest.seat.place || '-'}}</span>
+              </p>
+            </div>
+          </td>
+
+          <td class="right-panel">
+            <p *ngIf="currentAction==action.seletTable"
+              style="text-align: c; background: red; padding: 5px 12px; width: 160px;">Select table</p>
+
+            <div style="text-align: center;">
+              <button type="button" mat-button (click)="drawer.toggle()"
+                style="padding: 8px; background: gold; border: none; color: brown;">
+                Ajouter tables
+              </button>
+            </div>
+
+            <div id="room" style="height: 90%; overflow-y: scroll; ">
+              <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
+                style="position: relative; width: 170px;">
+                <div [id]="index" class="T1 container" style="display: none;" (click)="selectPlace(table1.innerText)">
+                  <div class="all stock-chair2">1</div>
+                  <div class="all stock-chair2">2</div>
+                  <div class="break-row"></div>
+                  <div #table1 class="stock-table1">{{index}}</div>
+                  <div class="all stock-chair2" style="margin-top: 15px">3</div>
+                  <div class="break-row"></div>
+                  <div class="all stock-chair2">5</div>
+                  <div class="all stock-chair2">4</div>
+                </div>
+              </div>
+
+              <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
+                style="position: relative; width: 170px;">
+                <div [id]="20+index" class="T2 container" style="display: none;" (click)="selectPlace(table2.innerText)">
+                  <div class="all stock-chair2">1</div>
+                  <div class="all stock-chair2">2</div>
+                  <div class="break-row"></div>
+                  <div #table2 class="stock-table1">T2</div>
+                  <div class="break-row"></div>
+                  <div class="all stock-chair2">5</div>
+                  <div class="all stock-chair2">4</div>
+                </div>
+              </div>
+
+              <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
+                style="position: relative; width: 210px;">
+                <div [id]="40+index" class="T3 container" style="display: none;" (click)="selectPlace(table3.innerText)">
+                  <div class="all stock-chair2" style="margin-left: 58px;">1</div>
+                  <div class="all stock-chair2">2</div>
+                  <div class="break-row"></div>
+                  <div class="all stock-chair2" style="margin-top: 16px; margin-right: 6px;">6</div>
+                  <div #table3 class="stock-table1">T3</div>
+                  <div class="all stock-chair2" style="margin-top: 15px; margin-left: 8px;">3</div>
+                  <div class="break-row"></div>
+                  <div class="all stock-chair2" style="margin-left: 58px;">5</div>
+                  <div class="all stock-chair2">4</div>
+                </div>
+              </div>
+
+              <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
+                style="position: relative; width: 100px;">
+                <div [id]="20+index" class="T4" style="display: none;" (click)="selectPlace(table4.innerText)">
+                  <div #table4 class="stock-table1"></div>
+                </div>
+              </div>
+
+              <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
+                style="position: relative; width: 170px;">
+                <div [id]="20+index" class="T5 container" style="display: none;" (click)="selectPlace(table5.innerText)">
+                  <div class="all stock-chair2" style="margin-left: 16px;">1</div>
+                  <div class="all stock-chair2">2</div>
+                  <div class="break-row"></div>
+                  <div #table5 class="stock-table1">T5</div>
+                </div>
+              </div>
+
+              <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
+                style="position: relative; width: 50px;">
+                <div [id]="index" class="C1" style="display: none;" (click)="selectPlace(index)">
+                  <div class="all stock-chair2">X{{index}}</div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+      </mat-drawer-container>
+
+
     </div>
   </div>

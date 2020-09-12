@@ -3,10 +3,10 @@ import { AngularFireDatabase } from '@angular/fire/database';
 
 export interface eventType {
   room: 'Vida' | 'Pythagore', id: string, startDate: number, endDate: number, name: string, totalSeats: number, guests: guestType[],
-  tableType: tableEnum, seats: { tableId: string, persons: string[] }[], tablePosition: any
+  tableType: tableEnum, seats: { tableId: string, place: { 1: string, 2: string, 3: string, 4: string, 5: string, 6: string } }[], tablePosition: any
 }
 
-export interface guestType { name: string, tableId: string }
+export interface guestType { name: string, seat: { table: string, place: string } }
 
 export enum tableEnum { U, Réunion, Banquet, Élève, Theâtre }
 
@@ -18,6 +18,7 @@ export class EventService {
 
   allEvents: eventType[] = []
   currentEvent = {} as eventType
+  currentTableID
 
   tablePosition = {} as { U: '', Réunion: '', Éléve: '', Theâtre: '', Banquet: '' }
 
@@ -48,5 +49,10 @@ export class EventService {
         })
     })
 
+  }
+
+  getCurrentTable () {
+    if (this.currentEvent.seats) return this.currentEvent.seats.find(seat => seat.tableId == this.currentTableID)
+    else null
   }
 }

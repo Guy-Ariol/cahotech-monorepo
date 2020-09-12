@@ -25,10 +25,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 // import { MatSelectModule } from '@angular/material/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
+import { UiSharedModule } from "libs/ui/src/lib/ui.shared.module";
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
+import { EventEmitter } from 'events';
+import { ToastrModule } from 'ngx-toastr';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZmwKH69f3URXJLAIfCEUfinEyfb5XaT0",
@@ -62,9 +67,13 @@ const firebaseConfig = {
     MatSnackBarModule,
     MatIconModule,
     // MatSelectModule,
-    DragDropModule
+    DragDropModule,
+    MatBottomSheetModule,
+    MatSidenavModule,
+    UiSharedModule,
+    ToastrModule.forRoot(),
   ],
-  providers: [{provide: OWL_DATE_TIME_LOCALE, useValue: 'fr'}],
+  providers: [{provide: OWL_DATE_TIME_LOCALE, useValue: 'fr'}, EventEmitter],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
