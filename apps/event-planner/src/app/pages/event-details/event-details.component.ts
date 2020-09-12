@@ -18,8 +18,6 @@ export class EventDetailsComponent implements OnInit {
   index = 0
   currentAction = action.none
   action = action
-  selectedGuest = ''
-
 
   constructor(
     public eventProv: EventService,
@@ -73,7 +71,7 @@ export class EventDetailsComponent implements OnInit {
 
             console.log();
             c.style.position = 'absolute'
-            c.style.top = '-0px'
+            c.style.top = '15px'
             c.style.display = 'flex'
 
             this.index++
@@ -112,7 +110,7 @@ export class EventDetailsComponent implements OnInit {
   }
 
   addNewGuest (name) {
-    this.selectedGuest = name
+    this.eventProv.selectedGuest = name
 
     try {
       this.eventProv.currentEvent.guests.push({ name: name, seat: { table: '', place: '' } })
@@ -126,8 +124,8 @@ export class EventDetailsComponent implements OnInit {
   selectPlace (table) {
     console.log(table);
 
-    if (this.selectedGuest) {
-      let temp = this.eventProv.currentEvent.guests.find(guest => guest.name == this.selectedGuest)
+    if (this.eventProv.selectedGuest) {
+      let temp = this.eventProv.currentEvent.guests.find(guest => guest.name == this.eventProv.selectedGuest)
       temp.seat.table = table
       this.eventProv.currentTableID = table
 
@@ -153,16 +151,22 @@ export class EventDetailsComponent implements OnInit {
       this._bottomSheet.open(BottomSheetSheet).afterDismissed().subscribe(data => {
         console.log(data);
 
-        let temp = this.eventProv.currentEvent.guests.find(guest => guest.name == this.selectedGuest)
-        temp.seat.place = data
+        if (data) {
+          let temp = this.eventProv.currentEvent.guests.find(guest => guest.name == this.eventProv.selectedGuest)
+          temp.seat.place = data
 
-        this.eventProv.currentEvent.seats.find(seat => this.eventProv.getCurrentTable().tableId == seat.tableId).place[data] = this.selectedGuest
+          // reset selections, important by assigning guest to another place then before.
+          let ct = this.eventProv.currentEvent.seats.find(seat => this.eventProv.getCurrentTable().tableId == seat.tableId)
+          for (let el in ct.place) {
+            if (ct.place[el] == this.eventProv.selectedGuest) ct.place[el] = ''
+          }
 
-        this.selectedGuest = ''
-        this.currentAction = action.none
+          this.eventProv.currentEvent.seats.find(seat => this.eventProv.getCurrentTable().tableId == seat.tableId).place[data] = this.eventProv.selectedGuest
 
+          this.eventProv.selectedGuest = ''
+          this.currentAction = action.none
+        }
       })
-
     }
     else {
 
@@ -174,7 +178,7 @@ export class EventDetailsComponent implements OnInit {
 
   selectGuest (name) {
     this.currentAction = action.seletTable
-    this.selectedGuest = name
+    this.eventProv.selectedGuest = name
   }
 }
 
@@ -203,6 +207,12 @@ export class BottomSheetSheet {
 
   Done (place) {
 
-    this._bottomSheetRef.dismiss(place);
+    if (this.tableBooking[place] && this.tableBooking[place] != this.eventProv.selectedGuest) {
+
+    }
+    else {
+      this._bottomSheetRef.dismiss(place);
+    }
+
   }
 }

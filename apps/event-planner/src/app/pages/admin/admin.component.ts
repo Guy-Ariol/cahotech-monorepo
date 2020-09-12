@@ -22,6 +22,10 @@ export class AdminComponent implements OnInit {
   ]
   newEvent = {} as eventType
   screen = 0
+  index = 0
+
+  showTableMenu = false
+
 
   constructor(
     private toast: MatSnackBar,
@@ -107,8 +111,88 @@ export class AdminComponent implements OnInit {
     return result;
   }
 
-  openDetails (event: eventType){
+  openDetails (event: eventType) {
     this.eventProv.currentEvent = event
-    this.router.navigate(['event-details'], {queryParams: {event: event.id}})
+    this.router.navigate(['event-details'], { queryParams: { event: event.id } })
+  }
+
+  add (type) {
+    if (this.screen > 400) {
+      let r = document.getElementById('room').children
+
+      for (let i = 0; i < r.length; i++) {
+        let c = <HTMLElement>r.item(i).firstChild
+
+        if (c.className == type) {
+          // console.log(c);
+
+          if (c.style.display == 'none') {
+            if (type != 'C1') c.getElementsByClassName('stock-table1').item(0).innerHTML = this.index.toString()
+
+            console.log();
+            c.style.position = 'absolute'
+            c.style.top = '15px'
+            c.style.display = 'flex'
+
+            this.index++
+            break
+          }
+        }
+      }
+
+      document.getElementById('room').scrollTo({ top: 1, behavior: 'smooth' })
+    }
+    else {
+
+    }
+  }
+
+  getMonotonList (number) {
+    return [...Array(number).keys()]
+  }
+
+  selectPlace (table) {
+    // console.log(table);
+    this.eventProv.currentTableID = table
+
+    this.showTableMenu = true
+  }
+
+  rotateTable () {
+    // console.log(this.eventProv.currentTableID)
+    let r = document.getElementById('room').children
+    // console.log(r);
+
+    if (this.eventProv.rotationAngle == 'rotate(0deg)') this.eventProv.rotationAngle = 'rotate(45deg)'
+    else if (this.eventProv.rotationAngle == 'rotate(45deg)') this.eventProv.rotationAngle = 'rotate(90deg)'
+    else if (this.eventProv.rotationAngle == 'rotate(90deg)') this.eventProv.rotationAngle = 'rotate(135deg)'
+    else if (this.eventProv.rotationAngle == 'rotate(135deg)') this.eventProv.rotationAngle = 'rotate(180deg)'
+    else if (this.eventProv.rotationAngle == 'rotate(180deg)') this.eventProv.rotationAngle = 'rotate(225deg)'
+    else if (this.eventProv.rotationAngle == 'rotate(225deg)') this.eventProv.rotationAngle = 'rotate(270deg)'
+    else if (this.eventProv.rotationAngle == 'rotate(270deg)') this.eventProv.rotationAngle = 'rotate(0deg)'
+
+
+    for (let i = 0; i < r.length; i++) {
+
+      if (r.item(i).getElementsByClassName('stock-table1').item(0)?.innerHTML == this.eventProv.currentTableID) {
+
+        let c = <HTMLElement>r.item(i).firstChild
+        c.style.transform = this.eventProv.rotationAngle
+      }
+    }
+
+  }
+
+  deleteTable () {
+    let r = document.getElementById('room').children
+
+    for (let i = 0; i < r.length; i++) {
+      let c = <HTMLElement>r.item(i).firstChild
+
+      if (c.getElementsByClassName('stock-table1').item(0).innerHTML == this.eventProv.currentTableID) {
+        c.style.display = 'none'
+        break
+      }
+    }
   }
 }

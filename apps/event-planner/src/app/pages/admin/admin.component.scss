@@ -1,6 +1,7 @@
 .admin {
   height: 100vh;
   color: #ffe4c4;
+  // overflow: hidden;
 
   button {
     font-family: 'Montserrat';
@@ -42,12 +43,12 @@
 
   .content {
     padding: 25px;
-    padding-top: 100px;
     height: 100vh;
     background: rgba(0, 0, 0, 0.658);
 
     .new-event {
       font-family: 'Montserrat';
+      padding-top: 60px;
 
       tr {
         display: flex;
@@ -82,10 +83,89 @@
 
     .event-list {
       font-family: 'Montserrat';
+      padding-top: 80px;
 
       h1 {
         letter-spacing: 3px;
         font-weight: bold;
+      }
+    }
+
+    .main-menu {
+      padding-top: 100px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .table-setup {
+      // height: 80vh;
+      // padding-top: 60px;
+
+      .content2 {
+        padding-left: 15px;
+        padding-top: 70px;
+        height: 90vh;
+
+        tr {
+          display: flex;
+          height: 90%;
+        }
+
+        td {
+          border: solid 1px gainsboro;
+          position: relative;
+          padding: 12px;
+          width: 100%;
+        }
+
+        mat-drawer-container {
+          background: rgba(255, 255, 255, 0);
+          height: 90%;
+          color: white;
+        }
+
+        mat-drawer {
+          height: 90%;
+          background: rgb(214, 200, 3);
+          padding: 15px;
+          width: 280px;
+        }
+
+        .all {
+          background: white;
+          color: black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 12px;
+        }
+
+        .stock-table1 {
+          background: white;
+          height: 35px;
+          width: 100px;
+          color: black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 12px 6px;
+        }
+
+        .container {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .break-row {
+          flex-basis: 100%;
+          height: 0;
+        }
+
+        .break-col {
+          flex-basis: 100%;
+          width: 0;
+        }
       }
     }
   }
@@ -101,12 +181,6 @@
     text-align: center;
     color: bisque;
     border-radius: 15px;
-  }
-
-  .main-menu {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
   }
 
   .big-screen {
@@ -144,7 +218,7 @@
       }
     }
 
-    .menu-item{
+    .menu-item {
       margin: 35px;
       padding: 25px;
     }

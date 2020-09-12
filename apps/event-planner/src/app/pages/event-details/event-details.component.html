@@ -91,7 +91,7 @@
         </mat-drawer>
 
         <tr class="workbench" style="display: flex;  flex-direction: row; margin: 15px;">
-          <td class="left-panel" >
+          <td class="left-panel">
             <h2 style="text-align: center;">{{eventProv.currentEvent?.name}} </h2>
             <p>{{eventProv.currentEvent?.startDate | date:'dd/MM HH:mm'}} -
               {{eventProv.currentEvent?.endDate | date:'dd/MM HH:mm'}}</p>
@@ -105,7 +105,7 @@
             </p>
 
             <div *ngIf="currentAction==action.newGuest">
-              <input #name type="text" placeholder="nom">
+              <input #name type="text" placeholder="nom" (keyup)="$event.key=='Enter' ? addNewGuest(name.value) : ''">
 
               <div style="text-align: right;">
                 <br>
@@ -113,6 +113,7 @@
               </div>
             </div>
 
+            <br>
             <div *ngFor="let guest of eventProv.currentEvent?.guests?.reverse()">
               <p (click)="selectGuest(guest.name)" style="border-bottom: 0.5px solid gainsboro; padding-bottom: 6px">
                 <span>{{guest.name}}</span>
@@ -124,7 +125,8 @@
 
           <td class="right-panel">
             <p *ngIf="currentAction==action.seletTable"
-              style="text-align: c; background: red; padding: 5px 12px; width: 160px;">Select table</p>
+              style="text-align: c; background: red; padding: 5px 12px; width: 160px; position: absolute;">Select table
+            </p>
 
             <div style="text-align: center;">
               <button type="button" mat-button (click)="drawer.toggle()"
@@ -150,7 +152,8 @@
 
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 170px;">
-                <div [id]="20+index" class="T2 container" style="display: none;" (click)="selectPlace(table2.innerText)">
+                <div [id]="20+index" class="T2 container" style="display: none;"
+                  (click)="selectPlace(table2.innerText)">
                   <div class="all stock-chair2">1</div>
                   <div class="all stock-chair2">2</div>
                   <div class="break-row"></div>
@@ -163,7 +166,8 @@
 
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 210px;">
-                <div [id]="40+index" class="T3 container" style="display: none;" (click)="selectPlace(table3.innerText)">
+                <div [id]="40+index" class="T3 container" style="display: none;"
+                  (click)="selectPlace(table3.innerText)">
                   <div class="all stock-chair2" style="margin-left: 58px;">1</div>
                   <div class="all stock-chair2">2</div>
                   <div class="break-row"></div>
@@ -185,7 +189,8 @@
 
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 170px;">
-                <div [id]="20+index" class="T5 container" style="display: none;" (click)="selectPlace(table5.innerText)">
+                <div [id]="20+index" class="T5 container" style="display: none;"
+                  (click)="selectPlace(table5.innerText)">
                   <div class="all stock-chair2" style="margin-left: 16px;">1</div>
                   <div class="all stock-chair2">2</div>
                   <div class="break-row"></div>
@@ -204,7 +209,5 @@
         </tr>
 
       </mat-drawer-container>
-
-
     </div>
   </div>

@@ -18,7 +18,9 @@ export class EventService {
 
   allEvents: eventType[] = []
   currentEvent = {} as eventType
-  currentTableID
+  currentTableID = ''
+  selectedGuest = ''
+  rotationAngle = 'rotate(0deg)'
 
   tablePosition = {} as { U: '', Réunion: '', Éléve: '', Theâtre: '', Banquet: '' }
 
