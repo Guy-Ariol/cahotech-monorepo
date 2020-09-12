@@ -1,0 +1,19 @@
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  width: 99%;
+  height: 99%;
+  z-index: 999999;
+  color: #3988f0;
+}
+
+.backdrop {
+  height: 100%;
+  min-width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  z-index: 999;
+}

@@ -7,6 +7,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 @NgModule({
@@ -22,13 +23,13 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
   declarations: [
     SignInComponent,
     FooterComponent,
-
-    SignInComponent
+    SpinnerComponent
   ],
 
   exports: [
     FooterComponent,
     SignInComponent,
+    SpinnerComponent
   ]
 
 })
