@@ -115,18 +115,21 @@
             </div>
 
             <br>
-            <div *ngFor="let guest of eventProv.currentEvent?.guests?.reverse()">
-              <p (click)="selectGuest(guest.name)" style="border-bottom: 0.5px solid gainsboro; padding-bottom: 6px">
-                <span>{{guest.name}}</span>
-                <span style="float: right;">{{guest.seat.table.toString()  || '-' }} /
-                  {{guest.seat.place || '-'}}</span>
-              </p>
+            <div style="height: 60%; overflow: auto; ">
+              <div *ngFor="let guest of eventProv.currentEvent?.guests?.reverse()">
+                <p (click)="selectGuest(guest.name)" style="border-bottom: 0.5px solid gainsboro; padding-bottom: 6px">
+                  <span>{{guest.name}}</span>
+                  <span style="float: right;">{{guest.seat.table.toString()  || '-' }} /
+                    {{guest.seat.place || '-'}}</span>
+                </p>
+              </div>
             </div>
+
           </td>
 
           <td class="right-panel">
             <p *ngIf="currentAction==action.seletTable"
-              style="text-align: c; background: red; padding: 5px 12px; width: 160px; position: absolute;">Select table
+              style="text-align: c; background: red; padding: 5px 12px; width: 90px; position: absolute;">Select table
             </p>
 
             <div style="display: flex; flex-direction: row; justify-content: center;">
@@ -147,10 +150,10 @@
                 Ajouter tables
               </button>
 
-                <button type="button" mat-button (click)="saveConfig()"
-                  style="padding: 8px; background: orange; border: none; color: white; margin-left: 35px;">
-                  Sauvegarder
-                </button>
+              <button type="button" mat-button (click)="saveConfig()"
+                style="padding: 8px; background: orange; border: none; color: white; margin-left: 35px;">
+                Sauvegarder
+              </button>
             </div>
 
             <!-- <div style="text-align: center;">

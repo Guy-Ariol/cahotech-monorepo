@@ -90,28 +90,34 @@ export class EventDetailsComponent implements OnInit {
   }
 
   updateRoomPosition () {
-    // console.log(this.eventProv.currentEvent.tablePosition);
+    // if (document.getElementById('room')) document.getElementById('room').innerHTML = this.eventProv.currentEvent.tablePosition
+
+    if (this.eventProv.currentEvent.tablePosition) {
+      // console.log(this.room)
+      let el: HTMLElement = document.createElement('div')
+      el.innerHTML = this.eventProv.currentEvent?.tablePosition
+      let children = el.children
+
+      for (let i = 0; i < children.length; i++) {
+        let fc = <HTMLElement>children.item(i).firstChild
+        console.log(fc)
+
+        let element = document.getElementById(fc.id)
+        // console.log(element)
 
 
-    // console.log(this.room)
-    let el: HTMLElement = document.createElement('div')
-    el.innerHTML = this.eventProv.currentEvent?.tablePosition
-    let children = el.children
+        if (element) {
+          element.className = fc.className //children.item(i).className
+          element.innerHTML = fc.innerHTML //children.item(i).innerHTML
+          element.style.display = fc.style.display
+          element.style.transform = fc.style.transform
+          element.style.position = fc.style.position
+          element.style.top = fc.style.top
+
+          console.log(element)
 
 
-
-    for (let i = 0; i < children.length; i++) {
-      let fc = <HTMLElement>children.item(i).firstChild
-      console.log(fc.id)
-
-      let element = document.getElementById(fc.id)
-      // console.log(element)
-
-
-      if (element) {
-        element.className = children.item(i).className
-        element.innerText = children.item(i).innerHTML
-        element.style.transform = children.item(i).getAttribute('style')?.replace('transform: ', '').replace(';', '')
+        }
       }
     }
   }
@@ -126,6 +132,8 @@ export class EventDetailsComponent implements OnInit {
     }
 
     this.currentAction = action.seletTable
+
+    this.eventProv.updateCurrentEvent()
   }
 
   selectPlace (table) {
@@ -172,6 +180,8 @@ export class EventDetailsComponent implements OnInit {
 
           this.eventProv.selectedGuest = ''
           this.currentAction = action.none
+
+          this.eventProv.updateCurrentEvent()
         }
       })
     }
@@ -184,8 +194,12 @@ export class EventDetailsComponent implements OnInit {
   }
 
   selectGuest (name) {
+    this.showTableMenu = false
+
     this.currentAction = action.seletTable
     this.eventProv.selectedGuest = name
+
+    this.eventProv.updateCurrentEvent()
   }
 
   rotateTable () {
