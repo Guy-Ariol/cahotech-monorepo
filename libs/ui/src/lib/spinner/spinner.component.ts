@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 
 @Component({
@@ -6,13 +6,10 @@ import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.scss']
 })
-export class SpinnerComponent implements OnInit {
+export class SpinnerComponent  {
 
   constructor(
     public utils: UtilsService,
   ) { }
-
-  ngOnInit(): void {
-  }
 
 }
