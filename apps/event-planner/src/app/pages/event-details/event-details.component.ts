@@ -19,7 +19,7 @@ export class EventDetailsComponent implements OnInit {
   action = action
 
   showTableMenu = false
-  newGuestList: {name: string}[] = []
+  newGuestList: { name: string }[] = []
 
   constructor(
     public eventProv: EventService,
@@ -128,30 +128,55 @@ export class EventDetailsComponent implements OnInit {
   }
 
   addNewGuest () {
-    console.log(this.newGuestList)
+    let error = ''
+    let result = []
 
-      // if (this.eventProv.currentEvent.guests.find(guest => guest.name == name)) {
-      //   this._snackBar.open('Le nom existe déja', '', {
-      //     duration: 3000,
-      //     horizontalPosition: 'left',
-      //     verticalPosition: 'top',
-      //     panelClass: 'toast-error'
-      //   });
-      // }
-      // else {
-      //   this.eventProv.selectedGuest = name
-      //   this.showTableMenu = false
+    this.newGuestList.forEach(nguest => {
+      // ignore blank input.
+      if (nguest.name) {
+        // if name already in system prepare error message
+        if (this.eventProv.currentEvent.guests?.find(guest => guest.name == nguest.name)) {
+          error = error + ' ' + nguest.name
+        }
 
-      //   try {
-      //     this.eventProv.currentEvent.guests.push({ name: name, seat: { table: '', place: '' } })
-      //   } catch (error) {
-      //     this.eventProv.currentEvent.guests = [{ name: name, seat: { table: '', place: '' } }]
-      //   }
+        // else prepare validate input
+        else {
+          result.push(nguest.name)
 
-      //   this.currentAction = action.seletTable
+          try {
+            this.eventProv.currentEvent.guests.push({ name: nguest.name, seat: { table: '', place: '' } })
+          } catch (error) {
+            this.eventProv.currentEvent.guests = [{ name: nguest.name, seat: { table: '', place: '' } }]
+          }
+        }
+      }
+    })
 
-      //   this.eventProv.updateCurrentEvent()
-      // }
+    // in case only guest was registered start select table process
+    if (result.length == 1) {
+      this.eventProv.selectedGuest = result[0]
+      this.showTableMenu = false
+      this.currentAction = action.seletTable
+    }
+    else {
+      this.currentAction = action.none
+    }
+
+    if (result.length) {
+      this.eventProv.updateCurrentEvent()
+      this.resetnewGuestForm()
+    }
+
+    // show errors if any
+    if (error) {
+      this._snackBar.open(`Nom existant: ${error}`, 'ok', {
+        duration: 7000,
+        horizontalPosition: 'left',
+        verticalPosition: 'top',
+        panelClass: 'toast-error'
+      });
+    }
+
   }
 
   selectPlace (table) {
@@ -295,13 +320,13 @@ export class EventDetailsComponent implements OnInit {
     // localStorage.setItem('room', pos)
   }
 
-  appendNewGuestInput(){
-    this.newGuestList.push({name: ''})
+  appendNewGuestInput () {
+    this.newGuestList.push({ name: '' })
     this.currentAction = action.newGuest
 
   }
 
-  resetnewGuestForm(){
+  resetnewGuestForm () {
     this.newGuestList = []
   }
 }

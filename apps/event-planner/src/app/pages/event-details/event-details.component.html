@@ -127,7 +127,7 @@
               <div class="new-guest" *ngIf="currentAction==action.newGuest">
                 <br><br>
                 <div *ngFor="let in of newGuestList; let index=index">
-                  <input type="text" placeholder="Nom de l'invité" [(ngModel)]="newGuestList[index].name">
+                  <input placeholder="Nom de l'invité" [(ngModel)]="newGuestList[index].name">
                 </div>
 
                 <div style="text-align: left;">
@@ -141,7 +141,7 @@
 
               <br>
               <div *ngIf="currentAction!=action.newGuest">
-                <p style="margin-bottom: 25px; text-align: center;">
+                <p *ngIf="eventProv.currentEvent.guests"  style="margin-bottom: 25px; text-align: center;">
                   <input type="text" matInput placeholder="chercher un nom">
                 </p>
 
@@ -161,15 +161,15 @@
           </td>
 
           <td class="right-panel">
-            <div style="text-align: right;">
+            <div style="text-align: right; padding: 12px;">
               <div *ngIf="currentAction==action.seletTable">
                 <button type="button" mat-button
                   style="padding: 8px; background: #f30c9a; border: none; color: white; margin-right: 15px;">
                   Choisir table
                 </button>
 
-                <button type="button" mat-button (click)="currentAction=action.none"
-                  style="padding: 8px; background: gainsboro; border: none; color: white; margin-right: 35px;">
+                <button type="button" mat-button (click)="currentAction=action.none; eventProv.selectedGuest=''"
+                  style="padding: 8px; background: gainsboro; border: none; color: black; margin-right: 35px;">
                   Annuler
                 </button>
               </div>
@@ -189,7 +189,7 @@
 
             <div id="room" style="height: 90%; overflow: auto; ">
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
-                style="position: relative; width: 170px;">
+                style="position: relative; width: 162px;">
                 <div [id]="index" class="T1 container" style="display: none;" (click)="selectPlace(table1.innerText);">
                   <div class="all stock-chair2" [style.background]="isBooked(table1.value, 1) ? 'gold' : ''">1</div>
                   <div class="all stock-chair2" [style.background]="isBooked(table1.value, 2) ? 'gold' : ''">2</div>
