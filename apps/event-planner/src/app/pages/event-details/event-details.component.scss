@@ -48,7 +48,7 @@
     td {
       border: solid 1px gainsboro;
       position: relative;
-      padding: 12px;
+      // padding: 12px;
     }
 
     .table {
@@ -198,7 +198,14 @@
     .left-panel {
       -webkit-transition: width 0.35s ease-in-out;
       transition: width 0.35s ease-in-out;
+
+      background: #f3bf145e;
     }
+
+    .seleted {
+      background: rgba(220, 220, 220, 0.329);
+    }
+
   }
 
   .small-screen {

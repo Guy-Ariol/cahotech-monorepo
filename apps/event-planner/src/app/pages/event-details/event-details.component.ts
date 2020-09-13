@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { ActivatedRoute } from "@angular/router";
 import { MatBottomSheetRef, MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 enum action { seletTable, none, newGuest }
 
@@ -23,14 +24,15 @@ export class EventDetailsComponent implements OnInit {
   constructor(
     public eventProv: EventService,
     private routerParam: ActivatedRoute,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
+    private _snackBar: MatSnackBar
 
   ) {
     this.screen = window.innerWidth
   }
 
   ngOnInit (): void {
-    this.room = localStorage.getItem('room')
+    // this.room = localStorage.getItem('room')
 
     this.routerParam.queryParams.subscribe(params => {
       if (!this.eventProv.currentEvent.id) {
@@ -46,7 +48,6 @@ export class EventDetailsComponent implements OnInit {
     // populate the room
     this.updateRoomPosition()
   }
-
 
   goback () {
     window.history.back()
@@ -94,27 +95,31 @@ export class EventDetailsComponent implements OnInit {
 
     if (this.eventProv.currentEvent?.id) {
       let el: HTMLElement = document.createElement('div')
-      el.innerHTML = this.room
-      let children = el.children
+      // el.innerHTML = this.room
+      el.innerHTML = this.eventProv.currentEvent?.tablePosition || null
 
-      for (let i = 0; i < children.length; i++) {
-        let c = <HTMLElement>children.item(i)
-        let text = c.getElementsByClassName('stock-table1').item(0)
+      if (el) {
+        let children = el.children
 
-        let element = document.getElementById(children.item(i).firstChild['id'])
-        // console.log(c)
+        for (let i = 0; i < children.length; i++) {
+          let c = <HTMLElement>children.item(i)
+          let text = c.getElementsByClassName('stock-table1').item(0)
+
+          let element = document.getElementById(children.item(i).firstChild['id'])
+          // console.log(c)
 
 
-        if (element) {
-          try {
-            element.getElementsByClassName('stock-table1').item(0).innerHTML = text.innerHTML
-          } catch (error) {
+          if (element) {
+            try {
+              element.getElementsByClassName('stock-table1').item(0).innerHTML = text.innerHTML
+            } catch (error) {
 
+            }
+
+            element.style.display = children.item(i).firstChild['style']['display']
+            element.style.position = 'absolute'
+            element.parentElement.style.transform = c.style.transform
           }
-
-          element.style.display = children.item(i).firstChild['style']['display']
-          element.style.position = 'absolute'
-          element.parentElement.style.transform = c.style.transform
         }
       }
     }
@@ -124,18 +129,29 @@ export class EventDetailsComponent implements OnInit {
 
   addNewGuest (name) {
     if (name) {
-      this.eventProv.selectedGuest = name
-      this.showTableMenu = false
+      if (this.eventProv.currentEvent.guests.find(guest => guest.name == name)) {
+        this._snackBar.open('Le nom existe déja', '', {
+          duration: 3000,
+          horizontalPosition: 'left',
+          verticalPosition: 'top',
+          panelClass: 'toast-error'
+        });
+      }
+      else {
+        this.eventProv.selectedGuest = name
+        this.showTableMenu = false
 
-      try {
-        this.eventProv.currentEvent.guests.push({ name: name, seat: { table: '', place: '' } })
-      } catch (error) {
-        this.eventProv.currentEvent.guests = [{ name: name, seat: { table: '', place: '' } }]
+        try {
+          this.eventProv.currentEvent.guests.push({ name: name, seat: { table: '', place: '' } })
+        } catch (error) {
+          this.eventProv.currentEvent.guests = [{ name: name, seat: { table: '', place: '' } }]
+        }
+
+        this.currentAction = action.seletTable
+
+        this.eventProv.updateCurrentEvent()
       }
 
-      this.currentAction = action.seletTable
-
-      this.eventProv.updateCurrentEvent()
     }
   }
 
@@ -199,8 +215,6 @@ export class EventDetailsComponent implements OnInit {
 
     this.currentAction = action.seletTable
     this.eventProv.selectedGuest = name
-
-    this.eventProv.updateCurrentEvent()
   }
 
   rotateTable () {
@@ -279,7 +293,7 @@ export class EventDetailsComponent implements OnInit {
   saveTableConfig () {
     let pos = document.getElementById('room').innerHTML
     this.eventProv.currentEvent.tablePosition = pos
-    localStorage.setItem('room', pos)
+    // localStorage.setItem('room', pos)
   }
 }
 

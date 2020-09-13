@@ -90,74 +90,99 @@
           </div>
         </mat-drawer>
 
+        <div style="display: flex; flex-direction: row; justify-content: center;">
+          <button type="button" mat-button (click)="drawer.toggle()"
+            style="padding: 8px; background: orange; border: none; color: white; ">
+            Ajouter tables
+          </button>
+
+          <button type="button" mat-button (click)="uploadTableConfig()"
+            style="padding: 8px; background: orangered; border: none; color: white; margin-left: 15px;">
+            Sauvegarder
+          </button>
+        </div>
+
         <tr class="workbench" style="display: flex;  flex-direction: row; margin: 15px;">
           <td class="left-panel">
-            <h2 style="text-align: center;">{{eventProv.currentEvent?.name}} </h2>
-            <p>{{eventProv.currentEvent?.startDate | date:'dd/MM HH:mm'}} -
-              {{eventProv.currentEvent?.endDate | date:'dd/MM HH:mm'}}</p>
-            <hr>
+            <div style=" padding: 0; text-align: center;">
+              <h2 style="text-align: center;">{{eventProv.currentEvent?.name}} </h2>
+              <p>{{eventProv.currentEvent?.startDate | date:'dd/MM HH:mm'}} -
+                {{eventProv.currentEvent?.endDate | date:'dd/MM HH:mm'}}
+              </p>
 
-            <br>
-            <p>
-              <span style="font-size: 18px;">Invités</span>
-              <span style="float: right;">
-                <button nz-button (click)="currentAction=action.newGuest">+</button>
-              </span>
-            </p>
-
-            <div *ngIf="currentAction==action.newGuest">
-              <input #name type="text" placeholder="nom" (keyup)="$event.key=='Enter' ? addNewGuest(name.value) : ''">
-
-              <div style="text-align: right;">
-                <br>
-                <button nz-button (click)="currentAction=action.none">Cancel</button> &nbsp;
-                <button nz-button (click)="addNewGuest(name.value)">Okay</button>
-              </div>
+              <hr>
             </div>
 
-            <br>
-            <div style="height: 60%; overflow: auto; ">
-              <div *ngFor="let guest of eventProv.currentEvent?.guests?.reverse()">
-                <p (click)="selectGuest(guest.name)" style="border-bottom: 0.5px solid gainsboro; padding-bottom: 6px">
-                  <span>{{guest.name}}</span>
-                  <span style="float: right;">{{guest.seat.table.toString()  || '-' }} /
-                    {{guest.seat.place || '-'}}</span>
+            <div style="padding: 12px;">
+              <br>
+              <p>
+                <span style="font-size: 24px;">Invités</span>
+                <span style="float: right;">
+                  <button style="background: orange; border: none; color: white; padding: 6px;" nz-button
+                    (click)="currentAction=action.newGuest">+
+                    Ajouter</button>
+                </span>
+              </p>
+
+              <div *ngIf="currentAction==action.newGuest">
+                <br><br>
+                <input #name type="text" placeholder="Nom de l'invité" (keyup)="$event.key=='Enter' ? addNewGuest(name.value) : ''">
+
+                <div style="text-align: left;">
+                  <br>
+                  <button style="background: orangered; border: none; color: white; padding: 8px;" nz-button
+                    (click)="addNewGuest(name.value)">Valider</button>&nbsp;
+                  <button style="background: gainsboro; border: none; color: black; padding: 8px;" nz-button
+                    (click)="currentAction=action.none">Annuler</button>
+                </div>
+              </div>
+
+              <br>
+              <div *ngIf="currentAction!=action.newGuest">
+                <p style="margin-bottom: 25px; text-align: center;">
+                  <input type="text" matInput placeholder="chercher un nom">
                 </p>
+
+                <div style="height: 60%; overflow: auto; ">
+                  <div *ngFor="let guest of eventProv.currentEvent?.guests?.reverse()">
+                    <p [class]="eventProv.selectedGuest== guest.name? 'seleted' : ''" (click)="selectGuest(guest.name)"
+                      style="border-bottom: 0.5px solid gainsboro; padding-bottom: 6px">
+                      <span>{{guest.name}}</span>
+                      <span style="float: right;">{{guest.seat.table.toString()  || '-' }} /
+                        {{guest.seat.place || '-'}}</span>
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
           </td>
 
           <td class="right-panel">
-            <p *ngIf="currentAction==action.seletTable"
-              style="text-align: c; background: red; padding: 5px 12px; width: 90px; position: absolute;">Select table
-            </p>
+            <div style="text-align: right;">
+              <div *ngIf="currentAction==action.seletTable">
+                <button type="button" mat-button
+                  style="padding: 8px; background: #f30c9a; border: none; color: white; margin-right: 15px;">
+                  Choisir table
+                </button>
 
-            <div style="display: flex; flex-direction: row; justify-content: center;">
-              <div *ngIf="this.showTableMenu" style="justify-content: center;">
+                <button type="button" mat-button (click)="currentAction=action.none"
+                  style="padding: 8px; background: gainsboro; border: none; color: white; margin-right: 35px;">
+                  Annuler
+                </button>
+              </div>
+
+              <div *ngIf="this.showTableMenu">
                 <button type="button" mat-button (click)="rotateTable()"
-                  style="padding: 8px; background: rgb(53, 212, 240); border: none; color: white; margin-right: 15px;">
-                  Roter
+                  style="padding: 8px; background: rgb(243, 12, 154); border: none; color: white; margin-right: 15px;">
+                  Roter table
                 </button>
 
                 <button type="button" mat-button (click)="deleteTable()"
                   style="padding: 8px; background: tomato; border: none; color: white; margin-right: 35px;">
-                  Suppr
+                  Suppr table
                 </button>
               </div>
-
-              <div style="text-align: right;">
-                <button type="button" mat-button (click)="drawer.toggle()"
-                  style="padding: 8px; background: orangered; border: none; color: white; ">
-                  Ajouter tables
-                </button>
-
-                <button type="button" mat-button (click)="uploadTableConfig()"
-                  style="padding: 8px; background: orange; border: none; color: white; margin-left: 15px;">
-                  Sauvegarder
-                </button>
-              </div>
-
             </div>
 
             <div id="room" style="height: 90%; overflow: auto; ">
@@ -191,7 +216,7 @@
               </div>
 
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
-                style="position: relative; width: 210px;">
+                style="position: relative; width: 206px;">
                 <div [id]="40+index" class="T3 container" style="display: none;"
                   (click)="selectPlace(table3.innerText)">
                   <div class="all stock-chair2" [style.background]="isBooked(table3.value, 1) ? 'gold' : ''"
