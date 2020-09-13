@@ -1,4 +1,7 @@
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+}
 
 body {
   margin: 0;
@@ -13,28 +16,23 @@ body {
   background-attachment: fixed;
 }
 
-.toast-error{
+.toast-error {
   background: tomato;
   color: white;
 }
 
-.toast-success{
+.toast-success {
   background: rgb(18, 119, 18);
   color: white;
 }
 
-.toast-warning{
+.toast-warning {
   background: rgb(241, 157, 31);
   color: white;
 }
 
- .stock-chair2 {
-      height: 30px;
-      width: 30px;
-      border-radius: 50%;
-      margin-left: 8px;
-    }
+.color{
+  fill: gainsboro
+}
 
-@import "~ng-pick-datetime/assets/style/picker.min.css";
-
-
+@import '~ng-pick-datetime/assets/style/picker.min.css';

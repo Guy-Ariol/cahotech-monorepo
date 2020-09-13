@@ -41,8 +41,8 @@
               <div class="break-row"></div>
               <div class="stock-table1">T2</div>
               <div class="break-row"></div>
-              <div class="all stock-chair2">5</div>
               <div class="all stock-chair2">4</div>
+              <div class="all stock-chair2">3</div>
             </div>
 
             <br>
@@ -110,6 +110,7 @@
 
               <div style="text-align: right;">
                 <br>
+                <button nz-button (click)="currentAction=action.none">Cancel</button> &nbsp;
                 <button nz-button (click)="addNewGuest(name.value)">Okay</button>
               </div>
             </div>
@@ -133,48 +134,45 @@
             </p>
 
             <div style="display: flex; flex-direction: row; justify-content: center;">
-              <div *ngIf="this.showTableMenu">
+              <div *ngIf="this.showTableMenu" style="justify-content: center;">
                 <button type="button" mat-button (click)="rotateTable()"
                   style="padding: 8px; background: rgb(53, 212, 240); border: none; color: white; margin-right: 15px;">
                   Roter
                 </button>
 
                 <button type="button" mat-button (click)="deleteTable()"
-                  style="padding: 8px; background: tomato; border: none; color: white; margin-right: 25px;">
+                  style="padding: 8px; background: tomato; border: none; color: white; margin-right: 35px;">
                   Suppr
                 </button>
               </div>
 
-              <button type="button" mat-button (click)="drawer.toggle()"
-                style="padding: 8px; background: orangered; border: none; color: white; ">
-                Ajouter tables
-              </button>
+              <div style="text-align: right;">
+                <button type="button" mat-button (click)="drawer.toggle()"
+                  style="padding: 8px; background: orangered; border: none; color: white; ">
+                  Ajouter tables
+                </button>
 
-              <button type="button" mat-button (click)="saveConfig()"
-                style="padding: 8px; background: orange; border: none; color: white; margin-left: 35px;">
-                Sauvegarder
-              </button>
+                <button type="button" mat-button (click)="uploadTableConfig()"
+                  style="padding: 8px; background: orange; border: none; color: white; margin-left: 15px;">
+                  Sauvegarder
+                </button>
+              </div>
+
             </div>
-
-            <!-- <div style="text-align: center;">
-              <button type="button" mat-button (click)="drawer.toggle()"
-                style="padding: 8px; background: gold; border: none; color: brown;">
-                Ajouter tables
-              </button>
-            </div> -->
 
             <div id="room" style="height: 90%; overflow: auto; ">
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 170px;">
-                <div [id]="index" class="T1 container" style="display: none;" (click)="selectPlace(table1.innerText)">
-                  <div class="all stock-chair2">1</div>
-                  <div class="all stock-chair2">2</div>
+                <div [id]="index" class="T1 container" style="display: none;" (click)="selectPlace(table1.innerText);">
+                  <div class="all stock-chair2" [style.background]="isBooked(table1.value, 1) ? 'gold' : ''">1</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table1.value, 2) ? 'gold' : ''">2</div>
                   <div class="break-row"></div>
                   <div #table1 class="stock-table1">{{index}}</div>
-                  <div class="all stock-chair2" style="margin-top: 15px">3</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table1.value, 3) ? 'gold' : ''"
+                    style="margin-top: 15px">3</div>
                   <div class="break-row"></div>
-                  <div class="all stock-chair2">5</div>
-                  <div class="all stock-chair2">4</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table1.value, 5) ? 'gold' : ''">5</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table1.value, 4) ? 'gold' : ''">4</div>
                 </div>
               </div>
 
@@ -182,13 +180,13 @@
                 style="position: relative; width: 170px;">
                 <div [id]="20+index" class="T2 container" style="display: none;"
                   (click)="selectPlace(table2.innerText)">
-                  <div class="all stock-chair2">1</div>
-                  <div class="all stock-chair2">2</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table2.value, 1) ? 'gold' : ''">1</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table2.value, 2) ? 'gold' : ''">2</div>
                   <div class="break-row"></div>
-                  <div #table2 class="stock-table1">T2</div>
+                  <div #table2 class="stock-table1">{{20+index}} </div>
                   <div class="break-row"></div>
-                  <div class="all stock-chair2">5</div>
-                  <div class="all stock-chair2">4</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table2.value, 4) ? 'gold' : ''">4</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table2.value, 3) ? 'gold' : ''">3</div>
                 </div>
               </div>
 
@@ -196,22 +194,26 @@
                 style="position: relative; width: 210px;">
                 <div [id]="40+index" class="T3 container" style="display: none;"
                   (click)="selectPlace(table3.innerText)">
-                  <div class="all stock-chair2" style="margin-left: 58px;">1</div>
-                  <div class="all stock-chair2">2</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table3.value, 1) ? 'gold' : ''"
+                    style="margin-left: 58px;">1</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table3.value, 2) ? 'gold' : ''">2</div>
                   <div class="break-row"></div>
-                  <div class="all stock-chair2" style="margin-top: 16px; margin-right: 6px;">6</div>
-                  <div #table3 class="stock-table1">T3</div>
-                  <div class="all stock-chair2" style="margin-top: 15px; margin-left: 8px;">3</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table3.value, 6) ? 'gold' : ''"
+                    style="margin-top: 16px; margin-right: 6px;">6</div>
+                  <div #table3 class="stock-table1">{{40+index}} </div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table3.value, 3) ? 'gold' : ''"
+                    style="margin-top: 15px; margin-left: 8px;">3</div>
                   <div class="break-row"></div>
-                  <div class="all stock-chair2" style="margin-left: 58px;">5</div>
-                  <div class="all stock-chair2">4</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table3.value, 5) ? 'gold' : ''"
+                    style="margin-left: 58px;">5</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table3.value, 4) ? 'gold' : ''">4</div>
                 </div>
               </div>
 
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 100px;">
                 <div [id]="60+index" class="T4" style="display: none;" (click)="selectPlace(table4.innerText)">
-                  <div #table4 class="stock-table1"></div>
+                  <div #table4 class="stock-table1">{{60+index}} </div>
                 </div>
               </div>
 
@@ -219,10 +221,11 @@
                 style="position: relative; width: 170px;">
                 <div [id]="80+index" class="T5 container" style="display: none;"
                   (click)="selectPlace(table5.innerText)">
-                  <div class="all stock-chair2" style="margin-left: 16px;">1</div>
-                  <div class="all stock-chair2">2</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table5.value, 1) ? 'gold' : ''"
+                    style="margin-left: 16px;">1</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table5.value, 2) ? 'gold' : ''">2</div>
                   <div class="break-row"></div>
-                  <div #table5 class="stock-table1">T5</div>
+                  <div #table5 class="stock-table1">{{80+index}} </div>
                 </div>
               </div>
 

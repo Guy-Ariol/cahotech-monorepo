@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { ActivatedRoute } from "@angular/router";
 import { MatBottomSheetRef, MatBottomSheet } from '@angular/material/bottom-sheet';
-import { ta } from 'date-fns/locale';
 
 enum action { seletTable, none, newGuest }
 
@@ -15,11 +14,11 @@ export class EventDetailsComponent implements OnInit {
 
   screen
 
-  index = 0
   currentAction = action.none
   action = action
 
   showTableMenu = false
+  room = null
 
   constructor(
     public eventProv: EventService,
@@ -31,6 +30,7 @@ export class EventDetailsComponent implements OnInit {
   }
 
   ngOnInit (): void {
+    this.room = localStorage.getItem('room')
 
     this.routerParam.queryParams.subscribe(params => {
       if (!this.eventProv.currentEvent.id) {
@@ -41,12 +41,10 @@ export class EventDetailsComponent implements OnInit {
           this.updateRoomPosition()
         }, 3000);
       }
-
     })
 
     // populate the room
     this.updateRoomPosition()
-
   }
 
 
@@ -69,18 +67,20 @@ export class EventDetailsComponent implements OnInit {
           // console.log(c);
 
           if (c.style.display == 'none') {
-            if (type != 'C1') c.getElementsByClassName('stock-table1').item(0).innerHTML = this.index.toString()
+            if (type != 'C1') c.getElementsByClassName('stock-table1').item(0).innerHTML = this.eventProv.index.toString()
 
             console.log();
             c.style.position = 'absolute'
             c.style.top = '15px'
             c.style.display = 'flex'
 
-            this.index++
+            this.eventProv.index++
             break
           }
         }
       }
+
+      this.saveTableConfig()
 
       document.getElementById('room').scrollTo({ top: 1, behavior: 'smooth' })
     }
@@ -90,53 +90,57 @@ export class EventDetailsComponent implements OnInit {
   }
 
   updateRoomPosition () {
-    // if (document.getElementById('room')) document.getElementById('room').innerHTML = this.eventProv.currentEvent.tablePosition
+    // console.log('updateRoomPosition');
 
-    if (this.eventProv.currentEvent.tablePosition) {
-      // console.log(this.room)
+    if (this.eventProv.currentEvent?.id) {
       let el: HTMLElement = document.createElement('div')
-      el.innerHTML = this.eventProv.currentEvent?.tablePosition
+      el.innerHTML = this.room
       let children = el.children
 
       for (let i = 0; i < children.length; i++) {
-        let fc = <HTMLElement>children.item(i).firstChild
-        console.log(fc)
+        let c = <HTMLElement>children.item(i)
+        let text = c.getElementsByClassName('stock-table1').item(0)
 
-        let element = document.getElementById(fc.id)
-        // console.log(element)
+        let element = document.getElementById(children.item(i).firstChild['id'])
+        // console.log(c)
 
 
         if (element) {
-          element.className = fc.className //children.item(i).className
-          element.innerHTML = fc.innerHTML //children.item(i).innerHTML
-          element.style.display = fc.style.display
-          element.style.transform = fc.style.transform
-          element.style.position = fc.style.position
-          element.style.top = fc.style.top
+          try {
+            element.getElementsByClassName('stock-table1').item(0).innerHTML = text.innerHTML
+          } catch (error) {
 
-          console.log(element)
+          }
 
-
+          element.style.display = children.item(i).firstChild['style']['display']
+          element.style.position = 'absolute'
+          element.parentElement.style.transform = c.style.transform
         }
       }
     }
+    console.log(this.eventProv.index)
+
   }
 
   addNewGuest (name) {
-    this.eventProv.selectedGuest = name
+    if (name) {
+      this.eventProv.selectedGuest = name
+      this.showTableMenu = false
 
-    try {
-      this.eventProv.currentEvent.guests.push({ name: name, seat: { table: '', place: '' } })
-    } catch (error) {
-      this.eventProv.currentEvent.guests = [{ name: name, seat: { table: '', place: '' } }]
+      try {
+        this.eventProv.currentEvent.guests.push({ name: name, seat: { table: '', place: '' } })
+      } catch (error) {
+        this.eventProv.currentEvent.guests = [{ name: name, seat: { table: '', place: '' } }]
+      }
+
+      this.currentAction = action.seletTable
+
+      this.eventProv.updateCurrentEvent()
     }
-
-    this.currentAction = action.seletTable
-
-    this.eventProv.updateCurrentEvent()
   }
 
   selectPlace (table) {
+
     console.log(table);
     this.eventProv.currentTableID = table
 
@@ -188,9 +192,6 @@ export class EventDetailsComponent implements OnInit {
     else {
       this.showTableMenu = true
     }
-
-    // console.log(this.eventProv.currentEvent)
-
   }
 
   selectGuest (name) {
@@ -233,19 +234,52 @@ export class EventDetailsComponent implements OnInit {
     for (let i = 0; i < r.length; i++) {
       let c = <HTMLElement>r.item(i).firstChild
 
-      if (c.getElementsByClassName('stock-table1').item(0).innerHTML == this.eventProv.currentTableID) {
-        c.style.display = 'none'
-        break
+      if (c.getElementsByClassName('stock-table1').item(0)?.innerHTML == this.eventProv.currentTableID) {
+        if (c.style.display != 'none') {
+          console.log(c);
+
+          c.style.display = 'none'
+          this.eventProv.index--
+          console.log(this.eventProv.index)
+
+          this.saveTableConfig()
+
+          break
+        }
       }
     }
   }
 
-  saveConfig () {
+  uploadTableConfig () {
     console.log('test');
 
-    this.eventProv.currentEvent.tablePosition = (document.getElementById('room').innerHTML)
-    this.eventProv.updateCurrentEvent()
+    if (this.eventProv.currentEvent.tablePosition != document.getElementById('room').innerHTML) {
 
+      this.saveTableConfig()
+      this.eventProv.updateCurrentEvent()
+    }
+  }
+
+  isBooked (tableId, chairId) {
+    // console.log(tableId, chairId)
+
+    let table = null
+
+    try {
+      table = this.eventProv.currentEvent.seats.find(seat => seat.tableId == tableId)
+
+    } catch (error) {
+
+    }
+
+    if (table) return table.place[chairId]
+    else return ''
+  }
+
+  saveTableConfig () {
+    let pos = document.getElementById('room').innerHTML
+    this.eventProv.currentEvent.tablePosition = pos
+    localStorage.setItem('room', pos)
   }
 }
 

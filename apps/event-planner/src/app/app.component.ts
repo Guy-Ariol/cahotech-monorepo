@@ -24,6 +24,6 @@ export class AppComponent {
 
     setTimeout(() => {
       this.utils.stopSpinner()
-    }, 2000);
+    }, 4000);
   }
 }

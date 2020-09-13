@@ -23,6 +23,7 @@ export class EventService {
   rotationAngle = 'rotate(0deg)'
 
   tablePosition = {} as { U: '', Réunion: '', Éléve: '', Theâtre: '', Banquet: '' }
+  index = 0
 
   constructor(
     private afdb: AngularFireDatabase,
@@ -32,6 +33,12 @@ export class EventService {
   subscribeEvents () {
     this.afdb.list('events').valueChanges().subscribe((events: eventType[]) => {
       this.allEvents = events
+      const id = this.currentEvent.id
+
+      if (id) {
+        this.currentEvent = events.find(ev => ev.id = id)
+        this.index = this.currentEvent.seats?.length | 0
+      }
     })
 
     this.afdb.object(`super-admin/cahocenter`).valueChanges()
