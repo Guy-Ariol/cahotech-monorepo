@@ -19,7 +19,7 @@ export class EventDetailsComponent implements OnInit {
   action = action
 
   showTableMenu = false
-  room = null
+  newGuestList: {name: string}[] = []
 
   constructor(
     public eventProv: EventService,
@@ -127,32 +127,31 @@ export class EventDetailsComponent implements OnInit {
 
   }
 
-  addNewGuest (name) {
-    if (name) {
-      if (this.eventProv.currentEvent.guests.find(guest => guest.name == name)) {
-        this._snackBar.open('Le nom existe déja', '', {
-          duration: 3000,
-          horizontalPosition: 'left',
-          verticalPosition: 'top',
-          panelClass: 'toast-error'
-        });
-      }
-      else {
-        this.eventProv.selectedGuest = name
-        this.showTableMenu = false
+  addNewGuest () {
+    console.log(this.newGuestList)
 
-        try {
-          this.eventProv.currentEvent.guests.push({ name: name, seat: { table: '', place: '' } })
-        } catch (error) {
-          this.eventProv.currentEvent.guests = [{ name: name, seat: { table: '', place: '' } }]
-        }
+      // if (this.eventProv.currentEvent.guests.find(guest => guest.name == name)) {
+      //   this._snackBar.open('Le nom existe déja', '', {
+      //     duration: 3000,
+      //     horizontalPosition: 'left',
+      //     verticalPosition: 'top',
+      //     panelClass: 'toast-error'
+      //   });
+      // }
+      // else {
+      //   this.eventProv.selectedGuest = name
+      //   this.showTableMenu = false
 
-        this.currentAction = action.seletTable
+      //   try {
+      //     this.eventProv.currentEvent.guests.push({ name: name, seat: { table: '', place: '' } })
+      //   } catch (error) {
+      //     this.eventProv.currentEvent.guests = [{ name: name, seat: { table: '', place: '' } }]
+      //   }
 
-        this.eventProv.updateCurrentEvent()
-      }
+      //   this.currentAction = action.seletTable
 
-    }
+      //   this.eventProv.updateCurrentEvent()
+      // }
   }
 
   selectPlace (table) {
@@ -294,6 +293,16 @@ export class EventDetailsComponent implements OnInit {
     let pos = document.getElementById('room').innerHTML
     this.eventProv.currentEvent.tablePosition = pos
     // localStorage.setItem('room', pos)
+  }
+
+  appendNewGuestInput(){
+    this.newGuestList.push({name: ''})
+    this.currentAction = action.newGuest
+
+  }
+
+  resetnewGuestForm(){
+    this.newGuestList = []
   }
 }
 

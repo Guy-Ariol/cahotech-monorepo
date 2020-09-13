@@ -104,7 +104,7 @@
 
         <tr class="workbench" style="display: flex;  flex-direction: row; margin: 15px;">
           <td class="left-panel">
-            <div style=" padding: 0; text-align: center;">
+            <div style=" padding-top: 12px; text-align: center;">
               <h2 style="text-align: center;">{{eventProv.currentEvent?.name}} </h2>
               <p>{{eventProv.currentEvent?.startDate | date:'dd/MM HH:mm'}} -
                 {{eventProv.currentEvent?.endDate | date:'dd/MM HH:mm'}}
@@ -119,21 +119,23 @@
                 <span style="font-size: 24px;">Invités</span>
                 <span style="float: right;">
                   <button style="background: orange; border: none; color: white; padding: 6px;" nz-button
-                    (click)="currentAction=action.newGuest">+
+                    (click)="appendNewGuestInput()">+
                     Ajouter</button>
                 </span>
               </p>
 
-              <div *ngIf="currentAction==action.newGuest">
+              <div class="new-guest" *ngIf="currentAction==action.newGuest">
                 <br><br>
-                <input #name type="text" placeholder="Nom de l'invité" (keyup)="$event.key=='Enter' ? addNewGuest(name.value) : ''">
+                <div *ngFor="let in of newGuestList; let index=index">
+                  <input type="text" placeholder="Nom de l'invité" [(ngModel)]="newGuestList[index].name">
+                </div>
 
                 <div style="text-align: left;">
                   <br>
                   <button style="background: orangered; border: none; color: white; padding: 8px;" nz-button
-                    (click)="addNewGuest(name.value)">Valider</button>&nbsp;
+                    (click)="addNewGuest()">Valider</button>&nbsp;
                   <button style="background: gainsboro; border: none; color: black; padding: 8px;" nz-button
-                    (click)="currentAction=action.none">Annuler</button>
+                    (click)="currentAction=action.none; resetnewGuestForm()">Annuler</button>
                 </div>
               </div>
 
