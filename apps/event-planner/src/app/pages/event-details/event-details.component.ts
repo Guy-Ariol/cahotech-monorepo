@@ -3,6 +3,7 @@ import { EventService } from '../../services/event.service';
 import { ActivatedRoute } from "@angular/router";
 import { MatBottomSheetRef, MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 
 enum action { seletTable, none, newGuest }
 
@@ -21,11 +22,14 @@ export class EventDetailsComponent implements OnInit {
   showTableMenu = false
   newGuestList: { name: string }[] = []
 
+  isFirstEntry = true
+
   constructor(
     public eventProv: EventService,
     private routerParam: ActivatedRoute,
     private _bottomSheet: MatBottomSheet,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private utilsProv: UtilsService
 
   ) {
     this.screen = window.innerWidth
@@ -45,8 +49,19 @@ export class EventDetailsComponent implements OnInit {
       }
     })
 
-    // populate the room
-    this.updateRoomPosition()
+    if (this.isFirstEntry) {
+      this.utilsProv.startSpinner()
+      this.isFirstEntry = false
+
+      setTimeout(() => {
+
+        // populate the room
+        this.updateRoomPosition()
+
+        this.utilsProv.stopSpinner()
+      }, 3000);
+    }
+
   }
 
   goback () {
@@ -101,6 +116,8 @@ export class EventDetailsComponent implements OnInit {
       if (el) {
         let children = el.children
 
+        if (children) console.log('updateRoomPosition');
+
         for (let i = 0; i < children.length; i++) {
           let c = <HTMLElement>children.item(i)
           let text = c.getElementsByClassName('stock-table1').item(0)
@@ -123,6 +140,8 @@ export class EventDetailsComponent implements OnInit {
         }
       }
     }
+
+    this.eventProv.index = this.eventProv.currentEvent.seats?.length | 0
     console.log(this.eventProv.index)
 
   }
@@ -289,13 +308,12 @@ export class EventDetailsComponent implements OnInit {
   }
 
   uploadTableConfig () {
-    console.log('test');
+    // if (this.eventProv.currentEvent.tablePosition != document.getElementById('room').innerHTML) {
+    console.log('uploading actual table position');
 
-    if (this.eventProv.currentEvent.tablePosition != document.getElementById('room').innerHTML) {
-
-      this.saveTableConfig()
-      this.eventProv.updateCurrentEvent()
-    }
+    this.saveTableConfig()
+    this.eventProv.updateCurrentEvent()
+    // }
   }
 
   isBooked (tableId, chairId) {
