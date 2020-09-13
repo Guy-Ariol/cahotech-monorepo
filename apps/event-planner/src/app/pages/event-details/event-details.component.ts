@@ -116,8 +116,6 @@ export class EventDetailsComponent implements OnInit {
       if (el) {
         let children = el.children
 
-        if (children) console.log('updateRoomPosition');
-
         for (let i = 0; i < children.length; i++) {
           let c = <HTMLElement>children.item(i)
           let text = c.getElementsByClassName('stock-table1').item(0)
@@ -142,7 +140,7 @@ export class EventDetailsComponent implements OnInit {
     }
 
     this.eventProv.index = this.eventProv.currentEvent.seats?.length | 0
-    console.log(this.eventProv.index)
+    // console.log(this.eventProv.index)
 
   }
 
@@ -200,7 +198,7 @@ export class EventDetailsComponent implements OnInit {
 
   selectPlace (table) {
 
-    console.log(table);
+    // console.log(table);
     this.eventProv.currentTableID = table
 
     if (this.eventProv.selectedGuest) {
@@ -293,11 +291,12 @@ export class EventDetailsComponent implements OnInit {
 
       if (c.getElementsByClassName('stock-table1').item(0)?.innerHTML == this.eventProv.currentTableID) {
         if (c.style.display != 'none') {
-          console.log(c);
+          console.log(r.item(i).getAttribute('style'));
+
+          r.item(i).setAttribute('style', r.item(i).getAttribute('style').split('transform')[0])
 
           c.style.display = 'none'
           this.eventProv.index--
-          console.log(this.eventProv.index)
 
           this.saveTableConfig()
 
@@ -317,12 +316,12 @@ export class EventDetailsComponent implements OnInit {
   }
 
   isBooked (tableId, chairId) {
-    // console.log(tableId, chairId)
+    // if(tableId) console.log(tableId)
 
     let table = null
 
     try {
-      table = this.eventProv.currentEvent.seats.find(seat => seat.tableId == tableId)
+      table = this.eventProv.currentEvent.seats.find(seat => seat.tableId == tableId.toString())
 
     } catch (error) {
 

@@ -191,15 +191,15 @@
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 162px;">
                 <div [id]="index" class="T1 container" style="display: none;" (click)="selectPlace(table1.innerText);">
-                  <div class="all stock-chair2" [style.background]="isBooked(table1.value, 1) ? 'gold' : ''">1</div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table1.value, 2) ? 'gold' : ''">2</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table1.innerText, 1) ? 'gold' : ''">1</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table1.innerText, 2) ? 'gold' : ''">2</div>
                   <div class="break-row"></div>
-                  <div #table1 class="stock-table1">{{index}}</div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table1.value, 3) ? 'gold' : ''"
+                  <div #table1 class="stock-table1"></div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table1.innerText, 3) ? 'gold' : ''"
                     style="margin-top: 15px">3</div>
                   <div class="break-row"></div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table1.value, 5) ? 'gold' : ''">5</div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table1.value, 4) ? 'gold' : ''">4</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table1.innerText, 5) ? 'gold' : ''">5</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table1.innerText, 4) ? 'gold' : ''">4</div>
                 </div>
               </div>
 
@@ -207,13 +207,13 @@
                 style="position: relative; width: 170px;">
                 <div [id]="20+index" class="T2 container" style="display: none;"
                   (click)="selectPlace(table2.innerText)">
-                  <div class="all stock-chair2" [style.background]="isBooked(table2.value, 1) ? 'gold' : ''">1</div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table2.value, 2) ? 'gold' : ''">2</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table2.innerText, 1) ? 'gold' : ''">1</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table2.innerText, 2) ? 'gold' : ''">2</div>
                   <div class="break-row"></div>
-                  <div #table2 class="stock-table1">{{20+index}} </div>
+                  <div #table2 class="stock-table1"></div>
                   <div class="break-row"></div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table2.value, 4) ? 'gold' : ''">4</div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table2.value, 3) ? 'gold' : ''">3</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table2.innerText, 4) ? 'gold' : ''">4</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table2.innerText, 3) ? 'gold' : ''">3</div>
                 </div>
               </div>
 
@@ -221,26 +221,26 @@
                 style="position: relative; width: 206px;">
                 <div [id]="40+index" class="T3 container" style="display: none;"
                   (click)="selectPlace(table3.innerText)">
-                  <div class="all stock-chair2" [style.background]="isBooked(table3.value, 1) ? 'gold' : ''"
+                  <div class="all stock-chair2" [style.background]="isBooked(table3.innerText, 1) ? 'gold' : ''"
                     style="margin-left: 58px;">1</div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table3.value, 2) ? 'gold' : ''">2</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table3.innerText, 2) ? 'gold' : ''">2</div>
                   <div class="break-row"></div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table3.value, 6) ? 'gold' : ''"
+                  <div class="all stock-chair2" [style.background]="isBooked(table3.innerText, 6) ? 'gold' : ''"
                     style="margin-top: 16px; margin-right: 6px;">6</div>
-                  <div #table3 class="stock-table1">{{40+index}} </div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table3.value, 3) ? 'gold' : ''"
+                  <div #table3 class="stock-table1"></div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table3.innerText, 3) ? 'gold' : ''"
                     style="margin-top: 15px; margin-left: 8px;">3</div>
                   <div class="break-row"></div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table3.value, 5) ? 'gold' : ''"
+                  <div class="all stock-chair2" [style.background]="isBooked(table3.innerText, 5) ? 'gold' : ''"
                     style="margin-left: 58px;">5</div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table3.value, 4) ? 'gold' : ''">4</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table3.innerText, 4) ? 'gold' : ''">4</div>
                 </div>
               </div>
 
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 100px;">
                 <div [id]="60+index" class="T4" style="display: none;" (click)="selectPlace(table4.innerText)">
-                  <div #table4 class="stock-table1">{{60+index}} </div>
+                  <div #table4 class="stock-table1"></div>
                 </div>
               </div>
 
@@ -248,18 +248,18 @@
                 style="position: relative; width: 170px;">
                 <div [id]="80+index" class="T5 container" style="display: none;"
                   (click)="selectPlace(table5.innerText)">
-                  <div class="all stock-chair2" [style.background]="isBooked(table5.value, 1) ? 'gold' : ''"
+                  <div class="all stock-chair2" [style.background]="isBooked(table5.innerText, 1) ? 'gold' : ''"
                     style="margin-left: 16px;">1</div>
-                  <div class="all stock-chair2" [style.background]="isBooked(table5.value, 2) ? 'gold' : ''">2</div>
+                  <div class="all stock-chair2" [style.background]="isBooked(table5.innerText, 2) ? 'gold' : ''">2</div>
                   <div class="break-row"></div>
-                  <div #table5 class="stock-table1">{{80+index}} </div>
+                  <div #table5 class="stock-table1"></div>
                 </div>
               </div>
 
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 50px;">
                 <div [id]="100+index" class="C1" style="display: none;" (click)="selectPlace(index)">
-                  <div class="all stock-chair2">X{{index}}</div>
+                  <div class="all stock-chair2"></div>
                 </div>
               </div>
             </div>
