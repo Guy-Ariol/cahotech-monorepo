@@ -31,8 +31,30 @@ body {
   color: white;
 }
 
-.color{
-  fill: gainsboro
+.color {
+  fill: gainsboro;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 5px 5px 25px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #b30404;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30404;
 }
 
 @import '~ng-pick-datetime/assets/style/picker.min.css';
