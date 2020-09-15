@@ -15,11 +15,13 @@
     <div class="content">
       <mat-drawer-container autosize>
         <mat-drawer #drawer mode="over" position="end">
-          <button style="padding: 8px;" type="button" mat-button (click)="drawer.toggle()">X Fermer </button>
+          <div class="fix">
+            <button style="padding: 8px;" type="button" mat-button (click)="drawer.toggle()">X Fermer </button>
 
-          <h1 style="text-align: center; color: white; padding: 15px 5px;">Clicker pour ajouter</h1>
+            <h1 style="text-align: center; color: white; padding: 15px 5px;">Clicker pour ajouter</h1>
+          </div>
 
-          <div style="max-height: 60%;">
+          <div style="max-height: 60%; margin-top: 130px; padding: 15px;">
             <div id="t1" class="container" (click)="add('T1 container')">
               <div class="all stock-chair2">1</div>
               <div class="all stock-chair2">2</div>
@@ -141,14 +143,23 @@
 
               <br>
               <div *ngIf="currentAction!=action.newGuest">
-                <p *ngIf="eventProv.currentEvent.guests"  style="margin-bottom: 25px; text-align: center;">
+                <p *ngIf="eventProv.currentEvent.guests" style="margin-bottom: 25px; text-align: center;">
                   <input type="text" matInput placeholder="chercher un nom">
                 </p>
 
-                <div style="height: 60%; overflow: auto; ">
+                <p>
+                  <input type="checkbox" (input)="toogleMultipleSelect()">
+                  <label for="vehicle1"> Multiple choix</label><br>
+                </p>
+
+                <div style="height: 300px; overflow-y: auto; padding-right: 12px;">
                   <div *ngFor="let guest of eventProv.currentEvent?.guests?.reverse()">
                     <p [class]="eventProv.selectedGuest== guest.name? 'seleted' : ''" (click)="selectGuest(guest.name)"
                       style="border-bottom: 0.5px solid gainsboro; padding-bottom: 6px">
+                      <span>
+                        <input type="checkbox">
+                      </span>
+
                       <span>{{guest.name}}</span>
                       <span style="float: right;">{{guest.seat.table.toString()  || '-' }} /
                         {{guest.seat.place || '-'}}</span>
@@ -157,11 +168,10 @@
                 </div>
               </div>
             </div>
-
           </td>
 
           <td class="right-panel">
-            <div style="text-align: right; padding: 12px;">
+            <div style="text-align: right;">
               <div *ngIf="currentAction==action.seletTable">
                 <button type="button" mat-button
                   style="padding: 8px; background: #f30c9a; border: none; color: white; margin-right: 15px;">
@@ -187,7 +197,7 @@
               </div>
             </div>
 
-            <div id="room" style="height: 90%; overflow: auto; ">
+            <div id="room" style="height: 99%; overflow: auto;">
               <div *ngFor="let item of getMonotonList(20); let index=index" cdkDrag
                 style="position: relative; width: 162px;">
                 <div [id]="index" class="T1 container" style="display: none;" (click)="selectPlace(table1.innerText);">

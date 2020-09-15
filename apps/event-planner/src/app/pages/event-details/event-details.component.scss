@@ -48,7 +48,6 @@
     td {
       border: solid 1px gainsboro;
       position: relative;
-      // padding: 12px;
     }
 
     .table {
@@ -191,8 +190,9 @@
     mat-drawer {
       height: 90%;
       background: rgb(214, 200, 3);
-      padding: 15px;
+      // padding: 15px;
       width: 280px;
+      padding: 10px;
     }
 
     .left-panel {
@@ -200,6 +200,10 @@
       transition: width 0.35s ease-in-out;
 
       background: #f3bf145e;
+    }
+
+    .right-panel{
+      padding: 12px;
     }
 
     .seleted {
@@ -216,6 +220,13 @@
         font-size: 18px;
         margin-bottom: 15px;
       }
+    }
+
+    .fix {
+      position: absolute;
+      top: 5px;
+      background: orangered;
+      padding: 5px 12px;
     }
   }
 

@@ -23,6 +23,7 @@ export class EventDetailsComponent implements OnInit {
   newGuestList: { name: string }[] = []
 
   isFirstEntry = true
+  isMutilpleSelect = false
 
   constructor(
     public eventProv: EventService,
@@ -255,7 +256,7 @@ export class EventDetailsComponent implements OnInit {
     this.showTableMenu = false
 
     this.currentAction = action.seletTable
-    this.eventProv.selectedGuest = name
+    // if() this.eventProv.selectedGuest = name
   }
 
   rotateTable () {
@@ -345,6 +346,10 @@ export class EventDetailsComponent implements OnInit {
 
   resetnewGuestForm () {
     this.newGuestList = []
+  }
+
+  toogleMultipleSelect(){
+
   }
 }
 
