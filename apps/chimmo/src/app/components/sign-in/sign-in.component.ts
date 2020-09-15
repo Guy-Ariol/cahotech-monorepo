@@ -44,8 +44,8 @@ export class SignInComponent implements OnInit {
 
       if (user) {
         let out
-        if(user.type == userEnum.landlord) out = 'bailleur'
-        else if(user.type == userEnum.renter) out = 'locataire'
+        if (user.type == userEnum.landlord) out = 'bailleur'
+        else if (user.type == userEnum.renter) out = 'locataire'
 
         this.userLib.currentUser = user
 

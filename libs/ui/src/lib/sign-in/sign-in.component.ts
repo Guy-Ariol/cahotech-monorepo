@@ -59,7 +59,6 @@ export class SignInComponent implements OnInit {
 
       const getUser = this.userLib.allUsers.find(user => user.email == this.validateForm.get('email').value)
       if (getUser) {
-        console.log(getUser)
 
         // renter verification
         if (getUser.type == userEnum.renter) {

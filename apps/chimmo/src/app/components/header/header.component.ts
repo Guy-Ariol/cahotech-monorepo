@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit (): void {
     // this._menuSelected(this.currentView)
     // this.currentView = menu
-    this.dataProv.showTopMenu = !this.dataProv.showTopMenu
+    // this.dataProv.showTopMenu = !this.dataProv.showTopMenu
     this.menuSeleted.emit(this.currentView)
   }
 
