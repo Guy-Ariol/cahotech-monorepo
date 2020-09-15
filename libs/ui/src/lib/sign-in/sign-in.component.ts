@@ -61,7 +61,6 @@ export class SignInComponent implements OnInit {
       if (getUser) {
         console.log(getUser)
 
-
         // renter verification
         if (getUser.type == userEnum.renter) {
           if (getUser.adminPass == this.validateForm.get('password').value) {
@@ -69,35 +68,32 @@ export class SignInComponent implements OnInit {
 
             this.userLib.emitEvent('logged in', '')
           }
-
-          // landlord authenfication
-          else {
-            this.userLib.signIn(this.validateForm.value)
-              .then(res => {
-                // this.utils.stopSpinner()
-                // this.utils.showToast('success', 'Vous etes connecté', 'Félicitation')
-                this.validateForm.reset()
-                // this.router.navigate(['load'])
-              })
-              .catch(error => {
-                console.log(error);
-                let msg = ''
-
-                if (error.code == "auth/user-not-found") msg = "Cet email n'existe pas!"
-                else if (error.code = "auth/wrong-password") msg = "Mot de passe incorrect"
-
-                console.log(msg);
-
-
-                // this.utils.stopSpinner()
-                this.utils.showToast('error', msg, 'Érreur')
-              })
-          }
         }
 
+        // landlord authenfication
+        else {
+          this.userLib.signIn(this.validateForm.value)
+            .then(res => {
+              // this.utils.stopSpinner()
+              // this.utils.showToast('success', 'Vous etes connecté', 'Félicitation')
+              this.validateForm.reset()
+              // this.router.navigate(['load'])
+            })
+            .catch(error => {
+              console.log(error);
+              let msg = ''
+
+              if (error.code == "auth/user-not-found") msg = "Cet email n'existe pas!"
+              else if (error.code = "auth/wrong-password") msg = "Mot de passe incorrect"
+
+              console.log(msg);
+
+
+              // this.utils.stopSpinner()
+              this.utils.showToast('error', msg, 'Érreur')
+            })
+        }
       }
-
-
     }
   }
 }
