@@ -4,7 +4,7 @@
       (toogleMenu)="toogleMenu($event)" *ngIf="currentView!=view.document">
     </app-header>
 
-    <div class="content">
+    <div class="content1" *ngIf="!dataprov.showTopMenu"  >
       <div *ngIf="currentView==view.account">
         <div style="text-align: center; padding-bottom: 8px;">
           <div nz-icon nzType="user" style="font-size: 40px;"></div>
@@ -20,7 +20,7 @@
         <p><b><u>Nom:</u></b> {{userLib.currentUser?.lastName}} {{userLib.currentUser?.firstName}} </p>
         <p><b><u>Email:</u></b> {{userLib.currentUser?.email}} </p>
         <p><b><u>Adresse:</u></b> {{userLib.currentUser?.addres}} </p>
-        <p><b><u>Tel:</u></b> {{userLib.currentUser?.tel}} </p>
+        <p><b><u>Tel:</u></b> {{userLib.currentUser?.tel | number:'':'fr'}} </p>
 
       </div>
 
@@ -84,10 +84,11 @@
         <h1 style="text-align: center; color: brown;">Mes résidences</h1>
 
         <div *ngFor="let house of this.homeProv.getHousesDetails(); let index=index">
-          <h2>Résidence {{index+1}} </h2>
+          <!-- <h2>Résidence {{index+1}} </h2> -->
+          <h2><b>{{house?.name}}</b></h2>
 
           <div style="padding-left: 12px;">
-            <p><u>Nom:</u> {{house?.name}}</p>
+            <!-- <p><u>Nom:</u> {{house?.name}}</p> -->
             <p><u>Adresse:</u> {{house?.address}} </p>
 
             <p><u>Équipements:</u>
@@ -99,12 +100,13 @@
               <nz-collapse-panel *ngFor="let home of getHomesFromHouse(house)" [nzHeader]="home.name">
                 <p><u>Type:</u> {{getHomeTypeString(home.type)}} </p>
 
-                <p style="margin:0;"><u>Loyer:</u> {{home.cost.Caution}} </p>
+                <p><u>Loyer:</u> {{home.cost.Caution | number:'':'fr'}} </p>
 
-                <p><u>Pièces:</u></p>
+                <p style="margin-bottom: 5px;"><u>Pièces:</u></p>
                 <div style="padding-left: 12px;">
                   <div *ngFor="let room of home.rooms">
-                    <p>{{room.type}}:
+                    <p>
+                      <span style="color: lightseagreen; font-weight: bold;">{{room.type}}:</span>
                       <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
                     </p>
                   </div>
@@ -122,31 +124,32 @@
         <h1 style="text-align: center; color: brown;">Mes locataires</h1>
 
         <div *ngFor="let renter of getRenterDetails()">
-          <h2>{{renter?.lastName}} {{renter?.firstName}}</h2>
+          <h2><b>{{renter?.lastName}} {{renter?.firstName}}</b></h2>
 
           <div style="padding-left: 15px;">
             <p><span class="sub">Adresse: </span> {{renter?.addres}} </p>
-            <p><span class="sub">Tel: </span> {{renter?.tel}} </p>
+            <p><span class="sub">Tel: </span> {{renter?.tel | number:'':'fr' }} </p>
 
-            <p class="sub">Logements: </p>
+            <p class="sub" style="margin-bottom: 5px;">Logements: </p>
 
             <nz-collapse>
               <nz-collapse-panel *ngFor="let home of getHomeDetails(renter?.homesID)" [nzHeader]="home?.name">
                 <div *ngIf="home as home">
-                  <p style="text-align:right">
+                  <p style="text-align:right" (click)="openDocList(home)"> Document
                     <i style="border: 0.5px grey solid; padding: 6px; border-radius: 50%; background: gold; color: white;"
-                      nz-icon nzType="file" (click)="openDocList(home)"></i>
+                      nz-icon nzType="file" ></i>
                   </p>
 
                   <p><u>Type: </u> {{getHomeTypeString(home.type)}} </p>
                   <p><u>Résidence: </u> {{homeProv.getHouseDetails(home.houseId)?.name}} </p>
 
-                  <p style="margin:0;"><u>Caution:</u> {{home.cost.Caution}} </p>
+                  <p><u>Caution:</u> {{home.cost.Caution | number:'':'fr'}} </p>
 
-                  <p><u>Pièces:</u></p>
+                  <p style="margin-bottom: 5px;"><u>Pièces:</u></p>
                   <div style="padding-left: 12px;">
                     <div *ngFor="let room of home.rooms">
-                      <p><b>{{room.type}}</b>:
+                      <p>
+                        <span style="color: lightseagreen; font-weight: bold;">{{room.type}}</span>
                         <span *ngFor="let equip of room.equipment"> {{equip}}, </span>
                       </p>
                     </div>
@@ -167,10 +170,6 @@
 
       <div *ngIf="currentView==view.mainMenuClosed" class="blank-view">
         <h2>Allez dans le menu principal</h2>
-      </div>
-
-      <div *ngIf="currentView==view.document" style="max-height: 100%; background: red;">
-        <app-doc [docList]="currentHome?.doc"></app-doc>
       </div>
 
       <div *ngIf="currentView==view.repair">
@@ -213,5 +212,13 @@
         <h1 style="text-align: center; color: brown;">Mes réquetes</h1>
       </div>
     </div>
+
+    <div>
+      <div class="content2" *ngIf="currentView==view.document && !dataprov.showTopMenu">
+        <app-doc></app-doc>
+      </div>
+    </div>
+
+    <br><br><br>
   </div>
 </div>

@@ -12,6 +12,8 @@ export class HomeService {
   allHouses: houseType[] = []
   allHomes: homeType[] = []
 
+  currentHome: homeType = null
+
   constructor(
     private afdb: AngularFireDatabase,
     @Inject(EventEmitter) private event: EventEmitter,

@@ -2,7 +2,7 @@
   position: relative;
   font-family: Montserrat;
 
-  .content {
+  .content1 {
     margin-left: 65px;
     margin-right: 65px;
 
@@ -11,26 +11,27 @@
       margin-bottom: 25px;
     }
 
-    .blank-view{
+    .blank-view {
       text-align: center;
     }
 
-    .sub{
+    .sub {
       text-decoration: underline;
       font-weight: bold;
     }
   }
 
   .mobile {
-    .content {
+    .content1 {
       margin-left: 5px;
       margin-right: 5px;
-      margin-top: 80px;
       padding: 12px;
+      padding-top: 80px;
+    }
 
-      .new-standard {
-        padding-top: 35px;
-      }
+    .content2 {
+      margin: 5px;
+      padding: 0;
     }
   }
 }

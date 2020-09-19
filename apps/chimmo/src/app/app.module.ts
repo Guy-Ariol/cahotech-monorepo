@@ -48,8 +48,9 @@ import { SuperAdminComponent } from './pages/super-admin/super-admin.component';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DocComponent } from './components/doc/doc.component';
-import { WebcamModule } from 'ngx-webcam';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 registerLocaleData(fr);
 
@@ -91,7 +92,7 @@ const firebaseConfig = {
     GoogleMapsModule,
     ReactiveFormsModule,
 
-    WebcamModule,
+    NzCarouselModule,
 
     NzLayoutModule,
     NzFormModule,
@@ -109,7 +110,8 @@ const firebaseConfig = {
     NzCollapseModule,
     NzPopconfirmModule,
     NzPageHeaderModule,
-    NzTabsModule
+    NzTabsModule,
+    NzSelectModule
   ],
 
   providers: [{ provide: NZ_I18N, useValue: fr_FR }, EventEmitter],

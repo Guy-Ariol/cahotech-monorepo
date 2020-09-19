@@ -51,6 +51,7 @@
     "ngx-toastr": "^12.1.0",
     "ngx-webcam": "^0.3.0",
     "rxjs": "~6.5.4",
+    "webcam-easy": "^1.0.5",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {

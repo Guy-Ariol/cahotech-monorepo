@@ -19,7 +19,7 @@ export class LandlordComponent implements OnInit {
   view = appView
   userEnum = userEnum
 
-  currentHome: homeType
+  // currentHome: homeType
 
   constructor(
     public utilsProv: UtilsService,
@@ -106,7 +106,7 @@ export class LandlordComponent implements OnInit {
   }
 
   openDocList (home) {
-    this.currentHome = home
+    this.homeProv.currentHome = home
     this.currentView = this.view.document
     this.router.navigate(['/bailleur'], { queryParams: { view: this.view.document } })
   }

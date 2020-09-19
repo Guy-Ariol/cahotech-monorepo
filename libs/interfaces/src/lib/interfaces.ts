@@ -171,7 +171,7 @@ export interface homeType {
   cost: roomCostType,
   timeStamp: number,
   landLord: {Id: string, renterId: string}[],
-  doc: string[]
+  doc: {title: string, url: string, type: docEnum}[]
 }
 
 /** */
@@ -200,6 +200,9 @@ export enum roomTypeEnum { chambre, salon, cuisine, douche, magasin, wc, douche_
 
 /** */
 export interface roomCostType { Caution: number, 'Tarif mensuel': number, 'Montant prérequis': number }
+
+/** */
+export enum docEnum {etat, bill, contract}
 
 
 
