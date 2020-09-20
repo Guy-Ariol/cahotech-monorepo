@@ -202,7 +202,7 @@ export enum roomTypeEnum { chambre, salon, cuisine, douche, magasin, wc, douche_
 export interface roomCostType { Caution: number, 'Tarif mensuel': number, 'Montant prérequis': number }
 
 /** */
-export enum docEnum {etat, bill, contract}
+export enum docEnum {"État des lieux", Facture, Contrat}
 
 
 

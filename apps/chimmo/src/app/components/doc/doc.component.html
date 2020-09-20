@@ -12,7 +12,7 @@
 
       <td style="width: 50%; text-align: right; margin-right: 16px;">
         <i style="font-size: 35px; border: 0.5px solid 10f5e9; border-radius: 50%; padding: 8px; color: black; background: white;"
-          nz-icon nzType="camera" (click)="isCapturing=true; initWebcam()">
+          nz-icon nzType="camera" (click)="pushNewFoto(); isCapturing=true; initWebcam(); done=false">
         </i>
       </td>
     </tr>
@@ -30,25 +30,22 @@
       </div>
 
       <div [hidden]="!done">
-        <nz-carousel [nzEffect]="'scrollx'">
-          <div nz-carousel-content *ngFor="let pic of pics">
-            <img [src]="pic.url" alt="" height="300">
-          </div>
-        </nz-carousel>
+        <img [src]="pics[pics.length-1].url" alt="">
 
         <div style="padding-top: 25px; margin: 5px">
           Titre de l'image
-          <input nz-input type="text" [(ngModel)]="picTitle">
+          <input nz-input type="text" [(ngModel)]="pics[pics.length-1].title">
           <br><br>
 
           type de l'image
-          <nz-select ngModel="picType" style="width: 80%;">
+          <nz-select [ngModel]="pics[pics.length-1].type" (ngModelChange)="pics[pics.length-1].type = $event"
+            style="width: 80%;">
             <nz-option *ngFor="let item of getPicTypes()" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
           </nz-select>
         </div>
 
-        <div style="text-align: center; margin-top: 25px;">
-          <button nz-button (click)="done=false">Autre photo</button> &nbsp;&nbsp;
+        <div style="text-align: center; margin-top: 25px; padding-bottom: 45px;">
+          <button nz-button (click)="pushNewFoto();done=false">Autre photo</button> &nbsp;&nbsp;
           <button nz-button (click)="submit()">Valider</button>
         </div>
       </div>

@@ -17,8 +17,6 @@ export class DocComponent implements OnInit {
   webcam
 
   pics: { title: string, url: string, type: docEnum }[] = []
-  picTitle = Date.now()
-  picType
 
   constructor(
     public homeProv: HomeService
@@ -54,7 +52,7 @@ export class DocComponent implements OnInit {
 
   takePic () {
     let picture = this.webcam.snap();
-    this.pics.push({ url: picture, title: this.picTitle.toString(), type: this.picType })
+    this.pics[this.pics.length - 1] = { url: picture, title: Date.now().toString(), type: null }
 
     this.done = true
   }
@@ -78,6 +76,9 @@ export class DocComponent implements OnInit {
       .catch(error => {
         console.log(error);
       })
+
+    console.log(this.homeProv.currentHome)
+
   }
 
   goback () {
@@ -89,9 +90,13 @@ export class DocComponent implements OnInit {
     let out = []
 
     for (let t in docEnum) {
-      out.push({label: docEnum[t], value: t})
+      if (docEnum[t] && !parseInt(docEnum[t])) out.push({ label: docEnum[t], value: t })
     }
 
     return out
+  }
+
+  pushNewFoto () {
+    this.pics.push({ title: '', type: null, url: '' })
   }
 }
