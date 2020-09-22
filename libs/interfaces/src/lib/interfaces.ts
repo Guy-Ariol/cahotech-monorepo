@@ -171,7 +171,8 @@ export interface homeType {
   cost: roomCostType,
   timeStamp: number,
   landLord: {Id: string, renterId: string}[],
-  doc: {title: string, url: string, type: docEnum}[]
+  doc: {title: string, url: string, type: docEnum}[],
+  reparations: string[]
 }
 
 /** */

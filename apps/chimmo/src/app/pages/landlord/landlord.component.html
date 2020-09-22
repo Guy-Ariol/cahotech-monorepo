@@ -4,7 +4,7 @@
       (toogleMenu)="toogleMenu($event)" *ngIf="currentView!=view.document">
     </app-header>
 
-    <div class="content1" *ngIf="!dataprov.showTopMenu"  >
+    <div class="content1" *ngIf="!dataprov.showTopMenu">
       <div *ngIf="currentView==view.account">
         <div style="text-align: center; padding-bottom: 8px;">
           <div nz-icon nzType="user" style="font-size: 40px;"></div>
@@ -137,7 +137,7 @@
                 <div *ngIf="home as home">
                   <p style="text-align:right" (click)="openDocList(home)"> Document
                     <i style="border: 0.5px grey solid; padding: 6px; border-radius: 50%; background: gold; color: white;"
-                      nz-icon nzType="file" ></i>
+                      nz-icon nzType="file"></i>
                   </p>
 
                   <p><u>Type: </u> {{getHomeTypeString(home.type)}} </p>
@@ -173,37 +173,78 @@
       </div>
 
       <div *ngIf="currentView==view.repair">
-        <h1 style="text-align: center; color: brown;">Les réparations</h1>
+        <div *ngIf="isNewRepair">
+          <h1 style="text-align: center; color: brown;">Nouvelle réparation</h1>
 
-        <div style="text-align: center; padding-bottom: 15px; padding-top: 15px;">
-          <button nz-button nzSize="small" nzType="primary">Demander une réparation</button>
+          Département
+          <nz-select #department style="width: 100%; padding-bottom: 15px;">
+            <nz-option *ngFor="let option of this.getRepairType()" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+
+          Description du problème
+          <textarea nz-input [nzAutosize]="{minRows: 4}" #descRep></textarea>
+
+          <div style="text-align: center; padding-top: 35px;">
+            <button nz-button (click)="isNewRepair = ''">Annuler</button> &nbsp;&nbsp;
+            <button nz-button nzType="primary"
+              (click)="createNewRepair({description: descRep.value, department: department.activatedValue})">Valider</button>
+          </div>
+
         </div>
 
-        <div *ngFor="let house of this.homeProv.getHousesDetails(); let index=index">
-          <div style="padding-left: 12px;">
-            <h1> {{house?.name}}</h1>
+        <div *ngIf="!isNewRepair">
+          <h1 style="text-align: center; color: brown;">Les réparations</h1>
 
+          <div *ngFor="let house of this.homeProv.getHousesDetails(); let index=index">
             <div style="padding-left: 12px;">
-              <p> {{house?.address}} </p>
+              <h1> {{house?.name}}</h1>
 
-              <p><u>Logements:</u></p>
-              <nz-collapse>
-                <nz-collapse-panel *ngFor="let home of getHomesFromHouse(house)" [nzHeader]="home.name">
-                  <p style="margin:0;"><u>Type:</u> {{getHomeTypeString(home.type)}} </p>
+              <div style="padding-left: 12px;">
+                <p> {{house?.address}} </p>
 
-                  <p style="margin:0;"><u>Locataire:</u> {{userProv.getRenterbyHomeID(home.id)?.lastName}} </p>
-                  <p style="margin:0;"><u>Total:</u> {{userProv.getRenterbyHomeID(home.id)?.saldo || 0}} fcfa</p>
+                <p><u>Logements:</u></p>
+                <nz-collapse>
+                  <nz-collapse-panel *ngFor="let home of getHomesFromHouse(house)" [nzHeader]="home.name">
+                    <div style="text-align: right; padding-bottom: 15px; padding-top: 5px;">
+                      <button nz-button nzSize="small" nzType="primary" (click)="isNewRepair = home.id">
+                        <i nz-icon nzType="plus"></i>
+                        Réparation</button>
+                    </div>
 
-                  <br>
-                  <nz-collapse>
-                    <nz-collapse-panel [nzHeader]="'Réparations'"></nz-collapse-panel>
-                  </nz-collapse>
+                    <p style="margin:0;"><u>Type:</u> {{getHomeTypeString(home.type)}} </p>
 
-                </nz-collapse-panel>
-              </nz-collapse>
+                    <p style="margin:0;"><u>Locataire:</u> {{userProv.getRenterbyHomeID(home.id)?.lastName}} </p>
+                    <p style="margin:0;"><u>Total:</u> {{userProv.getRenterbyHomeID(home.id)?.saldo || 0}} fcfa</p>
+
+                    <br>
+                    <nz-collapse>
+                      <nz-collapse-panel [nzHeader]="'Réparations'">
+                        <div *ngFor="let repId of home.reparations">
+                          <p style="text-align: right; font-size: 12px;">{{getReparationDetails(repId).timeStamp |date}}
+                          </p>
+                          <p>{{getReparationDetails(repId).description}}</p>
+
+                          <p style="font-size: 11px;">
+                            <span
+                              style="border: solid yellow 0.5px; border-radius: 5px; padding: 4px; background: rgb(45, 238, 212); ">{{getReparationDetails(repId).status}}
+                            </span>
+
+                            <span style="padding-left: 15px;">{{getReparationDetails(repId).cost | number:'':'fr'}} fCFA</span>
+
+                            <span style="float: right;">{{getReparationDetails(repId).department}}</span>
+                          </p>
+
+                          <hr>
+                        </div>
+                      </nz-collapse-panel>
+                    </nz-collapse>
+
+                  </nz-collapse-panel>
+                </nz-collapse>
+              </div>
+              <hr>
+
             </div>
-            <hr>
-
           </div>
         </div>
       </div>

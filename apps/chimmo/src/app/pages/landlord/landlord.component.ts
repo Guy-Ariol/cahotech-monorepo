@@ -3,7 +3,7 @@ import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { DataService } from '../../services/data/data.service';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { HomeService } from '../../services/home/home.service';
-import { appView } from '../../services/interfaces/interfaces.service';
+import { appView, repairEnum, repairType } from '../../services/interfaces/interfaces.service';
 import { houseType, homeType, homeEnum, userEnum, userType } from '@cahotech-monorepo/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../services/users/users.service';
@@ -19,7 +19,7 @@ export class LandlordComponent implements OnInit {
   view = appView
   userEnum = userEnum
 
-  // currentHome: homeType
+  isNewRepair = ''
 
   constructor(
     public utilsProv: UtilsService,
@@ -109,5 +109,70 @@ export class LandlordComponent implements OnInit {
     this.homeProv.currentHome = home
     this.currentView = this.view.document
     this.router.navigate(['/bailleur'], { queryParams: { view: this.view.document } })
+  }
+
+  getRepairType () {
+    let out = []
+
+    for (let type in repairEnum) {
+      let val = repairEnum[type]
+      if (val && !parseInt(val)) out.push(val)
+    }
+
+    return out
+  }
+
+  createNewRepair (data) {
+    console.log(data, this.isNewRepair);
+    console.log(this.homeProv.allHomes)
+
+
+    let repair: repairType = {
+      id: this.homeProv.createPushKey(),
+      timeStamp: Date.now(),
+      description: data.description,
+      department: data.department,
+      cost: 0,
+      doc: null,
+      status: 'Ouvert'
+    }
+
+    let home = this.homeProv.allHomes.find(home => home.id == this.isNewRepair)
+    if (home) {
+      try {
+        home.reparations.push(repair.id)
+      } catch (error) {
+        home.reparations = [repair.id]
+      }
+
+      this.homeProv.updateHome(home)
+        .then(() => {
+          this.homeProv.updateRepair(repair)
+            .then(() => {
+              this.isNewRepair = ''
+            })
+            .catch(error => {
+              console.log(error);
+
+            })
+        })
+        .catch(error => {
+          console.log(error);
+
+        })
+    }
+    else {
+      console.log('home not found');
+
+    }
+
+
+  }
+
+  getReparationDetails (reparationId) {
+    let out = {} as repairType
+    out = this.homeProv.allReparations.find(reparation => reparation.id == reparationId)
+
+    return out
   }
 }

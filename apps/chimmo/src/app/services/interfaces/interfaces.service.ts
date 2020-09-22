@@ -11,3 +11,8 @@ export enum houseEquipmentEnum { 'Piscine', 'Forage', 'Parking', 'Instincteur', 
 
 /** */
 export enum roomEquipmentEnum { eau_chaude, detector_fumee, climatisateur, canal_sat }
+
+/** */
+export enum repairEnum { Maçonnerie, Plomberie, Menuserie, Carrelage }
+
+export interface repairType { department: repairEnum, description: string, doc: string[], cost: number, id: string, timeStamp: number, status: 'En cours' | 'Ouvert' | 'Terminer' }

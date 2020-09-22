@@ -51,6 +51,7 @@ export class AppComponent {
     this.userLib.subscribeAllUser()
     this.homeProv.subscribeAllHomes()
     this.homeProv.subscribeAllHouses()
+    this.homeProv.subscribeReparations()
 
     //TODO changed to 4s instead of 1s
     setTimeout(() => {
@@ -75,10 +76,16 @@ export class AppComponent {
 
       setTimeout(() => {
         let currentRouteParam = parseInt(this.router.url.split('view=')[1])
+
         let restore = false
         if (currentRouteParam || currentRouteParam == 0) restore = true
 
-        if (this.userLib.currentUser.type == userEnum.admin) {
+        if (this.router.url.includes('admin')) {
+          console.log('test');
+
+        }
+
+        else if (this.userLib.currentUser.type == userEnum.admin) {
           this.zone.run(() => {
             this.router.navigate(['/admin'], { queryParams: { view: restore ? currentRouteParam : 11 } })
           })
