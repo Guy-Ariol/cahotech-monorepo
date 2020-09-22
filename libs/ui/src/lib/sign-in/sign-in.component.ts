@@ -51,7 +51,7 @@ export class SignInComponent implements OnInit {
       this.validateForm.get('email').setErrors({})
 
 
-    else if (!this.validateForm.value.password || this.validateForm.value.password.length < 6)
+    else if (!this.validateForm.value.password || this.validateForm.value.password.length < 4)
       this.validateForm.get('password').setErrors({})
 
     else if (this.validateForm.valid) {
@@ -59,9 +59,10 @@ export class SignInComponent implements OnInit {
 
       const getUser = this.userLib.allUsers.find(user => user.email == this.validateForm.get('email').value)
       if (getUser) {
+        this.userLib.currentUser = getUser
 
-        // renter verification
-        if (getUser.type == userEnum.renter) {
+        // renter or super admin verification
+        if ([userEnum.renter, userEnum.superAdmin].includes(getUser.type)) {
           if (getUser.adminPass == this.validateForm.get('password').value) {
             console.log('ok');
 

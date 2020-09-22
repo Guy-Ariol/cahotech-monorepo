@@ -146,14 +146,11 @@ export class HomeService {
     })
   }
 
-  subscribeRequests (all: boolean= false) {
-    console.log(all);
+  subscribeRequests (all: boolean = false) {
 
     this.afdb.list('requests').valueChanges().subscribe((data: requestType[]) => {
       if (all) this.allRequests = data
-      else this.allRequests = data.filter(req => req.reporterId == this.userLib.currentUser.id)
-
-      console.log(this.allRequests)
+      else if (this.userLib.currentUser) this.allRequests = data.filter(req => req.reporterId == this.userLib.currentUser.id)
 
     })
   }

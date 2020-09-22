@@ -14,6 +14,7 @@ import { HomeService } from './services/home/home.service';
 export class AppComponent {
   title = 'chimmo';
   debouncing = false
+  timeout = 4000
 
   constructor(
     public utilsProv: UtilsService,
@@ -44,6 +45,8 @@ export class AppComponent {
     this.utilsProv.startSpinner()
     this.utilsProv.setScreenSize(window.innerWidth, window.innerHeight)
 
+    let savedUser = localStorage.getItem('chimmo-user')
+
     // App subscriptions
     this.userLib.onAuthChanged()
     this.onLoginChanged()
@@ -58,6 +61,14 @@ export class AppComponent {
     setTimeout(() => {
       this.utilsProv.stopSpinner()
     }, 4000);
+
+    setTimeout(() => {
+      if (savedUser) {
+        this.userLib.currentUser = this.userLib.allUsers.find(user => user.id = savedUser)
+        this.timeout = 1000
+        this.event.emit('logged in', savedUser)
+      }
+    }, 1500);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -72,7 +83,7 @@ export class AppComponent {
   onLoginChanged () {
     this.event.on('logged in', userId => {
       this.userLib.subscribeUser(userId)
-
+      localStorage.setItem('chimmo-user', this.userLib.currentUser.id)
       this.utilsProv.startSpinner()
 
       setTimeout(() => {
@@ -104,8 +115,12 @@ export class AppComponent {
           })
         }
 
+        else if (this.userLib.currentUser.type == userEnum.superAdmin) {
+          this.router.navigate(['/super-admin'])
+        }
+
         this.utilsProv.stopSpinner()
-      }, 3000);
+      }, this.timeout);
     })
 
     this.event.on('logged out', (results) => {
