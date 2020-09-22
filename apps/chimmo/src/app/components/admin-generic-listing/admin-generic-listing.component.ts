@@ -21,6 +21,8 @@ export class AdminGenericListingComponent implements OnInit {
   displayList = []
   blankMsg = ""
 
+  homeEnum: homeEnum
+
   constructor(
     public userLib: UserService,
     public utilsProv: UtilsService,
@@ -96,11 +98,9 @@ export class AdminGenericListingComponent implements OnInit {
   getRenterList (landLord: userType) {
     let list: userType[] = []
 
-    // if (landLord.renters) {
-      for (let renter in landLord.rentersID) {
+      for (let renter of landLord.rentersID) {
         list.push(this.userLib.allUsers.find(user => user.id == renter))
       }
-    // }
 
     return list
   }
@@ -281,6 +281,5 @@ export class AdminGenericListingComponent implements OnInit {
       if (!this.displayList.length) this.blankMsg = `Il n'ya pas de logements enrégistrer!`
     }
   }
-
 
 }

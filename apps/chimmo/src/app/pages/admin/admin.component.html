@@ -4,7 +4,7 @@
     <app-header [menuList]="dataprov.mainMenuAdmin" (menuSeleted)="topMenuSelected($event)" (toogleMenu)="toogleMenu()">
     </app-header>
 
-    <div class="content">
+    <div class="content" *ngIf="!dataprov.showTopMenu"  >
       <h1 *ngIf="currentView==view.none" style="text-align: center;">{{currentTitle}}</h1>
 
       <div class="new-standard" *ngIf="[view.landlord, view.renter, view.house, view.home].includes(currentView)">
