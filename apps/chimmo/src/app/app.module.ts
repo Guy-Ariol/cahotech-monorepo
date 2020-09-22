@@ -51,6 +51,8 @@ import { DocComponent } from './components/doc/doc.component';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+
 
 registerLocaleData(fr);
 
@@ -111,7 +113,8 @@ const firebaseConfig = {
     NzPopconfirmModule,
     NzPageHeaderModule,
     NzTabsModule,
-    NzSelectModule
+    NzSelectModule,
+    NzTagModule
   ],
 
   providers: [{ provide: NZ_I18N, useValue: fr_FR }, EventEmitter],

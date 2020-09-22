@@ -3,7 +3,7 @@ import { UtilsService } from 'libs/service/src/lib/utils/utils.service';
 import { DataService } from '../../services/data/data.service';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { HomeService } from '../../services/home/home.service';
-import { appView, repairEnum, repairType } from '../../services/interfaces/interfaces.service';
+import { appView, repairEnum, repairType, requestType } from '../../services/interfaces/interfaces.service';
 import { houseType, homeType, homeEnum, userEnum, userType } from '@cahotech-monorepo/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../services/users/users.service';
@@ -20,6 +20,7 @@ export class LandlordComponent implements OnInit {
   userEnum = userEnum
 
   isNewRepair = ''
+  isNewRequest = false
 
   constructor(
     public utilsProv: UtilsService,
@@ -134,7 +135,7 @@ export class LandlordComponent implements OnInit {
       department: data.department,
       cost: 0,
       doc: null,
-      status: 'Ouvert'
+      status: 'warning'
     }
 
     let home = this.homeProv.allHomes.find(home => home.id == this.isNewRepair)
@@ -174,5 +175,22 @@ export class LandlordComponent implements OnInit {
     out = this.homeProv.allReparations.find(reparation => reparation.id == reparationId)
 
     return out
+  }
+
+  addNewRequest (desciption) {
+    if (this.userLib.currentUser.id) {
+      let req: requestType = {
+        reporterId: this.userLib.currentUser.id,
+        id: this.homeProv.createPushKey(),
+        timeStamp: Date.now(),
+        type: '',
+        description: desciption,
+        status: 'warning'
+      }
+
+      this.homeProv.addNewRequest(req)
+        .then(() => this.isNewRequest = false)
+        .catch(error => console.log(error))
+    }
   }
 }

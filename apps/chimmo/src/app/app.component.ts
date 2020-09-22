@@ -52,6 +52,7 @@ export class AppComponent {
     this.homeProv.subscribeAllHomes()
     this.homeProv.subscribeAllHouses()
     this.homeProv.subscribeReparations()
+    this.homeProv.subscribeRequests()
 
     //TODO changed to 4s instead of 1s
     setTimeout(() => {

@@ -229,7 +229,8 @@
                               style="border: solid yellow 0.5px; border-radius: 5px; padding: 4px; background: rgb(45, 238, 212); ">{{getReparationDetails(repId).status}}
                             </span>
 
-                            <span style="padding-left: 15px;">{{getReparationDetails(repId).cost | number:'':'fr'}} fCFA</span>
+                            <span style="padding-left: 15px;">{{getReparationDetails(repId).cost | number:'':'fr'}}
+                              fCFA</span>
 
                             <span style="float: right;">{{getReparationDetails(repId).department}}</span>
                           </p>
@@ -250,7 +251,44 @@
       </div>
 
       <div *ngIf="currentView==view.issue">
-        <h1 style="text-align: center; color: brown;">Mes réquetes</h1>
+        <div *ngIf="isNewRequest">
+          <h1 style="text-align: center; color: brown;">Nouvelle réquete</h1>
+
+          <nz-select nzPlaceHolder="Type de réquete">
+            <nz-option></nz-option>
+          </nz-select>
+          <br><br>
+
+          <textarea #nrdescrip nz-input [nzAutosize]="{minRows: 6}"></textarea>
+
+          <div style="text-align: center; padding-top: 35px;">
+            <button nz-button (click)="isNewRequest=false">Annuler</button>&nbsp;&nbsp;
+            <button nz-button nzType="primary" (click)="addNewRequest(nrdescrip.value)">Valider</button>
+          </div>
+        </div>
+
+        <div *ngIf="!isNewRequest">
+          <h1 style="text-align: center; color: brown;">Mes réquetes</h1>
+
+          <button nz-button nzType="primary" (click)="isNewRequest=true">
+            <i nz-icon nzType="plus"></i> Ajouter
+          </button>
+          <br><br>
+
+          <div *ngFor="let req of homeProv.allRequests">
+            <p>{{req.description}} </p>
+            <p>
+              <nz-tag [nzColor]="req.status">
+                {{req.status=='warning'? 'Ouvert' : req.status=='success' ? 'Validé' : req.status=='processing'? 'En cours' : 'Rejeté' }}
+              </nz-tag>
+
+              <span style="float: right;">{{req.timeStamp | date}}</span>
+            </p>
+
+            <hr>
+          </div>
+        </div>
+
       </div>
     </div>
 

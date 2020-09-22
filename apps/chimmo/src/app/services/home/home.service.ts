@@ -3,7 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { EventEmitter } from 'events';
 import { houseType, homeType } from 'libs/interfaces/src/lib/interfaces';
 import { UserService } from 'libs/service/src/lib/user/user.service';
-import { repairType } from '../interfaces/interfaces.service';
+import { repairType, requestType } from '../interfaces/interfaces.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class HomeService {
   allHouses: houseType[] = []
   allHomes: homeType[] = []
   allReparations: repairType[] = []
+  allRequests: requestType[] = []
 
   currentHome: homeType = null
 
@@ -135,5 +136,25 @@ export class HomeService {
 
   createPushKey () {
     return this.afdb.createPushId()
+  }
+
+  addNewRequest (req: requestType): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.afdb.object(`requests/${req.id}`).update(req)
+        .then(() => resolve())
+        .catch(error => reject(error))
+    })
+  }
+
+  subscribeRequests (all: boolean= false) {
+    console.log(all);
+
+    this.afdb.list('requests').valueChanges().subscribe((data: requestType[]) => {
+      if (all) this.allRequests = data
+      else this.allRequests = data.filter(req => req.reporterId == this.userLib.currentUser.id)
+
+      console.log(this.allRequests)
+
+    })
   }
 }

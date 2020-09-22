@@ -15,4 +15,8 @@ export enum roomEquipmentEnum { eau_chaude, detector_fumee, climatisateur, canal
 /** */
 export enum repairEnum { Maçonnerie, Plomberie, Menuserie, Carrelage }
 
-export interface repairType { department: repairEnum, description: string, doc: string[], cost: number, id: string, timeStamp: number, status: 'En cours' | 'Ouvert' | 'Terminer' }
+export interface repairType { department: repairEnum, description: string, doc: string[], cost: number, id: string, timeStamp: number, status: 'processing' | 'warning' | 'success' | 'error' }
+
+export interface requestType { reporterId: string, description: string, timeStamp: number, type: any, id: string, status: 'processing' | 'warning' | 'success' | 'error' }
+
+
