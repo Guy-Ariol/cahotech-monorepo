@@ -154,4 +154,10 @@ export class HomeService {
 
     })
   }
+
+  updateMoneyTransaction (trans) {
+    this.afdb.object(`money/${trans.id}`).update(trans)
+    .then()
+    .catch(error => console.log(error))
+  }
 }

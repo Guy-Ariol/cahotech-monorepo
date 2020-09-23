@@ -19,4 +19,6 @@ export interface repairType { department: repairEnum, description: string, doc: 
 
 export interface requestType { reporterId: string, description: string, timeStamp: number, type: any, id: string, status: 'processing' | 'warning' | 'success' | 'error' }
 
+export enum paymentSourceEnum {'Cash', 'Mobile Money', 'Dépôt bancaire'}
 
+export interface moneyType { sender: string, worker: string, home?: string, renter?: string, sum: string, source: string, app: string, id: string, timeStamp: number, receiver: string }

@@ -30,11 +30,13 @@
             <i nz-icon nzType="plus"></i> Ajouter
           </button>
           <br><br>
+        </div>
 
+        <div *ngIf="isNew || isEdit">
           <div class="landlord-selection">
             Bailleur
-            <nz-input-group nzSize="large" [nzSuffix]="suffixIcon">
-              <input placeholder="Chercher bailleur" [(ngModel)]="newCashBox.lanlord" nz-input
+            <nz-input-group nzSize="small" [nzSuffix]="suffixIcon">
+              <input placeholder="Chercher bailleur" [(ngModel)]="newCashBox.sender" nz-input
                 (ngModelChange)="onLandlordSelected($event)" [nzAutocomplete]="auto" />
             </nz-input-group>
 
@@ -62,7 +64,7 @@
 
           <div *ngIf="isSelection1" class="home-selection">
             Logement
-            <nz-input-group nzSize="large" [nzSuffix]="suffixIcon">
+            <nz-input-group nzSize="small" [nzSuffix]="suffixIcon">
               <input placeholder="input here" nz-input [(ngModel)]="inputValue" (ngModelChange)="onChange($event)"
                 [nzAutocomplete]="auto2" />
             </nz-input-group>
@@ -71,25 +73,35 @@
               <i nz-icon nzType="search"></i>
             </ng-template>
 
-            <nz-autocomplete #auto2>
+            <nz-autocomplete #auto2 style="height: 25px;">
               <nz-auto-optgroup *ngFor="let group of optionGroups" [nzLabel]="groupTitle2">
                 <ng-template #groupTitle2>
-                  <span>{{ group.home}} </span>
+                  <span>{{ group.home.name}} </span>
                 </ng-template>
 
-                <nz-auto-option [nzLabel]="group" [nzValue]="group">
-                  {{ group }}
+                <nz-auto-option [nzLabel]="group.home.name" [nzValue]="group.home.id">
+                  {{ group.home.name }}
                 </nz-auto-option>
 
               </nz-auto-optgroup>
             </nz-autocomplete>
-          </div>
-        </div>
+            <br><br>
 
-        <div *ngIf="isNew || isEdit">
-          <div style="text-align: center;">
+            Montant
+            <input type="number" nz-input nzSize="large" [(ngModel)]="newCashBox.sum">
+            <br><br>
+
+            Source
+            <nz-select nzSize="large" style="width: 100%;" [(ngModel)]="newCashBox.source">
+              <nz-option *ngFor="let source of getPaymentSourceList()" [nzLabel]="source" [nzValue]="source"></nz-option>
+            </nz-select>
+          </div>
+
+
+
+          <div style="text-align: center; padding-top: 35px;">
             <button nz-button (click)="isNew=false; isEdit=false">Annuler</button> &nbsp;&nbsp;
-            <button nz-button nzType="primary">Valider</button>
+            <button nz-button nzType="primary" (click)="addCash()">Valider</button>
           </div>
         </div>
       </div>

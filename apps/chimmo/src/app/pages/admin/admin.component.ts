@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { appView } from '../../services/interfaces/interfaces.service';
+import { appView, moneyType, paymentSourceEnum } from '../../services/interfaces/interfaces.service';
 import { DataService } from '../../services/data/data.service';
 import { UsersService } from '../../services/users/users.service';
 import { UtilsService } from "../../../../../../libs/service/src/lib/utils/utils.service";
@@ -27,7 +27,7 @@ export class AdminComponent implements OnInit {
 
   isSelection1 = false
 
-  newCashBox = { lanlord: '', worker: '', home: '', renter: '' }
+  newCashBox: moneyType = { sender: '', worker: '', home: '', renter: '', sum: '', source: '', app: this.dataprov.appName, id: '', timeStamp: 0, receiver: '' }
 
   inputValue?: string;
   optionGroups = [];
@@ -115,7 +115,7 @@ export class AdminComponent implements OnInit {
     let homesIds = []
 
     try {
-      homesIds = this.userLib.allUsers.find(user => user.id == this.newCashBox.lanlord).homesID
+      homesIds = this.userLib.allUsers.find(user => user.id == this.newCashBox.sender).homesID
     } catch (error) {
 
     }
@@ -125,7 +125,6 @@ export class AdminComponent implements OnInit {
         home: this.homeProv.allHomes.find(home => home.id == homeId), renter: this.userLib.allUsers
           .filter(user => user.homesID && user.homesID.includes(homeId) && user.type == userEnum.renter)[0]
       })
-
     })
 
     this.optionGroups = homes
@@ -144,5 +143,33 @@ export class AdminComponent implements OnInit {
 
   onChange (value: string): void {
     console.log(value);
+  }
+
+  getPaymentSourceList () {
+    let out = []
+    for (let s in paymentSourceEnum) {
+      if (s != '0' && !parseInt(s)) out.push(s)
+    }
+
+    return out
+  }
+
+  addCash () {
+    this.newCashBox.id = this.homeProv.createPushKey()
+    this.newCashBox.timeStamp = Date.now()
+
+    let sender = this.userLib.allUsers.find(user => user.id == this.newCashBox.sender)
+    if (sender) {
+      sender.saldo = + this.newCashBox.sum
+      this.userLib.updateUser(sender)
+        .then(() => {
+
+         })
+        .catch(error => {
+          console.log(error);
+
+        })
+    }
+    else { }
   }
 }
