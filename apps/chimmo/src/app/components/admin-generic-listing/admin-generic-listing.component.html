@@ -89,26 +89,28 @@
                 <u><b>Date de création:</b></u>&nbsp; {{element.timeStamp |date}}<br><br>
 
                 <u><b>Logements</b></u>
-                <p *ngFor="let home of getHomeList(element); let index=index">{{index+1}}. {{home.name}} / {{getHomeType(home.type)}}
+                <p *ngFor="let home of getHomeList(element); let index=index">{{index+1}}. {{home.name}} /
+                  {{getHomeType(home.type)}}
                   / {{home.rooms?.length}} Pièces</p>
               </nz-collapse-panel>
             </nz-collapse>
             <!-- <span *ngIf="utilsProv.isDesktop" class="edit-btn"
               (click)="editUser.emit({user: user, index:index})">Modifier</span> -->
 
-              <p style="padding-top: 25px; padding-bottom: 35px;" *ngIf="utilsProv.isMobile">
-                <!-- <span class="edit-btn" (click)="editUser.emit({house: element, index:index})">Modifier</span>
+            <p style="padding-top: 25px; padding-bottom: 35px;" *ngIf="utilsProv.isMobile">
+              <!-- <span class="edit-btn" (click)="editUser.emit({house: element, index:index})">Modifier</span>
                 <span class="delete-btn" (click)="deleteHouse(element)">Supprimer</span> -->
 
-                <button class="edit-btn" (click)="editUser.emit({house: element, index:index})" nz-button nzType="primary">Modifier
-                </button>
+              <button class="edit-btn" (click)="editUser.emit({house: element, index:index})" nz-button
+                nzType="primary">Modifier
+              </button>
 
-                <button nz-popconfirm nzPopconfirmTitle="Éffacer définitevement ?" (nzOnConfirm)="deleteHouse(element)" (nzOnCancel)="1"
-                  nzPopconfirmPlacement="top" nz-button nzType="danger" class="delete-btn">
-                  Supprimer
-                </button>
-              </p>
-              <hr>
+              <button nz-popconfirm nzPopconfirmTitle="Éffacer définitevement ?" (nzOnConfirm)="deleteHouse(element)"
+                (nzOnCancel)="1" nzPopconfirmPlacement="top" nz-button nzType="danger" class="delete-btn">
+                Supprimer
+              </button>
+            </p>
+            <hr>
           </div>
         </div>
 

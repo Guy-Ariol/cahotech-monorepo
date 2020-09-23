@@ -4,6 +4,8 @@ import { DataService } from '../../services/data/data.service';
 import { UsersService } from '../../services/users/users.service';
 import { UtilsService } from "../../../../../../libs/service/src/lib/utils/utils.service";
 import { HomeService } from '../../services/home/home.service';
+import { UserService } from 'libs/service/src/lib/user/user.service';
+import { homeType, userEnum, userType } from '@cahotech-monorepo/interfaces';
 
 @Component({
   selector: 'cahotech-monorepo-admin',
@@ -23,16 +25,25 @@ export class AdminComponent implements OnInit {
   currentUserIndex: number
   data = {}
 
+  isSelection1 = false
+
+  newCashBox = { lanlord: '', worker: '', home: '', renter: '' }
+
+  inputValue?: string;
+  optionGroups = [];
+
   constructor(
     public dataprov: DataService,
     public userProv: UsersService,
     public utilsProv: UtilsService,
-    private homeProv: HomeService
+    private homeProv: HomeService,
+    public userLib: UserService
   ) { }
 
   ngOnInit (): void {
     this.homeProv.subscribeAllHouses()
     this.homeProv.subscribeAllHomes()
+
   }
 
 
@@ -92,4 +103,46 @@ export class AdminComponent implements OnInit {
     this.controlArray[index].value = [date1.getTime(), date2.getTime()]
   }
 
+
+  onLandlordSelected (value: string): void {
+    this.isSelection1 = true
+
+    this.getHome()
+  }
+
+  getHome (): { home: homeType, renter: userType }[] {
+    let homes = []
+    let homesIds = []
+
+    try {
+      homesIds = this.userLib.allUsers.find(user => user.id == this.newCashBox.lanlord).homesID
+    } catch (error) {
+
+    }
+
+    homesIds.forEach(homeId => {
+      homes.push({
+        home: this.homeProv.allHomes.find(home => home.id == homeId), renter: this.userLib.allUsers
+          .filter(user => user.homesID && user.homesID.includes(homeId) && user.type == userEnum.renter)[0]
+      })
+
+    })
+
+    this.optionGroups = homes
+    console.log(this.optionGroups)
+
+    return homes
+  }
+
+  onHomeSelected (arg) {
+    console.log(arg);
+  }
+
+  getLandlords (): userType[] {
+    return this.userLib.allUsers.filter(user => user.type == userEnum.landlord)
+  }
+
+  onChange (value: string): void {
+    console.log(value);
+  }
 }

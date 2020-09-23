@@ -4,7 +4,7 @@
     <app-header [menuList]="dataprov.mainMenuAdmin" (menuSeleted)="topMenuSelected($event)" (toogleMenu)="toogleMenu()">
     </app-header>
 
-    <div class="content" *ngIf="!dataprov.showTopMenu"  >
+    <div class="content" *ngIf="!dataprov.showTopMenu">
       <h1 *ngIf="currentView==view.none" style="text-align: center;">{{currentTitle}}</h1>
 
       <div class="new-standard" *ngIf="[view.landlord, view.renter, view.house, view.home].includes(currentView)">
@@ -22,57 +22,76 @@
         </div>
       </div>
 
-      <div *ngIf="currentView==view.MoneyIn">
+      <div class="cashbox" *ngIf="currentView==view.MoneyIn">
         <h1>{{currentTitle}}</h1>
 
-        <div *ngIf="!isNew && !isEdit" style="width: 70%;">
+        <div *ngIf="!isNew && !isEdit">
+          <button nzType="primary" nz-button (click)="isNew=true">
+            <i nz-icon nzType="plus"></i> Ajouter
+          </button>
+          <br><br>
 
+          <div class="landlord-selection">
+            Bailleur
+            <nz-input-group nzSize="large" [nzSuffix]="suffixIcon">
+              <input placeholder="Chercher bailleur" [(ngModel)]="newCashBox.lanlord" nz-input
+                (ngModelChange)="onLandlordSelected($event)" [nzAutocomplete]="auto" />
+            </nz-input-group>
+
+            <ng-template #suffixIcon>
+              <i nz-icon nzType="search"></i>
+            </ng-template>
+
+            <nz-autocomplete #auto>
+              <div *ngFor="let user of getLandlords()">
+                <nz-auto-optgroup *ngIf="user.firstName && user.email && user?.apps.includes('chimmo')"
+                  [nzLabel]="groupTitle">
+                  <ng-template #groupTitle>
+                    <span>{{ user.lastName }} {{ user.firstName }} </span>
+                  </ng-template>
+
+                  <nz-auto-option [nzLabel]="user.lastName + ' ' + user.firstName" [nzValue]="user.id">
+                    {{ user.email }}
+                  </nz-auto-option>
+
+                </nz-auto-optgroup>
+              </div>
+
+            </nz-autocomplete>
+          </div><br>
+
+          <div *ngIf="isSelection1" class="home-selection">
+            Logement
+            <nz-input-group nzSize="large" [nzSuffix]="suffixIcon">
+              <input placeholder="input here" nz-input [(ngModel)]="inputValue" (ngModelChange)="onChange($event)"
+                [nzAutocomplete]="auto2" />
+            </nz-input-group>
+
+            <ng-template #suffixIcon>
+              <i nz-icon nzType="search"></i>
+            </ng-template>
+
+            <nz-autocomplete #auto2>
+              <nz-auto-optgroup *ngFor="let group of optionGroups" [nzLabel]="groupTitle2">
+                <ng-template #groupTitle2>
+                  <span>{{ group.home}} </span>
+                </ng-template>
+
+                <nz-auto-option [nzLabel]="group" [nzValue]="group">
+                  {{ group }}
+                </nz-auto-option>
+
+              </nz-auto-optgroup>
+            </nz-autocomplete>
+          </div>
         </div>
 
-        <tr *ngIf="isNew || isEdit" class="input-form">
-          <td style="min-width: 30%;">
-            <div *ngFor="let control of controlArray">
-              <div *ngIf="['text', 'number',  'email'].includes(control.type)">
-                {{control.title}}
-                <input nz-input placeholder="" [(ngModel)]="control.value" style="font-size: 25px; margin-bottom: 25px;"
-                  [class]="'input-'+control.index" [type]="control.type" />
-              </div>
-
-              <div *ngIf="control.type=='date-range'">
-                {{control.title}} <br>
-                <nz-range-picker nzSize="45px" [nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
-                  (ngModelChange)="getTimeStamp(control.index, $event)"></nz-range-picker>
-              </div>
-            </div>
-          </td>
-
-          <td class="summary" *ngIf="controlArray.length">
-            <h1 style="text-align: center;">Résumé</h1>
-            <br>
-
-            <div *ngFor="let control of controlArray">
-              <div nz-row style="padding-left: 25px;">
-                <div nz-col style="min-width: 120px;">
-                  <p><b>{{control.title}}:</b> </p>
-                </div>
-                <div nz-col>
-                  <div *ngIf="control.type == 'date-range' && control.value">
-                    <p>{{control?.value[0] | date:'d/MM/yyy'}} - {{control?.value[1] | date:'d/MM/yyy'}} </p>
-                  </div>
-
-                  <div *ngIf="control.type != 'date-range'">
-                    <p>{{control.value}}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div style="text-align: center;">
-              <button nz-button nzSize="large" class="submit-form2" (click)="isNew=false">Annuler</button>
-            </div>
-
-          </td>
-        </tr>
+        <div *ngIf="isNew || isEdit">
+          <div style="text-align: center;">
+            <button nz-button (click)="isNew=false; isEdit=false">Annuler</button> &nbsp;&nbsp;
+            <button nz-button nzType="primary">Valider</button>
+          </div>
+        </div>
       </div>
 
       <div *ngIf="currentView==view.home"></div>

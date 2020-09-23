@@ -62,11 +62,9 @@ export class SignInComponent implements OnInit {
         this.userLib.currentUser = getUser
 
         // renter or super admin verification
-        if ([userEnum.renter, userEnum.superAdmin].includes(getUser.type)) {
+        if ([userEnum.renter, userEnum.superAdmin, userEnum.admin].includes(getUser.type)) {
           if (getUser.adminPass == this.validateForm.get('password').value) {
-            console.log('ok');
-
-            this.userLib.emitEvent('logged in', '')
+            this.userLib.emitEvent('logged in', getUser.id)
           }
         }
 
@@ -74,10 +72,7 @@ export class SignInComponent implements OnInit {
         else {
           this.userLib.signIn(this.validateForm.value)
             .then(res => {
-              // this.utils.stopSpinner()
-              // this.utils.showToast('success', 'Vous etes connecté', 'Félicitation')
               this.validateForm.reset()
-              // this.router.navigate(['load'])
             })
             .catch(error => {
               console.log(error);
@@ -88,8 +83,6 @@ export class SignInComponent implements OnInit {
 
               console.log(msg);
 
-
-              // this.utils.stopSpinner()
               this.utils.showToast('error', msg, 'Érreur')
             })
         }
