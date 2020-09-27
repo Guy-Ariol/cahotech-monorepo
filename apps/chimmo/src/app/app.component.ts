@@ -63,18 +63,13 @@ export class AppComponent {
     }, 4000);
 
     setTimeout(() => {
-      console.log(savedUser);
-
-      if (savedUser && savedUser!='undefined') {
+      if (savedUser && savedUser != 'undefined') {
         this.userLib.currentUser = this.userLib.allUsers.find(user => user.id = savedUser)
         this.timeout = 1000
         this.event.emit('logged in', savedUser)
-        console.log('test2');
       }
-      else{
+      else {
         this.event.emit('logged out')
-        console.log('test1');
-
       }
     }, 1500);
   }
@@ -89,12 +84,7 @@ export class AppComponent {
     * @memberof AppComponent
     */
   onLoginChanged () {
-    console.log('onLoginChanged');
-
     this.event.on('logged in', userId => {
-      console.log('logged in');
-      console.log(this.userLib.currentUser)
-
 
       this.userLib.subscribeUser(userId)
       localStorage.setItem('chimmo-user', this.userLib.currentUser?.id)
@@ -137,7 +127,6 @@ export class AppComponent {
     })
 
     this.event.on('logged out', (results) => {
-      console.log('log out');
 
       if (results) this.zone.run(() => {
         this.router.navigate(['/home'])
