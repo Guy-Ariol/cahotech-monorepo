@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, NgZone, Output, EventEmitter, Input } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 
 declare var google
@@ -10,6 +10,9 @@ declare var google
 })
 export class GoogleMapsComponent implements OnInit {
   @Output() onPlaceAvailable = new EventEmitter
+  @Input() placeholder = ''
+
+  value
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
@@ -49,14 +52,19 @@ export class GoogleMapsComponent implements OnInit {
             }
 
             let location = place.address_components[0].long_name + ', ' + place.address_components[1].long_name + ', ' + place.address_components[place.address_components.length - 1].long_name
-            // console.log(location)
+            console.log(this.value)
 
-            this.onPlaceAvailable.emit()
+            this.onPlaceAvailable.emit(location)
           });
         });
       } catch (error) {
 
       }
     })
+  }
+
+  log(arg){
+    console.log(arg);
+
   }
 }
