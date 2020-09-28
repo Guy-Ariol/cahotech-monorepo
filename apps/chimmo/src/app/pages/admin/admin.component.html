@@ -47,7 +47,7 @@
                     </span>
                   </p>
 
-                  <p>Notes: {{trans.note}} </p>
+                  <p *ngIf="trans.note">Notes: {{trans.note}} </p>
                 </div>
                 <hr>
               </div>
@@ -139,8 +139,115 @@
 
       <div *ngIf="currentView==view.home"></div>
 
-      <div *ngIf="currentView==view.MoneyIn2">
-        caisse locataire
+      <div class="cashbox" *ngIf="currentView==view.MoneyIn2">
+        <h1>{{currentTitle}}</h1>
+
+        <div *ngIf="!isNew && !isEdit">
+          <button nzType="primary" nz-button (click)="isNew=true">
+            <i nz-icon nzType="plus"></i> Ajouter
+          </button>
+          <br><br>
+
+          <nz-collapse>
+            <nz-collapse-panel *ngFor="let transaction of getRenterTransactions()"
+              [nzHeader]="getTransactionSenderName(transaction)">
+              <div *ngFor="let trans of homeProv.getSubTransactionDetails(transaction).reverse()">
+                <div *ngIf="trans.app==dataprov.appName">
+                  <p>
+                    <span style="font-size: 16px; font-weight: bold;">{{trans.sum | number:'':'fr'}} fCFA</span>
+                    <span style="float: right;">{{trans.timeStamp | date}}</span>
+                  </p>
+
+                  <p>Employé:
+                    <span
+                      style="float: right; background: gainsboro; border-radius: 15px; padding: 2px 10px">{{trans.source}}
+                    </span>
+                  </p>
+
+                  <p *ngIf="trans.note">Notes: {{trans.note}} </p>
+                </div>
+                <hr>
+              </div>
+            </nz-collapse-panel>
+          </nz-collapse>
+        </div>
+
+        <div *ngIf="isNew || isEdit">
+          <div class="landlord-selection">
+            Locataire
+            <nz-input-group nzSize="small" [nzSuffix]="suffixIcon">
+              <input placeholder="" [(ngModel)]="newCashBox.sender" nz-input
+                (ngModelChange)="onLandlordSelected($event)" [nzAutocomplete]="auto" />
+            </nz-input-group>
+
+            <ng-template #suffixIcon>
+              <i nz-icon nzType="search"></i>
+            </ng-template>
+
+            <nz-autocomplete #auto>
+              <div *ngFor="let user of getRenters()">
+                <nz-auto-optgroup *ngIf="user.firstName && user.email && user?.apps.includes('chimmo')"
+                  [nzLabel]="groupTitle">
+                  <ng-template #groupTitle>
+                    <span>{{ user.lastName }} {{ user.firstName }} </span>
+                  </ng-template>
+
+                  <nz-auto-option [nzLabel]="user.lastName + ' ' + user.firstName" [nzValue]="user.id">
+                    {{ user.email }}
+                  </nz-auto-option>
+
+                </nz-auto-optgroup>
+              </div>
+
+            </nz-autocomplete>
+          </div><br>
+
+          <div *ngIf="isSelection1" class="home-selection">
+            Logement
+            <nz-input-group nzSize="small" [nzSuffix]="suffixIcon">
+              <input nz-input [(ngModel)]="inputValue" (ngModelChange)="onChange($event)" [nzAutocomplete]="auto2" />
+            </nz-input-group>
+
+            <ng-template #suffixIcon>
+              <i nz-icon nzType="search"></i>
+            </ng-template>
+
+            <nz-autocomplete #auto2 style="height: 25px;">
+              <nz-auto-optgroup *ngFor="let group of optionGroups" [nzLabel]="groupTitle2">
+                <ng-template #groupTitle2>
+                  <span>{{ group.home.name}} </span>
+                </ng-template>
+
+                <nz-auto-option [nzLabel]="group.home.name" [nzValue]="group.home.id">
+                  {{ group.home.name }}
+                </nz-auto-option>
+
+              </nz-auto-optgroup>
+            </nz-autocomplete>
+            <br><br>
+
+            Montant
+            <input type="number" nz-input nzSize="large" [(ngModel)]="newCashBox.sum">
+            <br><br>
+
+            Source
+            <nz-select nzSize="large" style="width: 100%;" [(ngModel)]="newCashBox.source">
+              <nz-option *ngFor="let source of getPaymentSourceList()" [nzLabel]="source" [nzValue]="source">
+              </nz-option>
+            </nz-select><br><br>
+
+            Note
+            <textarea nz-input nzAutosize="true" [(ngModel)]="newCashBox.note"></textarea>
+          </div>
+
+          <div style="text-align: center; padding-top: 35px;">
+            <button nz-button style="background: green; color: white;"
+              (click)="addCash('in')">Dépôt</button>&nbsp;&nbsp;
+            <button nz-button style="background: red; color: white;"
+              (click)="addCash('out')">Retrait</button>&nbsp;&nbsp;
+            <button nz-button (click)="isNew=false; isEdit=false">Annuler</button>
+          </div>
+        </div>
       </div>
 
       <div *ngIf="currentView==view.bill"></div>

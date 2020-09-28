@@ -141,6 +141,10 @@ export class AdminComponent implements OnInit {
     return this.userLib.allUsers.filter(user => user.type == userEnum.landlord)
   }
 
+  getRenters (): userType[] {
+    return this.userLib.allUsers.filter(user => user.type == userEnum.renter)
+  }
+
   onChange (value: string): void {
     this.newCashBox.home = value
   }
@@ -195,4 +199,7 @@ export class AdminComponent implements OnInit {
     return this.homeProv.allTransactions.filter(trans => this.userLib.getUserbyId(this.homeProv.getTransactionDetails(trans).sender).type == userEnum.landlord)
   }
 
+  getRenterTransactions () {
+    return this.homeProv.allTransactions.filter(trans => this.userLib.getUserbyId(this.homeProv.getTransactionDetails(trans).sender).type == userEnum.renter)
+  }
 }
