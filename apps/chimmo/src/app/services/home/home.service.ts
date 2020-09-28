@@ -18,6 +18,7 @@ export class HomeService {
   allTransactions: moneyType[] = []
 
   currentHome: homeType = null
+  allBills = []
 
   constructor(
     private afdb: AngularFireDatabase,
@@ -188,5 +189,43 @@ export class HomeService {
       out.push(transaction[trans])
     }
     return out
+  }
+
+  getHousesByAdress (adress): houseType[] {
+    return this.allHouses.filter(house => house.address.includes(adress))
+  }
+
+  getHomesFromHouse (house: houseType): homeType[] {
+    let homes = []
+
+    house?.homeList.forEach(key => {
+      if (key) {
+        homes.push(this.allHomes.find(home => home.id == key))
+      }
+    })
+
+    return homes
+  }
+
+  createBill (bill) {
+    bill.id = this.afdb.createPushId()
+    this.afdb.object(`bills/${bill.receiver}/${bill.id}`).set(bill)
+  }
+
+  getHomeById (homeId) {
+    return this.allHomes.find(home => home.id == homeId)
+  }
+
+  subscribeBills (all) {
+    if (all) this.afdb.list('bills').valueChanges().subscribe(data => {
+      this.allBills = data
+      console.log(data);
+
+    })
+    else {
+      this.afdb.list(`bills/${this.userLib.currentUser.id}`).valueChanges().subscribe(data => {
+        this.allBills = data
+      })
+    }
   }
 }

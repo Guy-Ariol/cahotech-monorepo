@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { appView, paymentSourceEnum } from '../../services/interfaces/interfaces.service';
+import { appView, billType, paymentSourceEnum } from '../../services/interfaces/interfaces.service';
 import { DataService } from '../../services/data/data.service';
 import { UsersService } from '../../services/users/users.service';
 import { UtilsService } from "../../../../../../libs/service/src/lib/utils/utils.service";
 import { HomeService } from '../../services/home/home.service';
 import { UserService } from 'libs/service/src/lib/user/user.service';
-import { homeType, moneyType, userEnum, userType } from '@cahotech-monorepo/interfaces';
+import { consumptionType, homeType, moneyType, userEnum, userType } from '@cahotech-monorepo/interfaces';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -32,6 +32,9 @@ export class AdminComponent implements OnInit {
 
   inputValue?: string;
   optionGroups = [];
+  newBill = {} as billType
+
+  step = 0
 
   constructor(
     public dataprov: DataService,
@@ -108,15 +111,15 @@ export class AdminComponent implements OnInit {
   onLandlordSelected (value: string): void {
     this.isSelection1 = true
 
-    this.getHome()
+    this.getHome(this.newCashBox.sender)
   }
 
-  getHome (): { home: homeType, renter: userType }[] {
+  getHome (userId): { home: homeType, renter: userType }[] {
     let homes = []
     let homesIds = []
 
     try {
-      homesIds = this.userLib.allUsers.find(user => user.id == this.newCashBox.sender).homesID
+      homesIds = this.userLib.allUsers.find(user => user.id == userId).homesID
     } catch (error) {
 
     }
@@ -171,7 +174,7 @@ export class AdminComponent implements OnInit {
         .then(() => {
           this.homeProv.updateMoneyTransaction(this.newCashBox)
           this.isNew = false
-          this.toastr.success('Terminé', )
+          this.toastr.success('Terminé',)
         })
         .catch(error => {
           console.log(error);
@@ -186,7 +189,6 @@ export class AdminComponent implements OnInit {
 
   getTransactionSenderName (trans) {
     if (trans) {
-
       let sender = this.userLib.allUsers.find(user => user.id == (this.homeProv.getTransactionDetails(trans).sender))
       return sender?.lastName + ' ' + sender?.firstName
     }
@@ -201,5 +203,66 @@ export class AdminComponent implements OnInit {
 
   getRenterTransactions () {
     return this.homeProv.allTransactions.filter(trans => this.userLib.getUserbyId(this.homeProv.getTransactionDetails(trans).sender).type == userEnum.renter)
+  }
+
+  placeSelected (place) {
+    console.log(place);
+
+    this.newBill.temp = place
+    // console.log(this.newBill.temp)
+
+    this.step = 1
+  }
+
+  loadHomes () {
+    this.step = 2
+  }
+
+  dateChanged (date) {
+    this.newBill.timeStamp = new Date(date).getTime()
+  }
+
+  addConsumption () {
+    console.log(this.newBill)
+
+    let conso: consumptionType = {
+      electricity: this.newBill.electricity,
+      water: this.newBill.water,
+      timeStamp: this.newBill.timeStamp,
+      workerId: ''
+    }
+
+    let home = this.homeProv.allHomes.find(home => home.id == this.newBill.home)
+
+    try {
+      home.consumption.push(conso)
+    } catch (error) {
+      home['consumption'] = [conso]
+    }
+
+    this.homeProv.updateHome(home)
+    this.createBill()
+  }
+
+  updateConfig (ea, wa) {
+    console.log(ea, wa);
+
+  }
+
+  createBill () {
+    let home = this.homeProv.getHomeById(this.newBill.home)
+
+    let bill = {
+      timeStamp: this.newBill.timeStamp,
+      rent: home.cost["Tarif mensuel"],
+      water: this.newBill.water,
+      electricity: this.newBill.electricity,
+      receiver: this.userProv.getRenterbyHomeID(this.newBill.home).id
+    }
+
+    this.homeProv.createBill(bill)
+    this.toastr.success('Terminé',)
+
+    this.isNew = false
   }
 }

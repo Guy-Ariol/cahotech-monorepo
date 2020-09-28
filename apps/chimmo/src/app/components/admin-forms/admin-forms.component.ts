@@ -245,7 +245,8 @@ export class AdminFormsComponent implements OnInit {
           timeStamp: Date.now(),
           landLord: [{ Id: this.controlArray[3].value, renterId: '' }],
           doc: [],
-          reparations: []
+          reparations: [],
+          consumption: []
         }
         // console.log(newHome)
 
