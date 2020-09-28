@@ -52,7 +52,7 @@ import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTagModule } from 'ng-zorro-antd/tag';
-
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 registerLocaleData(fr);
 
@@ -105,7 +105,7 @@ const firebaseConfig = {
     NzCheckboxModule,
     AppRoutingModule,
     NzIconModule.forRoot(icons),
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({positionClass: 'bottom_center'}),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
@@ -114,7 +114,8 @@ const firebaseConfig = {
     NzPageHeaderModule,
     NzTabsModule,
     NzSelectModule,
-    NzTagModule
+    NzTagModule,
+    NzMessageModule
   ],
 
   providers: [{ provide: NZ_I18N, useValue: fr_FR }, EventEmitter],

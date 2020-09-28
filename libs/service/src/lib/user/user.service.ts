@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFireDatabase } from "@angular/fire/database";
 import { EventEmitter } from 'events';
-import { userType } from "@cahotech-monorepo/interfaces";
+import { userEnum, userType } from "@cahotech-monorepo/interfaces";
 import { UtilsService } from '../utils/utils.service';
 
 @Injectable({
@@ -39,10 +39,18 @@ export class UserService {
   * sign out from the app
   * @memberof UserService
   */
-  signOut () {
-    this.fbAuth.signOut()
+  signOut (localName) {
+    localStorage.removeItem(localName)
+
+    if (this.currentUser.type == userEnum.admin) {
+      this.event.emit('logged out', true)
+    }
+    else {
+      this.fbAuth.signOut()
+    }
     this.currentUser = null
     this.currentWorker = null
+
   }
 
   /**
@@ -201,7 +209,11 @@ export class UserService {
   }
 
 
-  emitEvent(name, param){
+  emitEvent (name, param) {
     this.event.emit(name, param)
+  }
+
+  getUserbyId (userId):userType {
+    return this.allUsers.find(user => user.id == userId)
   }
 }

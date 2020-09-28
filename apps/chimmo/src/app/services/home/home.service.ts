@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { EventEmitter } from 'events';
-import { houseType, homeType } from 'libs/interfaces/src/lib/interfaces';
+import { houseType, homeType, moneyType } from 'libs/interfaces/src/lib/interfaces';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { repairType, requestType } from '../interfaces/interfaces.service';
 
@@ -14,6 +14,8 @@ export class HomeService {
   allHomes: homeType[] = []
   allReparations: repairType[] = []
   allRequests: requestType[] = []
+
+  allTransactions: moneyType[] = []
 
   currentHome: homeType = null
 
@@ -155,9 +157,36 @@ export class HomeService {
     })
   }
 
-  updateMoneyTransaction (trans) {
-    this.afdb.object(`money/${trans.id}`).update(trans)
-    .then()
-    .catch(error => console.log(error))
+  updateMoneyTransaction (trans: moneyType) {
+    this.afdb.object(`money/${trans.sender}/${trans.id}`).update(trans)
+      .then()
+      .catch(error => console.log(error))
+  }
+
+  subscribeTransactions (all: boolean) {
+    if (all) {
+      this.afdb.list('money').valueChanges().subscribe((data: moneyType[]) => {
+        this.allTransactions = data
+      })
+    }
+    else {
+      this.afdb.list(`money/${this.userLib.currentUser.id}`).valueChanges().subscribe((data: moneyType[]) => {
+        this.allTransactions = data
+      })
+    }
+  }
+
+  getTransactionDetails (transaction): moneyType {
+    for (let attr in transaction) {
+      return transaction[attr]
+    }
+  }
+
+  getSubTransactionDetails (transaction): moneyType[] {
+    let out = []
+    for (let trans in transaction) {
+      out.push(transaction[trans])
+    }
+    return out
   }
 }

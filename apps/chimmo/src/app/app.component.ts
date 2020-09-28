@@ -56,6 +56,7 @@ export class AppComponent {
     this.homeProv.subscribeAllHouses()
     this.homeProv.subscribeReparations()
     this.homeProv.subscribeRequests()
+    this.homeProv.subscribeTransactions(true)
 
     //TODO changed to 4s instead of 1s
     setTimeout(() => {
@@ -85,6 +86,7 @@ export class AppComponent {
     */
   onLoginChanged () {
     this.event.on('logged in', userId => {
+      console.log('logged in');
 
       this.userLib.subscribeUser(userId)
       localStorage.setItem('chimmo-user', this.userLib.currentUser?.id)
@@ -127,9 +129,10 @@ export class AppComponent {
     })
 
     this.event.on('logged out', (results) => {
+      console.log('logged out');
 
       if (results) this.zone.run(() => {
-        this.router.navigate(['/home'])
+        this.router.navigate(['/'])
       })
     })
   }

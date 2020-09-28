@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { appView, moneyType, paymentSourceEnum } from '../../services/interfaces/interfaces.service';
+import { appView, paymentSourceEnum } from '../../services/interfaces/interfaces.service';
 import { DataService } from '../../services/data/data.service';
 import { UsersService } from '../../services/users/users.service';
 import { UtilsService } from "../../../../../../libs/service/src/lib/utils/utils.service";
 import { HomeService } from '../../services/home/home.service';
 import { UserService } from 'libs/service/src/lib/user/user.service';
-import { homeType, userEnum, userType } from '@cahotech-monorepo/interfaces';
+import { homeType, moneyType, userEnum, userType } from '@cahotech-monorepo/interfaces';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'cahotech-monorepo-admin',
@@ -27,7 +28,7 @@ export class AdminComponent implements OnInit {
 
   isSelection1 = false
 
-  newCashBox: moneyType = { sender: '', worker: '', home: '', renter: '', sum: '', source: '', app: this.dataprov.appName, id: '', timeStamp: 0, receiver: '' }
+  newCashBox: moneyType = { sender: '', worker: '', home: '', renter: '', sum: null, source: '', app: this.dataprov.appName, id: '', timeStamp: 0, receiver: '', note: '' }
 
   inputValue?: string;
   optionGroups = [];
@@ -36,14 +37,14 @@ export class AdminComponent implements OnInit {
     public dataprov: DataService,
     public userProv: UsersService,
     public utilsProv: UtilsService,
-    private homeProv: HomeService,
-    public userLib: UserService
+    public homeProv: HomeService,
+    public userLib: UserService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit (): void {
     this.homeProv.subscribeAllHouses()
     this.homeProv.subscribeAllHomes()
-
   }
 
 
@@ -128,7 +129,6 @@ export class AdminComponent implements OnInit {
     })
 
     this.optionGroups = homes
-    console.log(this.optionGroups)
 
     return homes
   }
@@ -142,7 +142,7 @@ export class AdminComponent implements OnInit {
   }
 
   onChange (value: string): void {
-    console.log(value);
+    this.newCashBox.home = value
   }
 
   getPaymentSourceList () {
@@ -154,22 +154,45 @@ export class AdminComponent implements OnInit {
     return out
   }
 
-  addCash () {
+  addCash (type) {
     this.newCashBox.id = this.homeProv.createPushKey()
     this.newCashBox.timeStamp = Date.now()
+    if (type == 'out') this.newCashBox.sum = this.newCashBox.sum * -1
 
     let sender = this.userLib.allUsers.find(user => user.id == this.newCashBox.sender)
+
     if (sender) {
       sender.saldo = + this.newCashBox.sum
       this.userLib.updateUser(sender)
         .then(() => {
-
-         })
+          this.homeProv.updateMoneyTransaction(this.newCashBox)
+          this.isNew = false
+          this.toastr.success('Terminé', )
+        })
         .catch(error => {
           console.log(error);
 
         })
     }
-    else { }
+    else {
+      console.log('sender not found');
+
+    }
   }
+
+  getTransactionSenderName (trans) {
+    if (trans) {
+
+      let sender = this.userLib.allUsers.find(user => user.id == (this.homeProv.getTransactionDetails(trans).sender))
+      return sender?.lastName + ' ' + sender?.firstName
+    }
+    else {
+      return {}
+    }
+  }
+
+  getLandLordTransactions () {
+    return this.homeProv.allTransactions.filter(trans => this.userLib.getUserbyId(this.homeProv.getTransactionDetails(trans).sender).type == userEnum.landlord)
+  }
+
 }

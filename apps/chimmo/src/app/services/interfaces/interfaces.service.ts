@@ -4,7 +4,7 @@
 // export enum renterView { home, bill, issue, repair, saldo, account, none }
 
 /** */
-export enum appView { renter, house, bill, issue, repair, saldo, landlord, home, MoneyIn, MoneyIn2, discount, none, config, account, mainMenuClosed, document }
+export enum appView { renter, house, bill, issue, repair, saldo, landlord, home, MoneyIn, MoneyIn2, discount, none, config, account, mainMenuClosed, document, logout }
 
 /** */
 export enum houseEquipmentEnum { 'Piscine', 'Forage', 'Parking', 'Instincteur', 'Gardienage', 'Ascenceur', 'Vidéo surveillance', 'Groupe électrogène', 'Espace jeux enfants' }
@@ -20,5 +20,3 @@ export interface repairType { department: repairEnum, description: string, doc: 
 export interface requestType { reporterId: string, description: string, timeStamp: number, type: any, id: string, status: 'processing' | 'warning' | 'success' | 'error' }
 
 export enum paymentSourceEnum {'Cash', 'Mobile Money', 'Dépôt bancaire'}
-
-export interface moneyType { sender: string, worker: string, home?: string, renter?: string, sum: string, source: string, app: string, id: string, timeStamp: number, receiver: string }

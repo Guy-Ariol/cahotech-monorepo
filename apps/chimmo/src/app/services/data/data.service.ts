@@ -208,6 +208,12 @@ export class DataService {
         iconOn: 'assets/imgs/setting-on.svg',
         iconOff: 'assets/imgs/setting.svg',
         nav: appView.config
+      },
+      {
+        name: 'Logout',
+        iconOn: 'assets/imgs/logout-on.svg',
+        iconOff: 'assets/imgs/logout.svg',
+        nav: appView.logout
       }
     ]
 

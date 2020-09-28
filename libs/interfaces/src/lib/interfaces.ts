@@ -205,5 +205,8 @@ export interface roomCostType { Caution: number, 'Tarif mensuel': number, 'Monta
 /** */
 export enum docEnum {"État des lieux", Facture, Contrat}
 
+export interface moneyType { sender: string, worker: string, home?: string, renter?: string, sum: number, source: string, app: string, id: string, timeStamp: number, receiver: string, note: string }
+
+
 
 
