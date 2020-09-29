@@ -98,9 +98,11 @@ export class AdminGenericListingComponent implements OnInit {
   getRenterList (landLord: userType) {
     let list: userType[] = []
 
+    if (landLord.rentersID) {
       for (let renter of landLord.rentersID) {
         list.push(this.userLib.allUsers.find(user => user.id == renter))
       }
+    }
 
     return list
   }
@@ -137,7 +139,7 @@ export class AdminGenericListingComponent implements OnInit {
       const landLord = this.userLib.allUsers.find(el => el.id == user.id)
 
       try {
-        landLord.rentersID.splice(landLord.rentersID.indexOf(user.id),1)
+        landLord.rentersID.splice(landLord.rentersID.indexOf(user.id), 1)
       } catch (error) {
 
       }
@@ -149,7 +151,7 @@ export class AdminGenericListingComponent implements OnInit {
               setTimeout(() => {
                 this.refreshData()
                 this.utilsProv.stopSpinner()
-                this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+                this.utilsProv.showToast('info', 'Opération réussi', '', 'toast-top-center')
 
               }, 1000);
 
@@ -170,7 +172,7 @@ export class AdminGenericListingComponent implements OnInit {
           setTimeout(() => {
             this.refreshData()
             this.utilsProv.stopSpinner()
-            this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+            this.utilsProv.showToast('info', 'Opération réussi', '', 'toast-top-center')
 
           }, 1000);
 
@@ -204,7 +206,7 @@ export class AdminGenericListingComponent implements OnInit {
               .then(() => {
                 this.refreshData()
                 this.utilsProv.stopSpinner()
-                this.utilsProv.showToast('success', 'Opération réussie', '', 'toast-top-center')
+                this.utilsProv.showToast('info', 'Opération réussie', '', 'toast-top-center')
               })
               .catch(error => {
                 console.log(error);
@@ -243,7 +245,7 @@ export class AdminGenericListingComponent implements OnInit {
             .then(() => {
               this.refreshData()
               this.utilsProv.stopSpinner()
-              this.utilsProv.showToast('success', 'Opération réussie', '', 'toast-top-center')
+              this.utilsProv.showToast('info', 'Opération réussie', '', 'toast-top-center')
             })
         }
         else {

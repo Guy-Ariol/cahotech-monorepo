@@ -68,7 +68,7 @@ export class SuperAdminComponent implements OnInit {
       this.userLib.updateUser(user)
         .then(() => {
           this.utils.stopSpinner()
-          this.utils.showToast('success', 'Le super admin a été crée.', 'Créer super admin', 'toast-top-center')
+          this.utils.showToast('info', 'Le super admin a été crée.', 'Créer super admin', 'toast-top-center')
           this.currentView = view.menu
         })
         .catch(error => {

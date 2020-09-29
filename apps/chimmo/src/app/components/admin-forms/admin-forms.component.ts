@@ -175,7 +175,7 @@ export class AdminFormsComponent implements OnInit {
               this.done.emit()
               this.resetForm()
               this.utilsProv.stopSpinner()
-              this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+              this.utilsProv.showToast('info', 'Opération réussi', '', 'toast-top-center')
             })
             .catch(error => {
               console.log(error);
@@ -188,10 +188,11 @@ export class AdminFormsComponent implements OnInit {
               this.done.emit()
               this.resetForm()
               this.utilsProv.stopSpinner()
-              this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+              this.utilsProv.showToast('info', 'Opération réussi', '', 'toast-top-center')
             })
             .catch(error => {
               console.log(error);
+              this.utilsProv.showToast('error', error.message, '', 'toast-top-center', 6000)
               this.utilsProv.stopSpinner()
             })
         }
@@ -200,7 +201,7 @@ export class AdminFormsComponent implements OnInit {
 
       else if (this.currentView == this.view.renter) {
         user.type = userEnum.renter
-        user.adminPass = this.utilsProv.randomId(6)
+        user.adminPass = this.utilsProv.randomId(4)
         user.landlordId = this.controlArray.find(c => c.title == 'Bailleur*').value
         user.homesID = []
 
@@ -219,7 +220,7 @@ export class AdminFormsComponent implements OnInit {
             this.done.emit()
             this.resetForm()
             this.utilsProv.stopSpinner()
-            this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+            this.utilsProv.showToast('info', 'Opération réussi', '', 'toast-top-center')
           })
           .catch(error => {
             console.log(error);
@@ -280,7 +281,7 @@ export class AdminFormsComponent implements OnInit {
                       this.done.emit()
                       this.resetForm()
                       this.utilsProv.stopSpinner()
-                      this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+                      this.utilsProv.showToast('info', 'Opération réussi', '', 'toast-top-center')
                     })
                     .catch(error => {
                       console.log(error);
@@ -325,7 +326,7 @@ export class AdminFormsComponent implements OnInit {
                 this.done.emit()
                 this.resetForm()
                 this.utilsProv.stopSpinner()
-                this.utilsProv.showToast('success', 'Opération réussi', '', 'toast-top-center')
+                this.utilsProv.showToast('info', 'Opération réussi', '', 'toast-top-center')
 
                 setTimeout(() => {
                   this.refreshInputData()

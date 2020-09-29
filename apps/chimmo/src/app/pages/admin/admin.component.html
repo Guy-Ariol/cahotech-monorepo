@@ -7,7 +7,7 @@
     <div class="content" *ngIf="!dataprov.showTopMenu">
 
       <div class="new-standard" *ngIf="[view.landlord, view.renter, view.house, view.home].includes(currentView)">
-        <h1 style="text-align: center;">{{currentTitle}}</h1>
+        <h1 style="text-align: center; color: #686565;">{{currentTitle}}</h1>
 
         <div *ngIf="!isNew && !isEdit">
           <admin-generic-listing (showForm)="isNew = true" (editUser)="editUser($event)" [currentView]="currentView">

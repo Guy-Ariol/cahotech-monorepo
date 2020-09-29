@@ -3,7 +3,7 @@
     <tr class="flex top-bar">
       <td class="search-bar" *ngIf="userLib.allUsers?.length">
         <nz-input-group [nzSuffix]="suffixTemplate">
-          <input nz-input placeholder="cherche par nom" (input)="search($event.target.value)" />
+          <input nz-input placeholder="chercher par nom" (input)="search($event.target.value)" />
         </nz-input-group>
 
         <ng-template #suffixTemplate>
@@ -19,6 +19,7 @@
     </tr>
 
     <div class="user-list">
+      <br>
       <div *ngFor="let element of displayList.reverse(); let index=index">
         <div *ngIf="(element.type==0 && currentView==view.landlord) || (element.type==1 && currentView==view.renter)">
           <h3><b>{{element.lastName}} {{element.firstName}}</b></h3>
