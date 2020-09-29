@@ -35,7 +35,7 @@ export class LandlordComponent implements OnInit {
 
     // setting the right context. Especially usefull when browsing back
     this.route.queryParams.subscribe(params => {
-      this.currentView = params.view
+      this.currentView = parseInt(params.view)
       this.scrollToTop()
     })
   }

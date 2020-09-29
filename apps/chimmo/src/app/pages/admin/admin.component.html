@@ -5,12 +5,13 @@
     </app-header>
 
     <div class="content" *ngIf="!dataprov.showTopMenu">
-
-      <div class="new-standard" *ngIf="[view.landlord, view.renter, view.house, view.home].includes(currentView)">
+      <div class="new-standard"
+        *ngIf="currentView==view.landlord||currentView ==view.renter|| currentView== view.house|| currentView==view.home">
         <h1 style="text-align: center; color: #686565;">{{currentTitle}}</h1>
 
         <div *ngIf="!isNew && !isEdit">
-          <admin-generic-listing (showForm)="isNew = true; changeTitle()" (editUser)="editUser($event)" [currentView]="currentView" (add)="addAction()">
+          <admin-generic-listing (showForm)="isNew = true; changeTitle()" (editUser)="editUser($event)"
+            [currentView]="currentView" (add)="addAction()">
           </admin-generic-listing>
         </div>
 

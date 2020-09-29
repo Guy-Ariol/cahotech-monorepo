@@ -60,13 +60,12 @@
           </div>
 
           <p style="padding-top: 25px; text-align: center;">
-            <button class="add-btn" (click)="add.emit()" nz-button nzType="primary" *ngIf="currentView==view.landlord" >
+            <button class="add-btn" (click)="add.emit()" nz-button nzType="primary" *ngIf="currentView==view.landlord">
               <i nz-icon nzType="plus"></i>
               {{getActionName()}}
             </button>
 
-            <button class="edit-btn" (click)="editUser.emit({user: element, index:index})" nz-button
-              nzType="primary">
+            <button class="edit-btn" (click)="editUser.emit({user: element, index:index})" nz-button nzType="primary">
               <i nz-icon nzType="edit"></i>
             </button>
 
@@ -108,16 +107,18 @@
               <!-- <span class="edit-btn" (click)="editUser.emit({house: element, index:index})">Modifier</span>
                 <span class="delete-btn" (click)="deleteHouse(element)">Supprimer</span> -->
 
-              <button class="edit-btn" (click)="add.emit()" nz-button nzType="primary">{{getActionName()}}
+              <button class="add-btn" (click)="add.emit()" nz-button nzType="primary">
+                <i nz-icon nzType="plus"></i>{{getActionName()}}
               </button>
 
               <button class="edit-btn" (click)="editUser.emit({house: element, index:index})" nz-button
-                nzType="primary">Modifier
+                nzType="primary">
+                <i nz-icon nzType="edit"></i>
               </button>
 
               <button nz-popconfirm nzPopconfirmTitle="Éffacer définitevement ?" (nzOnConfirm)="deleteHouse(element)"
                 (nzOnCancel)="1" nzPopconfirmPlacement="top" nz-button nzType="danger" class="delete-btn">
-                Supprimer
+                <i nz-icon nzType="delete"></i>
               </button>
             </p>
             <hr>
@@ -137,7 +138,7 @@
               {{getUserDetails2(item.locat)}} </p>
 
             <nz-collapse style="padding-top: 0; margin: 0;" nzBordered="false">
-              <nz-collapse-panel style="padding-top: 0; margin: 0;" [nzHeader]="element.rooms.length+' Pièces ...'"
+              <nz-collapse-panel style="padding-top: 0; margin: 0;" [nzHeader]="element.rooms?.length+' Pièces ...'"
                 [nzActive]="false">
 
                 <p *ngFor="let room of element.rooms; let index=index">
@@ -159,7 +160,7 @@
 
           </div>
 
-          <p style="padding-top: 25px; padding-bottom: 35px;">
+          <p style="padding-top: 25px; padding-bottom: 35px; text-align: center;">
             <button class="edit-btn" (click)="editUser.emit({user: element, index:index})" nz-button
               nzType="primary">Modifier
             </button>

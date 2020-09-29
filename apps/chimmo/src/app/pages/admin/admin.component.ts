@@ -7,6 +7,7 @@ import { HomeService } from '../../services/home/home.service';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { billType, consumptionType, homeType, moneyType, userEnum, userType } from '@cahotech-monorepo/interfaces';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'cahotech-monorepo-admin',
@@ -15,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AdminComponent implements OnInit {
 
-  currentView = appView.none
+  currentView: appView
   view = appView
   currentTitle = 'Selectioner un menu'
 
@@ -42,12 +43,24 @@ export class AdminComponent implements OnInit {
     public utilsProv: UtilsService,
     public homeProv: HomeService,
     public userLib: UserService,
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+    private route: ActivatedRoute,
+    private router: Router,
+
+  ) {
+
+  }
 
   ngOnInit (): void {
-    this.homeProv.subscribeAllHouses()
-    this.homeProv.subscribeAllHomes()
+    // this.homeProv.subscribeAllHouses()
+    // this.homeProv.subscribeAllHomes()
+
+    // setting the right context. Especially usefull when browsing back
+    this.route.queryParams.subscribe(params => {
+      this.currentView = parseInt(params.view)
+
+      this.topMenuSelected(this.currentView)
+    })
   }
 
 
@@ -55,6 +68,7 @@ export class AdminComponent implements OnInit {
     this.controlArray = []
     // this.toogleMenu()
     this.currentView = menu
+    this.router.navigate(['/admin'], { queryParams: { view: menu } })
 
     if (menu == this.view.landlord) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Gestion bailleurs' }
     else if (menu == this.view.renter) { this.controlArray = this.dataprov.newRenterForm; this.currentTitle = 'Gestion locataires' }
@@ -62,6 +76,7 @@ export class AdminComponent implements OnInit {
     else if (menu == this.view.home) { this.controlArray = this.dataprov.newHome; this.currentTitle = 'Gestion logements' }
     else if (menu == this.view.MoneyIn) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Caisse bailleur' }
     else if (menu == this.view.MoneyIn2) { this.controlArray = this.dataprov.newLandlordForm; this.currentTitle = 'Caisse locataire' }
+
   }
 
   /** */
@@ -286,6 +301,7 @@ export class AdminComponent implements OnInit {
     if (this.currentView == this.view.house) this.currentTitle = 'Nouvelle résidence'
     else if (this.currentView == this.view.landlord) this.currentTitle = 'Nouveau bailleur'
     else if (this.currentView == this.view.renter) this.currentTitle = 'Nouveau locataire'
+    else if (this.currentView == this.view.home) this.currentTitle = 'Nouveau logement'
   }
 
   resetTitle () {
@@ -302,5 +318,9 @@ export class AdminComponent implements OnInit {
     this.topMenuSelected(targetMenu)
     this.changeTitle()
     this.isNew = true
+
+    setTimeout(() => {
+      window.scrollTo({ top: 1, behavior: 'smooth' })
+    }, 100);
   }
 }

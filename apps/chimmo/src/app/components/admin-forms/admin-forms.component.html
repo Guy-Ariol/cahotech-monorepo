@@ -80,11 +80,10 @@
               [class]="control.error ? 'validation-error' : ''" />
 
             <nz-autocomplete #auto3>
-              <nz-auto-option *ngFor="let option of autocompleteList3"
-                [nzValue]="[view.home].includes(currentView)? option.id :  option"
-                [nzLabel]="[view.home].includes(currentView)? option.lastName+' '+ option.firstName : currentView==view.renter? option.name : option">
+              <nz-auto-option *ngFor="let option of autocompleteList3" [nzValue]=" option.id"
+                [nzLabel]=" option.lastName+' '+ option.firstName">
 
-                <p *ngIf="[view.home].includes(currentView)">{{ option.lastName }} {{option.firstName}}
+                <p>{{ option.lastName }} {{option.firstName}}
                   <br>
                   <span style="color: gray; padding-left: 25px;">{{ option.email }}</span>
                 </p>
@@ -108,131 +107,130 @@
 
         <div *ngIf="control.type=='phone'">
           {{control.title}}
-          <tr style="display: flex;">
-            <input nz-input style="width: 80px; margin-right: 3px;" [(ngModel)]="telCode"  />
+  <tr style="display: flex;">
+    <input nz-input style="width: 80px; margin-right: 3px;" [(ngModel)]="telCode" />
 
-            <input nz-input placeholder="" [(ngModel)]="control.value" [class]="control.error ? 'validation-error' : ''"
-              type="number" [id]="control.id ? control.id : control.index"
-              [placeholder]="control.error ? 'Verifier cette entrée' : ''" />
-          </tr>
-
-        </div>
-
-        <div class="add-homes" *ngIf="control.title=='Pièces*'">
-          <div class="action-btn" (click)="addRoom()">
-            <span>+</span>
-          </div>
-
-          <p style="padding-top: 15px; font-weight: bold;">{{control.title}} </p>
-
-          <div class="new-room">
-            <div *ngFor="let room of rooms; let index=index">
-
-              <p style="color: brown;">Pièce Nr. {{index+1}} </p>
-              <hr>
-
-              Type de la pièce
-              <input nz-input [nzAutocomplete]="typeRoom" style="font-size: 15px;" [(ngModel)]="room.type"
-                (ngModelChange)="filterInput('', $event)" [class]="control.error ? 'validation-error' : ''" />
-
-              <nz-autocomplete #typeRoom>
-                <nz-auto-option *ngFor="let option of getRoomTypeList()" [nzLabel]="option" [nzValue]="option">
-                  <p>{{ option}} </p>
-                </nz-auto-option>
-              </nz-autocomplete>
-
-              <div style="padding-top: 10px;"></div>
-              Superficie de la pièce
-              <input nz-input type="number" [(ngModel)]="room.surface">
-
-              Équipements de la pièce
-              <nz-checkbox-wrapper style="padding-top: 15px; padding-bottom: 15px;" (nzOnChange)="room.equipment=$event"
-                [class]="control.error ? 'validation-error' : ''">
-                <div nz-row>
-                  <div nz-col nzSpan="12" *ngFor="let option of getRoomEquipmentList()">
-                    <label nz-checkbox [nzValue]="option">{{option}}</label>
-                  </div>
-                </div>
-              </nz-checkbox-wrapper>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </td>
-
-    <td class="summary" *ngIf="controlArray.length && showSummary">
-      <h1 style="text-align: center;">Résumé</h1>
-      <br>
-
-      <div *ngFor="let control of controlArray">
-        <div nz-row style="padding-left: 25px;">
-          <div nz-col nzSpan="8" style="min-width: 120px; max-width: 150px;">
-            <p><b>{{control.title}}:</b> </p>
-          </div>
-
-          <div nz-col style="padding-left: 12px; width: 60%;">
-            <div *ngIf="control.type == 'date-range' && control.value">
-              <p>{{control?.value[0] | date:'d/MM/yyy'}} - {{control?.value[1] | date:'d/MM/yyy'}} </p>
-            </div>
-
-            <div *ngIf="control.title == 'Bailleur'">
-              <p><u>Nom:</u> {{getUserFullName(control.value)}} </p>
-              <p><u>Email:</u> {{getUserEmail(control.value)}} </p>
-            </div>
-
-            <div *ngIf="control.title=='Adresse'">
-              <p>{{control.value}} </p>
-            </div>
-
-            <div class="summary-checkbox-group" *ngIf="control.type == 'checkbox-group'">
-              <div *ngFor="let item of houseEquipments">{{item}} </div>
-            </div>
-
-            <div
-              *ngIf="!['date-range', 'checkbox-group'].includes(control.type) && !['Bailleur'].includes(control.title)">
-              <span
-                *ngIf="[view.house, view.home].includes(currentView) && ['Proprietaire*', 'Bailleur*'].includes(control.title)">{{getUserFullName(control.value)}}</span>
-              <span *ngIf="currentView==view.house && control.title!='Proprietaire*'">{{control.value}} </span>
-              <span
-                *ngIf="![view.house, view.renter].includes(currentView) && !['Bailleur*', 'Résidence*', 'Pièces*', 'Adresse'].includes(control.title)">{{control.value}}
-              </span>
-              <span *ngIf="control.title=='Résidence*'"> {{getHouseDetails(control.value)?.name}} </span>
-
-              <span
-                *ngIf="currentView==view.renter && control.title=='Logement*'">{{geHomeDetails(control.value)?.name}}
-              </span>
-              <span *ngIf="currentView==view.renter && control.title!='Logement*'">{{control.value}} </span>
-            </div>
-
-            <div *ngIf="![view.house, view.renter, view.landlord, view.home].includes(currentView)">{{control.value}}
-            </div>
-
-            <div *ngIf="control.title=='Pièces*'">
-              <p>Nombre: {{rooms.length}} </p>
-              <div *ngFor="let room of rooms">
-                <b>{{room.type}} </b> <br>
-                <u style="font-size: 12px;">Equip:</u>
-                <div style="padding-left: 8px; font-size: 12px;" *ngFor="let equip of room.equipment">{{equip}} </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div style="text-align: center; padding-bottom: 25px;">
-        <button nz-button nzSize="large" class="submit-form2" (click)="done.emit(); scrollTop()">Annuler</button>
-        <button nz-button nzSize="large" class="submit-form" (click)="submit()">{{!isEdit? 'Valider' : 'Actualiser'}}
-        </button>
-      </div>
-
-    </td>
+    <input nz-input placeholder="" [(ngModel)]="control.value" [class]="control.error ? 'validation-error' : ''"
+      type="number" [id]="control.id ? control.id : control.index"
+      [placeholder]="control.error ? 'Verifier cette entrée' : ''" />
   </tr>
 
-  <div *ngIf="!showSummary" style="text-align: center; margin-bottom: 25px; padding-top: 25px;">
-    <button nz-button nzSize="large" (click)="done.emit(); scrollTop(); ">Annuler</button>
-    <button nz-button nzSize="large" class="new-home-next-btn" nzType="primary" (click)="gotoSummary()">Suivant</button>
+</div>
+
+<div class="add-homes" *ngIf="control.title=='Pièces*'">
+  <div class="action-btn" (click)="addRoom()">
+    <span>+</span>
   </div>
+
+  <p style="padding-top: 15px; font-weight: bold;">{{control.title}} </p>
+
+  <div class="new-room">
+    <div *ngFor="let room of rooms; let index=index">
+
+      <p style="color: brown;">Pièce Nr. {{index+1}} </p>
+      <hr>
+
+      Type de la pièce
+      <input nz-input [nzAutocomplete]="typeRoom" style="font-size: 15px;" [(ngModel)]="room.type"
+        (ngModelChange)="filterInput('', $event)" [class]="control.error ? 'validation-error' : ''" />
+
+      <nz-autocomplete #typeRoom>
+        <nz-auto-option *ngFor="let option of getRoomTypeList()" [nzLabel]="option" [nzValue]="option">
+          <p>{{ option}} </p>
+        </nz-auto-option>
+      </nz-autocomplete>
+
+      <div style="padding-top: 10px;"></div>
+      Superficie de la pièce
+      <input nz-input type="number" [(ngModel)]="room.surface">
+
+      Équipements de la pièce
+      <nz-checkbox-wrapper style="padding-top: 15px; padding-bottom: 15px;" (nzOnChange)="room.equipment=$event"
+        [class]="control.error ? 'validation-error' : ''">
+        <div nz-row>
+          <div nz-col nzSpan="12" *ngFor="let option of getRoomEquipmentList()">
+            <label nz-checkbox [nzValue]="option">{{option}}</label>
+          </div>
+        </div>
+      </nz-checkbox-wrapper>
+    </div>
+
+  </div>
+</div>
+</div>
+</td>
+
+<td class="summary" *ngIf="controlArray.length && showSummary">
+  <h1 style="text-align: center;">Résumé</h1>
+  <br>
+
+  <div *ngFor="let control of controlArray">
+    <div nz-row style="padding-left: 25px;">
+      <div nz-col nzSpan="8" style="min-width: 120px; max-width: 150px;">
+        <p><b>{{control.title}}:</b> </p>
+      </div>
+
+      <div nz-col style="padding-left: 12px; width: 60%;">
+        <div *ngIf="control.type == 'date-range' && control.value">
+          <p>{{control?.value[0] | date:'d/MM/yyy'}} - {{control?.value[1] | date:'d/MM/yyy'}} </p>
+        </div>
+
+        <div *ngIf="control.title == 'Bailleur'">
+          <p><u>Nom:</u> {{getUserFullName(control.value)}} </p>
+          <p><u>Email:</u> {{getUserEmail(control.value)}} </p>
+        </div>
+
+        <div *ngIf="control.title=='Adresse'">
+          <p>{{control.value}} </p>
+        </div>
+
+        <div class="summary-checkbox-group" *ngIf="control.type == 'checkbox-group'">
+          <div *ngFor="let item of houseEquipments">{{item}} </div>
+        </div>
+
+        <div *ngIf="!['date-range', 'checkbox-group'].includes(control.type) && !['Bailleur'].includes(control.title)">
+          <span
+            *ngIf="[view.house, view.home].includes(currentView) && ['Proprietaire*', 'Bailleur*'].includes(control.title)">{{getUserFullName(control.value)}}</span>
+          <span *ngIf="currentView==view.house && control.title!='Proprietaire*'">{{control.value}} </span>
+          <span
+            *ngIf="![view.house, view.renter].includes(currentView) && !['Bailleur*', 'Résidence*', 'Pièces*', 'Adresse'].includes(control.title)">{{control.value}}
+          </span>
+          <span *ngIf="control.title=='Résidence*'"> {{getHouseDetails(control.value)?.name}} </span>
+
+          <span *ngIf="currentView==view.renter && control.title=='Logement*'">{{geHomeDetails(control.value)?.name}}
+          </span>
+          <span *ngIf="currentView==view.renter && control.title!='Logement*'">{{control.value}} </span>
+        </div>
+
+        <div *ngIf="![view.house, view.renter, view.landlord, view.home].includes(currentView)">
+          {{control.value}}
+        </div>
+
+        <div *ngIf="control.title=='Pièces*'">
+          <p>Nombre: {{rooms.length}} </p>
+          <div *ngFor="let room of rooms">
+            <b>{{room.type}} </b> <br>
+            <u style="font-size: 12px;">Equip:</u>
+            <div style="padding-left: 8px; font-size: 12px;" *ngFor="let equip of room.equipment">{{equip}} </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; padding-bottom: 25px;">
+    <button nz-button nzSize="large" class="submit-form2" (click)="done.emit(); scrollTop()">Annuler</button>
+    <button nz-button nzSize="large" class="submit-form" (click)="submit()">{{!isEdit? 'Valider' : 'Actualiser'}}
+    </button>
+  </div>
+
+</td>
+</tr>
+
+<div *ngIf="!showSummary" style="text-align: center; margin-bottom: 25px; padding-top: 25px;">
+  <button nz-button nzSize="large" (click)="done.emit(); scrollTop(); ">Annuler</button>
+  <button nz-button nzSize="large" class="new-home-next-btn" nzType="primary" (click)="gotoSummary()">Suivant</button>
+</div>
 
 </div>

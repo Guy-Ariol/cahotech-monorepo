@@ -15,7 +15,7 @@ import { HomeService } from '../../services/home/home.service';
 export class AdminFormsComponent implements OnInit {
 
   @Input() controlArray: Array<{ title: string, value: any, type: string, index: number, list?: Array<any>, id: string, error: boolean }> = [];
-  @Input() currentView
+  @Input() currentView: appView
   @Input() currentUserIndex
   @Input() isEdit: boolean
   @Input() data
@@ -460,7 +460,7 @@ export class AdminFormsComponent implements OnInit {
       this.utilsProv.stopSpinner()
     }
     else {
-     if(this.controlArray[4]?.type == 'phone') this.controlArray[4].value = this.telCode + this.controlArray[4].value.toString()
+      if (this.controlArray[4]?.type == 'phone') this.controlArray[4].value = this.telCode + this.controlArray[4].value.toString()
 
       this.showSummary = true
 
