@@ -10,13 +10,13 @@
         <h1 style="text-align: center; color: #686565;">{{currentTitle}}</h1>
 
         <div *ngIf="!isNew && !isEdit">
-          <admin-generic-listing (showForm)="isNew = true" (editUser)="editUser($event)" [currentView]="currentView">
+          <admin-generic-listing (showForm)="isNew = true; changeTitle()" (editUser)="editUser($event)" [currentView]="currentView">
           </admin-generic-listing>
         </div>
 
         <div *ngIf="isNew || isEdit">
           <admin-forms [controlArray]="controlArray" [isEdit]="isEdit" [currentUserIndex]="currentUserIndex"
-            [data]="data" [currentView]="currentView" (done)="isEdit= false; isNew = false">
+            [data]="data" [currentView]="currentView" (done)="isEdit= false; isNew = false; resetTitle()">
           </admin-forms>
         </div>
       </div>
@@ -391,6 +391,10 @@
           <!-- <button nz-button>Annuler</button>&nbsp;&nbsp; -->
           <button nz-button nzType="primary" (click)="updateConfig(ea.value, wa.value)">Valider</button>
         </div>
+      </div>
+
+      <div style="padding-top: 40px; text-align: center;" *ngIf="!dataprov.showTopMenu && currentView==view.none">
+        <h1>Choisir un menu</h1>
       </div>
     </div>
 

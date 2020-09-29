@@ -29,6 +29,7 @@ export class AdminFormsComponent implements OnInit {
   rooms: roomType[] = []
 
   showSummary = false
+  telCode = '+'
 
   constructor(
     public userLib: UserService,
@@ -40,11 +41,7 @@ export class AdminFormsComponent implements OnInit {
   ) { }
 
   ngOnInit (): void {
-    // this.event.on('received data from server', () => {
-    //   console.info('admin-formcomponent Listener');
 
-    //   this.refreshInputData()
-    // })
   }
 
 
@@ -463,6 +460,8 @@ export class AdminFormsComponent implements OnInit {
       this.utilsProv.stopSpinner()
     }
     else {
+      this.controlArray[4].value = this.telCode + this.controlArray[4].value.toString()
+
       this.showSummary = true
 
       setTimeout(() => {

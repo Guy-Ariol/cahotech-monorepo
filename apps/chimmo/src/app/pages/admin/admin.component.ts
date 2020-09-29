@@ -281,4 +281,19 @@ export class AdminComponent implements OnInit {
 
     return out
   }
+
+  changeTitle () {
+    if (this.currentView == this.view.house) this.currentTitle = 'Nouvelle résidence'
+    else if (this.currentView == this.view.landlord) this.currentTitle = 'Nouveau bailleur'
+    else if (this.currentView == this.view.renter) this.currentTitle = 'Nouveau locataire'
+  }
+
+  resetTitle () {
+    if (this.currentView == this.view.landlord) { this.currentTitle = 'Gestion bailleurs' }
+    else if (this.currentView == this.view.renter) { this.currentTitle = 'Gestion locataires' }
+    else if (this.currentView == this.view.house) { this.currentTitle = 'Gestion résidences' }
+    else if (this.currentView == this.view.home) { this.currentTitle = 'Gestion logements' }
+    else if (this.currentView == this.view.MoneyIn) { this.currentTitle = 'Caisse bailleur' }
+    else if (this.currentView == this.view.MoneyIn2) { this.currentTitle = 'Caisse locataire' }
+  }
 }

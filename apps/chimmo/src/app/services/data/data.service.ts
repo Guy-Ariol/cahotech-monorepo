@@ -245,7 +245,7 @@ export class DataService {
       },
       {
         title: 'Tel*',
-        type: 'number',
+        type: 'phone',
         value: null,
         index: 4
       }

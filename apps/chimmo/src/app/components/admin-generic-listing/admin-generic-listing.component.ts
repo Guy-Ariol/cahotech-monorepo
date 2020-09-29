@@ -131,6 +131,7 @@ export class AdminGenericListingComponent implements OnInit {
     }
   }
 
+  //TODO also delete user in firebase authenfication
   deleteUser (user: userType) {
     this.utilsProv.startSpinner()
 
