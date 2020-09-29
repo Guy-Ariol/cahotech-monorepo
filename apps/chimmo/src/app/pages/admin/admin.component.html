@@ -10,7 +10,7 @@
         <h1 style="text-align: center; color: #686565;">{{currentTitle}}</h1>
 
         <div *ngIf="!isNew && !isEdit">
-          <admin-generic-listing (showForm)="isNew = true; changeTitle()" (editUser)="editUser($event)" [currentView]="currentView">
+          <admin-generic-listing (showForm)="isNew = true; changeTitle()" (editUser)="editUser($event)" [currentView]="currentView" (add)="addAction()">
           </admin-generic-listing>
         </div>
 

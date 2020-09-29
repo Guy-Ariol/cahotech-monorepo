@@ -296,4 +296,11 @@ export class AdminComponent implements OnInit {
     else if (this.currentView == this.view.MoneyIn) { this.currentTitle = 'Caisse bailleur' }
     else if (this.currentView == this.view.MoneyIn2) { this.currentTitle = 'Caisse locataire' }
   }
+
+  addAction () {
+    let targetMenu = this.currentView == this.view.landlord ? this.view.renter : this.currentView == this.view.house ? this.view.home : ''
+    this.topMenuSelected(targetMenu)
+    this.changeTitle()
+    this.isNew = true
+  }
 }

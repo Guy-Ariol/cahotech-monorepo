@@ -16,6 +16,7 @@ export class AdminGenericListingComponent implements OnInit {
   @Output() showForm = new EventEmitter()
   @Output() editUser = new EventEmitter()
   @Input() currentView
+  @Output() add = new EventEmitter()
 
   view = appView
   displayList = []
@@ -285,4 +286,8 @@ export class AdminGenericListingComponent implements OnInit {
     }
   }
 
+  getActionName(){
+    if(this.currentView==this.view.landlord) return 'Locataire'
+    if (this.currentView == this.view.house) return 'Logement'
+  }
 }

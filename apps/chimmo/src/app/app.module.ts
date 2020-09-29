@@ -22,8 +22,10 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { UiSharedModule } from "@cahotech-monorepo/ui";
 import { GoogleMapsModule } from "../../../../libs/ui/src/lib/google-maps/google-maps.module";
 
-import { LockOutline, UserOutline, PlusOutline, HomeOutline, MenuOutline , PhoneOutline, MailOutline, CameraOutline,
-ArrowLeftOutline} from '@ant-design/icons-angular/icons';
+import {
+  LockOutline, UserOutline, PlusOutline, HomeOutline, MenuOutline, PhoneOutline, MailOutline, CameraOutline,
+  ArrowLeftOutline, DeleteOutline
+} from '@ant-design/icons-angular/icons';
 
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -56,7 +58,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 
 registerLocaleData(fr);
 
-const icons = [LockOutline, UserOutline, PlusOutline, HomeOutline, MenuOutline, PhoneOutline, MailOutline, CameraOutline, ArrowLeftOutline]
+const icons = [LockOutline, UserOutline, PlusOutline, HomeOutline, MenuOutline, PhoneOutline, MailOutline, CameraOutline, ArrowLeftOutline, DeleteOutline]
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZmwKH69f3URXJLAIfCEUfinEyfb5XaT0",
@@ -105,7 +107,7 @@ const firebaseConfig = {
     NzCheckboxModule,
     AppRoutingModule,
     NzIconModule.forRoot(icons),
-    ToastrModule.forRoot({positionClass: 'bottom_center'}),
+    ToastrModule.forRoot({ positionClass: 'bottom_center' }),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,

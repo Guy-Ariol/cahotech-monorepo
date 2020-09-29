@@ -460,7 +460,7 @@ export class AdminFormsComponent implements OnInit {
       this.utilsProv.stopSpinner()
     }
     else {
-      this.controlArray[4].value = this.telCode + this.controlArray[4].value.toString()
+     if(this.controlArray[4]?.type == 'phone') this.controlArray[4].value = this.telCode + this.controlArray[4].value.toString()
 
       this.showSummary = true
 
