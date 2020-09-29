@@ -10,7 +10,7 @@
       <div class="new-standard" *ngIf="[view.landlord, view.renter, view.house, view.home].includes(currentView)">
         <h1>{{currentTitle}}</h1>
 
-        <div *ngIf="!isNew && !isEdit" style="width: 70%;">
+        <div *ngIf="!isNew && !isEdit">
           <admin-generic-listing (showForm)="isNew = true" (editUser)="editUser($event)" [currentView]="currentView">
           </admin-generic-listing>
         </div>
@@ -32,7 +32,7 @@
           <br><br>
 
           <nz-collapse>
-            <nz-collapse-panel *ngFor="let transaction of homeProv.allBills"
+            <nz-collapse-panel *ngFor="let transaction of getLandLordTransactions()"
               [nzHeader]="getTransactionSenderName(transaction)">
               <div *ngFor="let trans of homeProv.getSubTransactionDetails(transaction).reverse()">
                 <div *ngIf="trans.app==dataprov.appName">
@@ -252,9 +252,11 @@
 
       <div class="bill" *ngIf="currentView==view.bill">
         <div *ngIf="!isNew">
+          <h1 style="text-align: center;">Factures</h1>
+
           <button nzType="primary" nz-button (click)="isNew=true">
             <i nz-icon nzType="plus"></i> Ajouter
-          </button>
+          </button><br><br>
 
           <nz-collapse>
             <nz-collapse-panel *ngFor="let transaction of getLandLordTransactions()"

@@ -219,8 +219,6 @@ export class HomeService {
   subscribeBills (all) {
     if (all) this.afdb.list('bills').valueChanges().subscribe(data => {
       this.allBills = data
-      console.log(data);
-
     })
     else {
       this.afdb.list(`bills/${this.userLib.currentUser.id}`).valueChanges().subscribe(data => {
