@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { appView, billType, paymentSourceEnum } from '../../services/interfaces/interfaces.service';
+import { appView, paymentSourceEnum } from '../../services/interfaces/interfaces.service';
 import { DataService } from '../../services/data/data.service';
 import { UsersService } from '../../services/users/users.service';
 import { UtilsService } from "../../../../../../libs/service/src/lib/utils/utils.service";
 import { HomeService } from '../../services/home/home.service';
 import { UserService } from 'libs/service/src/lib/user/user.service';
-import { consumptionType, homeType, moneyType, userEnum, userType } from '@cahotech-monorepo/interfaces';
+import { billType, consumptionType, homeType, moneyType, userEnum, userType } from '@cahotech-monorepo/interfaces';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -32,7 +32,7 @@ export class AdminComponent implements OnInit {
 
   inputValue?: string;
   optionGroups = [];
-  newBill = {} as billType
+  newBill = {} as { temp?: string, house: string, home, landlord: string, water?: number, electricity?: number, timeStamp: number, extra: number, note: string }
 
   step = 0
 
@@ -206,11 +206,7 @@ export class AdminComponent implements OnInit {
   }
 
   placeSelected (place) {
-    console.log(place);
-
     this.newBill.temp = place
-    // console.log(this.newBill.temp)
-
     this.step = 1
   }
 
@@ -229,7 +225,8 @@ export class AdminComponent implements OnInit {
       electricity: this.newBill.electricity,
       water: this.newBill.water,
       timeStamp: this.newBill.timeStamp,
-      workerId: ''
+      workerId: '',
+      id: this.userLib.createPushId()
     }
 
     let home = this.homeProv.allHomes.find(home => home.id == this.newBill.home)
@@ -241,7 +238,7 @@ export class AdminComponent implements OnInit {
     }
 
     this.homeProv.updateHome(home)
-    this.createBill()
+    this.createBill(conso.id)
   }
 
   updateConfig (ea, wa) {
@@ -249,20 +246,39 @@ export class AdminComponent implements OnInit {
 
   }
 
-  createBill () {
+  createBill (consumptionId) {
     let home = this.homeProv.getHomeById(this.newBill.home)
+    let landlord = this.userLib.getUserbyId(this.newBill.landlord)
 
-    let bill = {
+    let bill: billType = {
       timeStamp: this.newBill.timeStamp,
-      rent: home.cost["Tarif mensuel"],
-      water: this.newBill.water,
-      electricity: this.newBill.electricity,
-      receiver: this.userProv.getRenterbyHomeID(this.newBill.home).id
+      rent: parseInt(home.cost["Tarif mensuel"].toString()),
+      waterDiff: this.newBill.water - home.consumption[home.consumption.length - 1]?.water,
+      electricityDiff: this.newBill.electricity - home.consumption[home.consumption.length - 1]?.electricity,
+      receiver: this.userProv.getRenterbyHomeID(this.newBill.home).id,
+      home: this.newBill.home,
+      app: this.dataprov.appName,
+      note: this.newBill.note,
+      extra: this.newBill.extra | 0,
+      consumptionId: consumptionId,
+      waterUnit: landlord.config.water,
+      electricityUnit: landlord.config.electricity
     }
 
     this.homeProv.createBill(bill)
     this.toastr.success('Terminé',)
 
     this.isNew = false
+  }
+
+  getBillReceiverName (bills) {
+    let out = ''
+
+    if (bills) {
+      let user = this.userLib.getUserbyId(this.homeProv.getBillsDetails(bills).receiver)
+      if (user) out = user.lastName + ' ' + user.firstName
+    }
+
+    return out
   }
 }

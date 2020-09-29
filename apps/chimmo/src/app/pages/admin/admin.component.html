@@ -5,10 +5,9 @@
     </app-header>
 
     <div class="content" *ngIf="!dataprov.showTopMenu">
-      <h1 *ngIf="currentView==view.none" style="text-align: center;">{{currentTitle}}</h1>
 
       <div class="new-standard" *ngIf="[view.landlord, view.renter, view.house, view.home].includes(currentView)">
-        <h1>{{currentTitle}}</h1>
+        <h1 style="text-align: center;">{{currentTitle}}</h1>
 
         <div *ngIf="!isNew && !isEdit">
           <admin-generic-listing (showForm)="isNew = true" (editUser)="editUser($event)" [currentView]="currentView">
@@ -259,25 +258,28 @@
           </button><br><br>
 
           <nz-collapse>
-            <nz-collapse-panel *ngFor="let transaction of getLandLordTransactions()"
-              [nzHeader]="getTransactionSenderName(transaction)">
-              <div *ngFor="let trans of homeProv.getSubTransactionDetails(transaction).reverse()">
-                <div *ngIf="trans.app==dataprov.appName">
-                  <p>
-                    <span style="font-size: 16px; font-weight: bold;">{{trans.sum | number:'':'fr'}} fCFA</span>
-                    <span style="float: right;">{{trans.timeStamp | date}}</span>
-                  </p>
+            <nz-collapse-panel *ngFor="let bill of homeProv.allBills" [nzHeader]="getBillReceiverName(bill)">
+              <div *ngFor="let item of homeProv.getSubBillDetails(bill).reverse()">
+                <!-- <div *ngIf="trans.app==dataprov.appName"> -->
 
-                  <p>Employé:
-                    <span
-                      style="float: right; background: gainsboro; border-radius: 15px; padding: 2px 10px">{{trans.source}}
-                    </span>
-                  </p>
+                <p>
+                  <span
+                    style="font-size: 16px; font-weight: bold;">{{(item.rent + item.waterDiff*item.waterUnit + item.electricityDiff*item.electricityUnit + item.extra) | number:'':'fr'}}
+                    fCFA</span>
+                  <span style="float: right; color: brown;">{{item.timeStamp | date}} </span>
+                </p>
 
-                  <p *ngIf="trans.note">Notes: {{trans.note}} </p>
-                </div>
-                <hr>
+                <p>
+                  <span>Eau: {{item.waterDiff | number:'':'fr'}}*{{item.waterUnit}} fCFA</span>
+                  <span style="float: right;">Électricité:
+                    {{item.electricityDiff | number:'':'fr'}}*{{item.electricityUnit}} fCFA</span>
+                </p>
+
+                <p *ngIf="item.extra"> Extra: {{item.extra | number:'':'fr'}} fCFA </p>
+                <p *ngIf="item.note">Note: {{item.note}}</p>
               </div>
+              <hr>
+              <!-- </div> -->
             </nz-collapse-panel>
           </nz-collapse>
         </div>
@@ -350,6 +352,12 @@
 
             Index électricité
             <input style="margin-bottom: 20px;" type="number" nz-input [(ngModel)]="newBill.electricity">
+
+            Extra
+            <input style="margin-bottom: 20px;" type="number" nz-input [(ngModel)]="newBill.extra">
+
+            Note
+            <textarea style="margin-bottom: 20px;" nz-input nzAutosize="true" [(ngModel)]="newBill.note"></textarea>
 
             Mois <br>
             <nz-month-picker [(ngModel)]="newBill.timeStamp" (ngModelChange)="dateChanged($event)"

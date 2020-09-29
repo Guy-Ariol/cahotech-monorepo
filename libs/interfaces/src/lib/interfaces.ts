@@ -72,7 +72,7 @@ export interface userType {
   addres: string
   /** */
   saldo: number,
-  config?: {electricity: number, water: number},
+  config?: { electricity: number, water: number },
 
 
   // chimmo
@@ -171,8 +171,8 @@ export interface homeType {
   houseId: string,
   cost: roomCostType,
   timeStamp: number,
-  landLord: {Id: string, renterId: string}[],
-  doc: {title: string, url: string, type: docEnum}[],
+  landLord: { Id: string, renterId: string }[],
+  doc: { title: string, url: string, type: docEnum }[],
   reparations: string[],
   consumption: consumptionType[],
 }
@@ -205,10 +205,12 @@ export enum roomTypeEnum { chambre, salon, cuisine, douche, magasin, wc, douche_
 export interface roomCostType { Caution: number, 'Tarif mensuel': number, 'Montant prérequis': number }
 
 /** */
-export enum docEnum {"État des lieux", Facture, Contrat}
+export enum docEnum { "État des lieux", Facture, Contrat }
 
 export interface moneyType { sender: string, worker: string, home?: string, renter?: string, sum: number, source: string, app: string, id: string, timeStamp: number, receiver: string, note: string }
 
-export interface consumptionType {electricity: number, water: number, timeStamp: number, workerId: string}
+export interface consumptionType { electricity: number, water: number, timeStamp: number, workerId: string, id: string }
 
-
+export interface billType { timeStamp: number, rent: number, waterDiff: number, electricityDiff: number, receiver: string, home: string, app: string, extra: number, note: string, consumptionId: string,
+  waterUnit: number, electricityUnit: number
+}

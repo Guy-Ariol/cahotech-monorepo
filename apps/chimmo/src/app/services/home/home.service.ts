@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { EventEmitter } from 'events';
-import { houseType, homeType, moneyType } from 'libs/interfaces/src/lib/interfaces';
+import { houseType, homeType, moneyType, billType } from 'libs/interfaces/src/lib/interfaces';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { repairType, requestType } from '../interfaces/interfaces.service';
 
@@ -224,6 +224,21 @@ export class HomeService {
       this.afdb.list(`bills/${this.userLib.currentUser.id}`).valueChanges().subscribe(data => {
         this.allBills = data
       })
+    }
+  }
+
+  getSubBillDetails (bills): billType[] {
+    let out = []
+
+    for (let bill in bills) {
+      out.push(bills[bill])
+    }
+    return out
+  }
+
+  getBillsDetails (bills): billType {
+    for (let attr in bills) {
+      return bills[attr]
     }
   }
 }
