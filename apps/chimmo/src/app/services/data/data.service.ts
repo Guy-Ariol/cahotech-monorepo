@@ -156,12 +156,6 @@ export class DataService {
         nav: appView.landlord
       },
       {
-        name: 'Locataires',
-        iconOn: 'assets/imgs/account-on.svg',
-        iconOff: 'assets/imgs/account.svg',
-        nav: appView.renter
-      },
-      {
         name: 'Résidences',
         iconOn: 'assets/imgs/houses-on.svg',
         iconOff: 'assets/imgs/houses.svg',
@@ -172,6 +166,12 @@ export class DataService {
         iconOn: 'assets/imgs/home-on.svg',
         iconOff: 'assets/imgs/home.svg',
         nav: appView.home
+      },
+      {
+        name: 'Locataires',
+        iconOn: 'assets/imgs/account-on.svg',
+        iconOff: 'assets/imgs/account.svg',
+        nav: appView.renter
       },
       {
         name: 'Bailleur',

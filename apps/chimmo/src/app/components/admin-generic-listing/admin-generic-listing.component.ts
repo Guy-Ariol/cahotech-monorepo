@@ -69,8 +69,8 @@ export class AdminGenericListingComponent implements OnInit {
   /** get user's name from user's id*/
   getUserDetails (userId) {
     if (userId) {
-      const user = this.userLib.allUsers.find(house => house.id == userId)
-      return user.lastName + ' ' + user.firstName + ' / ' + user.email + ' / ' + user.tel
+      let user = this.userLib.allUsers.find(house => house.id == userId)
+      return user ? user.lastName + ' ' + user.firstName + ' / ' + user.email + ' / ' + user.tel : ''
     }
   }
 
