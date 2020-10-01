@@ -272,11 +272,14 @@
                   <span style="float: right; color: brown;">{{item.timeStamp | date}} </span>
                 </p>
 
-                <p>
-                  <span>Eau: {{item.waterDiff | number:'':'fr'}}*{{item.waterUnit}} fCFA</span>
-                  <span style="float: right;">Électricité:
-                    {{item.electricityDiff | number:'':'fr'}}*{{item.electricityUnit}} fCFA</span>
-                </p>
+                <div style="padding-left: 12px;">
+                  <p> Eau: {{item.waterDiff | number:'':'fr'}}*{{item.waterUnit}} = {{(item.waterDiff * item.waterUnit) | number:'':'fr'}}
+                    fCFA</p>
+
+                  <p>Électricité: {{item.electricityDiff | number:'':'fr'}}*{{item.electricityUnit}} =
+                    {{(item.electricityDiff*item.electricityUnit) | number:'':'fr'}} fCFA</p>
+                </div>
+
 
                 <p *ngIf="item.extra"> Extra: {{item.extra | number:'':'fr'}} fCFA </p>
                 <p *ngIf="item.note">Note: {{item.note}}</p>
@@ -295,7 +298,8 @@
           <div *ngIf="[1,2,3].includes(step)">
             Choisir résidence
             <nz-input-group nzSize="small" [nzSuffix]="suffixIcon">
-              <input [(ngModel)]="newBill.house" nz-input (ngModelChange)="houseSelected_NewBill()" [nzAutocomplete]="red" />
+              <input [(ngModel)]="newBill.house" nz-input (ngModelChange)="houseSelected_NewBill()"
+                [nzAutocomplete]="red" />
             </nz-input-group>
 
             <ng-template #suffixIcon>

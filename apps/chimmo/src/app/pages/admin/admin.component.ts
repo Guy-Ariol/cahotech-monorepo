@@ -263,6 +263,9 @@ export class AdminComponent implements OnInit {
     if (!this.newBill.electricity || !this.newBill.water || !this.newBill.timeStamp) {
       this.utilsProv.showToast('error', "Vérifier les champs obligatoires", '', 'toast-top-center')
     }
+    else if (!home.consumption) {
+      this.utilsProv.showToast('error', "La lecture initiale des index eau et électricité n'a pas eté faite !!", '', 'toast-top-center', 6000)
+    }
     else if (this.newBill.water < home.consumption[home.consumption.length - 1]?.water) {
       this.utilsProv.showToast('error', "L'index eau est inférieur au dernier index eau !!", '', 'toast-top-center')
     }
@@ -301,13 +304,14 @@ export class AdminComponent implements OnInit {
       console.log(bill)
 
       this.homeProv.batchUpdate(batch)
-        .then(() => this.utilsProv.showToast('info', "Opération réussi", '', 'toast-top-center'))
+        .then(() => {
+          this.utilsProv.showToast('info', "Opération réussi", '', 'toast-top-center')
+          this.isNew = false
+        })
         .catch(error => {
           console.log(error);
           this.utilsProv.showToast('error', "Une érreur s'est produite, veuillez recommencer S.V.P", '', 'toast-top-center')
         })
-
-      this.isNew = false
     }
   }
 
