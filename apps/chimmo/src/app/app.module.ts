@@ -55,6 +55,8 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 registerLocaleData(fr);
 
@@ -117,7 +119,8 @@ const firebaseConfig = {
     NzTabsModule,
     NzSelectModule,
     NzTagModule,
-    NzMessageModule
+    NzMessageModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
 
   providers: [{ provide: NZ_I18N, useValue: fr_FR }, EventEmitter],

@@ -290,4 +290,5 @@ export class AdminGenericListingComponent implements OnInit {
     if(this.currentView==this.view.landlord) return 'Locataire'
     if (this.currentView == this.view.house) return 'Logement'
   }
+
 }

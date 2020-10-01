@@ -33,7 +33,7 @@ export class AdminComponent implements OnInit {
 
   inputValue?: string;
   optionGroups = [];
-  newBill = {} as { temp?: string, house: string, home, landlord: string, water?: number, electricity?: number, timeStamp: number, extra: number, note: string }
+  newBill = {} as { temp?: string, house: string, home, landlord: string, water?: number, electricity?: number, timeStamp: number, extra: number, note: string, cable: number }
 
   step = 0
 
@@ -111,6 +111,16 @@ export class AdminComponent implements OnInit {
       this.controlArray[0].value = data.house.name
       this.controlArray[1].value = data.house.equipment
       this.controlArray[3].value = data.house.ownerId
+    }
+    else if(appView.home == this.currentView){
+      this.controlArray[0].value = data.home.name
+      this.controlArray[1].value = data.home.type
+      this.controlArray[2].value = data.home.houseId
+      this.controlArray[3].value = data.home.landLord
+      this.controlArray[4].value = data.home.cost.Caution
+      this.controlArray[5].value = data.home.cost["Tarif mensuel"]
+      this.controlArray[6].value = data.home.cost["Montant prérequis"]
+      this.controlArray[7].value = data.home.rooms
     }
   }
 
@@ -277,7 +287,8 @@ export class AdminComponent implements OnInit {
       extra: this.newBill.extra | 0,
       consumptionId: consumptionId,
       waterUnit: landlord.config.water,
-      electricityUnit: landlord.config.electricity
+      electricityUnit: landlord.config.electricity,
+      cable: this.newBill.cable
     }
 
     this.homeProv.createBill(bill)
@@ -311,6 +322,8 @@ export class AdminComponent implements OnInit {
     else if (this.currentView == this.view.home) { this.currentTitle = 'Gestion logements' }
     else if (this.currentView == this.view.MoneyIn) { this.currentTitle = 'Caisse bailleur' }
     else if (this.currentView == this.view.MoneyIn2) { this.currentTitle = 'Caisse locataire' }
+
+    history.back()
   }
 
   addAction () {

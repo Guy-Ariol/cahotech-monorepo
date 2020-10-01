@@ -129,7 +129,7 @@
           <h3>{{element.name}} </h3>
 
           <div class="pl">
-            <p><b><u>Type:</u></b>&nbsp; {{element.type}}</p>
+            <p><b><u>Type:</u></b>&nbsp; {{getHomeType(element.type)}}</p>
             <p><b><u>Résidence: </u></b>&nbsp; {{getHouseName(element.houseId)}} </p>
 
             <p style="margin-bottom: 5px;"><b><u>Bailleurs/Locataires</u></b> </p>
@@ -161,7 +161,7 @@
           </div>
 
           <p style="padding-top: 25px; padding-bottom: 35px; text-align: center;">
-            <button class="edit-btn" (click)="editUser.emit({user: element, index:index})" nz-button
+            <button class="edit-btn" (click)="editUser.emit({home: element, index:index})" nz-button
               nzType="primary">Modifier
             </button>
 

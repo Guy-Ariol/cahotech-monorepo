@@ -14,7 +14,7 @@ import { HomeService } from './services/home/home.service';
 export class AppComponent {
   title = 'chimmo';
   debouncing = false
-  timeout = 4000
+  timeout = 3000
 
   constructor(
     public utilsProv: UtilsService,
@@ -103,7 +103,7 @@ export class AppComponent {
 
         }
 
-        else if (this.userLib.currentUser.type == userEnum.admin) {
+        else if (this.userLib.currentUser?.type == userEnum.admin) {
           this.zone.run(() => {
             this.router.navigate(['/admin'], { queryParams: { view: restore ? currentRouteParam : 11 } })
           })
