@@ -288,14 +288,14 @@
         </div>
 
         <div *ngIf="isNew">
-          ville quartier ou résidence
+          ville quartier
           <google-maps [placeholder]="'ville quartier ou résidence'" (onPlaceAvailable)="placeSelected($event)">
           </google-maps>
 
-          <div *ngIf="[1,2].includes(step)">
+          <div *ngIf="[1,2,3].includes(step)">
             Choisir résidence
             <nz-input-group nzSize="small" [nzSuffix]="suffixIcon">
-              <input [(ngModel)]="newBill.house" nz-input (ngModelChange)="step=2" [nzAutocomplete]="red" />
+              <input [(ngModel)]="newBill.house" nz-input (ngModelChange)="houseSelected_NewBill()" [nzAutocomplete]="red" />
             </nz-input-group>
 
             <ng-template #suffixIcon>
@@ -348,12 +348,12 @@
           <div *ngIf="step==3">
             Locataire
             <input style="margin-bottom: 20px;" type="text" nz-input disabled
-              [value]="userProv.getRenterbyHomeID(newBill.home).lastName +' ' +userProv.getRenterbyHomeID(newBill.home).firstName">
+              [value]="userProv.getRenterbyHomeID(newBill.home)?.lastName +' ' +userProv.getRenterbyHomeID(newBill.home)?.firstName">
 
-            Index eau
+            Index eau*
             <input style="margin-bottom: 20px;" type="number" nz-input [(ngModel)]="newBill.water">
 
-            Index électricité
+            Index électricité*
             <input style="margin-bottom: 20px;" type="number" nz-input [(ngModel)]="newBill.electricity">
 
             Cable/Canal Sat
@@ -365,7 +365,7 @@
             Note
             <textarea style="margin-bottom: 20px;" nz-input nzAutosize="true" [(ngModel)]="newBill.note"></textarea>
 
-            Mois <br>
+            Mois* <br>
             <nz-month-picker [(ngModel)]="newBill.timeStamp" (ngModelChange)="dateChanged($event)"
               nzPlaceHolder="Select month">
             </nz-month-picker>
@@ -373,7 +373,7 @@
 
             <div style="text-align: center; padding-top: 35px;">
               <button nz-button (click)="step=0; isNew= false">Annuler</button>&nbsp;&nbsp;
-              <button nz-button nzType="primary" (click)="addConsumption()">Valider</button>
+              <button nz-button nzType="primary" (click)="createBill()">Valider</button>
             </div>
           </div>
         </div>

@@ -244,9 +244,14 @@ export class AdminComponent implements OnInit {
     this.newBill.timeStamp = new Date(date).getTime()
   }
 
-  addConsumption () {
-    console.log(this.newBill)
+  updateConfig (ea, wa) {
+    console.log(ea, wa);
 
+  }
+
+  createBill () {
+    let home = this.homeProv.getHomeById(this.newBill.home)
+    let landlord = this.userLib.getUserbyId(this.newBill.landlord)
     let conso: consumptionType = {
       electricity: this.newBill.electricity,
       water: this.newBill.water,
@@ -255,47 +260,55 @@ export class AdminComponent implements OnInit {
       id: this.userLib.createPushId()
     }
 
-    let home = this.homeProv.allHomes.find(home => home.id == this.newBill.home)
-
-    try {
-      home.consumption.push(conso)
-    } catch (error) {
-      home['consumption'] = [conso]
+    if (!this.newBill.electricity || !this.newBill.water || !this.newBill.timeStamp) {
+      this.utilsProv.showToast('error', "Vérifier les champs obligatoires", '', 'toast-top-center')
     }
-
-    this.homeProv.updateHome(home)
-    this.createBill(conso.id)
-  }
-
-  updateConfig (ea, wa) {
-    console.log(ea, wa);
-
-  }
-
-  createBill (consumptionId) {
-    let home = this.homeProv.getHomeById(this.newBill.home)
-    let landlord = this.userLib.getUserbyId(this.newBill.landlord)
-
-    let bill: billType = {
-      timeStamp: this.newBill.timeStamp,
-      rent: parseInt(home.cost["Tarif mensuel"].toString()),
-      waterDiff: this.newBill.water - home.consumption[home.consumption.length - 1]?.water,
-      electricityDiff: this.newBill.electricity - home.consumption[home.consumption.length - 1]?.electricity,
-      receiver: this.userProv.getRenterbyHomeID(this.newBill.home).id,
-      home: this.newBill.home,
-      app: this.dataprov.appName,
-      note: this.newBill.note,
-      extra: this.newBill.extra | 0,
-      consumptionId: consumptionId,
-      waterUnit: landlord.config.water,
-      electricityUnit: landlord.config.electricity,
-      cable: this.newBill.cable
+    else if (this.newBill.water < home.consumption[home.consumption.length - 1]?.water) {
+      this.utilsProv.showToast('error', "L'index eau est inférieur au dernier index eau !!", '', 'toast-top-center')
     }
+    else if (this.newBill.electricity < home.consumption[home.consumption.length - 1]?.electricity) {
+      this.utilsProv.showToast('error', "L'index électricité est inférieur au dernier index électricité !!", '', 'toast-top-center')
+    }
+    else {
+      let bill: billType = {
+        timeStamp: this.newBill.timeStamp,
+        rent: parseInt(home.cost["Tarif mensuel"].toString()),
+        waterDiff: this.newBill.water - home.consumption[home.consumption.length - 1]?.water,
+        electricityDiff: this.newBill.electricity - home.consumption[home.consumption.length - 1]?.electricity,
+        receiver: this.userProv.getRenterbyHomeID(this.newBill.home).id,
+        home: this.newBill.home,
+        app: this.dataprov.appName,
+        note: this.newBill.note || '',
+        extra: this.newBill.extra | 0,
+        consumptionId: conso.id,
+        waterUnit: landlord.config.water,
+        electricityUnit: landlord.config.electricity,
+        cable: this.newBill.cable | 0,
+        id: this.userLib.createPushId()
+      }
 
-    this.homeProv.createBill(bill)
-    this.toastr.success('Terminé',)
+      try {
+        home.consumption.push(conso)
+      } catch (error) {
+        home['consumption'] = [conso]
+      }
 
-    this.isNew = false
+      let batch = {}
+      batch[`homes/${home.id}`] = home
+      batch[`bills/${bill.receiver}/${bill.id}`] = bill
+
+      console.log(conso)
+      console.log(bill)
+
+      this.homeProv.batchUpdate(batch)
+        .then(() => this.utilsProv.showToast('info', "Opération réussi", '', 'toast-top-center'))
+        .catch(error => {
+          console.log(error);
+          this.utilsProv.showToast('error', "Une érreur s'est produite, veuillez recommencer S.V.P", '', 'toast-top-center')
+        })
+
+      this.isNew = false
+    }
   }
 
   getBillReceiverName (bills) {
@@ -341,5 +354,11 @@ export class AdminComponent implements OnInit {
     setTimeout(() => {
       window.scrollTo({ top: 1, behavior: 'smooth' })
     }, 100);
+  }
+
+  houseSelected_NewBill () {
+    this.step = 2;
+    this.newBill.home = '';
+    this.newBill.landlord = this.homeProv.getHouseDetails(this.newBill.house).ownerId
   }
 }

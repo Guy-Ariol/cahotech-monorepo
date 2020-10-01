@@ -241,4 +241,14 @@ export class HomeService {
       return bills[attr]
     }
   }
+
+  batchUpdate (data): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.afdb.object('/').update(data)
+        .then(() => resolve())
+        .catch(error => reject(error))
+    })
+  }
+
+
 }
