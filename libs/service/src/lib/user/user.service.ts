@@ -20,7 +20,7 @@ export class UserService {
   ontimeAction = true
 
   /** all user beloging to current CEO */
-  myUsers: userType[] = []
+  // myUsers: userType[] = []
 
   /** all users registered */
   allUsers: userType[] = []
@@ -83,7 +83,7 @@ export class UserService {
         this.currentUser = user
 
         if (this.ontimeAction) {
-          this.subscribeMyUser()
+          // this.subscribeMyUser()
           this.ontimeAction = false
         }
 
@@ -97,17 +97,17 @@ export class UserService {
     *
     * @memberof UserService
     */
-  subscribeMyUser () {
-    if (this.currentUser.companyName) {
-      this.afdb.list('users', ref => ref.orderByChild('companyName').equalTo(this.currentUser.companyName)).valueChanges()
-        .subscribe((data: userType[]) => {
-          this.myUsers = data
-        })
-    }
-    else {
-      console.log('My-user subscription failed');
-    }
-  }
+  // subscribeMyUser () {
+  //   if (this.currentUser.type) {
+  //     this.afdb.list('users', ref => ref.orderByChild('companyName').equalTo(this.currentUser.companyName)).valueChanges()
+  //       .subscribe((data: userType[]) => {
+  //         this.myUsers = data
+  //       })
+  //   }
+  //   else {
+  //     console.log('My-user subscription failed');
+  //   }
+  // }
 
   /**
    * sign in to the app

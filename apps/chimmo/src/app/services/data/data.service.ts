@@ -51,15 +51,15 @@ export class DataService {
       },
       {
         name: 'Solde',
-        iconOn: 'assets/imgs/bill-on.svg',
-        iconOff: 'assets/imgs/bill.svg',
-        nav: appView.bill
+        iconOn: 'assets/imgs/cash-check-on.svg',
+        iconOff: 'assets/imgs/cash-check.svg',
+        nav: appView.saldo
       },
       {
         name: 'Réquetes',
-        iconOn: 'assets/imgs/bill-on.svg',
-        iconOff: 'assets/imgs/bill.svg',
-        nav: appView.bill
+        iconOn: 'assets/imgs/flash-on.svg',
+        iconOff: 'assets/imgs/flash.svg',
+        nav: appView.issue
       },
     ]
 
@@ -78,8 +78,8 @@ export class DataService {
       },
       {
         name: 'Locataires',
-        iconOn: 'assets/imgs/account-cash-on.svg',
-        iconOff: 'assets/imgs/account-cash.svg',
+        iconOn: 'assets/imgs/account-on.svg',
+        iconOff: 'assets/imgs/account.svg',
         nav: appView.renter
       },
       {

@@ -212,6 +212,8 @@ export class HomeService {
     let out = []
 
     if (foundindex) {
+      console.log('found index');
+
       for (let attr in this.allTransactions[foundindex]) {
         out.push(this.allTransactions[foundindex][attr])
       }

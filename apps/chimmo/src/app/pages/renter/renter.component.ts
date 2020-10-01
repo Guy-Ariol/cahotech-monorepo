@@ -4,6 +4,9 @@ import { DataService } from '../../services/data/data.service';
 import { appView } from '../../services/interfaces/interfaces.service';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { HomeService } from '../../services/home/home.service';
+import { userEnum } from 'libs/interfaces/src/lib/interfaces';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UsersService } from '../../services/users/users.service';
 
 @Component({
   selector: 'cahotech-monorepo-renter',
@@ -14,34 +17,55 @@ export class RenterComponent implements OnInit {
 
   currentView
   view = appView
+  userEnum = userEnum
 
   constructor(
     public utilsProv: UtilsService,
     public dataprov: DataService,
     public userLib: UserService,
-    public homeProv: HomeService
+    public homeProv: HomeService,
+    private route: ActivatedRoute,
+    private router: Router,
+    public userProv: UsersService
 
-  ) { }
+  ) {
 
-  ngOnInit (): void {
-    setTimeout(() => {
-      // this.userLib.currentUser = this.userLib.allUsers.find(u => u.id == '-MEOR-l1Syt96EDcdUnI')
-    }, 2000);
+    // setting the right context. Especially usefull when browsing back
+    this.route.queryParams.subscribe(params => {
+      this.currentView = parseInt(params.view)
+      this.scrollToTop()
+    })
   }
 
-  // ariol@napata.tech
-  topMenuSelected (menu) {
-    this.currentView = menu
+  ngOnInit (): void {
 
+  }
+
+  scrollToTop () {
     setTimeout(() => {
       window.scrollTo({ top: 1, behavior: 'smooth' })
     }, 100);
   }
 
-  toogleMenu () {
-    // this.currentView = renterView.none
+  // ariol@napata.tech
+  topMenuSelected (menu) {
+    // this.currentView = menu
 
+    // setTimeout(() => {
+    //   window.scrollTo({ top: 1, behavior: 'smooth' })
+    // }, 100);
 
+    if (menu != this.view.none) {
+      this.currentView = menu
+      this.router.navigate(['/locataire'], { queryParams: { view: menu } })
+      this.scrollToTop()
+    }
+  }
+
+  toogleMenu (view) {
+    if (!view) this.currentView = this.view.mainMenuClosed
+    else this.currentView = this.view.none
+    this.scrollToTop()
   }
 
   getLandLord (landlordId) {
@@ -54,6 +78,10 @@ export class RenterComponent implements OnInit {
         return this.homeProv.allHomes.find(home => home.id == key)
       }
     }
+
+  }
+
+  openDocList(){
 
   }
 }

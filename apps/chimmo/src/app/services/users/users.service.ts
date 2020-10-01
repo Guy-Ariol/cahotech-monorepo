@@ -38,4 +38,20 @@ export class UsersService {
 
     return out
   }
+
+  getAllCashIn (id) {
+    try {
+      return this.homeProv.getTransactionBySenderId(id).filter(item => item.sum > 0)
+    } catch (error) {
+      return []
+    }
+  }
+
+  getAllCashOut (id) {
+    try {
+      return this.homeProv.getTransactionBySenderId(id).filter(item => item.sum < 0)
+    } catch (error) {
+      return []
+    }
+  }
 }
