@@ -14,7 +14,8 @@
         </div>
 
         <div style="text-align: center; padding-bottom: 22px;">
-          <button nz-button (click)="userLib.signOut()">Déconnexion</button>
+          <button nz-button
+            (click)="userLib.signOut(); dataprov.showTopMenu = true; userProv.logOut()">Déconnexion</button>
         </div>
 
         <p><b><u>Nom:</u></b> {{userLib.currentUser?.lastName}} {{userLib.currentUser?.firstName}} </p>
@@ -25,7 +26,7 @@
       </div>
 
       <div *ngIf="currentView==view.bill">
-        <h1 style="text-align: center; color: brown;">Les factures clients</h1>
+        <h1 style="text-align: center; color: brown;">Les factures</h1>
 
         <div *ngFor="let house of this.homeProv.getHousesDetails(); let index=index">
           <div style="padding-left: 12px;">
@@ -39,12 +40,21 @@
                 <nz-collapse-panel *ngFor="let home of getHomesFromHouse(house)" [nzHeader]="home.name">
                   <p style="margin:0;"><u>Type:</u> {{getHomeTypeString(home.type)}} </p>
 
-                  <p style="margin:0;"><u>Locataire:</u> {{userProv.getRenterbyHomeID(home.id)?.lastName}} </p>
-                  <p style="margin:0;"><u>Solde:</u> {{userProv.getRenterbyHomeID(home.id)?.saldo}} </p>
+                  <p style="margin:0;"><u>Locataire: </u> {{userProv.getRenterbyHomeID(home.id)?.lastName}} </p>
+                  <p style="margin:0;"><u>Solde locataire: </u> {{userProv.getRenterbyHomeID(home.id)?.saldo}} </p>
 
                   <br>
                   <nz-collapse>
-                    <nz-collapse-panel [nzHeader]="'Factures'"></nz-collapse-panel>
+                    <nz-collapse-panel [nzHeader]="'Factures locataire'">
+                      <div *ngFor="let bill of homeProv.getBillsByUserId(userProv.getRenterbyHomeID(home.id).id)">
+                        <bill [item]="bill"></bill>
+                      </div>
+                    </nz-collapse-panel>
+                  </nz-collapse>
+
+                  <br>
+                  <nz-collapse>
+                    <nz-collapse-panel [nzHeader]="'Mes factures'"></nz-collapse-panel>
                   </nz-collapse>
 
                   <br>
@@ -64,17 +74,32 @@
       <div *ngIf="currentView==view.saldo">
         <h1 style="text-align: center;">Mon solde</h1>
 
+        <div
+          style=" margin: 25px; padding: 15px;color: white;background: rgb(61, 61, 60) ;border: solid 1px grey; border-radius: 15px;  text-align: center; display: flex; justify-content: center;">
+          <span style="font-size: 18px;">{{userProv.getSaldo(userLib.currentUser?.id) | number:'':'fr'}} fCFA</span>
+        </div>
+
         <nz-tabset>
           <nz-tab nzTitle="Tous">
-
+            <div style="padding: 12px; background: white;"
+              *ngFor="let item of homeProv.getTransactionBySenderId(userLib.currentUser?.id).reverse()">
+              <cashbox [trans]="item"></cashbox>
+              <hr>
+            </div>
           </nz-tab>
 
           <nz-tab nzTitle="Dépôts">
-
+            <div style="padding: 12px; background: white;" *ngFor="let item of getAllCashIn(userLib.currentUser?.id)">
+              <cashbox [trans]="item"></cashbox>
+              <hr>
+            </div>
           </nz-tab>
 
           <nz-tab nzTitle="Retraits">
-
+            <div style="padding: 12px; background: white;" *ngFor="let item of getAllCashOut(userLib.currentUser?.id)">
+              <cashbox [trans]="item"></cashbox>
+              <hr>
+            </div>
           </nz-tab>
 
         </nz-tabset>
@@ -100,7 +125,7 @@
               <nz-collapse-panel *ngFor="let home of getHomesFromHouse(house)" [nzHeader]="home.name">
                 <p><u>Type:</u> {{getHomeTypeString(home.type)}} </p>
 
-                <p><u>Loyer:</u> {{home.cost.Caution | number:'':'fr'}} </p>
+                <p><u>Loyer:</u> {{home.cost.Caution | number:'':'fr'}} fCFA</p>
 
                 <p style="margin-bottom: 5px;"><u>Pièces:</u></p>
                 <div style="padding-left: 12px;">
@@ -129,6 +154,7 @@
           <div style="padding-left: 15px;">
             <p><span class="sub">Adresse: </span> {{renter?.addres}} </p>
             <p><span class="sub">Tel: </span> {{renter?.tel | number:'':'fr' }} </p>
+            <p><span class="sub">E-mail: </span> {{renter?.email}} </p>
 
             <p class="sub" style="margin-bottom: 5px;">Logements: </p>
 

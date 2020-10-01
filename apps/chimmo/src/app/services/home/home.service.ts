@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { EventEmitter } from 'events';
 import { houseType, homeType, moneyType, billType } from 'libs/interfaces/src/lib/interfaces';
 import { UserService } from 'libs/service/src/lib/user/user.service';
+import { Observable } from 'rxjs';
 import { repairType, requestType } from '../interfaces/interfaces.service';
 
 @Injectable({
@@ -191,6 +192,34 @@ export class HomeService {
     return out
   }
 
+  getTransactionBySenderId (userId): moneyType[] {
+    let foundindex = null
+
+    // found the array's index of interest
+    let index = 0
+    for (let transactionsGroup of this.allTransactions) {
+      for (let attr in transactionsGroup) {
+        if (transactionsGroup[attr].sender == userId) {
+          foundindex = index
+          break
+        }
+      }
+
+      if (foundindex) break
+      index++
+    }
+
+    let out = []
+
+    if (foundindex) {
+      for (let attr in this.allTransactions[foundindex]) {
+        out.push(this.allTransactions[foundindex][attr])
+      }
+    }
+
+    return out
+  }
+
   getHousesByAdress (adress): houseType[] {
     return this.allHouses.filter(house => house.address.includes(adress))
   }
@@ -250,5 +279,24 @@ export class HomeService {
     })
   }
 
+  getBillsByUserId (userId: string): billType[] {
+    // return <any>this.afdb.list(`bills/${userId}`).valueChanges()
 
+    let out = []
+
+    for (let bills of this.allBills) {
+      for (let billId in bills) {
+        if (bills[billId].receiver == userId) {
+
+          for (let attr in bills) {
+            out.push(bills[attr])
+          }
+
+          return out
+        }
+      }
+    }
+
+    return out
+  }
 }

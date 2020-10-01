@@ -1,10 +1,11 @@
 .landlord {
   position: relative;
-  font-family: Montserrat;
+  // font-family: Montserrat;
 
   .content1 {
     margin-left: 65px;
     margin-right: 65px;
+    font-family: Montserrat;
 
     nz-range-picker {
       font-size: 25px;

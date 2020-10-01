@@ -57,6 +57,8 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { BillComponent } from './components/bill/bill.component';
+import { CashboxComponent } from './components/cashbox/cashbox.component';
 
 registerLocaleData(fr);
 
@@ -87,7 +89,9 @@ const firebaseConfig = {
     HeaderComponent,
     ReleaseComponent,
     SuperAdminComponent,
-    DocComponent],
+    DocComponent,
+    BillComponent,
+    CashboxComponent],
 
   imports: [
     BrowserModule,

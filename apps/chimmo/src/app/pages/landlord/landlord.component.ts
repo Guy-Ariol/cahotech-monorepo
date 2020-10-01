@@ -193,4 +193,22 @@ export class LandlordComponent implements OnInit {
         .catch(error => console.log(error))
     }
   }
+
+  getAllCashIn (id) {
+    try {
+      return this.homeProv.getTransactionBySenderId(id).filter(item => item.sum > 0)
+    } catch (error) {
+      return []
+    }
+  }
+
+  getAllCashOut (id) {
+    try {
+      return this.homeProv.getTransactionBySenderId(id).filter(item => item.sum < 0)
+    } catch (error) {
+      return []
+    }
+  }
+
+
 }

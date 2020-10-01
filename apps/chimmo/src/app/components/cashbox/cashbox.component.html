@@ -1,0 +1,14 @@
+<div>
+  <p>
+    <span [style.color]="trans.sum>0? 'green':'red'"
+      style="font-size: 16px; font-weight: bold;">{{trans.sum | number:'':'fr'}} fCFA</span>
+    <span style="float: right;">{{trans.timeStamp | date:'dd/MM/yy, HH:mm'}}</span>
+  </p>
+
+  <p>Employé:
+    <span style="float: right; background: gainsboro; border-radius: 15px; padding: 2px 10px">{{trans.source}}
+    </span>
+  </p>
+
+  <p *ngIf="trans.note">Notes: {{trans.note}} </p>
+</div>

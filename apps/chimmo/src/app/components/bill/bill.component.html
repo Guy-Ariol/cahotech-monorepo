@@ -1,0 +1,23 @@
+<p>
+  <span
+    style="font-size: 16px; font-weight: bold;">{{(item.rent + item.waterDiff*item.waterUnit + item.electricityDiff*item.electricityUnit + item.extra) | number:'':'fr'}}
+    fCFA</span>
+  <span style="float: right; color: brown;">{{item.timeStamp | date}} </span>
+</p>
+
+<div style="padding-left: 12px;">
+  <p>
+    Loyer: {{item.rent | number:'':'fr'}} fCFA
+  </p>
+
+  <p> Eau: {{item.waterDiff | number:'':'fr'}}*{{item.waterUnit}} =
+    {{(item.waterDiff * item.waterUnit) | number:'':'fr'}}
+    fCFA</p>
+
+  <p>Électricité: {{item.electricityDiff | number:'':'fr'}}*{{item.electricityUnit}} =
+    {{(item.electricityDiff*item.electricityUnit) | number:'':'fr'}} fCFA</p>
+</div>
+
+
+<p *ngIf="item.extra"> Extra: {{item.extra | number:'':'fr'}} fCFA </p>
+<p *ngIf="item.note">Note: {{item.note}}</p>

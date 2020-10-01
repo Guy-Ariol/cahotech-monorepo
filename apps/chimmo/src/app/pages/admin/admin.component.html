@@ -137,7 +137,7 @@
       </div>
 
       <div class="logout" *ngIf="currentView==view.logout">
-        <button nz-button (click)="userLib.signOut('chimmo-user')">Déconnexion</button>
+        <button nz-button (click)="userLib.signOut('chimmo-user'); dataprov.showTopMenu=true">Déconnexion</button>
       </div>
 
       <div *ngIf="currentView==view.home"></div>
