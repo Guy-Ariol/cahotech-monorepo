@@ -36,6 +36,7 @@ export class AdminComponent implements OnInit {
   newBill = {} as { temp?: string, house: string, home, landlord: string, water?: number, electricity?: number, timeStamp: number, extra: number, note: string, cable: number }
 
   step = 0
+  cancelAndGoback = false
 
   constructor(
     public dataprov: DataService,
@@ -112,7 +113,7 @@ export class AdminComponent implements OnInit {
       this.controlArray[1].value = data.house.equipment
       this.controlArray[3].value = data.house.ownerId
     }
-    else if(appView.home == this.currentView){
+    else if (appView.home == this.currentView) {
       this.controlArray[0].value = data.home.name
       this.controlArray[1].value = data.home.type
       this.controlArray[2].value = data.home.houseId
@@ -323,7 +324,10 @@ export class AdminComponent implements OnInit {
     else if (this.currentView == this.view.MoneyIn) { this.currentTitle = 'Caisse bailleur' }
     else if (this.currentView == this.view.MoneyIn2) { this.currentTitle = 'Caisse locataire' }
 
-    history.back()
+    if (this.cancelAndGoback) {
+      history.back()
+      this.cancelAndGoback = false
+    }
   }
 
   addAction () {
@@ -331,6 +335,8 @@ export class AdminComponent implements OnInit {
     this.topMenuSelected(targetMenu)
     this.changeTitle()
     this.isNew = true
+
+    this.cancelAndGoback = true
 
     setTimeout(() => {
       window.scrollTo({ top: 1, behavior: 'smooth' })
