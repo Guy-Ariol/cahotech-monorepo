@@ -113,12 +113,12 @@
 
               <button class="edit-btn" (click)="editUser.emit({house: element, index:index})" nz-button
                 nzType="primary">
-                <i nz-icon nzType="edit"></i>
+                <i nz-icon nzType="edit"></i>M
               </button>
 
               <button nz-popconfirm nzPopconfirmTitle="Éffacer définitevement ?" (nzOnConfirm)="deleteHouse(element)"
                 (nzOnCancel)="1" nzPopconfirmPlacement="top" nz-button nzType="danger" class="delete-btn">
-                <i nz-icon nzType="delete"></i>
+                <i nz-icon nzType="delete"></i>S
               </button>
             </p>
             <hr>
@@ -161,13 +161,13 @@
           </div>
 
           <p style="padding-top: 25px; padding-bottom: 35px; text-align: center;">
-            <button class="edit-btn" (click)="editUser.emit({home: element, index:index})" nz-button
-              nzType="primary">Modifier
+            <button class="edit-btn" (click)="editUser.emit({home: element, index:index})" nz-button nzType="primary"><i
+                nz-icon nzType="edit"></i>Modifier
             </button>
 
             <button nz-popconfirm nzPopconfirmTitle="Éffacer définitevement ?" (nzOnConfirm)="deleteHome(element)"
               (nzOnCancel)="1" nzPopconfirmPlacement="top" nz-button nzType="danger" class="delete-btn">
-              Supprimer
+              <i nz-icon nzType="delete"></i>Supprimer
             </button>
           </p>
           <hr>

@@ -37,8 +37,9 @@
               <div *ngFor="let trans of homeProv.getSubTransactionDetails(transaction).reverse()">
                 <div *ngIf="trans.app==dataprov.appName">
                   <p>
-                    <span style="font-size: 16px; font-weight: bold;">{{trans.sum | number:'':'fr'}} fCFA</span>
-                    <span style="float: right;">{{trans.timeStamp | date}}</span>
+                    <span [style.color]="trans.sum>0? 'green':'red'"
+                      style="font-size: 16px; font-weight: bold;">{{trans.sum | number:'':'fr'}} fCFA</span>
+                    <span style="float: right;">{{trans.timeStamp | date:'dd/MM/yy, HH:mm'}}</span>
                   </p>
 
                   <p>Employé:
@@ -154,8 +155,9 @@
               <div *ngFor="let trans of homeProv.getSubTransactionDetails(transaction).reverse()">
                 <div *ngIf="trans.app==dataprov.appName">
                   <p>
-                    <span style="font-size: 16px; font-weight: bold;">{{trans.sum | number:'':'fr'}} fCFA</span>
-                    <span style="float: right;">{{trans.timeStamp | date}}</span>
+                    <span [style.color]="trans.sum>0? 'green':'red'"
+                      style="font-size: 16px; font-weight: bold;">{{trans.sum | number:'':'fr'}} fCFA</span>
+                    <span style="float: right;">{{trans.timeStamp | date:'dd/MM/yy, HH:mm'}}</span>
                   </p>
 
                   <p>Employé:
@@ -258,8 +260,8 @@
             <i nz-icon nzType="plus"></i> Ajouter
           </button><br><br>
 
-          <nz-collapse>
-            <nz-collapse-panel *ngFor="let bill of homeProv.allBills" [nzHeader]="getBillReceiverName(bill)">
+          <nz-collapse *ngFor="let bill of homeProv.allBills">
+            <nz-collapse-panel [nzHeader]="getBillReceiverName(bill)">
               <div *ngFor="let item of homeProv.getSubBillDetails(bill).reverse()">
                 <!-- <div *ngIf="trans.app==dataprov.appName"> -->
 
