@@ -67,7 +67,6 @@ export class AdminComponent implements OnInit {
 
   topMenuSelected (menu) {
     this.controlArray = []
-    // this.toogleMenu()
     this.currentView = menu
     this.router.navigate(['/admin'], { queryParams: { view: menu } })
 
@@ -333,27 +332,46 @@ export class AdminComponent implements OnInit {
     else if (this.currentView == this.view.home) this.currentTitle = 'Nouveau logement'
   }
 
-  resetTitle () {
-    if (this.currentView == this.view.landlord) { this.currentTitle = 'Gestion bailleurs' }
-    else if (this.currentView == this.view.renter) { this.currentTitle = 'Gestion locataires' }
-    else if (this.currentView == this.view.house) { this.currentTitle = 'Gestion résidences' }
-    else if (this.currentView == this.view.home) { this.currentTitle = 'Gestion logements' }
-    else if (this.currentView == this.view.MoneyIn) { this.currentTitle = 'Caisse bailleur' }
-    else if (this.currentView == this.view.MoneyIn2) { this.currentTitle = 'Caisse locataire' }
+  resetTitle (arg) {
+    if (arg == 'cancelled') {
+      this.goBack()
+    }
 
+    setTimeout(() => {
+      console.log(parseInt(this.router.url.split('view=')[1]));
+      this.currentView = parseInt(this.router.url.split('view=')[1])
+      this.topMenuSelected(this.currentView)
+
+      // if (this.currentView == this.view.landlord) { this.currentTitle = 'Gestion bailleurs' }
+      // else if (this.currentView == this.view.renter) { this.currentTitle = 'Gestion locataires' }
+      // else if (this.currentView == this.view.house) { this.currentTitle = 'Gestion résidences' }
+      // else if (this.currentView == this.view.home) { this.currentTitle = 'Gestion logements' }
+      // else if (this.currentView == this.view.MoneyIn) { this.currentTitle = 'Caisse bailleur' }
+      // else if (this.currentView == this.view.MoneyIn2) { this.currentTitle = 'Caisse locataire' }
+
+    }, 200);
+  }
+
+  goBack () {
     if (this.cancelAndGoback) {
       history.back()
       this.cancelAndGoback = false
     }
   }
 
-  addAction () {
+  addAction (data) {
     let targetMenu = this.currentView == this.view.landlord ? this.view.renter : this.currentView == this.view.house ? this.view.home : ''
     this.topMenuSelected(targetMenu)
     this.changeTitle()
     this.isNew = true
 
     this.cancelAndGoback = true
+
+    //TODO pre-populate known data
+    // if(this.currentView == this.view.home){
+    //   console.log('yeahh');
+    //   this.controlArray[2].value = data.houseId
+    // }
 
     setTimeout(() => {
       window.scrollTo({ top: 1, behavior: 'smooth' })

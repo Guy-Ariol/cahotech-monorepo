@@ -352,6 +352,18 @@ export class DataService {
         value: 0,
         index: 7
       },
+      {
+        title: 'Index eau*',
+        type: 'number',
+        value: 0,
+        index: 8
+      },
+      {
+        title: 'Index électricité*',
+        type: 'number',
+        value: 0,
+        index: 9
+      },
     ]
 
     this.newHouse = [
