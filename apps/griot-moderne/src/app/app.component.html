@@ -5,18 +5,35 @@
     </div>
 
     <div class="content flex">
-      <div class="banner">
-        <img src="assets/imgs/banner.png" [height]="utilsProv.isDesktop? 380 : 250" />
-      </div>
+      <tr class="flex banner">
+        <td style="text-align: left;  ">
+          <img src="assets/imgs/banner.png" [height]="utilsProv.isDesktop? 380 : 250" />
+          <br>
+          <h2>Lancement de la platteform</h2>
 
-      <div class="features flex">
+          <div class="counter">
+            Jours
+          </div>
+        </td>
+
+        <td style="">
+          <div class="apply">
+            <img src="assets/imgs/flyer.png" alt="" [width]="utilsProv.isDesktop? 400 : 300">
+          </div>
+        </td>
+      </tr>
+
+
+      <!-- <div class="features flex">
         <div *ngFor="let feature of features">
           <div class="feature">
             <img [src]="feature.pic" alt="">
             <p>{{feature.title}}</p>
           </div>
         </div>
-      </div>
+      </div> -->
+
+
     </div>
   </div>
 

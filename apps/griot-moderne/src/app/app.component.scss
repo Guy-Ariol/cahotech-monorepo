@@ -1,11 +1,6 @@
 .app {
   color: rgb(247, 52, 52);
-  padding: 0;
-  margin: 0;
   display: block;
-  width: 99vw;
-  height: 97vh;
-  background: #f1f507;
 
   .head {
     text-align: center;
@@ -17,6 +12,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    flex-wrap: wrap;
   }
 
   .features {
@@ -25,9 +21,27 @@
     width: 100%;
     color: white;
   }
+
+  .banner {
+    width: 95vw;
+    flex-direction: row;
+    text-align: center;
+
+    h2{
+      text-align: center;
+      color: purple;
+    }
+  }
+
 }
 
 .desktop {
+  h1 {
+    font-size: 55px;
+    text-align: left;
+    padding-left: 65px;
+  }
+
   .features {
     flex-direction: row;
     flex-wrap: wrap;
@@ -38,6 +52,15 @@
       width: 80px;
     }
   }
+
+  .content {
+    background: #f1f507;
+    // padding: 25px;
+  }
+
+  .apply{
+    padding: 55px;
+  }
 }
 
 .mobile {
@@ -45,6 +68,10 @@
     img {
       width: 80px;
     }
+  }
+
+  .apply{
+    padding-top: 25px;
   }
 }
 

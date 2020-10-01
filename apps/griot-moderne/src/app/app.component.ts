@@ -22,6 +22,9 @@ export class AppComponent {
     }
   ]
 
+  launchDate = 1604012400000
+  time
+
   constructor(
     public utilsProv: UtilsService
   ) {
