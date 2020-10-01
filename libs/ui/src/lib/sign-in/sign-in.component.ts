@@ -59,17 +59,23 @@ export class SignInComponent implements OnInit {
 
       const getUser = this.userLib.allUsers.find(user => user.email == this.validateForm.get('email').value)
       if (getUser) {
-        this.userLib.currentUser = getUser
 
         // renter or super admin verification
         if ([userEnum.renter, userEnum.superAdmin, userEnum.admin].includes(getUser.type)) {
           if (getUser.adminPass == this.validateForm.get('password').value) {
+            this.userLib.currentUser = getUser
             this.userLib.emitEvent('logged in', getUser.id)
+          }
+          else {
+            console.log('asdf');
+            this.utils.showToast('error', "Mot de passe incorrect", '', 'toast-top-center')
           }
         }
 
         // landlord authenfication
         else {
+          console.log('23');
+
           this.userLib.signIn(this.validateForm.value)
             .then(res => {
               this.validateForm.reset()
@@ -86,6 +92,10 @@ export class SignInComponent implements OnInit {
               this.utils.showToast('error', msg, 'Érreur')
             })
         }
+      }
+      else {
+        console.log('no user');
+        this.utils.showToast('error', "Cet E-mail n'est pas dans le système", '', 'toast-top-center')
       }
     }
   }
