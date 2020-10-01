@@ -291,4 +291,11 @@ export class AdminGenericListingComponent implements OnInit {
     if (this.currentView == this.view.house) return 'Logement'
   }
 
+  getLastIndex(home: homeType, arg){
+    if(home.consumption){
+      return home.consumption[home.consumption.length -1][arg]
+    }
+
+    return 0
+  }
 }

@@ -135,7 +135,12 @@
             <p style="margin-bottom: 5px;"><b><u>Bailleurs/Locataires</u></b> </p>
             <p style="padding-left: 12px; padding-top: 3px; margin-top: 0px;"
               *ngFor="let item of getRelations(element)"> {{getUserDetails2(item.bail)}} /
-              {{getUserDetails2(item.locat)}} </p>
+              {{getUserDetails2(item.locat)}}
+            </p>
+
+            <p style="margin-bottom: 5px;"><b><u>Index eau:</u></b> {{getLastIndex(element,'water')}} </p>
+
+            <p><b><u>Index électricité:</u></b> {{getLastIndex(element,'electricity')}} </p>
 
             <nz-collapse style="padding-top: 0; margin: 0;" nzBordered="false">
               <nz-collapse-panel style="padding-top: 0; margin: 0;" [nzHeader]="element.rooms?.length+' Pièces ...'"
@@ -153,14 +158,14 @@
                   </span>
                 </p>
 
-                <span><u><b>Date de création:</b></u>&nbsp; {{element.timeStamp | date}}</span><br><br>
+                <!-- <span><u><b>Date de création:</b></u>&nbsp; {{element.timeStamp | date}}</span><br><br> -->
 
               </nz-collapse-panel>
             </nz-collapse>
 
           </div>
 
-          <p style="padding-top: 25px; padding-bottom: 35px; text-align: center;">
+          <p style="padding-top: 25px; padding-bottom: 15px; text-align: center;">
             <button class="edit-btn" (click)="editUser.emit({home: element, index:index})" nz-button nzType="primary"><i
                 nz-icon nzType="edit"></i>Modifier
             </button>
