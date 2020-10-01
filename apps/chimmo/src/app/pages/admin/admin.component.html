@@ -48,6 +48,8 @@
                     </span>
                   </p>
 
+                  <p>Object: {{homeProv.getHomeById(trans.home)?.name}} </p>
+
                   <p *ngIf="trans.note">Notes: {{trans.note}} </p>
                 </div>
                 <hr>
@@ -273,7 +275,12 @@
                 </p>
 
                 <div style="padding-left: 12px;">
-                  <p> Eau: {{item.waterDiff | number:'':'fr'}}*{{item.waterUnit}} = {{(item.waterDiff * item.waterUnit) | number:'':'fr'}}
+                  <p>
+                    Loyer: {{item.rent | number:'':'fr'}} fCFA
+                  </p>
+
+                  <p> Eau: {{item.waterDiff | number:'':'fr'}}*{{item.waterUnit}} =
+                    {{(item.waterDiff * item.waterUnit) | number:'':'fr'}}
                     fCFA</p>
 
                   <p>Électricité: {{item.electricityDiff | number:'':'fr'}}*{{item.electricityUnit}} =

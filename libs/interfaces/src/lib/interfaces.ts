@@ -212,5 +212,5 @@ export interface moneyType { sender: string, worker: string, home?: string, rent
 export interface consumptionType { electricity: number, water: number, timeStamp: number, workerId: string, id: string }
 
 export interface billType { timeStamp: number, rent: number, waterDiff: number, electricityDiff: number, receiver: string, home: string, app: string, extra: number, note: string, consumptionId: string,
-  waterUnit: number, electricityUnit: number
+  waterUnit: number, electricityUnit: number, cable: number, id: string
 }
