@@ -301,4 +301,8 @@ export class HomeService {
 
     return out
   }
+
+  getHousesByUser (userId): houseType[] {
+    return this.allHouses.filter(house => house.ownerId == userId)
+  }
 }

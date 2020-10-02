@@ -76,7 +76,7 @@
           <div>
             {{control.title}}
             <input nz-input [nzAutocomplete]="auto3" style="font-size: 15px;" [(ngModel)]="control.value"
-              (ngModelChange)="filterInput([view.house].includes(currentView)? 'user' : '', $event)"
+              (ngModelChange)="filterInput('home', $event)"
               [class]="control.error ? 'validation-error' : ''" />
 
             <nz-autocomplete #auto3>

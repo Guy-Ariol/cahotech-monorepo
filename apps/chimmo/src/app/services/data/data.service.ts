@@ -317,16 +317,16 @@ export class DataService {
         index: 1
       },
       {
-        title: 'Résidence*',
-        type: 'autocomplete2',
-        value: null,
-        index: 2
-      },
-      {
         title: 'Bailleur*',
         type: 'autocomplete3',
         value: null,
-        index: 3,
+        index: 2,
+      },
+      {
+        title: 'Résidence*',
+        type: 'autocomplete2',
+        value: null,
+        index: 3
       },
       {
         title: 'Caution*',

@@ -64,6 +64,8 @@ export class AdminFormsComponent implements OnInit {
 
 
   filterInput (type: 'user' | 'home' | 'room', input: string) {
+    // console.log(input);
+
     if (input) {
       if (type == 'user') {
         let out = this.userLib.allUsers?.filter(user => {
@@ -74,7 +76,7 @@ export class AdminFormsComponent implements OnInit {
         this.getLandLord(out)
       }
       else if (type == 'home') {
-
+        this.autocompleteList2 = this.homeProv.getHousesByUser(input)
       }
 
     }
@@ -494,7 +496,7 @@ export class AdminFormsComponent implements OnInit {
 
     else if (this.currentView == this.view.home) {
       this.autocompleteList1 = Object.keys(homeEnum).filter(el => el != '0' && !parseInt(el))
-      this.autocompleteList2 = this.homeProv.allHouses
+      // this.autocompleteList2 = this.homeProv.allHouses
       this.autocompleteList3 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
     }
 
