@@ -305,4 +305,18 @@ export class HomeService {
   getHousesByUser (userId): houseType[] {
     return this.allHouses.filter(house => house.ownerId == userId)
   }
+
+  getHomeByUser (userId): homeType[] {
+    let out = []
+
+    this.allHomes.forEach(home => {
+      for (let user of home.landLord) {
+        if (user.Id == userId) {
+          out.push(home)
+        }
+      }
+    })
+
+    return out
+  }
 }

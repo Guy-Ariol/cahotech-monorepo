@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, NgZone } from '@angular/core';
 import { UserService } from 'libs/service/src/lib/user/user.service';
 import { appView, roomEquipmentEnum, houseEquipmentEnum } from '../../services/interfaces/interfaces.service';
 import { userType, userEnum, roomType, homeType, houseType, roomTypeEnum, homeEnum } from '@cahotech-monorepo/interfaces';
@@ -37,6 +37,7 @@ export class AdminFormsComponent implements OnInit {
     public userProv: UsersService,
     private dataProv: DataService,
     private homeProv: HomeService,
+    private zone: NgZone
 
   ) { }
 
@@ -68,12 +69,20 @@ export class AdminFormsComponent implements OnInit {
 
     if (input) {
       if (type == 'user') {
-        let out = this.userLib.allUsers?.filter(user => {
+        let out
+
+        out = this.userLib.allUsers?.filter(user => {
           return user.firstName?.toLowerCase().includes(input.toLowerCase()) ||
             user.lastName?.toLowerCase().includes(input.toLowerCase()) || user.email?.toLowerCase().includes(input.toLowerCase())
         })
 
-        this.getLandLord(out)
+        if (this.currentView == this.view.renter) {
+          out = input
+          console.log(input);
+
+        }
+
+        this.takeAction(out)
       }
       else if (type == 'home') {
         this.autocompleteList2 = this.homeProv.getHousesByUser(input)
@@ -82,12 +91,11 @@ export class AdminFormsComponent implements OnInit {
     }
     else {
       if (type == 'user') {
-        this.getLandLord()
+        this.takeAction()
       }
       else if (type == 'home') {
 
       }
-
     }
   }
 
@@ -206,7 +214,7 @@ export class AdminFormsComponent implements OnInit {
         user.landlordId = this.controlArray.find(c => c.title == 'Bailleur*').value
         user.homesID = []
 
-        let home = this.homeProv.allHomes.find(home => home.id == this.controlArray[6].value)
+        let home = this.homeProv.allHomes.find(home => home.id == this.controlArray[7].value)
         user.homesID[home.id] = home.cost
 
         home.landLord[user.landlordId] = user.id
@@ -360,12 +368,20 @@ export class AdminFormsComponent implements OnInit {
     this.controlArray[2].value = address
   }
 
-  getLandLord (users?: userType[]) {
-    if (users) {
-      this.autocompleteList1 = users.filter(user => { return (user.type == userEnum.landlord && user.apps?.includes('chimmo')) })
+  takeAction (data?) {
+    if (this.currentView == this.view.landlord) {
+      if (data) {
+        this.autocompleteList1 = data.filter(user => { return (user.type == userEnum.landlord && user.apps?.includes('chimmo')) })
+      }
+      else {
+        this.autocompleteList1 = this.userLib.allUsers.filter(user => { return (user.type == userEnum.landlord && user.apps?.includes('chimmo')) })
+      }
     }
     else {
-      this.autocompleteList1 = this.userLib.allUsers.filter(user => { return (user.type == userEnum.landlord && user.apps?.includes('chimmo')) })
+      console.log('152');
+
+      this.autocompleteList1 = this.homeProv.getHomeByUser(data)
+      console.log('', this.autocompleteList1)
     }
   }
 
@@ -502,6 +518,7 @@ export class AdminFormsComponent implements OnInit {
 
     else if (this.currentView == this.view.renter) {
       this.autocompleteList1 = this.homeProv.allHomes
+      // this.autocompleteList1 = []
       this.autocompleteList2 = this.userLib.allUsers.filter(user => { return user.type == userEnum.landlord && user.apps?.includes('chimmo') })
     }
   }

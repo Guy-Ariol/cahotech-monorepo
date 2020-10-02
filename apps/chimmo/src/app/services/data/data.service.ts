@@ -290,14 +290,14 @@ export class DataService {
         index: 5
       },
       {
-        title: 'Logement*',
-        type: 'autocomplete',
+        title: 'Bailleur*',
+        type: 'autocomplete2',
         value: null,
         index: 6,
       },
       {
-        title: 'Bailleur*',
-        type: 'autocomplete2',
+        title: 'Logement*',
+        type: 'autocomplete',
         value: null,
         index: 7,
       }

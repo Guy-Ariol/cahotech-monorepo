@@ -12,8 +12,8 @@
         <div *ngIf="control.type=='date-range'">
           {{control.title}} <br>
           <nz-range-picker nzSize="small" [nzFormat]="'d/MM/yyyy'" [(ngModel)]="control.value"
-            [class]="control.error ? 'validation-error' : ''" [nzShowTime]="{ nzFormat: 'HH' }"
-            (ngModelChange)="getTimeStamp(control.index, $event)" nzInputReadOnly>
+            style="margin-bottom: 15px;" [class]="control.error ? 'validation-error' : ''"
+            [nzShowTime]="{ nzFormat: 'HH' }" (ngModelChange)="getTimeStamp(control.index, $event)" nzInputReadOnly>
           </nz-range-picker>
         </div>
 
@@ -22,7 +22,7 @@
         </div>
 
         <div *ngIf="control.type=='autocomplete'">
-          <div style="padding-top: 15px;">
+          <div>
             {{control.title}}
             <input nz-input [nzAutocomplete]="auto" style="font-size: 15px;" [(ngModel)]="control.value"
               (ngModelChange)="filterInput([view.house].includes(currentView)? 'user' : '', $event)"
@@ -42,6 +42,7 @@
 
                 <p *ngIf="currentView==view.renter">{{option?.name}} <br>
                 </p>
+
               </nz-auto-option>
             </nz-autocomplete>
           </div>
@@ -76,8 +77,7 @@
           <div>
             {{control.title}}
             <input nz-input [nzAutocomplete]="auto3" style="font-size: 15px;" [(ngModel)]="control.value"
-              (ngModelChange)="filterInput('home', $event)"
-              [class]="control.error ? 'validation-error' : ''" />
+              (ngModelChange)="filterInput('home', $event)" [class]="control.error ? 'validation-error' : ''" />
 
             <nz-autocomplete #auto3>
               <nz-auto-option *ngFor="let option of autocompleteList3" [nzValue]=" option.id"
@@ -190,7 +190,7 @@
 
         <div *ngIf="!['date-range', 'checkbox-group'].includes(control.type) && !['Bailleur'].includes(control.title)">
           <span
-            *ngIf="[view.house, view.home].includes(currentView) && ['Proprietaire*', 'Bailleur*'].includes(control.title)">{{getUserFullName(control.value)}}</span>
+            *ngIf="[view.house, view.home, view.renter].includes(currentView) && ['Proprietaire*', 'Bailleur*'].includes(control.title)">{{getUserFullName(control.value)}}</span>
           <span *ngIf="currentView==view.house && control.title!='Proprietaire*'">{{control.value}} </span>
           <span
             *ngIf="![view.house, view.renter].includes(currentView) && !['Bailleur*', 'Résidence*', 'Pièces*', 'Adresse'].includes(control.title)">{{control.value}}
