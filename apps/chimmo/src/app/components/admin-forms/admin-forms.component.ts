@@ -238,19 +238,19 @@ export class AdminFormsComponent implements OnInit {
           rooms: this.rooms,
           type: parseInt(homeEnum[this.controlArray[1].value]),
           id: this.userLib.createPushId(),
-          houseId: this.controlArray[2].value,
+          houseId: this.controlArray[3].value,
           cost: {
-            Caution: this.controlArray[3].value,
-            "Tarif mensuel": this.controlArray[4].value,
-            "Montant prérequis": this.controlArray[5].value
+            Caution: this.controlArray[4].value,
+            "Tarif mensuel": this.controlArray[5].value,
+            "Montant prérequis": this.controlArray[6].value
           },
           timeStamp: Date.now(),
-          landLord: [{ Id: this.controlArray[3].value, renterId: '' }],
+          landLord: [{ Id: this.controlArray[2].value, renterId: '' }],
           doc: [],
           reparations: [],
           consumption: [{ electricity: this.controlArray[9].value, timeStamp: Date.now(), water: this.controlArray[8].value, id: this.userLib.createPushId(), workerId: '' }]
         }
-        // console.log(newHome)
+        console.log(newHome)
 
         // get the corresponding house
         let house = this.homeProv.allHouses.find(house => house.id == newHome.houseId)
@@ -269,7 +269,7 @@ export class AdminFormsComponent implements OnInit {
                 .then(() => {
 
                   // update landlord as well
-                  let landlord = this.userLib.allUsers.find(user => user.id == this.controlArray[3].value)
+                  let landlord = this.userLib.allUsers.find(user => user.id == this.controlArray[2].value)
 
                   if (landlord?.homesID) landlord.homesID.push(newHome.id)
                   else {
