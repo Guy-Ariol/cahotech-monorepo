@@ -97,8 +97,10 @@ export class AdminFormsComponent implements OnInit {
     this.controlArray.forEach((el) => {
       if (el.value && this.controlArray[el.index]) this.controlArray[el.index].error = false
 
+
       if (!['Adresse', 'Proprietaire'].includes(el.title) && !el.value) { this.controlArray[el.index].error = true; error.push(el.title) }
-      else if (el.title == 'E-mail*' && !this.utilsProv.checkEmail(el.value)) { console.log(el.value); this.controlArray[el.index].error = true; error.push(el.title) }
+      else if (el.title == 'E-mail*' && !this.utilsProv.checkEmail(el.value)) { this.controlArray[el.index].error = true; error.push(el.title) }
+      else if (el.title == 'Adresse' && !el.value && this.currentView == this.view.house) { this.controlArray[el.index].error = true; error.push(el.title) }
 
     })
 
@@ -350,6 +352,8 @@ export class AdminFormsComponent implements OnInit {
 
   /**get address from google map */
   getAddress (address) {
+    console.log(address);
+
     address = document.getElementsByClassName('maps')[0]['value']
     this.controlArray[2].value = address
   }

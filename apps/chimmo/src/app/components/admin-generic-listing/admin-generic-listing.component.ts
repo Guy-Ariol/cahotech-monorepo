@@ -22,6 +22,9 @@ export class AdminGenericListingComponent implements OnInit {
   displayList = []
   blankMsg = ""
 
+  isConfirmModal = false
+  isConfirmModalLoading = false
+
   homeEnum: homeEnum
 
   constructor(
@@ -133,8 +136,8 @@ export class AdminGenericListingComponent implements OnInit {
   }
 
   //TODO also delete user in firebase authenfication
-  deleteUser (user: userType) {
-    this.utilsProv.startSpinner()
+  deleteUser (user: userType, recursiv?) {
+    // this.utilsProv.startSpinner()
 
     // also delete renter's reference in landlord
     if (this.currentView == this.view.renter) {
@@ -169,19 +172,38 @@ export class AdminGenericListingComponent implements OnInit {
         })
     }
     else if (this.currentView == this.view.landlord) {
+
+      // delete houses and homes as well
+      // if (recursiv) {
+        let batch = {}
+
+        this.homeProv.allHouses.forEach(house => {
+          if (house.ownerId == user.id) {
+            batch[`houses/${house.id}`] = {}
+          }
+        })
+
+        this.userLib.batchUpdate(batch)
+          .then()
+          .catch(error => {
+            console.log(error);
+          })
+      // }
+
       this.userLib.deleteUser(user.id)
         .then(() => {
           setTimeout(() => {
             this.refreshData()
-            this.utilsProv.stopSpinner()
+            // this.utilsProv.stopSpinner()
+            this.isConfirmModalLoading = false
+            this.isConfirmModal = false
             this.utilsProv.showToast('info', 'Opération réussi', '', 'toast-top-center')
-
           }, 1000);
 
         })
         .catch(error => {
           console.log(error)
-          this.utilsProv.stopSpinner()
+          // this.utilsProv.stopSpinner()
         })
     }
   }
@@ -197,36 +219,36 @@ export class AdminGenericListingComponent implements OnInit {
     }
     else {
       // remove reference by landlord
-      let owner = this.userLib.allUsers.find(user => user.id == house.ownerId)
+      // let owner = this.userLib.allUsers.find(user => user.id == house.ownerId)
 
-      if (owner.housesID) {
-        owner.housesID.splice(owner.housesID.indexOf(house.id), 1)
+      // if (owner?.housesID) {
+      //   owner.housesID.splice(owner.housesID.indexOf(house.id), 1)
 
-        this.userLib.updateUser(owner)
-          .then(() => {
-            this.homeProv.deleteHouse(house.id)
-              .then(() => {
-                this.refreshData()
-                this.utilsProv.stopSpinner()
-                this.utilsProv.showToast('info', 'Opération réussie', '', 'toast-top-center')
-              })
-              .catch(error => {
-                console.log(error);
-                this.utilsProv.stopSpinner()
-              })
-          })
-          .catch(error => {
-            console.log(error);
-            this.utilsProv.stopSpinner()
-          })
-      }
-
-      // in case landlord having house was not found
-      else {
-        this.utilsProv.showToast('error', "Une érreur s'est produite", '', 'toast-top-center')
-        this.utilsProv.stopSpinner()
-      }
+      //   this.userLib.updateUser(owner)
+      //     .then(() => {
+      this.homeProv.deleteHouse(house.id)
+        .then(() => {
+          this.refreshData()
+          this.utilsProv.stopSpinner()
+          this.utilsProv.showToast('info', 'Opération réussie', '', 'toast-top-center')
+        })
+        .catch(error => {
+          console.log(error);
+          this.utilsProv.stopSpinner()
+        })
+      // })
+      // .catch(error => {
+      //   console.log(error);
+      //   this.utilsProv.stopSpinner()
+      // })
     }
+
+    // // in case landlord having house was not found
+    // else {
+    //   this.utilsProv.showToast('error', "Une érreur s'est produite", '', 'toast-top-center')
+    //   this.utilsProv.stopSpinner()
+    // }
+    // }
   }
 
 
@@ -286,14 +308,14 @@ export class AdminGenericListingComponent implements OnInit {
     }
   }
 
-  getActionName(){
-    if(this.currentView==this.view.landlord) return 'Locataire'
+  getActionName () {
+    if (this.currentView == this.view.landlord) return 'Locataire'
     if (this.currentView == this.view.house) return 'Logement'
   }
 
-  getLastIndex(home: homeType, arg){
-    if(home.consumption){
-      return home.consumption[home.consumption.length -1][arg]
+  getLastIndex (home: homeType, arg) {
+    if (home.consumption) {
+      return home.consumption[home.consumption.length - 1][arg]
     }
 
     return 0

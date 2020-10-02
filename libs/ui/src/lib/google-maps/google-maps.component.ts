@@ -52,7 +52,7 @@ export class GoogleMapsComponent implements OnInit {
             }
 
             let location = place.address_components[0].long_name + ', ' + place.address_components[1].long_name + ', ' + place.address_components[place.address_components.length - 1].long_name
-            console.log(this.value)
+            // console.log(this.value)
 
             this.onPlaceAvailable.emit(location)
           });

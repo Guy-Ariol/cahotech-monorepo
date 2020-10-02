@@ -69,13 +69,21 @@
               <i nz-icon nzType="edit"></i>{{currentView==view.renter? 'Modifier' : 'M'}}
             </button>
 
-            <button nz-popconfirm nzPopconfirmTitle="Éffacer définitevement ?" (nzOnConfirm)="deleteUser(element)"
-              (nzOnCancel)="1" nzPopconfirmPlacement="top" nz-button nzType="danger" class="delete-btn">
+            <button nz-button nzType="danger" class="delete-btn" (click)="isConfirmModal=true">
               <i nz-icon nzType="delete"></i>{{currentView==view.renter? 'Supprimer' : 'S'}}
             </button>
           </p>
           <hr>
           <br>
+
+          <nz-modal #modal1 nzTitle="Éffacer définitevement ?" (nzOnCancel)="isConfirmModal=false"
+            (nzOnOk)="deleteUser(element, check1.value); isConfirmModalLoading=true"
+            [nzOkLoading]="isConfirmModalLoading" [nzVisible]="isConfirmModal">
+            <div>
+              <input #check1 type="checkbox" checked name="ch">
+              <label for="ch"> Supprimer les résidences et logements</label>
+            </div>
+          </nz-modal>
         </div>
 
         <div *ngIf="currentView == view.house">

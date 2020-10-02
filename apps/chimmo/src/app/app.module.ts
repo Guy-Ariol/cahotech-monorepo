@@ -59,6 +59,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BillComponent } from './components/bill/bill.component';
 import { CashboxComponent } from './components/cashbox/cashbox.component';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+
 
 registerLocaleData(fr);
 
@@ -124,7 +126,8 @@ const firebaseConfig = {
     NzSelectModule,
     NzTagModule,
     NzMessageModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    NzModalModule
   ],
 
   providers: [{ provide: NZ_I18N, useValue: fr_FR }, EventEmitter],
