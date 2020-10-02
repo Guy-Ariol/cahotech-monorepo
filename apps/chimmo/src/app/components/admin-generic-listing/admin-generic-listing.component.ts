@@ -103,7 +103,7 @@ export class AdminGenericListingComponent implements OnInit {
     let list: userType[] = []
 
     if (landLord.rentersID) {
-      for (let renter of landLord.rentersID) {
+      for (let renter in landLord.rentersID) {
         list.push(this.userLib.allUsers.find(user => user.id == renter))
       }
     }
@@ -139,7 +139,7 @@ export class AdminGenericListingComponent implements OnInit {
   deleteUser (user: userType, recursiv?) {
     // this.utilsProv.startSpinner()
 
-    // also delete renter's reference in landlord
+    // also delete renter's reference in landlord (did not work last time)
     if (this.currentView == this.view.renter) {
       const landLord = this.userLib.allUsers.find(el => el.id == user.id)
 

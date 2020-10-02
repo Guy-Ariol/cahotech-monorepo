@@ -215,13 +215,22 @@ export class AdminFormsComponent implements OnInit {
         user.homesID = []
 
         let home = this.homeProv.allHomes.find(home => home.id == this.controlArray[7].value)
-        user.homesID[home.id] = home.cost
+        user.homesID = [home.id]
 
-        home.landLord[user.landlordId] = user.id
+        for(let c of home.landLord){
+          if(c.Id == user.landlordId){
+            if(c.renterId){
+              console.log('home occupied');
+            }
+            else{
+              c.renterId = user.id
+            }
+          }
+        }
 
         let batch = {}
         batch[`users/${user.id}`] = user
-        batch[`users/${user.landlordId}/renters/${user.id}`] = user
+        batch[`users/${user.landlordId}/rentersID/${user.id}`] = user.id
         batch[`homes/${home.id}`] = home
 
         this.userLib.batchUpdate(batch)
