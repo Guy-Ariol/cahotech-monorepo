@@ -87,11 +87,11 @@ export class LandlordComponent implements OnInit {
   getRenterDetails (): userType[] {
     let renter = []
 
-    this.userLib?.currentUser?.rentersID.forEach(key => {
+    for (let key in this.userLib?.currentUser?.rentersID) {
       if (key) {
         renter.push(this.userLib.allUsers.find(user => user.id == key))
       }
-    })
+    }
 
     return renter
   }

@@ -175,6 +175,8 @@ export class AdminFormsComponent implements OnInit {
 
       if (this.currentView == this.view.landlord) {
         user.type = userEnum.landlord
+        user.config.electricity = 250
+        user.config.water = 120
 
         if (this.isEdit) {
           console.log(user);
